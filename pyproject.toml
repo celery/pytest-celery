@@ -1,0 +1,15 @@
+[build-system]
+requires = ["flit_core >=2,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "pytest_celery"
+dist-name = "pytest-celery"
+author = "Thomas Grainger"
+author-email = "pytest-celery@graingert.co.uk"
+home-page = "https://github.com/graingert/pytest-celery"
+classifiers = ["License :: OSI Approved :: BSD License"]
+requires = ["celery >= 4.4.0"]
+
+[tool.flit.entrypoints.pytest11]
+celery = "celery.contrib.pytest"
