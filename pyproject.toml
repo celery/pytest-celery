@@ -1,16 +1,60 @@
 [build-system]
-requires = ["flit_core >=2,<4"]
-build-backend = "flit_core.buildapi"
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
 
-[tool.flit.metadata]
-module = "pytest_celery"
-dist-name = "pytest-celery"
-author = "Thomas Grainger"
-author-email = "pytest-celery@graingert.co.uk"
-home-page = "https://github.com/graingert/pytest-celery"
-license = "BSD"
+[tool.black]
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | \.idea
+  | \.github
+)/
+'''
+include = '\.pyi?$'
+line-length = 120
+
+[tool.poetry]
+authors = [
+    "Thomas Grainger <pytest-celery@graingert.co.uk>",
+    "Omer Katz <omer.katz@omerkatz.com>",
+    "Naomi Elstien <naomi.els@omerkatz.com>"
+]
 classifiers = ["License :: OSI Approved :: BSD License"]
-requires = ["celery >= 4.4.0"]
+description = "Pytest plugin for Celery"
+homepage = "https://github.com/graingert/pytest-celery"
+license = "BSD"
+name = "pytest-celery"
+version = "1.0.0a1"
 
-[tool.flit.entrypoints.pytest11]
-celery = "celery.contrib.pytest"
+[tool.poetry.dependencies]
+celery = ">= 5.2.0"
+pytest = ">= 6.2.5"
+python = ">= 3.7,<4.0"
+testcontainers = ">= 3.4.2"
+
+[tool.poetry.group.dev]
+
+[tool.poetry.group.dev.dependencies]
+black = "*"
+toml-sort = "^0.19.0"
+
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+pytest = ">= 6.2.5"
+pytest-xdist = ">= 2.4.0"
+
+[tool.poetry.plugins.pytest11]
+celery = "pytest_celery"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
