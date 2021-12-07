@@ -62,3 +62,4 @@ celery = "pytest_celery"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
+pytester_example_dir = "examples"
