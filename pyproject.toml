@@ -65,7 +65,7 @@ pytest-cov = "^3.0.0"
 pytest-xdist = ">= 2.4.0"
 
 [tool.poetry.plugins.pytest11]
-celery = "pytest_celery"
+celery = "pytest_celery.plugin"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
