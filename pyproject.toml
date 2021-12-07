@@ -61,6 +61,7 @@ optional = true
 
 [tool.poetry.group.test.dependencies]
 pytest = ">= 6.2.5"
+pytest-cov = "^3.0.0"
 pytest-xdist = ">= 2.4.0"
 
 [tool.poetry.plugins.pytest11]
