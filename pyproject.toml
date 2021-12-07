@@ -50,6 +50,12 @@ testcontainers = ">= 3.4.2"
 black = "*"
 toml-sort = "^0.19.0"
 
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+Sphinx = "^4.3.1"
+
 [tool.poetry.group.test]
 optional = true
 
