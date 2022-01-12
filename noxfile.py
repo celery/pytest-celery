@@ -1,7 +1,7 @@
 import nox
 
 
-@nox.session
+@nox.session(python=["3.7", "3.8", "3.9", "3.10"])
 def test(session):
     requirements = session.run_always(
         "poetry", "export", "-f", "requirements.txt", "--with", "test", "--without-hashes", silent=True, external=True
