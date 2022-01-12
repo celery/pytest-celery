@@ -11,7 +11,7 @@ from pytest_celery.message_brokers.message_broker import MessageBroker
 
 class FakeMessageBroker(MessageBroker):
     @property
-    def queues(self) -> List[Queue]:
+    def queues(self) -> list[Queue]:
         return []
 
 

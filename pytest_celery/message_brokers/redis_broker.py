@@ -21,6 +21,3 @@ class RedisBroker(MessageBroker):
 
     def ping(self):
         self.client.ping()
-
-
-

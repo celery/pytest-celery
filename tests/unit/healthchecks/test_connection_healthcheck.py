@@ -1,5 +1,5 @@
 import pytest
-from mocket import mocketize, Mocket
+from mocket import Mocket, mocketize
 
 from pytest_celery.healthchecks import HealthCheckFailedError
 from pytest_celery.healthchecks.connection import ConnectionHealthy

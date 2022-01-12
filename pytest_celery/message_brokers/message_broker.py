@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from abc import abstractmethod, ABCMeta
+from abc import ABCMeta, abstractmethod
 from typing import List
 
 from kombu import Queue
@@ -8,6 +8,7 @@ from kombu import Queue
 
 class MessageBroker(metaclass=ABCMeta):
     """"""
+
     def __init__(self, container) -> None:
         self.container = container
 
@@ -31,7 +32,7 @@ class MessageBroker(metaclass=ABCMeta):
 
     @property
     @abstractmethod
-    def queues(self) -> List[Queue]:
+    def queues(self) -> list[Queue]:
         pass
 
     def check_healthy(self):

@@ -6,7 +6,6 @@ TIMEOUT = 1
 
 
 class ConnectionHealthy(HealthCheck):
-
     def __init__(self, endpoint: str, port: int):
         self.endpoint: str = endpoint
         self.port: int = port

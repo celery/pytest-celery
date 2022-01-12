@@ -1,11 +1,10 @@
+import os
 from unittest.mock import MagicMock
 
 import pytest
 
 from pytest_celery.healthchecks import HealthCheckFailedError
 from pytest_celery.healthchecks.disk import DiskSpaceAvailable
-
-import os
 
 
 def test_disk_space_available(faker):
