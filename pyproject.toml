@@ -33,7 +33,7 @@ authors = [
 ]
 classifiers = ["License :: OSI Approved :: BSD License"]
 description = "Pytest plugin for Celery"
-homepage = "https://github.com/graingert/pytest-celery"
+homepage = "https://github.com/celery/pytest-celery"
 license = "BSD"
 name = "pytest-celery"
 version = "1.0.0a1"
