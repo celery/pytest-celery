@@ -43,7 +43,6 @@ celery = ">= 5.2.0"
 pytest = ">= 6.2.5"
 python = ">= 3.7,<4.0"
 testcontainers = { version = ">= 3.4.2", extras = ["redis"] }
-pathlib = "^1.0.1"
 
 [tool.poetry.group.dev]
 
