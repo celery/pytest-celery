@@ -4,7 +4,8 @@ from pytest_celery.healthchecks import DiskSpaceUnavailableError, HealthCheck, H
 
 
 def to_gb(size_in_bytes: int) -> float:
-    size_in_bytes * 1e-9
+    # TODO: Use pint instead
+    return size_in_bytes * 1e-9
 
 
 class DiskSpaceAvailable(HealthCheck):
@@ -20,7 +21,7 @@ class DiskSpaceAvailable(HealthCheck):
         self.path_to_disk: str = path_to_disk
         self.max_disk_size_gb: int = max_disk_size_gb
         self.max_percentage: float = max_percentage
-        self.max_healthy_size: int = self.max_disk_size_gb * self.max_percentage
+        self.max_healthy_size: float = self.max_disk_size_gb * self.max_percentage
 
     def __call__(self) -> None:
         try:
@@ -33,5 +34,5 @@ class DiskSpaceAvailable(HealthCheck):
         except (ValueError, NotImplementedError) as e:
             raise HealthCheckFailedError() from e
 
-    def get_directory_size(self) -> float:
+    def get_directory_size(self) -> int:
         return sum(p.stat().st_size for p in Path(self.path_to_disk).rglob("*"))
