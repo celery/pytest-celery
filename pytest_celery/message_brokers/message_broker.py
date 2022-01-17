@@ -11,7 +11,8 @@ from pytest_celery.healthchecks.disk import DiskSpaceAvailable
 
 class MessageBroker(metaclass=ABCMeta):
     """"""
-    SCHEDULER_TRIGGER = 'interval'
+
+    SCHEDULER_TRIGGER = "interval"
     SCHEDULER_INTERVAL_MINUTES = 1
 
     def __init__(self, container, healthcheck_scheduler=BackgroundScheduler()) -> None:
@@ -39,15 +40,14 @@ class MessageBroker(metaclass=ABCMeta):
         self.stop()
 
     def check_healthy(self, connection_healthy: ConnectionHealthy, disk_space_available: DiskSpaceAvailable) -> None:
-        self.healthcheck_scheduler.add_job(connection_healthy(),
-                                           trigger=self.SCHEDULER_TRIGGER,
-                                           minutes=self.SCHEDULER_INTERVAL_MINUTES)
-        self.healthcheck_scheduler.add_job(disk_space_available(),
-                                           trigger=self.SCHEDULER_TRIGGER,
-                                           minutes=self.SCHEDULER_INTERVAL_MINUTES)
+        self.healthcheck_scheduler.add_job(
+            connection_healthy(), trigger=self.SCHEDULER_TRIGGER, minutes=self.SCHEDULER_INTERVAL_MINUTES
+        )
+        self.healthcheck_scheduler.add_job(
+            disk_space_available(), trigger=self.SCHEDULER_TRIGGER, minutes=self.SCHEDULER_INTERVAL_MINUTES
+        )
 
     @property
     @abstractmethod
     def queues(self) -> list[Queue]:
         pass
-

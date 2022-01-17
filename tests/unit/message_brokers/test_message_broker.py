@@ -66,7 +66,7 @@ def test_check_healthy(message_broker, container, healthcheck_scheduler, connect
     message_broker.check_healthy(connection_healthy, disk_space_available)
 
     # todo use trigger and minutes constants from MessageBroker
-    call_connection_healthy = call(connection_healthy(), trigger='interval', minutes=1)
-    call_disk_space_available = call(disk_space_available(), trigger='interval', minutes=1)
+    call_connection_healthy = call(connection_healthy(), trigger="interval", minutes=1)
+    call_disk_space_available = call(disk_space_available(), trigger="interval", minutes=1)
 
     healthcheck_scheduler.add_job.assert_has_calls([call_connection_healthy, call_disk_space_available])
