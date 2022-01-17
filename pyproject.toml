@@ -43,7 +43,7 @@ celery = ">= 5.2.0"
 pytest = ">= 6.2.5"
 python = ">= 3.7,<4.0"
 testcontainers = { version = ">= 3.4.2", extras = ["redis"] }
-APScheduler = "^3.8.1"
+APScheduler = ">= 3.8.1"
 
 [tool.poetry.group.dev]
 
