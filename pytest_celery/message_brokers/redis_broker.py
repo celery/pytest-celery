@@ -12,7 +12,7 @@ from pytest_celery.message_brokers.message_broker import MessageBroker
 
 class RedisBroker(MessageBroker):
     @property
-    def queues(self) -> List[Queue]:
+    def queues(self) -> list[Queue]:
         pass
 
     def __init__(self):
@@ -21,4 +21,3 @@ class RedisBroker(MessageBroker):
     @cached_property
     def client(self) -> Redis:
         return self.container.get_client()
-

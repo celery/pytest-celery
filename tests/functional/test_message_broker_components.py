@@ -1,5 +1,5 @@
-import pytest
 import docker
+import pytest
 
 from pytest_celery.message_brokers.redis_broker import RedisBroker
 
