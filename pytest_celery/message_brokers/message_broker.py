@@ -8,6 +8,8 @@ from kombu import Queue
 
 class MessageBroker(metaclass=ABCMeta):
     """"""
+    SCHEDULER_TRIGGER = 'interval'
+    SCHEDULER_INTERVAL_MINUTES = 1
 
     def __init__(self, container, healthcheck_scheduler=BackgroundScheduler()) -> None:
         self.container = container
