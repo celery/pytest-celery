@@ -17,27 +17,27 @@ class FakeMessageBroker(MessageBroker):
         return []
 
 
-@pytest.fixture()
+@pytest.fixture
 def container() -> Mock:
     return Mock()
 
 
-@pytest.fixture()
+@pytest.fixture
 def healthcheck_scheduler() -> Mock:
     return Mock()
 
 
-@pytest.fixture()
+@pytest.fixture
 def message_broker(container, healthcheck_scheduler) -> FakeMessageBroker:
     return FakeMessageBroker(container, healthcheck_scheduler)
 
 
-@pytest.fixture()
+@pytest.fixture
 def connection_healthy() -> Mock:
     return Mock()
 
 
-@pytest.fixture()
+@pytest.fixture
 def disk_space_available() -> Mock:
     return Mock()
 
