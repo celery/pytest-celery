@@ -5,8 +5,6 @@ from unittest.mock import Mock
 import pytest
 from kombu import Queue
 
-from pytest_celery.healthchecks.connection import ConnectionHealthy
-from pytest_celery.healthchecks.disk import DiskSpaceAvailable
 from pytest_celery.message_brokers.message_broker import MessageBroker
 
 
@@ -65,11 +63,11 @@ def test_context_manager(message_broker, container, healthcheck_scheduler):
 
 
 def test_check_healthy(message_broker, container, healthcheck_scheduler, connection_healthy, disk_space_available):
-    container.check_healthy(connection_healthy, disk_space_available)
+    message_broker.check_healthy(connection_healthy, disk_space_available)
 
     healthcheck_scheduler.add_job.assert_called_once_with(connection_healthy(),
-                                                          FakeMessageBroker.SCHEDULER_TRIGGER,
+                                                          trigger=FakeMessageBroker.SCHEDULER_TRIGGER,
                                                           minutes=FakeMessageBroker.SCHEDULER_INTERVAL_MINUTES)
     healthcheck_scheduler.add_job.assert_called_once_with(disk_space_available(),
-                                                          FakeMessageBroker.SCHEDULER_TRIGGER,
+                                                          trigger=FakeMessageBroker.SCHEDULER_TRIGGER,
                                                           minutes=FakeMessageBroker.SCHEDULER_INTERVAL_MINUTES)
