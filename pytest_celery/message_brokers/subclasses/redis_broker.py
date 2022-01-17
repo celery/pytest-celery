@@ -19,5 +19,3 @@ class RedisBroker(MessageBroker):
     def client(self):
         return self.container.get_client()
 
-    def ping(self):
-        self.client.ping()
