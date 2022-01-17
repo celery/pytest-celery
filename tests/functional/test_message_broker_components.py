@@ -21,6 +21,6 @@ def test_message_broker_basic_functionality(message_broker_cls, subtests):
 
     message_broker.stop()
 
-    with subtests("Ensure container is now stopped", message_broker_cls=message_broker_cls):
+    with subtests.test("Ensure container is now stopped", message_broker_cls=message_broker_cls):
         containers = client.containers.list()
         assert len(containers) == 0
