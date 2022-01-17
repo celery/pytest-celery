@@ -27,7 +27,7 @@ class MessageBroker(metaclass=ABCMeta):
     def stop(self) -> None:
         """"""
         self.container.stop()
-        self.healthcheck_scheduler.stop()
+        self.healthcheck_scheduler.shutdown()
 
     def __enter__(self) -> MessageBroker:
         """"""
