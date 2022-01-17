@@ -5,6 +5,9 @@ from abc import ABCMeta, abstractmethod
 from apscheduler.schedulers.background import BackgroundScheduler
 from kombu import Queue
 
+from pytest_celery.healthchecks.connection import ConnectionHealthy
+from pytest_celery.healthchecks.disk import DiskSpaceAvailable
+
 
 class MessageBroker(metaclass=ABCMeta):
     """"""
@@ -35,7 +38,7 @@ class MessageBroker(metaclass=ABCMeta):
         """"""
         self.stop()
 
-    def check_healthy(self, connection_healthy, disk_space_available) -> None:
+    def check_healthy(self, connection_healthy: ConnectionHealthy, disk_space_available: DiskSpaceAvailable) -> None:
         pass
 
     @property
