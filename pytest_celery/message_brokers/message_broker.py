@@ -16,10 +16,12 @@ class MessageBroker(metaclass=ABCMeta):
     def start(self) -> None:
         """"""
         self.container.start()
+        self.healthcheck_scheduler.start()
 
     def stop(self) -> None:
         """"""
         self.container.stop()
+        self.healthcheck_scheduler.stop()
 
     def __enter__(self) -> MessageBroker:
         """"""
