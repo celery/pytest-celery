@@ -53,7 +53,7 @@ def test_stop(message_broker: FakeMessageBroker, container: Mock, healthcheck_sc
     message_broker.stop()
 
     container.stop.assert_called_once_with()
-    healthcheck_scheduler.stop.assert_called_once_with()
+    healthcheck_scheduler.shutdown.assert_called_once_with()
 
 
 def test_context_manager(message_broker: FakeMessageBroker, container: Mock, healthcheck_scheduler: BackgroundScheduler):
@@ -62,7 +62,7 @@ def test_context_manager(message_broker: FakeMessageBroker, container: Mock, hea
         healthcheck_scheduler.start.assert_called_once_with()
 
     container.stop.assert_called_once_with()
-    healthcheck_scheduler.stop.assert_called_once_with()
+    healthcheck_scheduler.shutdown.assert_called_once_with()
 
 
 def test_check_healthy(message_broker: FakeMessageBroker, container: Mock, healthcheck_scheduler: BackgroundScheduler,
