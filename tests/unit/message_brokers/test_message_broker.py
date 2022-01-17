@@ -56,7 +56,9 @@ def test_stop(message_broker: FakeMessageBroker, container: Mock, healthcheck_sc
     healthcheck_scheduler.stop.assert_called_once_with()
 
 
-def test_context_manager(message_broker: FakeMessageBroker, container: Mock, healthcheck_scheduler: BackgroundScheduler):
+def test_context_manager(
+    message_broker: FakeMessageBroker, container: Mock, healthcheck_scheduler: BackgroundScheduler
+):
     with message_broker:
         container.start.assert_called_once_with()
         healthcheck_scheduler.start.assert_called_once_with()
@@ -65,8 +67,13 @@ def test_context_manager(message_broker: FakeMessageBroker, container: Mock, hea
     healthcheck_scheduler.stop.assert_called_once_with()
 
 
-def test_check_healthy(message_broker: FakeMessageBroker, container: Mock, healthcheck_scheduler: BackgroundScheduler,
-                       connection_healthy: ConnectionHealthy, disk_space_available: DiskSpaceAvailable):
+def test_check_healthy(
+    message_broker: FakeMessageBroker,
+    container: Mock,
+    healthcheck_scheduler: BackgroundScheduler,
+    connection_healthy: ConnectionHealthy,
+    disk_space_available: DiskSpaceAvailable,
+):
     message_broker.check_healthy(connection_healthy, disk_space_available)
 
     # todo use trigger and minutes constants from MessageBroker
