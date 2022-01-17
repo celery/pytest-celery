@@ -2,14 +2,16 @@ from __future__ import annotations
 
 from abc import ABCMeta, abstractmethod
 
+from apscheduler.schedulers.background import BackgroundScheduler
 from kombu import Queue
 
 
 class MessageBroker(metaclass=ABCMeta):
     """"""
 
-    def __init__(self, container) -> None:
+    def __init__(self, container, healthcheck_scheduler=BackgroundScheduler()) -> None:
         self.container = container
+        self.healthcheck_scheduler = healthcheck_scheduler
 
     def start(self) -> None:
         """"""
@@ -29,10 +31,11 @@ class MessageBroker(metaclass=ABCMeta):
         """"""
         self.stop()
 
+    def check_healthy(self) -> None:
+        pass
+
     @property
     @abstractmethod
     def queues(self) -> list[Queue]:
         pass
 
-    def check_healthy(self):
-        pass
