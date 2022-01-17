@@ -14,29 +14,29 @@ class FakeMessageBroker(MessageBroker):
         return []
 
 
-@pytest.fixture
+@pytest.fixture(autouse=True)
 def container() -> Mock:
     return Mock()
 
 
-@pytest.fixture
+@pytest.fixture(autouse=True)
 def message_broker(container) -> FakeMessageBroker:
     return FakeMessageBroker(container)
 
 
-def test_start(message_broker: FakeMessageBroker, container: Mock):
+def test_start():
     message_broker.start()
 
     container.start.assert_called_once_with()
 
 
-def test_stop(message_broker: FakeMessageBroker, container: Mock):
+def test_stop():
     message_broker.stop()
 
     container.stop.assert_called_once_with()
 
 
-def test_context_manager(message_broker: FakeMessageBroker, container: Mock):
+def test_context_manager():
     with message_broker:
         container.start.assert_called_once_with()
 
