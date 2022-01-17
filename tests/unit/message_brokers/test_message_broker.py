@@ -65,7 +65,7 @@ def test_context_manager(message_broker, container, healthcheck_scheduler):
 
 
 def test_check_healthy(message_broker, container, healthcheck_scheduler, connection_healthy, disk_space_available):
-    container.check_healthy()
+    container.check_healthy(connection_healthy, disk_space_available)
 
     healthcheck_scheduler.add_job.assert_called_once_with(connection_healthy(),
                                                           FakeMessageBroker.SCHEDULER_TRIGGER,

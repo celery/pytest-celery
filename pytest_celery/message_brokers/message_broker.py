@@ -35,7 +35,7 @@ class MessageBroker(metaclass=ABCMeta):
         """"""
         self.stop()
 
-    def check_healthy(self) -> None:
+    def check_healthy(self, connection_healthy, disk_space_available) -> None:
         pass
 
     @property
