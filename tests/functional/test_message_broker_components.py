@@ -1,7 +1,7 @@
 import pytest
 import docker
 
-from pytest_celery.message_brokers.subclasses.redis_broker import RedisBroker
+from pytest_celery.message_brokers.redis_broker import RedisBroker
 
 
 @pytest.mark.parametrize("message_broker_cls", [RedisBroker])
