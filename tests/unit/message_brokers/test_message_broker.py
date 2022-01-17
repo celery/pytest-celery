@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from unittest.mock import Mock
+from unittest.mock import Mock, call
 
 import pytest
 from kombu import Queue
@@ -65,9 +65,8 @@ def test_context_manager(message_broker, container, healthcheck_scheduler):
 def test_check_healthy(message_broker, container, healthcheck_scheduler, connection_healthy, disk_space_available):
     message_broker.check_healthy(connection_healthy, disk_space_available)
 
-    healthcheck_scheduler.add_job.assert_called_once_with(connection_healthy(),
-                                                          trigger=FakeMessageBroker.SCHEDULER_TRIGGER,
-                                                          minutes=FakeMessageBroker.SCHEDULER_INTERVAL_MINUTES)
-    healthcheck_scheduler.add_job.assert_called_once_with(disk_space_available(),
-                                                          trigger=FakeMessageBroker.SCHEDULER_TRIGGER,
-                                                          minutes=FakeMessageBroker.SCHEDULER_INTERVAL_MINUTES)
+    # todo use trigger and minutes constants from MessageBroker
+    call_connection_healthy = call(connection_healthy(), trigger='interval', minutes=1)
+    call_disk_space_available = call(disk_space_available(), trigger='interval', minutes=1)
+
+    healthcheck_scheduler.add_job.assert_has_calls([call_connection_healthy, call_disk_space_available])
