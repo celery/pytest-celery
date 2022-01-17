@@ -39,7 +39,12 @@ class MessageBroker(metaclass=ABCMeta):
         self.stop()
 
     def check_healthy(self, connection_healthy: ConnectionHealthy, disk_space_available: DiskSpaceAvailable) -> None:
-        pass
+        self.healthcheck_scheduler.add_job(connection_healthy(),
+                                           trigger=self.SCHEDULER_TRIGGER,
+                                           minutes=self.SCHEDULER_INTERVAL_MINUTES)
+        self.healthcheck_scheduler.add_job(disk_space_available(),
+                                           trigger=self.SCHEDULER_TRIGGER,
+                                           minutes=self.SCHEDULER_INTERVAL_MINUTES)
 
     @property
     @abstractmethod
