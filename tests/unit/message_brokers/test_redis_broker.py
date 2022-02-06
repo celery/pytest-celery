@@ -1,7 +1,6 @@
-import pytest
-
 from unittest.mock import Mock
 
+import pytest
 from testcontainers.redis import RedisContainer
 
 from pytest_celery.message_brokers.redis_broker import RedisBroker
