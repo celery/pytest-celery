@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from functools import cached_property
-from typing import List
+
+from pytest_celery.utils.compat import List
 
 from kombu import Queue
 from redis.client import Redis
@@ -12,7 +13,7 @@ from pytest_celery.message_brokers.message_broker import MessageBroker
 
 class RedisBroker(MessageBroker):
     @property
-    def queues(self) -> list[Queue]:
+    def queues(self) -> List[Queue]:
         pass
 
     def __init__(self, container=None):
