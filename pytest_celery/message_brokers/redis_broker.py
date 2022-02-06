@@ -15,8 +15,9 @@ class RedisBroker(MessageBroker):
     def queues(self) -> list[Queue]:
         pass
 
-    def __init__(self):
-        super().__init__(RedisContainer())
+    def __init__(self, container=None):
+        container = container or RedisContainer()
+        super().__init__(container)
 
     @cached_property
     def client(self) -> Redis:
