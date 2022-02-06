@@ -2,13 +2,12 @@ from __future__ import annotations
 
 from functools import cached_property
 
-from pytest_celery.utils.compat import List
-
 from kombu import Queue
 from redis.client import Redis
 from testcontainers.redis import RedisContainer
 
 from pytest_celery.message_brokers.message_broker import MessageBroker
+from pytest_celery.utils.compat import List
 
 
 class RedisBroker(MessageBroker):

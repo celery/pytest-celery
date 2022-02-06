@@ -7,4 +7,4 @@ except AttributeError:
 else:
     List = list
 
-__all__ = ('List',)
+__all__ = ("List",)
