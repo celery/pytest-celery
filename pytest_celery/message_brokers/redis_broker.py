@@ -21,3 +21,6 @@ class RedisBroker(MessageBroker):
     @cached_property
     def client(self) -> Redis:
         return self.container.get_client()
+
+    def ping(self) -> None:
+        self.client.ping()

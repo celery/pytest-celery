@@ -17,7 +17,7 @@ def test_message_broker_basic_functionality(message_broker_cls, subtests):
         assert len(containers) == 1
 
     with subtests.test("Ensure message broker is responsive", message_broker_cls=message_broker_cls):
-        message_broker.client.ping()
+        message_broker.ping()
 
     message_broker.stop()
 
