@@ -1,3 +1,8 @@
+from pytest_celery.fixtures import message_broker
+
+import inspect
+
+
 def pytest_configure(config):
     config.addinivalue_line(
         "markers",
@@ -9,17 +14,27 @@ def pytest_configure(config):
 seen_tests = set()
 
 
+def pytest_pycollect_makeitem(collector, name, obj):
+    markers = getattr(obj, 'pytestmark', None)
+    has_message_broker_marker = True    # todo
+
+    if inspect.isfunction(obj) and has_message_broker_marker:
+        # message_broker_markers = [marker for marker in markers if marker.name == 'messagebroker']
+        return list(collector._genfunctions(name, obj))
+
+    return None
+
+
 def pytest_generate_tests(metafunc):
-    message_broker_markers = [marker.args[0] for marker in metafunc.definition.iter_markers("messagebroker")]
+    message_brokers = [marker.args[0]() for marker in metafunc.definition.iter_markers("messagebroker")]
+    metafunc.parametrize("message_broker",
+                         indirect=["message_broker"],
+                         argvalues=message_brokers,
+                         ids=[repr(b) for b in message_brokers])
 
-    if message_broker_markers:
-        if len(message_broker_markers) != len(set(message_broker_markers)):
-            raise ValueError(f"Bla bla. use n={len(message_broker_markers)}")
+    if 'message_broker' not in metafunc.fixturenames:
+        raise TypeError()
 
-        metafunc.parametrize("broker_type", message_broker_markers, indirect=True)
-        for call in metafunc._calls:
-            call.marks = []
-
-
-# def pytest_configure_message_broker(config, message_broker):
-#     pass
+    # TODO: Check if msg brokers are duplicates and compare configurations before deciding
+    # if len(message_broker_markers) != len(set(message_broker_markers)):
+    #     raise ValueError(f"Bla bla. use n={len(message_broker_markers)}")
