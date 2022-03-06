@@ -8,7 +8,8 @@ import pytest
 # @pytest.mark.xfail(reason="work in progress")
 def test_successful_with_parameterized_message_brokers(pytester, number_of_brokers, subtests):
     # pytester.copy_example("marker_examples")
-    pytester.makepyfile("""
+    pytester.makepyfile(
+        """
 import pytest
 
 from pytest_celery.message_brokers.redis_broker import RedisBroker
@@ -17,7 +18,8 @@ from pytest_celery.message_brokers.redis_broker import RedisBroker
 def test_successful_when_message_broker_quantity_is_1(message_broker):
 #     # should result in 1 passed test
     pass
-""")
+"""
+    )
 
     result = pytester.runpytest("test_successful_with_parameterized_message_brokers.py")
 

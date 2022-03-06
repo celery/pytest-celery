@@ -8,6 +8,7 @@ def test_successful_when_message_broker_quantity_is_1(message_broker):
     # should result in 1 passed test
     pass
 
+
 # @pytest.mark.messagebroker(RedisBroker)
 # # @pytest.mark.messagebroker(RabbitMQBroker)
 # def test_successful_when_message_broker_quantity_is_2():
