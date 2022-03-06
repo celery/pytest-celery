@@ -47,6 +47,9 @@ class MessageBroker(metaclass=ABCMeta):
             disk_space_available(), trigger=self.SCHEDULER_TRIGGER, minutes=self.SCHEDULER_INTERVAL_MINUTES
         )
 
+    def name(self) -> str:
+        return self.container.name()
+
     @property
     @abstractmethod
     def queues(self) -> list[Queue]:
