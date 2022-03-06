@@ -32,6 +32,8 @@ extras = {**test_dependencies, **docs_dependencies}
 
 entry_points = {"pytest11": ["celery = pytest_celery.plugin"]}
 
+supported_python_versions = ">= 3.7,<4.0"
+
 setup(
     name="pytest-celery",
     version="1.0.0a1",
@@ -42,7 +44,7 @@ setup(
     url="https://github.com/celery/pytest-celery",
     packages=find_packages('.', exclude=['tests*', 'examples*']),
     classifiers=["License :: OSI Approved :: BSD License"],
-    python_requires=">= 3.7,<4.0",
+    python_requires=supported_python_versions,
     install_requires=requirements,
     extras_require=extras,
     entry_points=entry_points,
