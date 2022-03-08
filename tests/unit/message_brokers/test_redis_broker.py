@@ -29,6 +29,3 @@ def test_ping(redis_broker: RedisBroker, redis_container_mock) -> None:
 
     redis_broker.client.ping.assert_called_once_with()
 
-
-def test_name(redis_broker: RedisBroker, redis_container_mock):
-    assert redis_broker.name() == "RedisMessageBroker"

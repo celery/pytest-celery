@@ -16,9 +16,6 @@ class FakeMessageBroker(MessageBroker):
     def queues(self) -> list[Queue]:
         return []
 
-    def name(self) -> str:
-        super().name()
-
 
 @pytest.fixture
 def container() -> Mock:
@@ -78,7 +75,3 @@ def test_check_healthy(message_broker: FakeMessageBroker, container: Mock, healt
 
     healthcheck_scheduler.add_job.assert_has_calls([call_connection_healthy, call_disk_space_available])
 
-
-def test_name(message_broker: FakeMessageBroker):
-    with pytest.raises(NotImplementedError):
-        message_broker.name()

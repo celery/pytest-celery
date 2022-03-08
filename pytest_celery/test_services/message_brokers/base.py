@@ -48,12 +48,6 @@ class MessageBroker(TestService, metaclass=ABCMeta):
             disk_space_available(), trigger=self.SCHEDULER_TRIGGER, minutes=self.SCHEDULER_INTERVAL_MINUTES
         )
 
-    # the name must be a one-to-one function mapping the specific configuration of this message broker to a unique
-    # name. the name will be used to cache the message broker.
-    @abstractmethod
-    def name(self) -> str:
-        raise NotImplementedError
-
     @property
     @abstractmethod
     def queues(self) -> list[Queue]:
