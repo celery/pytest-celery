@@ -9,13 +9,15 @@ from kombu import Queue
 from pytest_celery.healthchecks.connection import ConnectionHealthy
 from pytest_celery.healthchecks.disk import DiskSpaceAvailable
 from pytest_celery.message_brokers.message_broker import MessageBroker
-from unittest.mock import MagicMock
 
 
 class FakeMessageBroker(MessageBroker):
     @property
     def queues(self) -> list[Queue]:
         return []
+
+    def name(self) -> str:
+        super().name()
 
 
 @pytest.fixture
@@ -77,7 +79,6 @@ def test_check_healthy(message_broker: FakeMessageBroker, container: Mock, healt
     healthcheck_scheduler.add_job.assert_has_calls([call_connection_healthy, call_disk_space_available])
 
 
-def test_name(message_broker: FakeMessageBroker, container: Mock, faker):
-    name = faker.pystr()
-    container.name = MagicMock(return_value=name)
-    assert message_broker.name() == name
+def test_name(message_broker: FakeMessageBroker):
+    with pytest.raises(NotImplementedError):
+        message_broker.name()

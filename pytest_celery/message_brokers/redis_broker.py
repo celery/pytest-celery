@@ -26,6 +26,9 @@ class RedisBroker(MessageBroker):
     def ping(self) -> None:
         self.client.ping()
 
+    def name(self) -> str:
+        return "RedisMessageBroker"  # todo implement based on config details
+
     def __repr__(self):
         # todo add configuration details to repr once they are added to this class
         return f"Redis Broker"
