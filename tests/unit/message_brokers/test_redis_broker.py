@@ -3,7 +3,7 @@ from unittest.mock import Mock
 import pytest
 from testcontainers.redis import RedisContainer
 
-from pytest_celery.message_brokers.redis_broker import RedisBroker
+from pytest_celery.test_services.message_brokers import RedisBroker
 
 
 @pytest.fixture

@@ -7,9 +7,10 @@ from kombu import Queue
 
 from pytest_celery.healthchecks.connection import ConnectionHealthy
 from pytest_celery.healthchecks.disk import DiskSpaceAvailable
+from pytest_celery.test_services.base import TestService
 
 
-class MessageBroker(metaclass=ABCMeta):
+class MessageBroker(TestService, metaclass=ABCMeta):
     """"""
 
     SCHEDULER_TRIGGER = "interval"
