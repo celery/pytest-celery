@@ -1,8 +1,14 @@
-from pytest_celery.test_services.message_brokers.base import MessageBroker
+from abc import ABCMeta, abstractmethod
 
-__all__ = ["MessageBroker"]
+from pytest_celery.test_services.nodes.base import Node
 
 
-class TestService:
+class TestService(metaclass=ABCMeta):
     """The test service is responsible for instantiating a node."""
-    pass
+
+    def __init__(self):
+        pass
+
+    @abstractmethod
+    def to_node(self) -> Node:
+        raise NotImplementedError

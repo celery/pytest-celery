@@ -8,6 +8,8 @@ from kombu import Queue
 from pytest_celery.healthchecks.connection import ConnectionHealthy
 from pytest_celery.healthchecks.disk import DiskSpaceAvailable
 from pytest_celery.test_services.base import TestService
+from pytest_celery.test_services.nodes.base import Node
+from pytest_celery.test_services.nodes.message_broker_node import MessageBrokerNode
 
 
 class MessageBroker(TestService, metaclass=ABCMeta):
@@ -47,6 +49,9 @@ class MessageBroker(TestService, metaclass=ABCMeta):
         self.healthcheck_scheduler.add_job(
             disk_space_available(), trigger=self.SCHEDULER_TRIGGER, minutes=self.SCHEDULER_INTERVAL_MINUTES
         )
+
+    def to_node(self) -> Node:
+        return MessageBrokerNode(self)
 
     @property
     @abstractmethod
