@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from pytest_celery.test_services.message_brokers import MessageBroker
 from pytest_celery.test_services.nodes import Node
 
 
@@ -16,7 +15,7 @@ class MessageBrokerNode(Node):
     def destroy_vhost(self):
         pass
 
-    def __init__(self, message_broker: MessageBroker, vhost_name: str):
+    def __init__(self, message_broker, vhost_name: str):
         super().__init__(message_broker, vhost_name)
 
     def start(self) -> str:
