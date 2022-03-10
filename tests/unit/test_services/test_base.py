@@ -34,11 +34,12 @@ def test_session_id(faker):
 
 def test_initialization(container, test_session_id, subtests):
     test_service = FakeTestService(container, test_session_id)
+    expected_name = "bla"
 
     with subtests.test("Service is intialized"):
-        assert test_service._container == container.with_name("bla")
+        assert test_service._container == container.with_name(expected_name)
         assert test_service.test_session_id == test_session_id
 
     with subtests.test("Container received name"):
-        assert test_service.name == "bla"
+        assert test_service.name == expected_name
 
