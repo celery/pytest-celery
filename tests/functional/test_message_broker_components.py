@@ -5,8 +5,8 @@ from pytest_celery.test_services.message_brokers import RedisBroker
 
 
 @pytest.mark.parametrize("message_broker_cls", [RedisBroker])
-def test_message_broker_basic_functionality(message_broker_cls, subtests):
-    message_broker = message_broker_cls()
+def test_message_broker_basic_functionality(message_broker_cls, subtests, faker):
+    message_broker = message_broker_cls(faker.uuid4())
 
     message_broker.start()
     client = docker.from_env()

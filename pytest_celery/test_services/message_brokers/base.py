@@ -17,11 +17,11 @@ class MessageBroker(TestService, metaclass=ABCMeta):
     SCHEDULER_TRIGGER = "interval"
     SCHEDULER_INTERVAL_MINUTES = 1
 
-    def __init__(self, container, healthcheck_scheduler=BackgroundScheduler()) -> None:
+    def __init__(self, container, test_session_id: str, healthcheck_scheduler=BackgroundScheduler()) -> None:
         self.container = container
         self.healthcheck_scheduler = healthcheck_scheduler
 
-        super().__init__()
+        super().__init__(container, test_session_id)
 
     def start(self) -> None:
         """"""

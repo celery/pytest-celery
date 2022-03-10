@@ -13,10 +13,14 @@ from pytest_celery.utils.compat import List
 
 
 class RedisBroker(MessageBroker):
-    def __init__(self, container=None):
+    @property
+    def url(self):
+        pass
+
+    def __init__(self, test_session_id: str, container=None):
         self._vhost_counter = count()
         container = container or RedisContainer()
-        super().__init__(container)
+        super().__init__(container, test_session_id)
 
     @property
     def queues(self) -> List[Queue]:

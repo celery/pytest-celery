@@ -1,4 +1,5 @@
 import inspect
+import uuid
 
 from pytest_celery.fixtures import message_broker
 
@@ -28,7 +29,8 @@ def pytest_pycollect_makeitem(collector, name, obj):
 def pytest_generate_tests(metafunc):
     # todo parametrize nodes, not messagebrokers - something like:
     # message_broker.super().to_node().vhost()
-    message_brokers = [marker.args[0]() for marker in metafunc.definition.iter_markers("messagebroker")]
+    test_session_id = uuid.uuid4()
+    message_brokers = [marker.args[0](test_session_id) for marker in metafunc.definition.iter_markers("messagebroker")]
     metafunc.parametrize(
         "message_broker", indirect=["message_broker"], argvalues=message_brokers, ids=[repr(b) for b in message_brokers]
     )
