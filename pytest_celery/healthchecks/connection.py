@@ -21,6 +21,6 @@ class ConnectionHealthy(HealthCheck):
 
         try:
             s.close()
-        except socket.error:
+        except OSError:
             # TODO: Add debug log here
             pass
