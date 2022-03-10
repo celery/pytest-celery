@@ -1,21 +1,29 @@
-from abc import ABCMeta, abstractmethod
-from typing import ContextManager
+from __future__ import annotations
 
-from pytest_celery.test_services.nodes import Node
+from abc import ABCMeta, abstractmethod
+from functools import cached_property
+from typing import ContextManager
 
 
 class TestService(ContextManager, metaclass=ABCMeta):
     """The test service is responsible for instantiating a node."""
 
-    def __init__(self):
-        pass
+    def __init__(self, container, test_session_id: str):
+        # TODO: Decide if we should rename this attribute
+        self.__test_session_id = test_session_id
+        self._container = container.with_name(self.name)
 
-    def name(self):
+    @cached_property
+    def name(self) -> str:
         """Name should be a unique ID: <session-id>-<test-service-type>-<config-hash>"""
-        pass
+        return "bla"
 
-    @abstractmethod
     @property
+    def test_session_id(self):
+        return self.__test_session_id
+
+    @property
+    @abstractmethod
     def url(self):
         pass
 
@@ -28,5 +36,14 @@ class TestService(ContextManager, metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def to_node(self) -> Node:
+    def to_node(self):
         pass
+
+    def __enter__(self):
+        """"""
+        self.start()
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
+        """"""
+        self.stop()
