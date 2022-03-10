@@ -16,8 +16,8 @@ class MessageBrokerNode(Node):
     def destroy_vhost(self):
         pass
 
-    def __init__(self, message_broker: MessageBroker):
-        super().__init__(message_broker)
+    def __init__(self, message_broker: MessageBroker, vhost_name: str):
+        super().__init__(message_broker, vhost_name)
 
     def start(self) -> str:
         """Starts up a message broker, and returns the URL of the vhost"""
