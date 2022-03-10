@@ -34,7 +34,7 @@ def test_session_id(faker):
 
 def test_initialization(container, test_session_id, subtests):
     test_service = FakeTestService(container, test_session_id)
-    expected_name = "bla"
+    expected_name = f"<{test_session_id}-FakeTestService>"
 
     with subtests.test("Service is intialized"):
         assert test_service._container == container.with_name(expected_name)
