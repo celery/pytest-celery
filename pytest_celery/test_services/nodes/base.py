@@ -21,7 +21,6 @@ class Node(metaclass=ABCMeta):
         self.create_vhost_if_missing()
 
     def stop(self):
-        self.test_service.stop()
         self.destroy_vhost()
 
     def __enter__(self) -> Node:
