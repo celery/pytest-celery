@@ -34,7 +34,7 @@ class RedisBroker(MessageBroker):
         self.client.ping()
 
     def to_node(self) -> MessageBrokerNode:
-        next_vhost = next(self._vhost_counter)
+        next_vhost = str(next(self._vhost_counter))
         return MessageBrokerNode(self, vhost_name=next_vhost)
 
     def __repr__(self):
