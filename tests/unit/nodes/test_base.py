@@ -25,7 +25,7 @@ def test_service() -> Mock:
 
 
 @pytest.fixture
-def vhost(faker) -> str:
+def vhost_name(faker) -> str:
     return faker.pystr()
 
 
