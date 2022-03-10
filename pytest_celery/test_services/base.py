@@ -16,7 +16,7 @@ class TestService(ContextManager, metaclass=ABCMeta):
     @cached_property
     def name(self):
         """Name should be a unique ID: <session-id>-<test-service-type>-<config-hash>"""
-        # config = container
+        # TODO: add config-hash once configurations are added to the test services.
         return f"{self.test_session_id}-{self.__class__.__name__}"
 
     @property
