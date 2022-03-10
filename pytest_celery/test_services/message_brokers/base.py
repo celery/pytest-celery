@@ -3,6 +3,7 @@ from __future__ import annotations
 from abc import ABCMeta, abstractmethod
 
 from apscheduler.schedulers.background import BackgroundScheduler
+from docker.errors import ContainerError
 from kombu import Queue
 
 from pytest_celery.healthchecks.connection import ConnectionHealthy
@@ -22,9 +23,16 @@ class MessageBroker(TestService, metaclass=ABCMeta):
         self.container = container
         self.healthcheck_scheduler = healthcheck_scheduler
 
+        super().__init__()
+
     def start(self) -> None:
         """"""
-        self.container.start()
+        try:
+            self.container.start()
+        except ContainerError:
+            # todo make this specific to the error that a container with the same name is already up and running
+            """If a container with the same name (== same configuration) is already up and running, do nothing"""
+            pass
         self.healthcheck_scheduler.start()
 
     def stop(self) -> None:
@@ -49,9 +57,6 @@ class MessageBroker(TestService, metaclass=ABCMeta):
         self.healthcheck_scheduler.add_job(
             disk_space_available(), trigger=self.SCHEDULER_TRIGGER, minutes=self.SCHEDULER_INTERVAL_MINUTES
         )
-
-    def to_node(self) -> Node:
-        return MessageBrokerNode(self)
 
     @property
     @abstractmethod
