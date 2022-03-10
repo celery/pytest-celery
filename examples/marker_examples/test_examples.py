@@ -1,6 +1,6 @@
 import pytest
 
-from pytest_celery.test_services.message_brokers import RedisBroker
+from pytest_celery.test_services.message_brokers.redis_broker import RedisBroker
 
 
 @pytest.mark.messagebroker.with_args(RedisBroker)
