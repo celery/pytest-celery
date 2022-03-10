@@ -1,6 +1,8 @@
 
-from pytest_celery.test_services.base import TestService
-from pytest_celery.test_services.nodes.base import Node
+import pytest
+
+from pytest_celery.test_services import TestService
+from pytest_celery.test_services.nodes import Node
 
 
 class FakeTestService(TestService):

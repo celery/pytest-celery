@@ -1,5 +1,5 @@
 
-from pytest_celery.test_services.nodes.base import Node
+from pytest_celery.test_services.nodes import Node
 
 
 class FakeNode(Node):

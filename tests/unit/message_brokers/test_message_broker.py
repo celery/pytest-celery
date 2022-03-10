@@ -8,7 +8,7 @@ from kombu import Queue
 
 from pytest_celery.healthchecks.connection import ConnectionHealthy
 from pytest_celery.healthchecks.disk import DiskSpaceAvailable
-from pytest_celery.test_services.message_brokers.base import MessageBroker
+from pytest_celery.test_services.message_brokers import MessageBroker
 
 
 class FakeMessageBroker(MessageBroker):
