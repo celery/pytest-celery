@@ -17,7 +17,6 @@ test_dependencies = {
         "Faker~=11.3.0",
         "pyfakefs~=4.5.4",
         "testcontainers~=3.4.2",
-        "docker-py~=1.10.6",
         "pytest-subtests~=0.6.0"
     ]
 }
