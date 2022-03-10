@@ -29,8 +29,11 @@ def vhost_name(faker) -> str:
     return faker.pystr()
 
 
-def test_initialization(test_service, vhost_name):
-    node = FakeNode(test_service, vhost_name)
+@pytest.fixture
+def node(test_service, vhost_name) -> FakeNode:
+    return FakeNode(test_service, vhost_name)
 
+
+def test_initialization(node, test_service, vhost_name):
     assert node.vhost_name == vhost_name
     assert node.test_service == test_service
