@@ -1,5 +1,5 @@
-from pytest_celery.test_services.message_brokers.base import MessageBroker
-from pytest_celery.test_services.nodes.base import Node
+from pytest_celery.test_services.message_brokers import MessageBroker
+from pytest_celery.test_services.nodes import Node
 
 
 class MessageBrokerNode(Node):

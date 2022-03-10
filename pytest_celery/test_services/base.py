@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import ContextManager
 
-from pytest_celery.test_services.nodes.base import Node
+from pytest_celery.test_services.nodes import Node
 
 
 class TestService(ContextManager, metaclass=ABCMeta):
