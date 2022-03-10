@@ -6,7 +6,8 @@ from pytest_celery.test_services.nodes import MessageBrokerNode
 
 
 class FakeMessageBrokerNode(MessageBrokerNode):
-    pass
+    def create_vhost(self):
+        pass
 
 
 @pytest.fixture
