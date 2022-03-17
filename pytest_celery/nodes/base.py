@@ -4,6 +4,8 @@ from urllib.parse import urljoin
 from abc import ABCMeta, abstractmethod
 from functools import cached_property
 
+from pytest_celery.test_services import TestService
+
 
 class Node(metaclass=ABCMeta):
     """
@@ -11,9 +13,9 @@ class Node(metaclass=ABCMeta):
     The node instance provides a vhost, a URL at which to access the MessageBroker.
     """
 
-    def __init__(self, test_service, vhost_name: str):
-        self.vhost_name = vhost_name
+    def __init__(self, test_service: TestService, vhost_name: str):
         self.test_service = test_service  # MessageBroker or ResultBackend
+        self.vhost_name = vhost_name
 
     def start(self):
         """Spin up a container (or reuse if already exists), returning the vhost for the entity"""

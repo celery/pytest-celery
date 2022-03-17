@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from pytest_celery.test_services.nodes import Node
+from pytest_celery.nodes import Node
 
 
 class MessageBrokerNode(Node):
@@ -10,6 +10,7 @@ class MessageBrokerNode(Node):
 
     @property
     def should_create_vhost(self) -> bool:
+        # TODO check if database exists
         pass
 
     def destroy_vhost(self):
