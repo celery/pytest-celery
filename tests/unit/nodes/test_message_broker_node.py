@@ -2,7 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from pytest_celery.test_services.nodes import MessageBrokerNode
+from pytest_celery.nodes import MessageBrokerNode
 
 
 class FakeMessageBrokerNode(MessageBrokerNode):

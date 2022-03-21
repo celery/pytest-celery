@@ -8,7 +8,7 @@ from redis.client import Redis
 from testcontainers.redis import RedisContainer
 
 from pytest_celery.test_services.message_brokers import MessageBroker
-from pytest_celery.test_services.nodes import MessageBrokerNode
+from pytest_celery.nodes import MessageBrokerNode
 from pytest_celery.utils.compat import List
 
 

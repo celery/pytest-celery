@@ -3,7 +3,7 @@ from __future__ import annotations
 from pytest_celery.nodes import Node
 
 
-class RedisMessageBrokerNode(Node):
+class MessageBrokerNode(Node):
 
     def __init__(self, message_broker, vhost_name: str):
         super().__init__(message_broker, vhost_name)
