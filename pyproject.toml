@@ -2,5 +2,7 @@
 profile = "black"
 
 [tool.pytest.ini_options]
+addopts = "-p no:celery --runpytest subprocess"
 minversion = "6.0"
 pytester_example_dir = "examples"
+xfail_strict = true
