@@ -18,5 +18,10 @@ def test(session):
     )
     session.install(*[req.strip() for req in requirements.split("\n") if req.strip()])
 
-    test_args = session.posargs or ("-nauto", "--cov=pytest_celery", "--cov-branch", "--cov-report=xml")
+    test_args = session.posargs or (
+        "-nauto",
+        "--cov=pytest_celery",
+        "--cov-branch",
+        "--cov-report=xml",
+    )
     session.run("pytest", "tests/", *test_args)

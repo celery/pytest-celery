@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 from functools import cached_property
-from itertools import count
 
 from kombu import Queue
 from redis.client import Redis
 from testcontainers.redis import RedisContainer
 
+from pytest_celery.nodes.message_brokers import RedisNode
 from pytest_celery.test_services.message_brokers import MessageBroker
-from pytest_celery.nodes import MessageBrokerNode
 from pytest_celery.utils.compat import List
 
 
@@ -18,7 +17,7 @@ class RedisBroker(MessageBroker):
         pass
 
     def __init__(self, test_session_id: str, container=None):
-        self._vhost_counter = count()
+        self._vhost_counter = 0
         container = container or RedisContainer()
         super().__init__(container, test_session_id)
 
@@ -33,10 +32,10 @@ class RedisBroker(MessageBroker):
     def ping(self) -> None:
         self.client.ping()
 
-    def to_node(self) -> MessageBrokerNode:
-        next_vhost = str(next(self._vhost_counter))
-        return MessageBrokerNode(self, vhost_name=next_vhost)
+    def to_node(self) -> RedisNode:
+        self._vhost_counter += 1
+        return RedisNode(self, vhost_name=self._vhost_counter)
 
     def __repr__(self):
         # todo add configuration details to repr once they are added to this class
-        return f"Redis Broker"
+        return "Redis Broker"

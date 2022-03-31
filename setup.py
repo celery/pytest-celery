@@ -1,5 +1,4 @@
-import os
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 requirements = [
     "celery>= 5.2.0",
@@ -17,15 +16,11 @@ test_dependencies = {
         "Faker~=11.3.0",
         "pyfakefs~=4.5.4",
         "testcontainers~=3.4.2",
-        "pytest-subtests~=0.6.0"
+        "pytest-subtests~=0.6.0",
     ]
 }
 
-docs_dependencies = {
-    "docs": [
-        "Sphinx~=4.3.1"
-    ]
-}
+docs_dependencies = {"docs": ["Sphinx~=4.3.1"]}
 
 extras = {**test_dependencies, **docs_dependencies}
 
@@ -41,7 +36,7 @@ setup(
     description="Pytest plugin for Celery.",
     license="BSD",
     url="https://github.com/celery/pytest-celery",
-    packages=find_packages('.', exclude=['tests*', 'examples*']),
+    packages=find_packages(".", exclude=["tests*", "examples*"]),
     classifiers=["License :: OSI Approved :: BSD License"],
     python_requires=supported_python_versions,
     install_requires=requirements,

@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from urllib.parse import urljoin
 from abc import ABCMeta, abstractmethod
 from functools import cached_property
+from urllib.parse import urljoin
 
 from pytest_celery.test_services import TestService
 
@@ -13,7 +13,7 @@ class Node(metaclass=ABCMeta):
     The node instance provides a vhost, a URL at which to access the MessageBroker.
     """
 
-    def __init__(self, test_service: TestService, vhost_name: str):
+    def __init__(self, test_service: TestService, vhost_name: str | int):
         self.test_service = test_service  # MessageBroker or ResultBackend
         self.vhost_name = vhost_name
 

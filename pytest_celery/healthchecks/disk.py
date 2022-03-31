@@ -1,6 +1,10 @@
 from pathlib import Path
 
-from pytest_celery.healthchecks import DiskSpaceUnavailableError, HealthCheck, HealthCheckFailedError
+from pytest_celery.healthchecks import (
+    DiskSpaceUnavailableError,
+    HealthCheck,
+    HealthCheckFailedError,
+)
 
 
 def to_gb(size_in_bytes: int) -> float:
@@ -28,7 +32,10 @@ class DiskSpaceAvailable(HealthCheck):
             directory_size = to_gb(self.get_directory_size())
             if directory_size > self.max_healthy_size:
                 raise DiskSpaceUnavailableError(
-                    self.path_to_disk, directory_size, self.max_disk_size_gb, self.max_healthy_size
+                    self.path_to_disk,
+                    directory_size,
+                    self.max_disk_size_gb,
+                    self.max_healthy_size,
                 )
 
         except (ValueError, NotImplementedError) as e:

@@ -17,7 +17,12 @@ class MessageBroker(TestService, metaclass=ABCMeta):
     SCHEDULER_TRIGGER = "interval"
     SCHEDULER_INTERVAL_MINUTES = 1
 
-    def __init__(self, container, test_session_id: str, healthcheck_scheduler=BackgroundScheduler()) -> None:
+    def __init__(
+        self,
+        container,
+        test_session_id: str,
+        healthcheck_scheduler=BackgroundScheduler(),
+    ) -> None:
         self.container = container
         self.healthcheck_scheduler = healthcheck_scheduler
 
@@ -30,7 +35,6 @@ class MessageBroker(TestService, metaclass=ABCMeta):
         except ContainerError:
             # todo make this specific to the error that a container with the same name is already up and running
             """If a container with the same name (== same configuration) is already up and running, do nothing"""
-            pass
         self.healthcheck_scheduler.start()
 
     def stop(self) -> None:
@@ -38,12 +42,20 @@ class MessageBroker(TestService, metaclass=ABCMeta):
         self.container.stop()
         self.healthcheck_scheduler.shutdown()
 
-    def check_healthy(self, connection_healthy: ConnectionHealthy, disk_space_available: DiskSpaceAvailable) -> None:
+    def check_healthy(
+        self,
+        connection_healthy: ConnectionHealthy,
+        disk_space_available: DiskSpaceAvailable,
+    ) -> None:
         self.healthcheck_scheduler.add_job(
-            connection_healthy(), trigger=self.SCHEDULER_TRIGGER, minutes=self.SCHEDULER_INTERVAL_MINUTES
+            connection_healthy(),
+            trigger=self.SCHEDULER_TRIGGER,
+            minutes=self.SCHEDULER_INTERVAL_MINUTES,
         )
         self.healthcheck_scheduler.add_job(
-            disk_space_available(), trigger=self.SCHEDULER_TRIGGER, minutes=self.SCHEDULER_INTERVAL_MINUTES
+            disk_space_available(),
+            trigger=self.SCHEDULER_TRIGGER,
+            minutes=self.SCHEDULER_INTERVAL_MINUTES,
         )
 
     @property

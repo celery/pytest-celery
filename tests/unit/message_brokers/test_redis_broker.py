@@ -13,7 +13,7 @@ def redis_container_mock() -> Mock:
 
 @pytest.fixture
 def redis_broker(redis_container_mock) -> RedisBroker:
-    redis_broker = RedisBroker(test_session_id='1', container=redis_container_mock)
+    redis_broker = RedisBroker(test_session_id="1", container=redis_container_mock)
     return redis_broker
 
 
@@ -28,4 +28,3 @@ def test_ping(redis_broker: RedisBroker, redis_container_mock) -> None:
     redis_broker.ping()
 
     redis_broker.client.ping.assert_called_once_with()
-

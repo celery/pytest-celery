@@ -1,3 +1,6 @@
+[tool.isort]
+profile = "black"
+
 [tool.pytest.ini_options]
 minversion = "6.0"
-#pytester_example_dir = "examples"
+pytester_example_dir = "examples"

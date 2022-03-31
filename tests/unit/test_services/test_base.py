@@ -42,4 +42,3 @@ def test_initialization(container, test_session_id, subtests):
 
     with subtests.test("Container received name"):
         assert test_service.name == expected_name
-

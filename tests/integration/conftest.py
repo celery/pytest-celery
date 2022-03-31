@@ -1,6 +1,3 @@
-import os
-import sys
-
 import pytest
 from _pytest.fixtures import yield_fixture
 from pytest_fixture_config import yield_requires_config
@@ -31,14 +28,17 @@ def virtualenv():
 
 
 @pytest.fixture(scope="session")
-def plugin_virtualenv(virtualenv):
-    virtualenv.install_package("/home/naomi/work/pytest-celery", build_egg=True, installer="pip install")
+def plugin_virtualenv(virtualenv, request):
+    virtualenv.install_package(
+        request.config.rootpath, build_egg=True, installer="pip install"
+    )
 
     return virtualenv.run(
-        "python -c 'from distutils.sysconfig import get_python_lib; print(get_python_lib())'", capture=True
+        "python -c 'from sys import executable; print(executable)'", capture=True
     ).strip()
 
 
 @pytest.fixture(autouse=True)
-def foo(plugin_virtualenv, pytester):
-    pytester.syspathinsert(plugin_virtualenv)
+def configure_pytester(plugin_virtualenv, pytester):
+    pytester.plugins.append("celery")
+    pytester._getpytestargs = lambda: (plugin_virtualenv, "-mpytest")

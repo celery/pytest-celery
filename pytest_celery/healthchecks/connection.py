@@ -16,7 +16,13 @@ class ConnectionHealthy(HealthCheck):
 
         try:
             s.connect((self.endpoint, self.port))
-        except (TimeoutError, socket.gaierror, ConnectionError, OSError, TypeError) as e:
+        except (
+            TimeoutError,
+            socket.gaierror,
+            ConnectionError,
+            OSError,
+            TypeError,
+        ) as e:
             raise HealthCheckFailedError() from e
 
         try:
