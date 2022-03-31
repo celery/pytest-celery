@@ -28,9 +28,9 @@ def virtualenv():
 
 
 @pytest.fixture(scope="session")
-def plugin_virtualenv(virtualenv, request):
+def plugin_virtualenv(virtualenv, pytestconfig):
     virtualenv.install_package(
-        request.config.rootpath, build_egg=True, installer="pip install"
+        pytestconfig.rootpath, build_egg=True, installer="pip install"
     )
 
     return virtualenv.run(
