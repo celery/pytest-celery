@@ -16,9 +16,12 @@ class RedisBroker(MessageBroker):
     def url(self):
         pass
 
-    def __init__(self, test_session_id: str, container=None):
+    def __init__(
+        self, test_session_id: str, port: int = None, container: RedisContainer = None
+    ):
         self._vhost_counter = 0
-        container = container or RedisContainer()
+        container = container or RedisContainer(port_to_expose=port or 6379)
+
         super().__init__(container, test_session_id)
 
     @property
@@ -38,4 +41,4 @@ class RedisBroker(MessageBroker):
 
     def __repr__(self):
         # todo add configuration details to repr once they are added to this class
-        return "Redis Broker"
+        return f"Redis Broker <port={self.container.port_to_expose}>"

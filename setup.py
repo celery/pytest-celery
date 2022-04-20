@@ -3,6 +3,7 @@ from setuptools import find_packages, setup
 requirements = [
     "celery>= 5.2.0",
     "pytest>=6.2.5",
+    "pytest-order>=1.0.0",
     "testcontainers[redis]>=3.4.2",
     "APScheduler~=3.8.1",
 ]
