@@ -29,13 +29,9 @@ def virtualenv():
 
 @pytest.fixture(scope="session")
 def plugin_virtualenv(virtualenv, pytestconfig):
-    virtualenv.install_package(
-        pytestconfig.rootpath, build_egg=True, installer="pip install"
-    )
+    virtualenv.install_package(pytestconfig.rootpath, build_egg=True, installer="pip install")
 
-    return virtualenv.run(
-        "python -c 'from sys import executable; print(executable)'", capture=True
-    ).strip()
+    return virtualenv.run("python -c 'from sys import executable; print(executable)'", capture=True).strip()
 
 
 @pytest.fixture(autouse=True)

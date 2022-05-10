@@ -10,11 +10,7 @@ from pytest_celery.test_services import TestService
 class MessageBroker(TestService, metaclass=ABCMeta):
     """"""
 
-    def __init__(
-            self,
-            container,
-            test_session_id: str
-    ) -> None:
+    def __init__(self, container, test_session_id: str) -> None:
         super().__init__(container, test_session_id)
 
     def start(self) -> None:
