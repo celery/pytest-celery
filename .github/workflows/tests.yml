@@ -12,6 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.7", "3.8", "3.9", "3.10"]
+        suite: ["unit", "functional", "integration"]
 
     steps:
     - uses: actions/checkout@v2
@@ -37,7 +38,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-${{ matrix.python-version }}-poetry
     - name: Run tests
-      run: nox -s test-${{ matrix.python-version }}
+      run: nox -s "test-${{ matrix.python-version }}(suite='${{ matrix.suite }}')"
     - uses: codecov/codecov-action@v2
       with:
         flags: tests
