@@ -36,10 +36,6 @@ class TestService(ContextManager, metaclass=ABCMeta):
     def stop(self) -> None:
         pass
 
-    @abstractmethod
-    def to_node(self):
-        pass
-
     def __enter__(self):
         """"""
         self.start()

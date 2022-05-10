@@ -1,11 +1,11 @@
 repos:
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.29.1
+    rev: v2.32.1
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
   - repo: https://github.com/psf/black
-    rev: stable
+    rev: 22.3.0
     hooks:
       - id: black
   - repo: https://github.com/PyCQA/flake8
@@ -19,7 +19,7 @@ repos:
       - id: yesqa
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.2.0
     hooks:
       - id: check-merge-conflict
       - id: check-toml
@@ -33,6 +33,6 @@ repos:
       - id: isort
 
   - repo: https://github.com/pappasam/toml-sort
-    rev: v0.19.0
+    rev: v0.20.0
     hooks:
       - id: toml-sort
