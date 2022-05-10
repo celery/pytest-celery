@@ -28,7 +28,7 @@ jobs:
           ${{ runner.os }}-pip
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip setuptools wheel nox 'poetry==1.2.0.a2' poetry-export-plugin
+        python -m pip install --upgrade pip setuptools wheel nox 'poetry==1.2.0.b1' poetry-export-plugin
     - name: Cache poetry
       uses: actions/cache@v1
       with:
