@@ -9,4 +9,3 @@ def test_start(container, test_session_id, url):
     container.get_client.return_value = Redis(url)
     rb = RedisBroker(test_session_id, container=container)
     assert rb.url == url
-
