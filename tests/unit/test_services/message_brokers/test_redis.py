@@ -1,7 +1,7 @@
 import pytest
+from redis import Redis
 
 from pytest_celery.test_services.message_brokers.redis import RedisBroker
-from redis import Redis
 
 
 @pytest.mark.parametrize("url", ["redis://", "redis://localhost:2222", "redis://user:1234@localhost:2222/0"])
