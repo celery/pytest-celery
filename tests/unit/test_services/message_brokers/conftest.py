@@ -10,6 +10,7 @@ def container() -> Mock:
 
     return m
 
+
 @pytest.fixture
 def test_session_id() -> sentinel:
     return sentinel.TEST_SESSION_ID
