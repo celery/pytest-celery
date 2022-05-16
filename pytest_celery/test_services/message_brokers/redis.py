@@ -4,7 +4,6 @@ from functools import cached_property
 
 from redis.client import Redis
 from redis.connection import SSLConnection, UnixDomainSocketConnection
-
 from testcontainers.redis import RedisContainer
 
 from pytest_celery.test_services.message_brokers import MessageBroker
@@ -35,7 +34,6 @@ class RedisBroker(MessageBroker):
         port = connection_kwargs.pop("port", "")
 
         return create_url(scheme, username, password, host, port)
-
 
     @cached_property
     def client(self) -> Redis:
