@@ -1,6 +1,6 @@
 [build-system]
 build-backend = "poetry.core.masonry.api"
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=1.1.0a7"]
 
 [tool.black]
 exclude = '''
@@ -42,7 +42,7 @@ version = "1.0.0a1"
 celery = ">= 5.2.0"
 pytest = ">= 6.2.5"
 python = ">= 3.7,<4.0"
-testcontainers = { version = ">= 3.4.2", extras = ["redis"] }
+testcontainers = { version = ">= 3.4.2", extras = ["redis", "rabbitmq"] }
 
 [tool.poetry.group.dev]
 
