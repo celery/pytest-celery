@@ -38,6 +38,10 @@ class TestService(ContextManager, metaclass=ABCMeta):
     def stop(self) -> None:
         pass
 
+    @abstractmethod
+    def ping(self) -> None:
+        pass
+
     def __enter__(self):
         """"""
         self.start()
