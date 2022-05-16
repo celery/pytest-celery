@@ -10,12 +10,7 @@ from testcontainers.redis import RedisContainer
 from pytest_celery.test_services.message_brokers import MessageBroker
 
 
-class RedisBroker(MessageBroker):
-    def __init__(self, test_session_id: str, port: int = None, container: RedisContainer = None):
-        container = container or RedisContainer(port_to_expose=port or 6379)
-
-        super().__init__(container, test_session_id)
-
+class RedisTestServiceMixin:
     @property
     def url(self):
         connection_pool = self.client.connection_pool
@@ -51,6 +46,13 @@ class RedisBroker(MessageBroker):
             uri_builder = uri_builder.add_query_from(querystring)
 
         return uri_builder.geturl()
+
+
+class RedisBroker(RedisTestServiceMixin, MessageBroker):
+    def __init__(self, test_session_id: str, port: int = None, container: RedisContainer = None):
+        container = container or RedisContainer(port_to_expose=port or 6379)
+
+        super().__init__(container, test_session_id)
 
     @cached_property
     def client(self) -> Redis:
