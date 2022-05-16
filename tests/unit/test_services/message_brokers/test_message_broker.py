@@ -1,27 +1,37 @@
 from __future__ import annotations
 
-from unittest.mock import Mock
+from unittest.mock import Mock, sentinel
 
 import pytest
-from kombu import Queue
 
-from pytest_celery.message_brokers.message_broker import MessageBroker
+from pytest_celery.test_services.message_brokers import MessageBroker
 
 
 class FakeMessageBroker(MessageBroker):
     @property
-    def queues(self) -> list[Queue]:
-        return []
+    def url(self):
+        return sentinel.FAKE_MESSAGE_BROKER_URL
+
+    def to_node(self):
+        return None
 
 
 @pytest.fixture
 def container() -> Mock:
-    return Mock()
+    m = Mock()
+    m.with_name.return_value = m
+
+    return m
 
 
 @pytest.fixture
-def message_broker(container) -> FakeMessageBroker:
-    return FakeMessageBroker(container)
+def test_session_id() -> sentinel:
+    return sentinel.TEST_SESSION_ID
+
+
+@pytest.fixture
+def message_broker(container, test_session_id) -> FakeMessageBroker:
+    return FakeMessageBroker(container, test_session_id)
 
 
 def test_start(message_broker: FakeMessageBroker, container: Mock):
