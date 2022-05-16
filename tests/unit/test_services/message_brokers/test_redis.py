@@ -13,11 +13,15 @@ from pytest_celery.test_services.message_brokers.redis import RedisBroker
         "redis://user:1234@localhost:2222",
     ],
 )
-def test_redis_broker_url(container, test_session_id, url):
+def test_redis_broker_url(container, test_session_id, url, subtests):
     container.get_client.return_value = Redis.from_url(url)
     rb = RedisBroker(test_session_id, container=container)
 
-    assert rb.url == url
+    with subtests.test("Redis URI is identical"):
+        assert rb.url == url
+
+    with subtests.test("Debug representation includes original url in full"):
+        assert repr(rb) == f"Redis Broker <{url}>"
 
 
 @pytest.mark.parametrize("url", ["redis:", "redis://"])

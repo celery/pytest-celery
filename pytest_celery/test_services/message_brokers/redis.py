@@ -30,13 +30,6 @@ class RedisTestServiceMixin:
 
         return create_url(scheme, username, password, host, port)
 
-
-class RedisBroker(RedisTestServiceMixin, MessageBroker):
-    def __init__(self, test_session_id: str, port: int = None, container: RedisContainer = None):
-        container = container or RedisContainer(port_to_expose=port or 6379)
-
-        super().__init__(container, test_session_id)
-
     @cached_property
     def client(self) -> Redis:
         return self._container.get_client()
@@ -44,6 +37,12 @@ class RedisBroker(RedisTestServiceMixin, MessageBroker):
     def ping(self) -> None:
         self.client.ping()
 
+
+class RedisBroker(RedisTestServiceMixin, MessageBroker):
+    def __init__(self, test_session_id: str, port: int = None, container: RedisContainer = None):
+        container = container or RedisContainer(port_to_expose=port or 6379)
+
+        super().__init__(container, test_session_id)
+
     def __repr__(self):
-        # todo add configuration details to repr once they are added to this class
-        return f"Redis Broker <port={self._container.port_to_expose}>"
+        return f"Redis Broker <{self.url}>"
