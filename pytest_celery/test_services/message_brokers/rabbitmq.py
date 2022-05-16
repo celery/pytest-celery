@@ -3,7 +3,7 @@ from __future__ import annotations
 from testcontainers.rabbitmq import RabbitMqContainer
 
 from pytest_celery.test_services.message_brokers import MessageBroker
-from tests.unit.test_services.message_brokers.utils import create_url
+from pytest_celery.test_services.message_brokers.utils import create_url
 
 
 class RabbitMQBroker(MessageBroker):
