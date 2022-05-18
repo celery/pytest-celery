@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 from abc import ABCMeta, abstractmethod
-from functools import cached_property
 from typing import ContextManager
 
 from testcontainers.core.container import DockerContainer
+
+try:
+    from functools import cached_property
+except ImportError:
+    from cached_property import cached_property
 
 
 class TestService(ContextManager, metaclass=ABCMeta):
