@@ -18,7 +18,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install apt packages
       run: |
-        sudo apt update && docker version
+        sudo apt update && docker run -it --rm --name redis  redis
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
