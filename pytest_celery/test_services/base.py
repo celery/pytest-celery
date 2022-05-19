@@ -4,11 +4,7 @@ from abc import ABCMeta, abstractmethod
 from typing import ContextManager
 
 from testcontainers.core.container import DockerContainer
-
-try:
-    from functools import cached_property
-except ImportError:
-    from cached_property import cached_property
+from pytest_celery.compat import cached_property
 
 
 class TestService(ContextManager, metaclass=ABCMeta):
