@@ -1,4 +1,5 @@
 from testcontainers.rabbitmq import RabbitMqContainer
+
 from pytest_celery.test_services.message_brokers import MessageBroker
 from pytest_celery.test_services.mixins import RabbitMQTestServiceMixin
 
