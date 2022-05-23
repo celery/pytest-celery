@@ -18,6 +18,8 @@ def test(session, suite):
         env={"PYTHONWARNINGS": "ignore"},
     )
     session.install(*[req.strip() for req in requirements.split("\n") if req.strip()])
-
-    test_args = session.posargs or ("-nauto", "--cov=pytest_celery", "--cov-branch", "--cov-report=xml")
+    default_args = ["--cov=pytest_celery", "--cov-branch", "--cov-report=xml"]
+    if suite != "functional":
+        default_args.append("-nauto")
+    test_args = session.posargs or default_args
     session.run("pytest", f"tests/{suite}", *test_args)
