@@ -4,6 +4,7 @@ from abc import ABCMeta, abstractmethod
 from typing import ContextManager
 
 from testcontainers.core.container import DockerContainer
+
 from pytest_celery.compat import cached_property
 
 
