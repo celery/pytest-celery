@@ -1,3 +1,5 @@
+import uuid
+
 import docker
 import pytest
 
@@ -5,8 +7,9 @@ from pytest_celery.test_services.message_brokers import RedisBroker
 
 
 @pytest.mark.parametrize("message_broker_cls", [RedisBroker])
-def test_message_broker_basic_functionality(message_broker_cls, subtests, faker):
-    message_broker = message_broker_cls(faker.uuid4())
+def test_message_broker_basic_functionality(message_broker_cls, subtests):
+    test_session_id = str(uuid.uuid4())
+    message_broker = message_broker_cls(test_session_id)
 
     message_broker.start()
 
@@ -28,8 +31,9 @@ def test_message_broker_basic_functionality(message_broker_cls, subtests, faker)
 
 
 @pytest.mark.parametrize("message_broker_cls", [RedisBroker])
-def test_message_broker_basic_functionality_context_manager(message_broker_cls, subtests, faker):
-    message_broker = message_broker_cls(faker.uuid4())
+def test_message_broker_basic_functionality_context_manager(message_broker_cls, subtests):
+    test_session_id = str(uuid.uuid4())
+    message_broker = message_broker_cls(test_session_id)
 
     with message_broker:
         docker_container_id = message_broker._container.get_wrapped_container().id
