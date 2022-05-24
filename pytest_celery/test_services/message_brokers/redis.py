@@ -1,16 +1,11 @@
 from __future__ import annotations
 
-try:
-    from functools import cached_property
-except ImportError:
-    # TODO: Remove this backport once we drop Python 3.7 support
-    from cached_property import cached_property
-
 from redis.client import Redis
 from redis.connection import URL_QUERY_ARGUMENT_PARSERS, SSLConnection, UnixDomainSocketConnection
 from rfc3986.builder import URIBuilder
 from testcontainers.redis import RedisContainer
 
+from pytest_celery.compat import cached_property
 from pytest_celery.test_services.message_brokers import MessageBroker
 
 
