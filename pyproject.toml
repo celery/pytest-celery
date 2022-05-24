@@ -39,7 +39,7 @@ name = "pytest-celery"
 version = "1.0.0a1"
 
 [tool.poetry.dependencies]
-celery = ">= 5.2.0"
+#celery = ">= 5.2.0"
 pytest = ">= 6.2.5"
 python = ">= 3.7, < 4.0"
 testcontainers = { version = ">= 3.4.2", extras = ["redis"] }
