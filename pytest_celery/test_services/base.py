@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 from abc import ABCMeta, abstractmethod
-from functools import cached_property
 from typing import ContextManager
 
 from testcontainers.core.container import DockerContainer
+
+from pytest_celery.compat import cached_property
 
 
 class TestService(ContextManager, metaclass=ABCMeta):
