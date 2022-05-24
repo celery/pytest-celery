@@ -41,7 +41,7 @@ version = "1.0.0a1"
 [tool.poetry.dependencies]
 celery = ">= 5.2.0"
 pytest = ">= 6.2.5"
-python = ">= 3.7"
+python = ">=3.7,<4.0"
 testcontainers = { version = ">= 3.4.2", extras = ["redis"] }
 rfc3986 = "^2.0.0"
 cached-property = { version = "^1.5.2", python = "<3.8" }
