@@ -39,10 +39,12 @@ name = "pytest-celery"
 version = "1.0.0a1"
 
 [tool.poetry.dependencies]
-celery = ">= 5.2.0"
+#celery = ">= 5.2.0"
 pytest = ">= 6.2.5"
 python = ">= 3.7,<4.0"
 testcontainers = { version = ">= 3.4.2", extras = ["redis"] }
+rfc3986 = "^2.0.0"
+cached-property = { version = "^1.5.2", python = "<3.8" }
 
 [tool.poetry.group.dev]
 
@@ -68,6 +70,7 @@ mocket = { version = "^3.10.4", extras = ["speedups"] }
 Faker = "^11.3.0"
 pyfakefs = "^4.5.4"
 pytest-virtualenv = "^1.7.0"
+pytest-subtests = "^0.7.0"
 
 [tool.poetry.plugins.pytest11]
 celery = "pytest_celery.plugin"

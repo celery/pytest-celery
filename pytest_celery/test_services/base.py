@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 from abc import ABCMeta, abstractmethod
-from functools import cached_property
 from typing import ContextManager
+
+from testcontainers.core.container import DockerContainer
+
+from pytest_celery.compat import cached_property
 
 
 class TestService(ContextManager, metaclass=ABCMeta):
@@ -11,7 +14,7 @@ class TestService(ContextManager, metaclass=ABCMeta):
     def __init__(self, container, test_session_id: str):
         # TODO: Decide if we should rename this attribute
         self.__test_session_id = test_session_id
-        self._container = container.with_name(self.name)
+        self._container: DockerContainer = container.with_name(self.name)
 
     @cached_property
     def name(self):
@@ -34,10 +37,6 @@ class TestService(ContextManager, metaclass=ABCMeta):
 
     @abstractmethod
     def stop(self) -> None:
-        pass
-
-    @abstractmethod
-    def to_node(self):
         pass
 
     def __enter__(self):
