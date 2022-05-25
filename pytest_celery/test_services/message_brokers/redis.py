@@ -1,10 +1,8 @@
 from __future__ import annotations
 
 from functools import cached_property
-from urllib.parse import urlunsplit
 
 from redis.client import Redis
-from redis.connection import SSLConnection, UnixDomainSocketConnection
 from testcontainers.redis import RedisContainer
 
 from pytest_celery.test_services.message_brokers import MessageBroker
