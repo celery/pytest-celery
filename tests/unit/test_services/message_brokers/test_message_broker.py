@@ -12,18 +12,6 @@ class FakeMessageBroker(MessageBroker):
     def url(self):
         return sentinel.FAKE_MESSAGE_BROKER_URL
 
-    def to_node(self):
-        return None
-
-
-@pytest.fixture
-def container() -> Mock:
-    m = Mock()
-    m.with_name.return_value = m
-
-    return m
-
-
 @pytest.fixture
 def message_broker(container, test_session_id) -> FakeMessageBroker:
     return FakeMessageBroker(container, test_session_id)
