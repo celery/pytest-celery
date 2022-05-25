@@ -3,11 +3,11 @@ import uuid
 import docker
 import pytest
 
-from pytest_celery.test_services.message_brokers import RedisBroker
+from pytest_celery.test_services.message_brokers import RedisBroker, RabbitMQBroker
 from pytest_celery.test_services.result_backends import RedisResultBackend
 
 
-@pytest.mark.parametrize("test_service_cls", [RedisBroker, RedisResultBackend])
+@pytest.mark.parametrize("test_service_cls", [RedisBroker, RedisResultBackend, RabbitMQBroker])
 def test_test_service_basic_functionality(test_service_cls, subtests, faker):
     test_session_id = uuid.uuid4()
     test_service = test_service_cls(test_session_id)
@@ -31,7 +31,7 @@ def test_test_service_basic_functionality(test_service_cls, subtests, faker):
         assert len(containers) == 0
 
 
-@pytest.mark.parametrize("test_service_cls", [RedisBroker, RedisResultBackend])
+@pytest.mark.parametrize("test_service_cls", [RedisBroker, RedisResultBackend, RabbitMQBroker])
 def test_test_service_basic_functionality_context_manager(test_service_cls, subtests, faker):
     test_session_id = uuid.uuid4()
     test_service = test_service_cls(test_session_id)
