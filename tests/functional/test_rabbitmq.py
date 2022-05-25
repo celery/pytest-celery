@@ -12,4 +12,4 @@ def test_ping(test_service_cls, faker):
         connection = test_service.get_client
         channel = connection.channel()
         _, _, body = channel.basic_get("ping")
-        assert body == b'PING'
+        assert body == b"PING"
