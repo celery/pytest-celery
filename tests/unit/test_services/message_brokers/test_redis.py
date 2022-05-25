@@ -1,7 +1,7 @@
 import pytest
 from redis import Redis
 
-from pytest_celery.test_services.message_brokers.redis import RedisBroker
+from pytest_celery.test_services.message_brokers import RedisBroker
 
 
 @pytest.mark.parametrize(
