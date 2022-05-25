@@ -17,23 +17,9 @@ class RedisBroker(MessageBroker):
     @property
     def url(self):
         connection_pool = self.client.connection_pool
-        connection_class = connection_pool.connection_class
-        if isinstance(connection_class, SSLConnection):
-            scheme = "rediss://"
-        elif isinstance(connection_class, UnixDomainSocketConnection):
-            scheme = "unix://"
-        else:
-            scheme = "redis://"
-
         connection_kwargs = connection_pool.connection_kwargs.copy()
-        username = connection_kwargs.pop("username", "")
-        password = connection_kwargs.pop("password", "")
-        host = connection_kwargs.pop("host", "")
-        port = connection_kwargs.pop("port", "")
-        host = f"{username}:{password}@{host}:{port}"
-        db = connection_kwargs.pop("db", None)
-
-        return urlunsplit((scheme, host, db, "", ""))
+        host = connection_kwargs.pop("host", None)
+        return host
 
     @cached_property
     def client(self) -> Redis:
