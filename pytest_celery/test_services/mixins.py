@@ -57,6 +57,7 @@ class RedisTestServiceMixin:
     def ping(self) -> None:
         self.client.ping()
 
+
 class RabbitMQTestServiceMixin:
     def _url(self, scheme):
         username = self._container.RABBITMQ_DEFAULT_USER
