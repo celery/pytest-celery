@@ -63,8 +63,7 @@ def parametrize_result_backend(metafunc):
         result_backends,
     )
 
+
 def pytest_generate_tests(metafunc):
     parametrize_message_broker(metafunc)
     parametrize_result_backend(metafunc)
-
-

@@ -1,4 +1,3 @@
-
 import pytest
 
 from pytest_celery.test_services.message_brokers import RedisBroker
