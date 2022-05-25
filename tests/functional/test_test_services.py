@@ -8,7 +8,7 @@ from pytest_celery.test_services.result_backends import RedisResultBackend
 
 
 @pytest.mark.parametrize("test_service_cls", [RedisBroker, RedisResultBackend, RabbitMQBroker])
-def test_test_service_basic_functionality(test_service_cls, subtests, faker):
+def test_test_service_basic_functionality(test_service_cls, subtests):
     test_session_id = uuid.uuid4()
     test_service = test_service_cls(test_session_id)
 
@@ -32,7 +32,7 @@ def test_test_service_basic_functionality(test_service_cls, subtests, faker):
 
 
 @pytest.mark.parametrize("test_service_cls", [RedisBroker, RedisResultBackend, RabbitMQBroker])
-def test_test_service_basic_functionality_context_manager(test_service_cls, subtests, faker):
+def test_test_service_basic_functionality_context_manager(test_service_cls, subtests):
     test_session_id = uuid.uuid4()
     test_service = test_service_cls(test_session_id)
 
