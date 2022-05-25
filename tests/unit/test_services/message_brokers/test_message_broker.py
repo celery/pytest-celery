@@ -25,11 +25,6 @@ def container() -> Mock:
 
 
 @pytest.fixture
-def test_session_id() -> sentinel:
-    return sentinel.TEST_SESSION_ID
-
-
-@pytest.fixture
 def message_broker(container, test_session_id) -> FakeMessageBroker:
     return FakeMessageBroker(container, test_session_id)
 
