@@ -15,6 +15,7 @@ class FakeMessageBroker(MessageBroker):
     def ping(self):
         pass
 
+
 @pytest.fixture
 def message_broker(container, test_session_id) -> FakeMessageBroker:
     return FakeMessageBroker(container, test_session_id)
