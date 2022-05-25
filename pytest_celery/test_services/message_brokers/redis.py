@@ -11,7 +11,7 @@ from redis.connection import SSLConnection, UnixDomainSocketConnection
 from testcontainers.redis import RedisContainer
 
 from pytest_celery.test_services.message_brokers import MessageBroker
-from tests.unit.test_services.message_brokers.utils import create_url
+from pytest_celery.test_services.message_brokers.utils import create_url
 
 
 class RedisTestServiceMixin:
