@@ -12,6 +12,8 @@ class FakeMessageBroker(MessageBroker):
     def url(self):
         return sentinel.FAKE_MESSAGE_BROKER_URL
 
+    def ping(self):
+        pass
 
 @pytest.fixture
 def message_broker(container, test_session_id) -> FakeMessageBroker:
