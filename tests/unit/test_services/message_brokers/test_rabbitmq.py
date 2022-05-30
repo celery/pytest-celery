@@ -10,7 +10,13 @@ def test_rabbitmq_broker_url(test_session_id, subtests):
         get_exposed_port_mocked.return_value = 5672
         container = RabbitMqContainer()
         broker = RabbitMQBroker(test_session_id, container=container)
-        assert broker.url == "pyampq://guest:guest@localhost:5672"
+        expected_url = "pyampq://guest:guest@localhost:5672"
+
+        with subtests.test("RabbitMQ Broker url"):
+            assert broker.url == expected_url
+
+        with subtests.test("Debug representation includes original url in full"):
+            assert repr(broker) == f"RabbitMQ Broker <{expected_url}>"
 
 
 def test_rabbitmq_broker_ping(test_session_id, subtests):
