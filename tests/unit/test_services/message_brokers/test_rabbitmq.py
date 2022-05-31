@@ -7,11 +7,21 @@ from pytest_celery.test_services.message_brokers import RabbitMQBroker
 from pytest_celery.test_services.result_backends import RabbitMQResultBackend
 
 
-@pytest.mark.parametrize("test_service,url,representation",
-                         [(RabbitMQBroker, "pyampq://guest:guest@localhost:5672",
-                           "RabbitMQ Broker <pyampq://guest:guest@localhost:5672>"),
-                          (RabbitMQResultBackend, "rpc://guest:guest@localhost:5672",
-                           "RabbitMQ Result Backend <rpc://guest:guest@localhost:5672>")])
+@pytest.mark.parametrize(
+    "test_service,url,representation",
+    [
+        (
+            RabbitMQBroker,
+            "pyampq://guest:guest@localhost:5672",
+            "RabbitMQ Broker <pyampq://guest:guest@localhost:5672>",
+        ),
+        (
+            RabbitMQResultBackend,
+            "rpc://guest:guest@localhost:5672",
+            "RabbitMQ Result Backend <rpc://guest:guest@localhost:5672>",
+        ),
+    ],
+)
 def test_rabbitmq_url(test_session_id, subtests, test_service, url, representation):
     with patch.object(RabbitMqContainer, "get_exposed_port") as get_exposed_port_mocked:
         get_exposed_port_mocked.return_value = 5672
