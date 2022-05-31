@@ -1,8 +1,8 @@
-from pytest_celery.test_services.message_brokers import MessageBroker
 from pytest_celery.test_services.mixins import RabbitMQTestServiceMixin
+from pytest_celery.test_services.result_backends import ResultBackend
 
 
-class RabbitMQResultBackend(RabbitMQTestServiceMixin, MessageBroker):
+class RabbitMQResultBackend(RabbitMQTestServiceMixin, ResultBackend):
     @property
     def url(self):
         return self._url("rpc")

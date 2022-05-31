@@ -1,8 +1,8 @@
-from pytest_celery.test_services.result_backends import ResultBackend
+from pytest_celery.test_services.message_brokers import MessageBroker
 from pytest_celery.test_services.mixins import RabbitMQTestServiceMixin
 
 
-class RabbitMQBroker(RabbitMQTestServiceMixin, ResultBackend):
+class RabbitMQBroker(RabbitMQTestServiceMixin, MessageBroker):
     @property
     def url(self):
         return self._url("pyampq")
