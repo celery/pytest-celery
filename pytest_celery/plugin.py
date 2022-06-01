@@ -1,7 +1,7 @@
 import uuid
 
-from pytest_celery.test_services.message_brokers import MessageBroker
 from pytest_celery.fixtures import message_broker, result_backend
+from pytest_celery.test_services.message_brokers import MessageBroker
 
 __all__ = ("message_broker", "result_backend")
 
@@ -33,11 +33,7 @@ def parametrize_message_broker(metafunc):
         for marker in metafunc.definition.iter_markers("messagebroker")
     ]
 
-    metafunc.parametrize(
-        "message_broker",
-        argvalues=message_brokers,
-        indirect=True
-    )
+    metafunc.parametrize("message_broker", argvalues=message_brokers, indirect=True)
 
 
 def parametrize_result_backend(metafunc):
@@ -52,11 +48,7 @@ def parametrize_result_backend(metafunc):
         for marker in metafunc.definition.iter_markers("resultbackend")
     ]
 
-    metafunc.parametrize(
-        "result_backend",
-        argvalues=result_backends,
-        indirect=True
-    )
+    metafunc.parametrize("result_backend", argvalues=result_backends, indirect=True)
 
 
 def pytest_generate_tests(metafunc):
