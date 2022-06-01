@@ -7,5 +7,8 @@ def test_successful_with_parameterized_message_brokers(pytester, number_of_broke
 
     result = pytester.runpytest("-k", f"test_successful_when_message_broker_quantity_is_{number_of_brokers}")
 
+    # print("\n".join(result.stderr.lines))
+    # print("\n".join(result.stdout.lines))
+
     with subtests.test("outcome"):
         result.assert_outcomes(passed=1)

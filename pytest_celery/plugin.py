@@ -1,6 +1,11 @@
 import uuid
 
 from pytest_celery.test_services.message_brokers import MessageBroker
+from pytest_celery.fixtures import message_broker, result_backend
+
+__all__ = ("message_broker", "result_backend")
+
+from pytest_celery.test_services.result_backends import ResultBackend
 
 
 def pytest_configure(config):
@@ -22,21 +27,16 @@ def parametrize_message_broker(metafunc):
     if not message_broker_markers:
         return
 
-    if len(message_broker_markers) != len(set(message_broker_markers)):
-        raise ValueError(f"The same message broker defined twice, use n={len(message_broker_markers)} instead")
-
     test_session_id = uuid.uuid4()
     message_brokers: list[MessageBroker] = [
         marker.args[0](test_session_id, *marker.args[1:], **marker.kwargs)
         for marker in metafunc.definition.iter_markers("messagebroker")
     ]
 
-    for message_broker in message_brokers:
-        message_broker.start()
-
     metafunc.parametrize(
         "message_broker",
-        message_brokers,
+        argvalues=message_brokers,
+        indirect=True
     )
 
 
@@ -46,21 +46,16 @@ def parametrize_result_backend(metafunc):
     if not result_backend_markers:
         return
 
-    if len(result_backend_markers) != len(set(result_backend_markers)):
-        raise ValueError(f"The same message broker defined twice, use n={len(result_backend_markers)} instead")
-
     test_session_id = uuid.uuid4()
-    result_backends: list[MessageBroker] = [
+    result_backends: list[ResultBackend] = [
         marker.args[0](test_session_id, *marker.args[1:], **marker.kwargs)
         for marker in metafunc.definition.iter_markers("resultbackend")
     ]
 
-    for result_backend in result_backends:
-        result_backend.start()
-
     metafunc.parametrize(
         "result_backend",
-        result_backends,
+        argvalues=result_backends,
+        indirect=True
     )
 
 
