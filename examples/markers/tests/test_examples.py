@@ -1,24 +1,10 @@
 import pytest
 
 from pytest_celery.test_services.message_brokers import RedisBroker
+from pytest_celery.test_services.result_backends import RedisResultBackend
 
 
-@pytest.mark.messagebroker(RedisBroker)
-def test_successful_when_message_broker_quantity_is_1():
-    # should result in 1 passed test
-    pass
-
-
-# @pytest.mark.messagebroker(RedisBroker)
-# @pytest.mark.messagebroker(RabbitMQBroker)
-# def test_successful_when_message_broker_quantity_is_2():
-#     # should result in 2 passed tests
-#     pass
-
-
-@pytest.mark.messagebroker(RedisBroker)
-@pytest.mark.messagebroker(RedisBroker)
-def test_raises_error_when_message_broker_is_duplicated_without_configuration():
-    # should use messagebroker(RedisBroker, n=2) instead
-    # error should clarify that
-    pass
+@pytest.mark.messagebroker.with_args(RedisBroker)
+@pytest.mark.resultbackend.with_args(RedisResultBackend)
+def test_successful_when_message_broker_quantity_is_1(message_broker, result_backend):
+    print(message_broker.url)
