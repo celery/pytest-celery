@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from testcontainers.redis import RedisContainer
 
 from pytest_celery.test_services.mixins import RedisTestServiceMixin
