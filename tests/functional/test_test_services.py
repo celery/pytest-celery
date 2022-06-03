@@ -1,7 +1,7 @@
 import docker
 import pytest
 
-from pytest_celery.test_services.message_brokers import RabbitMQBroker, RedisBroker, KafkaBroker
+from pytest_celery.test_services.message_brokers import KafkaBroker, RabbitMQBroker, RedisBroker
 from pytest_celery.test_services.result_backends import RabbitMQResultBackend, RedisResultBackend
 
 
