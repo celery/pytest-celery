@@ -10,7 +10,7 @@ def test_session_id(faker):
     return faker.uuid4()
 
 
-@pytest.fixture(params=(RedisBroker, RedisResultBackend, RabbitMQBroker, RabbitMQResultBackend, KafkaBroker))
+@pytest.fixture(params=(RedisBroker, RedisResultBackend, RabbitMQBroker, RabbitMQResultBackend))
 def test_service(test_session_id, request):
     return request.param(test_session_id)
 
