@@ -2,11 +2,11 @@ name: Tests
 
 on:
   push:
+    branches: ['master']
   pull_request:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
