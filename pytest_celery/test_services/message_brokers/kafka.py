@@ -2,8 +2,8 @@ from kafka import KafkaConsumer
 from kafka.errors import KafkaError
 from rfc3986.builder import URIBuilder
 from testcontainers.kafka import KafkaContainer
-from pytest_celery.compat import cached_property
 
+from pytest_celery.compat import cached_property
 from pytest_celery.test_services.message_brokers import MessageBroker
 
 
@@ -27,14 +27,14 @@ class KafkaBroker(MessageBroker):
 
     def ping(self):
         bootstrap_server = self._container.get_bootstrap_server()
-        consumer = KafkaConsumer(group_id='test', bootstrap_servers=[bootstrap_server])
+        consumer = KafkaConsumer(group_id="test", bootstrap_servers=[bootstrap_server])
         if not consumer.topics():
             raise KafkaError("Unable to connect with kafka container!")
 
     @cached_property
     def client(self) -> KafkaConsumer:
         bootstrap_server = self._container.get_bootstrap_server()
-        consumer = KafkaConsumer(group_id='test', bootstrap_servers=[bootstrap_server])
+        consumer = KafkaConsumer(group_id="test", bootstrap_servers=[bootstrap_server])
         return consumer
 
     def __repr__(self):
