@@ -20,8 +20,9 @@ class RedisTestServiceMixin:
         location = connection_kwargs.get("db", None)
 
         querystring = {
-            key: connection_kwargs[key] for key in URL_QUERY_ARGUMENT_PARSERS.keys() if
-            key in connection_kwargs and connection_kwargs[key] is not None
+            key: connection_kwargs[key]
+            for key in URL_QUERY_ARGUMENT_PARSERS.keys()
+            if key in connection_kwargs and connection_kwargs[key] is not None
         }
         location = querystring.pop("db", location)
 

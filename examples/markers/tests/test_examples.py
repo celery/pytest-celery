@@ -1,8 +1,8 @@
 import pytest
 
-from pytest_celery.test_services.message_brokers import RedisBroker, RabbitMQBroker
-from pytest_celery.test_services.result_backends import RedisResultBackend, RabbitMQResultBackend
 from pytest_celery.contrib.testing.tasks import ping
+from pytest_celery.test_services.message_brokers import RabbitMQBroker, RedisBroker
+from pytest_celery.test_services.result_backends import RabbitMQResultBackend, RedisResultBackend
 
 TIMEOUT = 60
 

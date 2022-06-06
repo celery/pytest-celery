@@ -1,5 +1,5 @@
-from celery import Celery
 import pytest
+from celery import Celery
 
 from pytest_celery.contrib.testing.manager import Manager
 
@@ -19,13 +19,13 @@ def result_backend(request):
 @pytest.fixture
 def celery_config(message_broker, result_backend):
     return {
-        'broker_url': message_broker.url,
-        'result_backend': result_backend.url,
-        'cassandra_servers': ['localhost'],
-        'cassandra_keyspace': 'tests',
-        'cassandra_table': 'tests',
-        'cassandra_read_consistency': 'ONE',
-        'cassandra_write_consistency': 'ONE'
+        "broker_url": message_broker.url,
+        "result_backend": result_backend.url,
+        "cassandra_servers": ["localhost"],
+        "cassandra_keyspace": "tests",
+        "cassandra_table": "tests",
+        "cassandra_read_consistency": "ONE",
+        "cassandra_write_consistency": "ONE",
     }
 
 
@@ -34,9 +34,9 @@ def celery_enable_logging():
     return True
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def celery_worker_pool():
-    return 'prefork'
+    return "prefork"
 
 
 @pytest.fixture
