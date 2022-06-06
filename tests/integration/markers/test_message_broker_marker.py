@@ -17,4 +17,4 @@ def test_successful_simple_task(pytester, subtests):
     result = pytester.runpytest("-k", "test_simple_task")
 
     with subtests.test("outcome"):
-        result.assert_outcomes(passed=1)
+        result.assert_outcomes(passed=4)
