@@ -10,7 +10,6 @@ from pytest_celery.contrib.pytest import (
 )
 from pytest_celery.fixtures import app, celery_config, celery_enable_logging, manager, message_broker, result_backend
 
-
 __all__ = (
     "message_broker",
     "result_backend",
