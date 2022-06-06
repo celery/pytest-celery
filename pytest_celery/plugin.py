@@ -7,6 +7,7 @@ from pytest_celery.contrib.pytest import (
     celery_worker,
     celery_worker_parameters,
     celery_worker_pool,
+    use_celery_app_trap,
 )
 from pytest_celery.fixtures import app, celery_config, celery_enable_logging, manager, message_broker, result_backend
 
@@ -24,6 +25,7 @@ __all__ = (
     "celery_includes",
     "celery_worker_pool",
     "celery_worker_parameters",
+    "use_celery_app_trap",
 )
 
 
