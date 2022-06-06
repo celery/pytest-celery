@@ -51,11 +51,13 @@ def pytest_generate_tests(metafunc):
     for message_broker_marker in metafunc.definition.iter_markers("messagebroker"):
         for result_backend_marker in metafunc.definition.iter_markers("resultbackend"):
             test_session_id = uuid.uuid4()
-            message_broker = message_broker_marker.args[0](test_session_id, *message_broker_marker.args[1:],
-                                                           **message_broker_marker.kwargs)
+            message_broker = message_broker_marker.args[0](
+                test_session_id, *message_broker_marker.args[1:], **message_broker_marker.kwargs
+            )
 
-            result_backend = result_backend_marker.args[0](test_session_id, *result_backend_marker.args[1:],
-                                                           **result_backend_marker.kwargs)
+            result_backend = result_backend_marker.args[0](
+                test_session_id, *result_backend_marker.args[1:], **result_backend_marker.kwargs
+            )
             ids.append((message_broker.__class__.__name__, result_backend.__class__.__name__))
             argvalues.append((message_broker, result_backend))
 
