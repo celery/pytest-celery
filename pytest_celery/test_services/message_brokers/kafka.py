@@ -34,7 +34,7 @@ class KafkaBroker(MessageBroker):
     @cached_property
     def client(self) -> KafkaConsumer:
         bootstrap_server = self._container.get_bootstrap_server()
-        consumer = KafkaConsumer(group_id="test", bootstrap_servers=[bootstrap_server])
+        consumer = KafkaConsumer(group_id=self.test_session_id, bootstrap_servers=[bootstrap_server])
         return consumer
 
     def __repr__(self):
