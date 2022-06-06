@@ -12,7 +12,7 @@ def test_kafka_url(test_session_id, subtests):
         service = KafkaBroker(test_session_id, container=container)
         url = "confluentkafka://localhost:9093"
 
-        with subtests.test("RabbitMQ Broker url"):
+        with subtests.test("Kafka Broker url"):
             assert service.url == url
 
         with subtests.test("Debug representation includes original url in full"):
