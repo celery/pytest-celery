@@ -60,6 +60,7 @@ def use_celery_app_trap():
     """
     return False
 
+
 @pytest.fixture(scope='session')
 def celery_enable_logging():
     # type: () -> bool

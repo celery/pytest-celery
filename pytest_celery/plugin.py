@@ -7,10 +7,9 @@ from pytest_celery.contrib.pytest import (
     celery_worker,
     celery_worker_parameters,
     celery_worker_pool,
-    use_celery_app_trap,
 )
 from pytest_celery.fixtures import app, celery_config, celery_enable_logging, manager, message_broker, result_backend
-from pytest_celery.test_services.message_brokers import MessageBroker
+
 
 __all__ = (
     "message_broker",
@@ -27,8 +26,6 @@ __all__ = (
     "celery_worker_pool",
     "celery_worker_parameters",
 )
-
-from pytest_celery.test_services.result_backends import ResultBackend
 
 
 def pytest_configure(config):
