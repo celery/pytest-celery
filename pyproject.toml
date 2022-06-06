@@ -75,8 +75,8 @@ pytest-subtests = "^0.8.0"
 [tool.poetry.plugins.pytest11]
 celery = "pytest_celery.plugin"
 
-#[tool.pytest.ini_options]
-#addopts = "-p no:celery --runpytest subprocess"
-#minversion = "6.0"
-#pytester_example_dir = "examples"
-#xfail_strict = true
+[tool.pytest.ini_options]
+addopts = "-p no:celery --runpytest subprocess"
+minversion = "6.0"
+pytester_example_dir = "examples"
+xfail_strict = true
