@@ -48,52 +48,18 @@ def pytest_configure(config):
     )
 
 
-def parametrize_message_broker(metafunc):
-    message_broker_markers = [marker.args[0] for marker in metafunc.definition.iter_markers("messagebroker")]
-
-    if not message_broker_markers:
-        return
-
-    test_session_id = uuid.uuid4()
-    message_brokers: list[MessageBroker] = [
-        marker.args[0](test_session_id, *marker.args[1:], **marker.kwargs)
-        for marker in metafunc.definition.iter_markers("messagebroker")
-    ]
-
-    message_brokers_ids = [result_backend.__class__.__name__ for result_backend in message_brokers]
-
-    metafunc.parametrize("message_broker", argvalues=message_brokers, indirect=True, ids=message_brokers_ids)
-
-
-def parametrize_result_backend(metafunc):
-    result_backend_markers = [marker.args[0] for marker in metafunc.definition.iter_markers("resultbackend")]
-
-    if not result_backend_markers:
-        return
-
-    test_session_id = uuid.uuid4()
-    result_backends: list[ResultBackend] = [
-        marker.args[0](test_session_id, *marker.args[1:], **marker.kwargs)
-        for marker in metafunc.definition.iter_markers("resultbackend")
-    ]
-
-    result_backends_ids = [result_backend.__class__.__name__ for result_backend in result_backends]
-
-    metafunc.parametrize("result_backend", argvalues=result_backends, indirect=True, ids=result_backends_ids)
-
-
-# def parametrize_celery(metafunc):
-#     celery_markers = [marker.args for marker in metafunc.definition.iter_markers("celery")]
-#     if len(celery_markers) == 0:
-#         return
-#
-#     argvalues = celery_markers[0]
-#     if len(argvalues) == 0:
-#         argvalues = {"main": "celery.tests"}
-#     metafunc.parametrize("app", argvalues=[argvalues], indirect=True)
-
-
 def pytest_generate_tests(metafunc):
-    parametrize_message_broker(metafunc)
-    parametrize_result_backend(metafunc)
-    # parametrize_celery(metafunc)
+    argvalues = []
+    ids = []
+    for message_broker_marker in metafunc.definition.iter_markers("messagebroker"):
+        for result_backend_marker in metafunc.definition.iter_markers("resultbackend"):
+            test_session_id = uuid.uuid4()
+            message_broker = message_broker_marker.args[0](test_session_id, *message_broker_marker.args[1:],
+                                                           **message_broker_marker.kwargs)
+
+            result_backend = result_backend_marker.args[0](test_session_id, *result_backend_marker.args[1:],
+                                                           **result_backend_marker.kwargs)
+            ids.append((message_broker.__class__.__name__, result_backend.__class__.__name__))
+            argvalues.append((message_broker, result_backend))
+
+    metafunc.parametrize("message_broker,result_backend", argvalues=argvalues, indirect=True)

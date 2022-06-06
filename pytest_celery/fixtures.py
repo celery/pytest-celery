@@ -1,5 +1,4 @@
 import pytest
-from celery import Celery
 
 from pytest_celery.contrib.testing.manager import Manager
 
