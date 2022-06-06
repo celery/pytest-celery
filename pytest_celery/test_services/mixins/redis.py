@@ -20,8 +20,10 @@ class RedisTestServiceMixin:
         location = connection_kwargs.get("db", None)
 
         querystring = {
-            key: connection_kwargs[key] for key in URL_QUERY_ARGUMENT_PARSERS.keys() if key in connection_kwargs
+            key: connection_kwargs[key] for key in URL_QUERY_ARGUMENT_PARSERS.keys() if
+            key in connection_kwargs and connection_kwargs[key] is not None
         }
+        location = querystring.pop("db", location)
 
         uri_builder = URIBuilder().add_scheme("redis")
         if username or password:
@@ -30,8 +32,8 @@ class RedisTestServiceMixin:
             uri_builder = uri_builder.add_host(host)
         if port:
             uri_builder = uri_builder.add_port(port)
-        # if location:
-        #     uri_builder = uri_builder.add_path(location)
+        if location:
+            uri_builder = uri_builder.add_path(location)
         # if querystring:
         #     uri_builder = uri_builder.add_query_from(querystring)
 
