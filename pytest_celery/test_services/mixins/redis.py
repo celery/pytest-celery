@@ -30,10 +30,10 @@ class RedisTestServiceMixin:
             uri_builder = uri_builder.add_host(host)
         if port:
             uri_builder = uri_builder.add_port(port)
-        if location:
-            uri_builder = uri_builder.add_path(location)
-        if querystring:
-            uri_builder = uri_builder.add_query_from(querystring)
+        # if location:
+        #     uri_builder = uri_builder.add_path(location)
+        # if querystring:
+        #     uri_builder = uri_builder.add_query_from(querystring)
 
         return uri_builder.geturl()
 

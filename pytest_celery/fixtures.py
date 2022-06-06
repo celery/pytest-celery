@@ -1,3 +1,4 @@
+from celery import Celery
 import pytest
 
 
@@ -11,3 +12,10 @@ def message_broker(request):
 def result_backend(request):
     with request.param as backend:
         yield backend
+
+
+@pytest.fixture
+def app(request, message_broker, result_backend):
+    app = Celery(broker=message_broker.url,
+                 backend=result_backend.url, **request.param)
+    yield app

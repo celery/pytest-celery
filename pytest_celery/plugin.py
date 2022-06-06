@@ -1,9 +1,9 @@
 import uuid
 
-from pytest_celery.fixtures import message_broker, result_backend
+from pytest_celery.fixtures import message_broker, result_backend, app
 from pytest_celery.test_services.message_brokers import MessageBroker
 
-__all__ = ("message_broker", "result_backend")
+__all__ = ("message_broker", "result_backend", "app")
 
 from pytest_celery.test_services.result_backends import ResultBackend
 
@@ -18,6 +18,10 @@ def pytest_configure(config):
         "markers",
         "resultbackend: Define one or more message backends for Celery to use. The "
         "test will run in parallel on each backend.",
+    )
+    config.addinivalue_line(
+        "markers",
+        "celery: Define celery marker. The test will use passed backend and passed broker.",
     )
 
 
@@ -51,6 +55,18 @@ def parametrize_result_backend(metafunc):
     metafunc.parametrize("result_backend", argvalues=result_backends, indirect=True)
 
 
+def parametrize_celery(metafunc):
+    celery_markers = [marker.args for marker in metafunc.definition.iter_markers("celery")]
+    if len(celery_markers) == 0:
+        return
+
+    argvalues = celery_markers[0]
+    if len(argvalues) == 0:
+        argvalues = {"main": "celery.tests"}
+    metafunc.parametrize("app", argvalues=[argvalues], indirect=True)
+
+
 def pytest_generate_tests(metafunc):
     parametrize_message_broker(metafunc)
     parametrize_result_backend(metafunc)
+    parametrize_celery(metafunc)
