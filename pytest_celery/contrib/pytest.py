@@ -7,6 +7,7 @@ import pytest
 
 if TYPE_CHECKING:
     from celery import Celery
+
     from pytest_celery.contrib.testing.worker import WorkController
 else:
     Celery = WorkController = object
