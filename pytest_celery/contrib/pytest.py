@@ -7,8 +7,7 @@ import pytest
 
 if TYPE_CHECKING:
     from celery import Celery
-
-    from ..worker import WorkController
+    from pytest_celery.contrib.testing.worker import WorkController
 else:
     Celery = WorkController = object
 
@@ -32,7 +31,7 @@ def _create_app(enable_logging=False, use_trap=False, parameters=None, **config)
     # type: (Any, Any, Any, **Any) -> Celery
     """Utility context used to setup Celery app for pytest fixtures."""
 
-    from .testing.app import TestApp, setup_default_app
+    from pytest_celery.contrib.testing.app import TestApp, setup_default_app
 
     parameters = {} if not parameters else parameters
     test_app = TestApp(set_as_current=False, enable_logging=enable_logging, config=config, **parameters)
@@ -48,13 +47,6 @@ def use_celery_app_trap():
     The app trap raises an exception whenever something attempts
     to use the current or default apps.
     """
-    return False
-
-
-@pytest.fixture(scope="session")
-def celery_enable_logging():
-    # type: () -> bool
-    """You can override this fixture to enable logging."""
     return False
 
 
@@ -80,18 +72,7 @@ def celery_worker_pool():
     return "solo"
 
 
-@pytest.fixture(scope="session")
-def celery_config():
-    # type: () -> Mapping[str, Any]
-    """Redefine this fixture to configure the test Celery app.
-
-    The config returned by your fixture will then be used
-    to configure the :func:`celery_app` fixture.
-    """
-    return {}
-
-
-@pytest.fixture(scope="session")
+@pytest.fixture
 def celery_parameters():
     # type: () -> Mapping[str, Any]
     """Redefine this fixture to change the init parameters of test Celery app.
@@ -124,12 +105,6 @@ def celery_app(request, celery_config, celery_parameters, celery_enable_logging,
         enable_logging=celery_enable_logging, use_trap=use_celery_app_trap, parameters=celery_parameters, **config
     ) as app:
         yield app
-
-
-@pytest.fixture(scope="session")
-def celery_class_tasks():
-    """Redefine this fixture to register tasks with the test Celery app."""
-    return []
 
 
 @pytest.fixture()
