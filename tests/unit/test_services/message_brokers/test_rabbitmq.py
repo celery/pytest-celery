@@ -12,7 +12,7 @@ from pytest_celery.test_services.result_backends import RabbitMQResultBackend
     [
         (
             RabbitMQBroker,
-            "pyampq://guest:guest@localhost:5672",
+            "pyamqp://guest:guest@localhost:5672",
             "RabbitMQ Broker <pyampq://guest:guest@localhost:5672>",
         ),
         (
