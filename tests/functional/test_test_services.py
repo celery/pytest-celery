@@ -1,17 +1,19 @@
+import uuid
+
 import docker
 import pytest
 
-from pytest_celery.test_services.message_brokers import RabbitMQBroker, RedisBroker
+from pytest_celery.test_services.message_brokers import KafkaBroker, RabbitMQBroker, RedisBroker
 from pytest_celery.test_services.result_backends import RabbitMQResultBackend, RedisResultBackend
 
 
 @pytest.fixture
 def test_session_id(faker):
-    return faker.uuid4()
+    return uuid.uuid4()
 
 
-@pytest.fixture(params=(RedisBroker, RedisResultBackend, RabbitMQBroker, RabbitMQResultBackend))
-def test_service(test_session_id, request):
+@pytest.fixture(params=(RedisBroker, RedisResultBackend, RabbitMQBroker, RabbitMQResultBackend, KafkaBroker))
+def test_service(request, test_session_id):
     return request.param(test_session_id)
 
 
