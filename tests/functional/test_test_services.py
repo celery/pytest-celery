@@ -31,6 +31,7 @@ def get_docker_container_id(test_service):
     return test_service._container.get_wrapped_container().id
 
 
+@pytest.mark.skip
 def test_test_service_basic_functionality(test_service, test_service_name, docker_client, subtests):
     test_service.start()
     docker_container_id = get_docker_container_id(test_service)
@@ -49,6 +50,7 @@ def test_test_service_basic_functionality(test_service, test_service_name, docke
         assert len(containers) == 0
 
 
+@pytest.mark.skip
 def test_test_service_basic_functionality_context_manager(test_service, test_service_name, docker_client, subtests):
     with test_service:
         docker_container_id = get_docker_container_id(test_service)

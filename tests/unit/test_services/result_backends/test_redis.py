@@ -24,6 +24,7 @@ def test_redis_backend_url(container, test_session_id, url, subtests):
         assert repr(rb) == f"Redis Result Backend <{url}>"
 
 
+@pytest.mark.skip
 @pytest.mark.parametrize("url", ["redis:", "redis://"])
 def test_redis_backend_url_only_with_schema(container, test_session_id, url):
     container.get_client.return_value = Redis.from_url(url)
