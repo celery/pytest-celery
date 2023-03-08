@@ -1,0 +1,59 @@
+"""
+pytest-celery a shim pytest plugin to enable celery.contrib.pytest
+"""
+
+# flake8: noqa
+
+from pytest_celery.defaults import *
+
+__version__ = "1.0.0a1"
+
+from pytest_celery.api import CeleryBackendCluster
+from pytest_celery.api import CeleryBrokerCluster
+from pytest_celery.api import CeleryTestBackend
+from pytest_celery.api import CeleryTestBroker
+from pytest_celery.api import CeleryTestCluster
+from pytest_celery.api import CeleryTestContainer
+from pytest_celery.api import CeleryTestNode
+from pytest_celery.api import CeleryTestSetup
+from pytest_celery.components import RabbitMQContainer
+from pytest_celery.components import RabbitMQTestBroker
+from pytest_celery.components import RedisContainer
+from pytest_celery.components import RedisTestBackend
+from pytest_celery.components import RedisTestBroker
+from pytest_celery.components import celery_rabbitmq_broker
+from pytest_celery.components import celery_redis_backend
+from pytest_celery.components import celery_redis_broker
+from pytest_celery.components import rabbitmq_function_broker
+from pytest_celery.components import rabbitmq_function_broker_env
+from pytest_celery.components import rabbitmq_function_broker_image
+from pytest_celery.components import rabbitmq_function_broker_ports
+from pytest_celery.components import rabbitmq_session_broker
+from pytest_celery.components import rabbitmq_session_broker_env
+from pytest_celery.components import rabbitmq_session_broker_image
+from pytest_celery.components import rabbitmq_session_broker_ports
+from pytest_celery.components import redis_function_backend
+from pytest_celery.components import redis_function_backend_env
+from pytest_celery.components import redis_function_backend_image
+from pytest_celery.components import redis_function_backend_ports
+from pytest_celery.components import redis_function_broker
+from pytest_celery.components import redis_function_broker_env
+from pytest_celery.components import redis_function_broker_image
+from pytest_celery.components import redis_function_broker_ports
+from pytest_celery.components import redis_session_backend
+from pytest_celery.components import redis_session_backend_env
+from pytest_celery.components import redis_session_backend_image
+from pytest_celery.components import redis_session_backend_ports
+from pytest_celery.components import redis_session_broker
+from pytest_celery.components import redis_session_broker_env
+from pytest_celery.components import redis_session_broker_image
+from pytest_celery.components import redis_session_broker_ports
+from pytest_celery.fixtures import celery_backend
+from pytest_celery.fixtures import celery_backend_cluster
+from pytest_celery.fixtures import celery_broker
+from pytest_celery.fixtures import celery_broker_cluster
+from pytest_celery.fixtures import celery_session_backend
+from pytest_celery.fixtures import celery_session_backend_cluster
+from pytest_celery.fixtures import celery_session_broker
+from pytest_celery.fixtures import celery_session_broker_cluster
+from pytest_celery.fixtures import celery_setup

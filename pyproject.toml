@@ -1,16 +1,148 @@
 [build-system]
-requires = ["flit_core >=2,<4"]
-build-backend = "flit_core.buildapi"
+requires = ["poetry-core>=1.5.1"]
+build-backend = "poetry.core.masonry.api"
 
-[tool.flit.metadata]
-module = "pytest_celery"
-dist-name = "pytest-celery"
-author = "Thomas Grainger"
-author-email = "pytest-celery@graingert.co.uk"
-home-page = "https://github.com/graingert/pytest-celery"
-license = "BSD"
+[tool.black]
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.pytest_cache
+  | \.tox
+  | \.venv
+  | \.idea
+  | \.vscode
+  | \.github
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+include = '\.pyi?$'
+line-length = 120
+
+[tool.autoflake]
+check = true
+
+[tool.isort]
+line_length = 120
+multi_line_output = 7
+profile = "black"
+force_single_line = true
+
+[tool.flake8]
+max-line-length = 120
+
+[tool.poetry]
+authors = [
+    "Thomas Grainger <pytest-celery@graingert.co.uk>",
+    "Omer Katz <omer.katz@omerkatz.com>",
+    "Tomer Nosrati <tomer.nosrati@kcg.tech>"
+]
 classifiers = ["License :: OSI Approved :: BSD License"]
-requires = ["celery >= 4.4.0"]
+description = "Pytest plugin for Celery"
+homepage = "https://github.com/celery/pytest-celery"
+license = "BSD"
+name = "pytest-celery"
+version = "1.0.0a1"
 
-[tool.flit.entrypoints.pytest11]
-celery = "celery.contrib.pytest"
+[tool.poetry.dependencies]
+python = ">= 3.7,<4.0"
+celery = "^5.3.0b"
+redis = { version = "^4.4.2", extras = ["hiredis"] }
+
+[tool.poetry.group.dev]
+
+[tool.poetry.group.dev.dependencies]
+black = "*"
+toml-sort = "^0.22.1"
+autoflake = [
+    {version = "^1.7.0", python = "<3.8.1"},
+    {version = "^2.0.0", python = ">=3.8.1,<4.0"},
+]
+isort = [
+    {version = "^5.11.0", python = "<3.8.0"},
+    {version = "^5.12.0", python = ">=3.8.0,<4.0"},
+]
+flake8 = [
+    {version = "^5.0.0", python = "<3.8.1"},
+    {version = "^6.0.0", python = ">=3.8.1,<4.0"},
+]
+pre-commit = [
+    {version = "^2.21.0", python = "<3.8.0"},
+    {version = "^3.1.0", python = ">=3.8.0,<4.0"},
+]
+mypy = "^1.0.1"
+
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.2.0"
+pytest-docker-tools = "^3.1.3"
+pytest-sugar = { version = "^0.9.6", python = ">=3.8,<4.0" }
+pytest-cov = "^4.0.0"
+pytest-xdist = "^3.1.0"
+pytest-subtests = "^0.10.0"
+coverage = "^7.0.0"
+
+[tool.poetry.group.ci]
+optional = true
+
+[tool.poetry.group.ci.dependencies]
+tox = [
+    {version = "^3.0.0", python = "<3.8.1"},
+    {version = "^4.0.0", python = ">=3.8.1,<4.0"},
+]
+
+[tool.poetry.plugins.pytest11]
+celery = "pytest_celery.plugin"
+
+# [tool.pytest.ini_options]
+# addopts = "-p no:celery --runpytest subprocess"
+# pytester_example_dir = "examples"
+
+[tool.pytest.ini_options]
+addopts = [
+    "--verbose",
+    "--capture=no",
+    "--cov=src",
+    "--cov-report=xml",
+    "--cov-report",
+    "term"
+]
+minversion = "7.0"
+testpaths = "tests"
+python_classes = "test_*"
+xfail_strict=true
+
+[tool.mypy]
+warn_unused_configs = true
+strict = false
+follow_imports = "skip"
+show_error_codes = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+files = [
+    "src",
+]
+
+[tool.coverage.run]
+branch = true
+cover_pylib = false
+source = ["src"]
+omit = ["tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "except ImportError:"
+]
+omit = [
+    "*/python?.?/*",
+    "*/site-packages/*",
+    "*/pypy/*",
+]
