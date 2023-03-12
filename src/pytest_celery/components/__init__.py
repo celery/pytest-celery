@@ -30,5 +30,5 @@ from pytest_celery.components.broker import redis_session_broker
 from pytest_celery.components.broker import redis_session_broker_env
 from pytest_celery.components.broker import redis_session_broker_image
 from pytest_celery.components.broker import redis_session_broker_ports
-from pytest_celery.components.container import RabbitMQContainer
-from pytest_celery.components.container import RedisContainer
+from pytest_celery.components.containers import RabbitMQContainer
+from pytest_celery.components.containers import RedisContainer

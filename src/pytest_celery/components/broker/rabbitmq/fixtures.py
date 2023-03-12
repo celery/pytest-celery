@@ -4,7 +4,7 @@ from pytest_docker_tools import fxtr
 
 from pytest_celery import defaults
 from pytest_celery.components.broker.rabbitmq.api import RabbitMQTestBroker
-from pytest_celery.components.container.rabbitmq import RabbitMQContainer
+from pytest_celery.components.containers.rabbitmq import RabbitMQContainer
 
 
 @pytest.fixture(params=[defaults.CELERY_RABBITMQ_BROKER])
@@ -17,6 +17,7 @@ rabbitmq_function_broker = container(
     ports=fxtr("rabbitmq_function_broker_ports"),
     environment=fxtr("rabbitmq_function_broker_env"),
     wrapper_class=RabbitMQContainer,
+    timeout=defaults.RABBITMQ_CONTAINER_TIMEOUT,
 )
 
 
@@ -41,6 +42,7 @@ rabbitmq_session_broker = container(
     ports=fxtr("rabbitmq_session_broker_ports"),
     environment=fxtr("rabbitmq_session_broker_env"),
     wrapper_class=RabbitMQContainer,
+    timeout=defaults.RABBITMQ_CONTAINER_TIMEOUT,
 )
 
 
