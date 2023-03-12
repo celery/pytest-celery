@@ -1,3 +1,5 @@
+from itertools import count
+
 import pytest
 from pytest_docker_tools import container
 from pytest_docker_tools import fxtr
@@ -9,7 +11,6 @@ from pytest_celery import RabbitMQContainer
 from pytest_celery import RedisContainer
 
 main_redis_backend = container(
-    name="main_redis_backend",
     image="{redis_function_backend_image}",
     ports=fxtr("redis_function_backend_ports"),
     environment=fxtr("redis_function_backend_env"),
@@ -17,7 +18,6 @@ main_redis_backend = container(
 )
 
 alt_redis_backend = container(
-    name="alt_redis_backend",
     image="{alt_redis_backend_image}",
     ports=fxtr("alt_redis_backend_ports"),
     environment=fxtr("alt_redis_backend_env"),
@@ -41,7 +41,6 @@ def alt_redis_backend_ports(redis_function_backend_ports):
 
 
 main_redis_broker = container(
-    name="main_redis_broker",
     image="{redis_function_broker_image}",
     ports=fxtr("redis_function_broker_ports"),
     environment=fxtr("redis_function_broker_env"),
@@ -49,7 +48,6 @@ main_redis_broker = container(
 )
 
 main_rabbitmq_broker = container(
-    name="main_rabbitmq_broker",
     image="{rabbitmq_function_broker_image}",
     ports=fxtr("rabbitmq_function_broker_ports"),
     environment=fxtr("rabbitmq_function_broker_env"),
@@ -57,7 +55,6 @@ main_rabbitmq_broker = container(
 )
 
 alt_rabbitmq_broker = container(
-    name="alt_rabbitmq_broker",
     image="{alt_rabbitmq_broker_image}",
     ports=fxtr("alt_rabbitmq_broker_ports"),
     environment=fxtr("alt_rabbitmq_broker_env"),
@@ -91,8 +88,13 @@ def my_broker_cluster(main_redis_broker, main_rabbitmq_broker, alt_rabbitmq_brok
 
 
 @pytest.fixture
-def celery_multi_setup(my_backend_cluster, my_broker_cluster):
+def my_custom_setup(my_backend_cluster, my_broker_cluster):
     setup = CeleryTestSetup(my_backend_cluster, my_broker_cluster)
-    while not setup.ready():
-        pass
-    return setup
+
+    for tries in count(1):
+        if tries > 3:
+            break
+        if setup.ready():
+            return setup
+
+    raise RuntimeError("Can't get setup to be ready")

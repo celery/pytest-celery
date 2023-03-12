@@ -1,5 +1,5 @@
 """
-pytest-celery a shim pytest plugin to enable celery.contrib.pytest
+TBD
 """
 
 

@@ -4,7 +4,7 @@ from pytest_docker_tools import fxtr
 
 from pytest_celery import defaults
 from pytest_celery.components.broker.redis.api import RedisTestBroker
-from pytest_celery.components.container.redis import RedisContainer
+from pytest_celery.components.containers.redis import RedisContainer
 
 
 @pytest.fixture(params=[defaults.CELERY_REDIS_BROKER])
