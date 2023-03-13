@@ -12,6 +12,4 @@ class CeleryBackendCluster(CeleryTestCluster):
         super().__init__(*backends)
 
     def _set_nodes(self, *nodes: Tuple[Union[CeleryTestNode, CeleryTestContainer]]) -> Tuple[CeleryTestNode]:
-        return tuple(
-            CeleryTestBackend(backend) if isinstance(backend, CeleryTestContainer) else backend for backend in nodes
-        )
+        return super()._set_nodes(*nodes, node_cls=CeleryTestBackend)

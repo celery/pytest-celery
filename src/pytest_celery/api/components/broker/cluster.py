@@ -12,6 +12,4 @@ class CeleryBrokerCluster(CeleryTestCluster):
         super().__init__(*brokers)
 
     def _set_nodes(self, *nodes: Tuple[Union[CeleryTestNode, CeleryTestContainer]]) -> Tuple[CeleryTestNode]:
-        return tuple(
-            CeleryTestBroker(broker) if isinstance(broker, CeleryTestContainer) else broker for broker in nodes
-        )
+        return super()._set_nodes(*nodes, node_cls=CeleryTestBroker)
