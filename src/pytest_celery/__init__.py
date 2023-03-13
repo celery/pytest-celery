@@ -56,4 +56,5 @@ from pytest_celery.fixtures import celery_session_backend
 from pytest_celery.fixtures import celery_session_backend_cluster
 from pytest_celery.fixtures import celery_session_broker
 from pytest_celery.fixtures import celery_session_broker_cluster
+from pytest_celery.fixtures import celery_session_setup
 from pytest_celery.fixtures import celery_setup

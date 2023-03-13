@@ -1,5 +1,3 @@
-from itertools import count
-
 import pytest
 from pytest_docker_tools import container
 from pytest_docker_tools import fxtr
@@ -90,11 +88,5 @@ def my_broker_cluster(main_redis_broker, main_rabbitmq_broker, alt_rabbitmq_brok
 @pytest.fixture
 def my_custom_setup(my_backend_cluster, my_broker_cluster):
     setup = CeleryTestSetup(my_backend_cluster, my_broker_cluster)
-
-    for tries in count(1):
-        if tries > 3:
-            break
-        if setup.ready():
-            return setup
-
-    raise RuntimeError("Can't get setup to be ready")
+    setup.ready()
+    return setup
