@@ -8,4 +8,5 @@ from pytest_celery.fixtures.broker import celery_broker
 from pytest_celery.fixtures.broker import celery_broker_cluster
 from pytest_celery.fixtures.broker import celery_session_broker
 from pytest_celery.fixtures.broker import celery_session_broker_cluster
+from pytest_celery.fixtures.setup import celery_session_setup
 from pytest_celery.fixtures.setup import celery_setup
