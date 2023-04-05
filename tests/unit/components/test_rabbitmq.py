@@ -1,4 +1,4 @@
-from pytest_celery.components.broker.rabbitmq.api import RabbitMQTestBroker
+from pytest_celery import RabbitMQTestBroker
 
 
 class test_rabbitmq_test_broker:
