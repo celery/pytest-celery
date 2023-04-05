@@ -1,4 +1,5 @@
 from typing import Tuple
+from typing import Type
 from typing import Union
 
 from pytest_celery.api.components.backend.node import CeleryTestBackend
@@ -11,5 +12,9 @@ class CeleryBackendCluster(CeleryTestCluster):
     def __init__(self, *backends: Tuple[Union[CeleryTestBackend, CeleryTestContainer]]) -> None:
         super().__init__(*backends)
 
-    def _set_nodes(self, *nodes: Tuple[Union[CeleryTestNode, CeleryTestContainer]]) -> Tuple[CeleryTestNode]:
-        return super()._set_nodes(*nodes, node_cls=CeleryTestBackend)
+    def _set_nodes(
+        self,
+        *nodes: Tuple[Union[CeleryTestNode, CeleryTestContainer]],
+        node_cls: Type[CeleryTestNode] = CeleryTestBackend,
+    ) -> Tuple[CeleryTestNode]:
+        return super()._set_nodes(*nodes, node_cls=node_cls)

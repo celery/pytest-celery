@@ -1,6 +1,6 @@
-from pytest_celery.api.components.cluster.base import CeleryTestCluster
-from pytest_celery.api.components.cluster.node import CeleryTestNode
-from pytest_celery.api.container import CeleryTestContainer
+from pytest_celery import CeleryTestCluster
+from pytest_celery import CeleryTestContainer
+from pytest_celery import CeleryTestNode
 
 
 class test_celery_test_node:

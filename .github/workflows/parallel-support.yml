@@ -1,0 +1,113 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: parallel-support
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "**.py"
+      - "**.txt"
+      - ".github/workflows/parallel-support.yml"
+      - "**.toml"
+  pull_request:
+    paths:
+      - "**.py"
+      - "**.txt"
+      - "**.toml"
+      - ".github/workflows/parallel-support.yml"
+
+permissions:
+  contents: read # to fetch code (actions/checkout)
+
+jobs:
+  xdist:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10"]
+        os: ["ubuntu-latest"]
+
+    steps:
+      - name: Fetch Docker Images
+        run: |
+          docker pull redis:latest
+          docker pull rabbitmq:latest
+          docker pull memcached:latest
+
+      - name: Install apt packages
+        if: startsWith(matrix.os, 'ubuntu-')
+        run: |
+          sudo apt update
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+          cache-dependency-path: '**/setup.py'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install tox-gh-actions
+
+      - name: Install Poetry
+        if: startsWith(matrix.os, 'ubuntu-')
+        uses: snok/install-poetry@v1.3.3
+
+      - name: Install tox
+        run: |
+          poetry install --with dev,test,ci
+
+      - name: Run tox for all environments in parallel
+        timeout-minutes: 240
+        run: |
+          tox -e xdist
+
+  # parallel:
+  #   runs-on: ${{ matrix.os }}
+
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       python-version: ["3.10"]
+  #       os: ["ubuntu-latest"]
+
+  #   steps:
+  #     - name: Fetch Docker Images
+  #       run: |
+  #         docker pull redis:latest
+  #         docker pull rabbitmq:latest
+  #         docker pull memcached:latest
+
+  #     - name: Install apt packages
+  #       if: startsWith(matrix.os, 'ubuntu-')
+  #       run: |
+  #         sudo apt update
+  #     - uses: actions/checkout@v3
+  #     - name: Set up Python ${{ matrix.python-version }}
+  #       uses: actions/setup-python@v4
+  #       with:
+  #         python-version: ${{ matrix.python-version }}
+  #         cache: 'pip'
+  #         cache-dependency-path: '**/setup.py'
+  #     - name: Install dependencies
+  #       run: |
+  #         python -m pip install --upgrade pip
+  #         python -m pip install tox-gh-actions
+
+  #     - name: Install Poetry
+  #       if: startsWith(matrix.os, 'ubuntu-')
+  #       uses: snok/install-poetry@v1.3.3
+
+  #     - name: Install tox
+  #       run: |
+  #         poetry install --with dev,test,ci
+
+  #     - name: Run tox for all environments in parallel
+  #       timeout-minutes: 240
+  #       run: |
+  #         tox -e parallel

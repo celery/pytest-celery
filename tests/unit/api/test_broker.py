@@ -1,6 +1,6 @@
-from pytest_celery.api.components.broker.cluster import CeleryBrokerCluster
-from pytest_celery.api.components.broker.node import CeleryTestBroker
-from pytest_celery.api.container import CeleryTestContainer
+from pytest_celery import CeleryBrokerCluster
+from pytest_celery import CeleryTestBroker
+from pytest_celery import CeleryTestContainer
 
 
 class test_celery_test_broker:

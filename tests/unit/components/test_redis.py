@@ -1,5 +1,5 @@
-from pytest_celery.components.backend.redis.api import RedisTestBackend
-from pytest_celery.components.broker.redis.api import RedisTestBroker
+from pytest_celery import RedisTestBackend
+from pytest_celery import RedisTestBroker
 
 
 class test_redis_test_backend:

@@ -1,4 +1,4 @@
-from pytest_celery.api.container import CeleryTestContainer
+from pytest_celery import CeleryTestContainer
 
 
 class UnitTestContainer(CeleryTestContainer):

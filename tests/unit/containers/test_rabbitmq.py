@@ -1,4 +1,4 @@
-from pytest_celery.components.containers.rabbitmq import RabbitMQContainer
+from pytest_celery import RabbitMQContainer
 
 
 class test_rabbitmq_container:

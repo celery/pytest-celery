@@ -1,4 +1,4 @@
-from pytest_celery.components.containers.redis import RedisContainer
+from pytest_celery import RedisContainer
 
 
 class test_redis_container:
