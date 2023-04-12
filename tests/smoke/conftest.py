@@ -1,19 +1,23 @@
 import pytest
 
-from pytest_celery import defaults
-from pytest_celery.api.components.worker.node import CeleryTestWorker
+from pytest_celery.api.components.worker.cluster import CeleryWorkerCluster
 from tests.common.celery4.fixtures import *  # noqa
 
-C5_C4_WORKERS = defaults.ALL_CELERY_WORKERS + ("celery4_test_worker",)
 
-
-@pytest.fixture(params=C5_C4_WORKERS)
-def celery_worker(request: pytest.FixtureRequest) -> CeleryTestWorker:
-    return request.getfixturevalue(request.param)
+@pytest.fixture(
+    # Each param item is a list of workers to be used in the cluster
+    params=[
+        ["celery_test_worker"],
+        ["celery4_test_worker"],
+        ["celery_test_worker", "celery4_test_worker"],
+    ]
+)
+def celery_worker_cluster(request: pytest.FixtureRequest) -> CeleryWorkerCluster:
+    return CeleryWorkerCluster(*[request.getfixturevalue(worker) for worker in request.param])
 
 
 @pytest.fixture
-def function_worker_tasks() -> set:
+def default_worker_tasks() -> set:
     from tests.common import tasks as common_tasks
     from tests.smoke import tasks as smoke_tasks
 

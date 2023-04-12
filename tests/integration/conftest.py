@@ -6,7 +6,7 @@ from pytest_celery.api.setup import CeleryTestSetup
 
 
 class IntegrationTestsSetup(CeleryTestSetup):
-    def ready(self, *args, **kwargs) -> bool:
+    def ready(self, *args: tuple, **kwargs: dict) -> bool:
         kwargs["ping"] = True
         return super().ready(*args, **kwargs)
 

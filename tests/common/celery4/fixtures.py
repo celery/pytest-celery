@@ -24,9 +24,9 @@ def celery4_test_worker(celery4_worker: CeleryWorkerContainer, celery_setup_app:
 
 celery4_worker = container(
     image="{celery4_worker_image.id}",
-    environment=fxtr("function_worker_env"),
+    environment=fxtr("default_worker_env"),
     network="{DEFAULT_NETWORK.name}",
-    volumes={"{function_worker_volume.name}": {"bind": "/app", "mode": "rw"}},
+    volumes={"{default_worker_volume.name}": {"bind": "/app", "mode": "rw"}},
     wrapper_class=CeleryWorkerContainer,
-    timeout=defaults.FUNCTION_WORKER_CONTAINER_TIMEOUT,
+    timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,
 )

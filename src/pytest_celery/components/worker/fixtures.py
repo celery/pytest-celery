@@ -13,63 +13,63 @@ from pytest_celery.containers.worker import CeleryWorkerContainer
 
 
 @pytest.fixture
-def celery_test_worker(function_worker: CeleryWorkerContainer, celery_setup_app: Celery) -> CeleryTestWorker:
+def celery_test_worker(default_worker: CeleryWorkerContainer, celery_setup_app: Celery) -> CeleryTestWorker:
     return CeleryTestWorker(
-        container=function_worker,
+        container=default_worker,
         app=celery_setup_app,
     )
 
 
 @pytest.fixture
-def function_worker_cls() -> Type[CeleryWorkerContainer]:
+def default_worker_cls() -> Type[CeleryWorkerContainer]:
     return CeleryWorkerContainer
 
 
 @pytest.fixture(scope="session")
-def function_worker_session_cls() -> Type[CeleryWorkerContainer]:
+def default_worker_session_cls() -> Type[CeleryWorkerContainer]:
     return CeleryWorkerContainer
 
 
-function_worker = container(
+default_worker = container(
     image="{celery_base_worker_image.id}",
-    environment=fxtr("function_worker_env"),
+    environment=fxtr("default_worker_env"),
     network="{DEFAULT_NETWORK.name}",
-    volumes={"{function_worker_volume.name}": {"bind": "/app", "mode": "rw"}},
+    volumes={"{default_worker_volume.name}": {"bind": "/app", "mode": "rw"}},
     wrapper_class=CeleryWorkerContainer,
-    timeout=defaults.FUNCTION_WORKER_CONTAINER_TIMEOUT,
+    timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,
 )
 
 celery_base_worker_image = build(
     path="src/pytest_celery/components/worker",
     tag="pytest-celery/components/worker:base",
     buildargs={
-        "CELERY_VERSION": fxtr("function_worker_celery_version"),
+        "CELERY_VERSION": fxtr("default_worker_celery_version"),
     },
 )
 
-function_worker_volume = volume(
-    initial_content=fxtr("function_worker_initial_content"),
+default_worker_volume = volume(
+    initial_content=fxtr("default_worker_initial_content"),
 )
 
 
 @pytest.fixture(scope="session")
-def function_worker_celery_version(function_worker_session_cls: Type[CeleryWorkerContainer]) -> str:
-    return function_worker_session_cls.version()
+def default_worker_celery_version(default_worker_session_cls: Type[CeleryWorkerContainer]) -> str:
+    return default_worker_session_cls.version()
 
 
 @pytest.fixture
-def function_worker_env(function_worker_cls: Type[CeleryWorkerContainer], celery_worker_config: dict) -> dict:
-    return function_worker_cls.env(celery_worker_config)
+def default_worker_env(default_worker_cls: Type[CeleryWorkerContainer], celery_worker_cluster_config: dict) -> dict:
+    return default_worker_cls.env(celery_worker_cluster_config)
 
 
 @pytest.fixture
-def function_worker_initial_content(
-    function_worker_cls: Type[CeleryWorkerContainer],
-    function_worker_tasks: set,
+def default_worker_initial_content(
+    default_worker_cls: Type[CeleryWorkerContainer],
+    default_worker_tasks: set,
 ) -> dict:
-    return function_worker_cls.initial_content(function_worker_tasks)
+    return default_worker_cls.initial_content(default_worker_tasks)
 
 
 @pytest.fixture
-def function_worker_tasks(function_worker_cls: Type[CeleryWorkerContainer]) -> set:
-    return function_worker_cls.tasks_modules()
+def default_worker_tasks(default_worker_cls: Type[CeleryWorkerContainer]) -> set:
+    return default_worker_cls.tasks_modules()

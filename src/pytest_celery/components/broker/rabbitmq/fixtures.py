@@ -10,19 +10,19 @@ from pytest_celery.containers.rabbitmq import RabbitMQContainer
 
 
 @pytest.fixture
-def celery_rabbitmq_broker(rabbitmq_function_broker: RabbitMQContainer) -> RabbitMQTestBroker:
-    return RabbitMQTestBroker(rabbitmq_function_broker)
+def celery_rabbitmq_broker(default_rabbitmq_broker: RabbitMQContainer) -> RabbitMQTestBroker:
+    return RabbitMQTestBroker(default_rabbitmq_broker)
 
 
 @pytest.fixture
-def rabbitmq_function_broker_cls() -> Type[RabbitMQContainer]:
+def default_rabbitmq_broker_cls() -> Type[RabbitMQContainer]:
     return RabbitMQContainer
 
 
-rabbitmq_function_broker = container(
-    image="{rabbitmq_function_broker_image}",
-    ports=fxtr("rabbitmq_function_broker_ports"),
-    environment=fxtr("rabbitmq_function_broker_env"),
+default_rabbitmq_broker = container(
+    image="{default_rabbitmq_broker_image}",
+    ports=fxtr("default_rabbitmq_broker_ports"),
+    environment=fxtr("default_rabbitmq_broker_env"),
     network="{DEFAULT_NETWORK.name}",
     wrapper_class=RabbitMQContainer,
     timeout=defaults.RABBITMQ_CONTAINER_TIMEOUT,
@@ -30,20 +30,20 @@ rabbitmq_function_broker = container(
 
 
 @pytest.fixture
-def rabbitmq_function_broker_env(rabbitmq_function_broker_cls: Type[RabbitMQContainer]) -> dict:
-    return rabbitmq_function_broker_cls.env()
+def default_rabbitmq_broker_env(default_rabbitmq_broker_cls: Type[RabbitMQContainer]) -> dict:
+    return default_rabbitmq_broker_cls.env()
 
 
 @pytest.fixture
-def rabbitmq_function_broker_image(rabbitmq_function_broker_cls: Type[RabbitMQContainer]) -> str:
-    return rabbitmq_function_broker_cls.image()
+def default_rabbitmq_broker_image(default_rabbitmq_broker_cls: Type[RabbitMQContainer]) -> str:
+    return default_rabbitmq_broker_cls.image()
 
 
 @pytest.fixture
-def rabbitmq_function_broker_ports(rabbitmq_function_broker_cls: Type[RabbitMQContainer]) -> dict:
-    return rabbitmq_function_broker_cls.ports()
+def default_rabbitmq_broker_ports(default_rabbitmq_broker_cls: Type[RabbitMQContainer]) -> dict:
+    return default_rabbitmq_broker_cls.ports()
 
 
 @pytest.fixture
-def rabbitmq_function_broker_celeryconfig(rabbitmq_function_broker: RabbitMQContainer) -> dict:
-    return {"broker_url": rabbitmq_function_broker.celeryconfig()["url"]}
+def default_rabbitmq_broker_celeryconfig(default_rabbitmq_broker: RabbitMQContainer) -> dict:
+    return {"broker_url": default_rabbitmq_broker.celeryconfig()["url"]}
