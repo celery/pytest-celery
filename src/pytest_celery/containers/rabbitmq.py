@@ -48,12 +48,12 @@ class RabbitMQContainer(CeleryTestContainer):
 
     @classmethod
     def env(cls) -> dict:
-        return defaults.RABBITMQ_FUNCTION_BROKER_ENV
+        return defaults.DEFAULT_RABBITMQ_BROKER_ENV
 
     @classmethod
     def image(cls) -> str:
-        return defaults.RABBITMQ_FUNCTION_BROKER_IMAGE
+        return defaults.DEFAULT_RABBITMQ_BROKER_IMAGE
 
     @classmethod
     def ports(cls) -> dict:
-        return defaults.RABBITMQ_FUNCTION_BROKER_PORTS
+        return defaults.DEFAULT_RABBITMQ_BROKER_PORTS

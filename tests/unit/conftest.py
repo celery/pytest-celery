@@ -41,7 +41,7 @@ celery_unit_worker_image = build(
     path="src/pytest_celery/components/worker",
     tag="pytest-celery/components/worker:unit",
     buildargs={
-        "CELERY_VERSION": fxtr("function_worker_celery_version"),
+        "CELERY_VERSION": fxtr("default_worker_celery_version"),
     },
 )
 
@@ -64,11 +64,11 @@ def worker_test_container_tasks() -> set:
 worker_test_container = container(
     image="{celery_unit_worker_image.id}",
     scope="session",
-    environment=defaults.FUNCTION_WORKER_ENV,
+    environment=defaults.DEFAULT_WORKER_ENV,
     network="{unit_tests_network.name}",
     volumes={"{worker_test_container_volume.name}": {"bind": "/app", "mode": "rw"}},
     wrapper_class=CeleryWorkerContainer,
-    timeout=defaults.FUNCTION_WORKER_CONTAINER_TIMEOUT,
+    timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,
 )
 
 

@@ -1,6 +1,6 @@
-# from __future__ import annotations
-
 from abc import abstractmethod
+from typing import Any
+from typing import Iterator
 from typing import Tuple
 from typing import Type
 from typing import Union
@@ -19,6 +19,15 @@ class CeleryTestCluster:
             raise TypeError("All nodes must be CeleryTestNode or CeleryTestContainer")
 
         self.nodes = nodes  # type: ignore
+
+    def __iter__(self) -> Iterator[CeleryTestNode]:
+        return iter(self.nodes)
+
+    def __getitem__(self, index: Any) -> CeleryTestNode:
+        return self.nodes[index]
+
+    def __len__(self) -> int:
+        return len(self.nodes)
 
     @property
     def nodes(self) -> Tuple[CeleryTestNode]:
@@ -45,4 +54,15 @@ class CeleryTestCluster:
         )  # type: ignore
 
     def ready(self) -> bool:
-        return all(node.ready() for node in self.nodes)
+        return all(node.ready() for node in self)
+
+    def config(self, *args: tuple, **kwargs: dict) -> dict:
+        config = [node.container.celeryconfig() for node in self]
+        return {
+            "urls": [c["url"] for c in config],
+            "local_urls": [c["local_url"] for c in config],
+        }
+
+    @classmethod
+    def default_config(cls) -> dict:
+        return {}

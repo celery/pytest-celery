@@ -10,29 +10,30 @@ class CeleryWorkerContainer(CeleryTestContainer):
 
     @classmethod
     def version(cls) -> str:
-        return defaults.FUNCTION_WORKER_VERSION
+        return defaults.DEFAULT_WORKER_VERSION
 
     @classmethod
-    def env(cls, celery_worker_config: dict) -> dict:
-        celery_broker_config = celery_worker_config["celery_broker_config"]
-        celery_backend_config = celery_worker_config["celery_backend_config"]
-        celery_worker_config = {
-            "CELERY_BROKER_URL": celery_broker_config["url"],
-            "CELERY_RESULT_BACKEND": celery_backend_config["url"],
-        }
-        return {**defaults.FUNCTION_WORKER_ENV, **celery_worker_config}
+    def env(cls, celery_worker_cluster_config: dict) -> dict:
+        celery_broker_cluster_config = celery_worker_cluster_config.get("celery_broker_cluster_config")
+        celery_backend_cluster_config = celery_worker_cluster_config.get("celery_backend_cluster_config")
+        env = {}
+        if celery_broker_cluster_config:
+            env["CELERY_BROKER_URL"] = ";".join(celery_broker_cluster_config["urls"])
+        if celery_backend_cluster_config:
+            env["CELERY_RESULT_BACKEND"] = ";".join(celery_backend_cluster_config["urls"])
+        return {**defaults.DEFAULT_WORKER_ENV, **env}
 
     @classmethod
-    def initial_content(cls, function_worker_tasks: set) -> dict:
+    def initial_content(cls, default_worker_tasks: set) -> dict:
         from pytest_celery.components.worker import app as app_module
         from pytest_celery.components.worker import common
 
-        function_worker_tasks.add(common)
+        default_worker_tasks.add(common)
 
         app_module_src = inspect.getsource(app_module)
         import_string = ""
 
-        for module in function_worker_tasks:
+        for module in default_worker_tasks:
             import_string += f"from {module.__name__} import *\n"
 
         app_module_src = app_module_src.format(import_string)
@@ -41,12 +42,12 @@ class CeleryWorkerContainer(CeleryTestContainer):
             "__init__.py": b"",
             "app.py": app_module_src.encode(),
         }
-        if function_worker_tasks:
-            function_worker_tasks_src = {
+        if default_worker_tasks:
+            default_worker_tasks_src = {
                 f"{module.__name__.replace('.', '/')}.py": inspect.getsource(module).encode()
-                for module in function_worker_tasks
+                for module in default_worker_tasks
             }
-            initial_content.update(function_worker_tasks_src)
+            initial_content.update(default_worker_tasks_src)
         else:
             print("No tasks found")
         return initial_content

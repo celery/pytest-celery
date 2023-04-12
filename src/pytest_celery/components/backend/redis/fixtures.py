@@ -10,19 +10,19 @@ from pytest_celery.containers.redis import RedisContainer
 
 
 @pytest.fixture
-def celery_redis_backend(redis_function_backend: RedisContainer) -> RedisTestBackend:
-    return RedisTestBackend(redis_function_backend)
+def celery_redis_backend(default_redis_backend: RedisContainer) -> RedisTestBackend:
+    return RedisTestBackend(default_redis_backend)
 
 
 @pytest.fixture
-def redis_function_backend_cls() -> Type[RedisContainer]:
+def default_redis_backend_cls() -> Type[RedisContainer]:
     return RedisContainer
 
 
-redis_function_backend = container(
-    image="{redis_function_backend_image}",
-    ports=fxtr("redis_function_backend_ports"),
-    environment=fxtr("redis_function_backend_env"),
+default_redis_backend = container(
+    image="{default_redis_backend_image}",
+    ports=fxtr("default_redis_backend_ports"),
+    environment=fxtr("default_redis_backend_env"),
     network="{DEFAULT_NETWORK.name}",
     wrapper_class=RedisContainer,
     timeout=defaults.REDIS_CONTAINER_TIMEOUT,
@@ -30,20 +30,20 @@ redis_function_backend = container(
 
 
 @pytest.fixture
-def redis_function_backend_env(redis_function_backend_cls: Type[RedisContainer]) -> dict:
-    return redis_function_backend_cls.env()
+def default_redis_backend_env(default_redis_backend_cls: Type[RedisContainer]) -> dict:
+    return default_redis_backend_cls.env()
 
 
 @pytest.fixture
-def redis_function_backend_image(redis_function_backend_cls: Type[RedisContainer]) -> str:
-    return redis_function_backend_cls.image()
+def default_redis_backend_image(default_redis_backend_cls: Type[RedisContainer]) -> str:
+    return default_redis_backend_cls.image()
 
 
 @pytest.fixture
-def redis_function_backend_ports(redis_function_backend_cls: Type[RedisContainer]) -> dict:
-    return redis_function_backend_cls.ports()
+def default_redis_backend_ports(default_redis_backend_cls: Type[RedisContainer]) -> dict:
+    return default_redis_backend_cls.ports()
 
 
 @pytest.fixture
-def redis_function_backend_celeryconfig(redis_function_backend: RedisContainer) -> dict:
-    return {"result_backend": redis_function_backend.celeryconfig()["url"]}
+def default_redis_backend_celeryconfig(default_redis_backend: RedisContainer) -> dict:
+    return {"result_backend": default_redis_backend.celeryconfig()["url"]}

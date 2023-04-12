@@ -6,7 +6,7 @@ from tests.common.test_setup import shared_celery_test_setup_suite
 
 
 @pytest.fixture
-def function_worker_tasks() -> set:
+def default_worker_tasks() -> set:
     from tests.common import tasks
 
     return {tasks}

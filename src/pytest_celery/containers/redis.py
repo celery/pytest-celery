@@ -51,12 +51,12 @@ class RedisContainer(CeleryTestContainer):
 
     @classmethod
     def env(cls) -> dict:
-        return defaults.REDIS_FUNCTION_BACKEND_ENV
+        return defaults.DEFAULT_REDIS_BACKEND_ENV
 
     @classmethod
     def image(cls) -> str:
-        return defaults.REDIS_FUNCTION_BACKEND_IMAGE
+        return defaults.DEFAULT_REDIS_BACKEND_IMAGE
 
     @classmethod
     def ports(cls) -> dict:
-        return defaults.REDIS_FUNCTION_BACKEND_PORTS
+        return defaults.DEFAULT_REDIS_BACKEND_PORTS

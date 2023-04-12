@@ -2,6 +2,7 @@ from typing import Tuple
 from typing import Type
 from typing import Union
 
+from pytest_celery import defaults
 from pytest_celery.api.components.broker.node import CeleryTestBroker
 from pytest_celery.api.components.cluster.base import CeleryTestCluster
 from pytest_celery.api.components.cluster.node import CeleryTestNode
@@ -18,3 +19,10 @@ class CeleryBrokerCluster(CeleryTestCluster):
         node_cls: Type[CeleryTestNode] = CeleryTestBroker,
     ) -> Tuple[CeleryTestNode]:
         return super()._set_nodes(*nodes, node_cls=node_cls)
+
+    @classmethod
+    def default_config(cls) -> dict:
+        return {
+            "urls": [defaults.WORKER_ENV["CELERY_BROKER_URL"]],
+            "local_urls": [defaults.WORKER_ENV["CELERY_BROKER_URL"]],
+        }

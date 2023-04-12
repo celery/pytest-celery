@@ -31,3 +31,10 @@ class CeleryTestNode:
             self.container,
             f"Can't get node to be ready (attempted {tries} times): '{self.container.name}'",
         )
+
+    def config(self, *args: tuple, **kwargs: dict) -> dict:
+        return self.container.celeryconfig()
+
+    @classmethod
+    def default_config(cls) -> dict:
+        return {}

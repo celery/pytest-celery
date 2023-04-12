@@ -21,3 +21,11 @@ def celery_worker_config(celery_broker_config: dict, celery_backend_config: dict
         "celery_broker_config": celery_broker_config,
         "celery_backend_config": celery_backend_config,
     }
+
+
+@pytest.fixture
+def celery_worker_cluster_config(celery_broker_cluster_config: dict, celery_backend_cluster_config: dict) -> dict:
+    return {
+        "celery_broker_cluster_config": celery_broker_cluster_config,
+        "celery_backend_cluster_config": celery_backend_cluster_config,
+    }
