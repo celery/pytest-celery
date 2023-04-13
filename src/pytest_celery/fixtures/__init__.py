@@ -1,5 +1,6 @@
 # flake8: noqa
 
+
 from pytest_celery.fixtures.backend import celery_backend
 from pytest_celery.fixtures.backend import celery_backend_cluster
 from pytest_celery.fixtures.backend import celery_backend_cluster_config

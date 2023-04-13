@@ -17,7 +17,12 @@ from pytest_celery.containers.redis import RedisContainer
 from pytest_celery.containers.worker import CeleryWorkerContainer
 from tests.unit.docker.api import UnitTestContainer
 
-unit_tests_network = network(scope="session")
+try:
+    unit_tests_network = network(scope="session")
+except Exception:
+    # This is a workaround for a bug in pytest-docker-tools
+    # that causes the network fixture to fail when running tests in parallel.
+    unit_tests_network = network(scope="session")
 
 unit_tests_image = build(
     path="tests/unit/docker",
