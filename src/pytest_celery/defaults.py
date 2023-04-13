@@ -11,8 +11,14 @@ from pytest_docker_tools import network
 # Docker
 ##########
 
-DEFAULT_NETWORK = network()
-DEFAULT_READY_TIMEOUT = 60
+try:
+    DEFAULT_NETWORK = network()
+except Exception:
+    # This is a workaround for a bug in pytest-docker-tools
+    # that causes the network fixture to fail when running tests in parallel.
+    DEFAULT_NETWORK = network()
+
+DEFAULT_READY_TIMEOUT = 30
 DEFAULT_READY_MAX_RETRIES = 3
 
 ##########
@@ -106,7 +112,7 @@ WORKER_ENV = {
 DEFAULT_WORKER_APP_NAME = WORKER_CELERY_APP_NAME
 DEFAULT_WORKER_VERSION = WORKER_CELERY_VERSION
 DEFAULT_WORKER_ENV = WORKER_ENV
-DEFAULT_WORKER_CONTAINER_TIMEOUT = 30
+DEFAULT_WORKER_CONTAINER_TIMEOUT = DEFAULT_READY_TIMEOUT
 
 ##########################
 # Redis Container Settings
@@ -145,7 +151,7 @@ DEFAULT_REDIS_BROKER_PORTS = REDIS_PORTS
 RABBITMQ_IMAGE = "rabbitmq:latest"
 RABBITMQ_PORTS = {"5672/tcp": None}
 RABBITMQ_ENV: dict = {}
-RABBITMQ_CONTAINER_TIMEOUT = DEFAULT_READY_TIMEOUT
+RABBITMQ_CONTAINER_TIMEOUT = 60
 
 # Docker containers settings
 #################################################

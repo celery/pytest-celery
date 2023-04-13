@@ -3,11 +3,12 @@ import pytest
 from pytest_celery import defaults
 from pytest_celery.api.components.broker import CeleryBrokerCluster
 from pytest_celery.api.components.broker import CeleryTestBroker
+from pytest_celery.utils import resilient_getfixturevalue
 
 
 @pytest.fixture(params=defaults.ALL_CELERY_BROKERS)
 def celery_broker(request: pytest.FixtureRequest) -> CeleryTestBroker:
-    return request.getfixturevalue(request.param)
+    return resilient_getfixturevalue(request)
 
 
 @pytest.fixture

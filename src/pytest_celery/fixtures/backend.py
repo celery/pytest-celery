@@ -3,11 +3,12 @@ import pytest
 from pytest_celery import defaults
 from pytest_celery.api.components.backend import CeleryBackendCluster
 from pytest_celery.api.components.backend import CeleryTestBackend
+from pytest_celery.utils import resilient_getfixturevalue
 
 
 @pytest.fixture(params=defaults.ALL_CELERY_BACKENDS)
 def celery_backend(request: pytest.FixtureRequest) -> CeleryTestBackend:
-    return request.getfixturevalue(request.param)
+    return resilient_getfixturevalue(request)
 
 
 @pytest.fixture

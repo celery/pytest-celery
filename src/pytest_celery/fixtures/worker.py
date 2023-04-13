@@ -3,11 +3,12 @@ import pytest
 from pytest_celery import defaults
 from pytest_celery.api.components.worker import CeleryTestWorker
 from pytest_celery.api.components.worker import CeleryWorkerCluster
+from pytest_celery.utils import resilient_getfixturevalue
 
 
 @pytest.fixture(params=defaults.ALL_CELERY_WORKERS)
 def celery_worker(request: pytest.FixtureRequest) -> CeleryTestWorker:
-    return request.getfixturevalue(request.param)
+    return resilient_getfixturevalue(request)
 
 
 @pytest.fixture
