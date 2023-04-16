@@ -1,3 +1,4 @@
+from typing import Set
 from typing import Tuple
 from typing import Type
 from typing import Union
@@ -18,3 +19,7 @@ class CeleryWorkerCluster(CeleryTestCluster):
         node_cls: Type[CeleryTestNode] = CeleryTestWorker,
     ) -> Tuple[CeleryTestNode]:
         return super()._set_nodes(*nodes, node_cls=node_cls)
+
+    @property
+    def versions(self) -> Set[str]:
+        return {worker.version for worker in self}  # type: ignore

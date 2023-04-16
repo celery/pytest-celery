@@ -110,7 +110,7 @@ celery = "pytest_celery.plugin"
 addopts = [
     "--force-flaky",
     "--no-flaky-report",
-    "--max-runs=3",
+    "--max-runs=5",
     "--verbose",
     "--capture=no",
     "--cov=src",

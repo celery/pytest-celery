@@ -13,7 +13,7 @@ ARG CELERY_VERSION
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir celery[redis]==$CELERY_VERSION
 
-# Copy the rest of the app
+# The workdir must be /app
 WORKDIR /app
 
 # Switch to the test_user

@@ -80,22 +80,19 @@ class CeleryTestSetup:
         }
 
     @classmethod
-    def create_worker_app(cls, celery_worker_config: dict, celery_setup_app_name: str) -> Celery:
-        # TODO: Check input
-        celery_broker_config = celery_worker_config["celery_broker_config"]
-        celery_backend_config = celery_worker_config["celery_backend_config"]
-        app = Celery(celery_setup_app_name)
-        app.config_from_object(
-            {
-                "broker_url": celery_broker_config["local_url"],
-                "result_backend": celery_backend_config["local_url"],
-            }
-        )
-        return app
-
-    @classmethod
     def create_setup_app(cls, celery_setup_config: dict, celery_setup_app_name: str) -> Celery:
         # TODO: Check input
         app = Celery(celery_setup_app_name)
         app.config_from_object(celery_setup_config)
         return app
+
+    def chords_allowed(self) -> bool:
+        try:
+            self.app.backend.ensure_chords_allowed()
+        except NotImplementedError:
+            return False
+
+        if any([v.startswith("4.") for v in self.worker_cluster.versions]):
+            return False
+
+        return True

@@ -5,7 +5,7 @@ import pytest
 from pytest_celery.api.setup import CeleryTestSetup
 
 
-class IntegrationTestsSetup(CeleryTestSetup):
+class IntegrationSetup(CeleryTestSetup):
     def ready(self, *args: tuple, **kwargs: dict) -> bool:
         kwargs["ping"] = True
         return super().ready(*args, **kwargs)
@@ -13,4 +13,4 @@ class IntegrationTestsSetup(CeleryTestSetup):
 
 @pytest.fixture
 def celery_setup_cls() -> Type[CeleryTestSetup]:
-    return IntegrationTestsSetup
+    return IntegrationSetup

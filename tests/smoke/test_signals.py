@@ -14,5 +14,5 @@ class test_signals:
             signal_was_called = True
 
         assert signal_was_called is False
-        assert identity.s("test_signals").delay().get() == "test_signals"
+        assert identity.s("test_signals").delay().get(timeout=60) == "test_signals"
         assert signal_was_called is True

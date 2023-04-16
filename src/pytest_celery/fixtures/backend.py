@@ -17,16 +17,6 @@ def celery_backend_cluster(celery_backend: CeleryTestBackend) -> CeleryBackendCl
 
 
 @pytest.fixture
-def celery_backend_config(request: pytest.FixtureRequest) -> dict:
-    try:
-        celery_backend: CeleryTestBackend = request.getfixturevalue(defaults.CELERY_BACKEND)
-        return celery_backend.config()
-    except BaseException:
-        # TODO: Add logging
-        return CeleryTestBackend.default_config()
-
-
-@pytest.fixture
 def celery_backend_cluster_config(request: pytest.FixtureRequest) -> dict:
     try:
         celery_backend_cluster: CeleryBackendCluster = request.getfixturevalue(defaults.CELERY_BACKEND_CLUSTER)

@@ -6,24 +6,32 @@ from redis import Redis
 
 from pytest_celery import defaults
 from pytest_celery.api.container import CeleryTestContainer
+from pytest_celery.utils import cached_property
 
 
 class RedisContainer(CeleryTestContainer):
+    __ready_prompt__ = "Ready to accept connections"
+
     def ready(self) -> bool:
-        ready = False
-        if self._full_ready("Ready to accept connections", check_client=True):
-            c: Redis = self.client()  # type: ignore
+        return self._full_ready(self.__ready_prompt__)
+
+    def _full_ready(self, match_log: str = "", check_client: bool = True) -> bool:
+        ready = super()._full_ready(match_log, check_client)
+        if ready and check_client:
+            c: Redis = self.client  # type: ignore
             if c.ping():
                 c.set("ready", "1")
                 ready = c.get("ready") == "1"
                 c.delete("ready")
         return ready
 
-    def client(self, max_tries: int = defaults.DEFAULT_READY_MAX_RETRIES) -> Union[Redis, None]:
+    @cached_property
+    def client(self) -> Union[Redis, None]:
         tries = 1
+        max_tries = defaults.DEFAULT_MAX_RETRIES
         while tries <= max_tries:
             try:
-                celeryconfig = self.celeryconfig()
+                celeryconfig = self.celeryconfig
                 client = Redis.from_url(
                     celeryconfig["local_url"],
                     decode_responses=True,
@@ -32,27 +40,48 @@ class RedisContainer(CeleryTestContainer):
             except Exception as e:
                 if tries == max_tries:
                     raise e
+                sleep(5 * tries)
                 tries += 1
-                sleep(2)
         return None
 
-    def celeryconfig(self, vhost: str = "0") -> dict:
-        wait_for_callable(
-            "Waiting for port to be ready",
-            lambda: self.get_addr("6379/tcp"),
-        )
-        _, port = self.get_addr("6379/tcp")
-
-        hostname = self.attrs["Config"]["Hostname"]
-        url = f"redis://{hostname}/{vhost}"
-        local_url = f"redis://localhost:{port}/{vhost}"
+    @cached_property
+    def celeryconfig(self) -> dict:
         return {
-            "url": url,
-            "local_url": local_url,
-            "hostname": hostname,
-            "port": port,
-            "vhost": vhost,
+            "url": self.url,
+            "local_url": self.local_url,
+            "hostname": self.hostname,
+            "port": self.port,
+            "vhost": self.vhost,
         }
+
+    @cached_property
+    def url(self) -> str:
+        return f"redis://{self.hostname}/{self.vhost}"
+
+    @cached_property
+    def local_url(self) -> str:
+        return f"redis://localhost:{self.port}/{self.vhost}"
+
+    @cached_property
+    def hostname(self) -> str:
+        return self.attrs["Config"]["Hostname"]
+
+    @cached_property
+    def port(self) -> int:
+        try:
+            wait_for_callable(
+                "Waiting for port to be ready",
+                lambda: self.get_addr("6379/tcp"),
+            )
+        except IndexError:
+            sleep(1)
+
+        _, port = self.get_addr("6379/tcp")
+        return port
+
+    @cached_property
+    def vhost(self) -> str:
+        return "0"
 
     @classmethod
     def version(cls) -> str:

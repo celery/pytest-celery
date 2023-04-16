@@ -7,9 +7,9 @@ from tests.common.celery4.fixtures import *  # noqa
 @pytest.fixture(
     # Each param item is a list of workers to be used in the cluster
     params=[
-        ["celery_test_worker"],
-        ["celery4_test_worker"],
-        ["celery_test_worker", "celery4_test_worker"],
+        ["celery_setup_worker"],
+        ["celery4_worker"],
+        ["celery_setup_worker", "celery4_worker"],
     ]
 )
 def celery_worker_cluster(request: pytest.FixtureRequest) -> CeleryWorkerCluster:

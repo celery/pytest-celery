@@ -12,3 +12,10 @@ class CeleryTestWorker(CeleryTestNode):
     @property
     def app(self) -> Celery:
         return self._app
+
+    @property
+    def version(self) -> str:
+        if hasattr(self.container, "version"):
+            return self.container.version()
+        else:
+            return "unknown"

@@ -14,7 +14,7 @@ class CeleryTestNode:
     def container(self) -> CeleryTestContainer:
         return self._container
 
-    def ready(self, max_tries: int = defaults.DEFAULT_READY_MAX_RETRIES) -> bool:
+    def ready(self, max_tries: int = defaults.DEFAULT_MAX_RETRIES) -> bool:
         tries = 1
         while tries <= max_tries:
             try:
@@ -33,8 +33,13 @@ class CeleryTestNode:
         )
 
     def config(self, *args: tuple, **kwargs: dict) -> dict:
-        return self.container.celeryconfig()
+        return self.container.celeryconfig
 
     @classmethod
     def default_config(cls) -> dict:
         return {}
+
+    def __eq__(self, __value: object) -> bool:
+        if isinstance(__value, CeleryTestNode):
+            return self.container == __value.container
+        return False

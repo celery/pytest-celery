@@ -1,9 +1,9 @@
 import pytest
-from pytest_lazyfixture import lazy_fixture
 
 from pytest_celery import CeleryTestCluster
 from pytest_celery import CeleryTestNode
 from pytest_celery import defaults
+from pytest_celery.utils import resilient_lazy_fixture as lazy_fixture
 
 
 @pytest.mark.parametrize("node", lazy_fixture(defaults.ALL_NODES_FIXTURES))

@@ -11,15 +11,25 @@ from pytest_docker_tools import network
 # Docker
 ##########
 
+DEFAULT_READY_TIMEOUT = 30
+DEFAULT_MAX_RETRIES = 5
 try:
     DEFAULT_NETWORK = network()
 except Exception:
     # This is a workaround for a bug in pytest-docker-tools
     # that causes the network fixture to fail when running tests in parallel.
-    DEFAULT_NETWORK = network()
+    from time import sleep
 
-DEFAULT_READY_TIMEOUT = 30
-DEFAULT_READY_MAX_RETRIES = 3
+    tries = 1
+    while tries <= DEFAULT_MAX_RETRIES:
+        try:
+            DEFAULT_NETWORK = network()
+        except Exception as e:
+            if tries == 3:
+                raise e
+            sleep(5 * tries)
+            tries += 1
+
 
 ##########
 # Fixtures
@@ -41,11 +51,11 @@ CELERY_BROKER = "celery_broker"
 CELERY_BROKER_CLUSTER = "celery_broker_cluster"
 
 # Components fixtures
-CELERY_TEST_WORKER = "celery_test_worker"
+CELERY_SETUP_WORKER = "celery_setup_worker"
 CELERY_REDIS_BACKEND = "celery_redis_backend"
 CELERY_REDIS_BROKER = "celery_redis_broker"
 CELERY_RABBITMQ_BROKER = "celery_rabbitmq_broker"
-DEFAULT_WORKER = "default_worker"
+DEFAULT_WORKER = "default_worker_container"
 DEFAULT_REDIS_BACKEND = "default_redis_backend"
 DEFAULT_RABBITMQ_BROKER = "default_rabbitmq_broker"
 DEFAULT_REDIS_BROKER = "default_redis_broker"
@@ -83,7 +93,7 @@ ALL_CLUSTERS_FIXTURES = (
     CELERY_BACKEND_CLUSTER,
     CELERY_BROKER_CLUSTER,
 )
-ALL_CELERY_WORKERS = (CELERY_TEST_WORKER,)
+ALL_CELERY_WORKERS = (CELERY_SETUP_WORKER,)
 ALL_CELERY_BACKENDS = (CELERY_REDIS_BACKEND,)
 ALL_CELERY_BROKERS = (
     CELERY_REDIS_BROKER,
@@ -103,6 +113,10 @@ WORKER_ENV = {
     "LOG_LEVEL": "INFO",
     "PYTHONUNBUFFERED": "1",
 }
+WORKER_VOLUME = {
+    "bind": "/app",
+    "mode": "rw",
+}
 
 # Docker containers settings
 #################################################
@@ -113,6 +127,7 @@ DEFAULT_WORKER_APP_NAME = WORKER_CELERY_APP_NAME
 DEFAULT_WORKER_VERSION = WORKER_CELERY_VERSION
 DEFAULT_WORKER_ENV = WORKER_ENV
 DEFAULT_WORKER_CONTAINER_TIMEOUT = DEFAULT_READY_TIMEOUT
+DEFAULT_WORKER_VOLUME = WORKER_VOLUME
 
 ##########################
 # Redis Container Settings
@@ -151,7 +166,7 @@ DEFAULT_REDIS_BROKER_PORTS = REDIS_PORTS
 RABBITMQ_IMAGE = "rabbitmq:latest"
 RABBITMQ_PORTS = {"5672/tcp": None}
 RABBITMQ_ENV: dict = {}
-RABBITMQ_CONTAINER_TIMEOUT = 60
+RABBITMQ_CONTAINER_TIMEOUT = 120
 
 # Docker containers settings
 #################################################

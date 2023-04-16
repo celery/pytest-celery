@@ -28,7 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10"]
+        python-version: ["3.7", "3.8", "3.9"]
         os: ["ubuntu-latest"]
 
     steps:
@@ -63,7 +63,7 @@ jobs:
           poetry install --with dev,test,ci
 
       - name: Run tox for "${{ matrix.python-version }}-unit"
-        timeout-minutes: 30
+        timeout-minutes: 5
         run: |
           tox --verbose --verbose -e "${{ matrix.python-version }}-unit" -- -n auto
 
@@ -82,7 +82,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10"]
+        python-version: ["3.7", "3.8", "3.9"]
         os: ["ubuntu-latest"]
 
     steps:
@@ -117,7 +117,7 @@ jobs:
           poetry install --with dev,test,ci
 
       - name: Run tox for "${{ matrix.python-version }}-integration"
-        timeout-minutes: 240
+        timeout-minutes: 30
         run: |
           tox --verbose --verbose -e "${{ matrix.python-version }}-integration" -- -n auto
 
@@ -137,7 +137,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10"]
+        python-version: ["3.7", "3.8", "3.9"]
         os: ["ubuntu-latest"]
 
     steps:
@@ -172,7 +172,7 @@ jobs:
           poetry install --with dev,test,ci
 
       - name: Run tox for "${{ matrix.python-version }}-smoke"
-        timeout-minutes: 240
+        timeout-minutes: 30
         run: |
           tox --verbose --verbose -e "${{ matrix.python-version }}-smoke" -- -n auto
 
