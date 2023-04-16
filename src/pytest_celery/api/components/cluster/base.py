@@ -29,6 +29,13 @@ class CeleryTestCluster:
     def __len__(self) -> int:
         return len(self.nodes)
 
+    def __eq__(self, __value: object) -> bool:
+        if isinstance(__value, CeleryTestCluster):
+            for node in self:
+                if node not in __value:
+                    return False
+        return False
+
     @property
     def nodes(self) -> Tuple[CeleryTestNode]:
         return self._nodes
@@ -57,7 +64,7 @@ class CeleryTestCluster:
         return all(node.ready() for node in self)
 
     def config(self, *args: tuple, **kwargs: dict) -> dict:
-        config = [node.container.celeryconfig() for node in self]
+        config = [node.container.celeryconfig for node in self]
         return {
             "urls": [c["url"] for c in config],
             "local_urls": [c["local_url"] for c in config],

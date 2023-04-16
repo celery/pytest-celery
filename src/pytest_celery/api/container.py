@@ -1,4 +1,3 @@
-from abc import abstractmethod
 from typing import Any
 
 from pytest_docker_tools import wrappers
@@ -7,19 +6,20 @@ from pytest_docker_tools.exceptions import TimeoutError
 from pytest_docker_tools.wrappers.container import wait_for_callable
 
 from pytest_celery import defaults
+from pytest_celery.utils import cached_property
 
 
 class CeleryTestContainer(wrappers.Container):
-    @abstractmethod
-    def client(self, max_tries: int = defaults.DEFAULT_READY_MAX_RETRIES) -> Any:
-        return self
+    @cached_property
+    def client(self) -> Any:
+        raise NotImplementedError("CeleryTestContainer.client")
 
-    @abstractmethod
+    @cached_property
     def celeryconfig(self) -> dict:
         raise NotImplementedError("CeleryTestContainer.celeryconfig")
 
     def ready(self) -> bool:
-        max_tries = defaults.DEFAULT_READY_MAX_RETRIES
+        max_tries = defaults.DEFAULT_MAX_RETRIES
         tries = 1
         while tries <= max_tries:
             try:
@@ -44,7 +44,7 @@ class CeleryTestContainer(wrappers.Container):
         if ready and check_client:
             wait_for_callable(
                 "Waiting for client to be ready",
-                self.client,
+                lambda: self.client is not None,
             )
-            ready = ready and self.client() is not None
+            ready = ready and self.client is not None
         return ready

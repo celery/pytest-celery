@@ -46,4 +46,4 @@ def default_redis_backend_ports(default_redis_backend_cls: Type[RedisContainer])
 
 @pytest.fixture
 def default_redis_backend_celeryconfig(default_redis_backend: RedisContainer) -> dict:
-    return {"result_backend": default_redis_backend.celeryconfig()["url"]}
+    return {"result_backend": default_redis_backend.celeryconfig["url"]}

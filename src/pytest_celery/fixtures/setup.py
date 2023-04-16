@@ -22,14 +22,6 @@ def celery_setup_config(celery_worker_cluster_config: dict) -> dict:
 
 
 @pytest.fixture
-def celery_worker_app(celery_worker_config: dict, celery_setup_name: str) -> Celery:
-    return CeleryTestSetup.create_worker_app(
-        celery_worker_config=celery_worker_config,
-        celery_setup_app_name=celery_setup_name,
-    )
-
-
-@pytest.fixture
 def celery_setup_app(celery_setup_config: dict, celery_setup_name: str) -> Celery:
     return CeleryTestSetup.create_setup_app(
         celery_setup_config=celery_setup_config,

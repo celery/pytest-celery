@@ -46,4 +46,4 @@ def default_redis_broker_ports(default_redis_broker_cls: Type[RedisContainer]) -
 
 @pytest.fixture
 def default_redis_broker_celeryconfig(default_redis_broker: RedisContainer) -> dict:
-    return {"broker_url": default_redis_broker.celeryconfig()["url"]}
+    return {"broker_url": default_redis_broker.celeryconfig["url"]}

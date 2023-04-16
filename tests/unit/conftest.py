@@ -1,3 +1,5 @@
+from typing import Type
+
 import pytest
 from celery import Celery
 from pytest_docker_tools import build
@@ -16,13 +18,24 @@ from pytest_celery.containers.rabbitmq import RabbitMQContainer
 from pytest_celery.containers.redis import RedisContainer
 from pytest_celery.containers.worker import CeleryWorkerContainer
 from tests.unit.docker.api import UnitTestContainer
+from tests.unit.docker.api import UnitWorkerContainer
 
 try:
     unit_tests_network = network(scope="session")
 except Exception:
     # This is a workaround for a bug in pytest-docker-tools
     # that causes the network fixture to fail when running tests in parallel.
-    unit_tests_network = network(scope="session")
+    from time import sleep
+
+    tries = 1
+    while tries <= defaults.DEFAULT_MAX_RETRIES:
+        try:
+            unit_tests_network = network(scope="session")
+        except Exception as e:
+            if tries == 3:
+                raise e
+            sleep(5 * tries)
+            tries += 1
 
 unit_tests_image = build(
     path="tests/unit/docker",
@@ -57,13 +70,21 @@ worker_test_container_volume = volume(
 
 
 @pytest.fixture(scope="session")
-def worker_test_container_initial_content(worker_test_container_tasks: set) -> dict:
-    return CeleryWorkerContainer.initial_content(worker_test_container_tasks)
+def default_worker_container_cls() -> Type[CeleryWorkerContainer]:
+    return UnitWorkerContainer
 
 
 @pytest.fixture(scope="session")
-def worker_test_container_tasks() -> set:
-    return CeleryWorkerContainer.tasks_modules()
+def worker_test_container_initial_content(
+    default_worker_container_cls: Type[CeleryWorkerContainer],
+    worker_test_container_tasks: set,
+) -> dict:
+    return default_worker_container_cls.initial_content(worker_test_container_tasks)
+
+
+@pytest.fixture(scope="session")
+def worker_test_container_tasks(default_worker_container_cls: Type[CeleryWorkerContainer]) -> set:
+    return default_worker_container_cls.tasks_modules()
 
 
 worker_test_container = container(
@@ -71,14 +92,17 @@ worker_test_container = container(
     scope="session",
     environment=defaults.DEFAULT_WORKER_ENV,
     network="{unit_tests_network.name}",
-    volumes={"{worker_test_container_volume.name}": {"bind": "/app", "mode": "rw"}},
-    wrapper_class=CeleryWorkerContainer,
+    volumes={"{worker_test_container_volume.name}": defaults.DEFAULT_WORKER_VOLUME},
+    wrapper_class=UnitWorkerContainer,
     timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,
 )
 
 
 @pytest.fixture
-def celery_test_worker(worker_test_container: CeleryWorkerContainer, celery_setup_app: Celery) -> CeleryTestWorker:
+def celery_setup_worker(
+    worker_test_container: UnitWorkerContainer,
+    celery_setup_app: Celery,
+) -> CeleryTestWorker:
     return CeleryTestWorker(
         container=worker_test_container,
         app=celery_setup_app,
@@ -95,16 +119,34 @@ redis_test_container = container(
     wrapper_class=RedisContainer,
     timeout=defaults.REDIS_CONTAINER_TIMEOUT,
 )
+redis_backend_container = container(
+    image="{redis_image.id}",
+    scope="session",
+    ports=defaults.REDIS_PORTS,
+    environment=defaults.REDIS_ENV,
+    network="{unit_tests_network.name}",
+    wrapper_class=RedisContainer,
+    timeout=defaults.REDIS_CONTAINER_TIMEOUT,
+)
+redis_broker_container = container(
+    image="{redis_image.id}",
+    scope="session",
+    ports=defaults.REDIS_PORTS,
+    environment=defaults.REDIS_ENV,
+    network="{unit_tests_network.name}",
+    wrapper_class=RedisContainer,
+    timeout=defaults.REDIS_CONTAINER_TIMEOUT,
+)
 
 
 @pytest.fixture
-def celery_redis_backend(redis_test_container: RedisContainer) -> RedisTestBackend:
-    return RedisTestBackend(redis_test_container)
+def celery_redis_backend(redis_backend_container: RedisContainer) -> RedisTestBackend:
+    return RedisTestBackend(redis_backend_container)
 
 
 @pytest.fixture
-def celery_redis_broker(redis_test_container: RedisContainer) -> RedisTestBroker:
-    return RedisTestBroker(redis_test_container)
+def celery_redis_broker(redis_broker_container: RedisContainer) -> RedisTestBroker:
+    return RedisTestBroker(redis_broker_container)
 
 
 rabbitmq_image = fetch(repository=defaults.RABBITMQ_IMAGE)
