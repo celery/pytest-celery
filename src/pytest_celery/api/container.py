@@ -1,50 +1,65 @@
+from functools import partial
 from typing import Any
 
+from docker.errors import NotFound
 from pytest_docker_tools import wrappers
 from pytest_docker_tools.exceptions import ContainerNotReady
 from pytest_docker_tools.exceptions import TimeoutError
 from pytest_docker_tools.wrappers.container import wait_for_callable
+from requests import HTTPError
+from retry import retry
 
 from pytest_celery import defaults
-from pytest_celery.utils import cached_property
+
+RETRY_ERRORS = (NotFound, TimeoutError, ContainerNotReady, HTTPError)
 
 
 class CeleryTestContainer(wrappers.Container):
-    @cached_property
+    @property
     def client(self) -> Any:
         raise NotImplementedError("CeleryTestContainer.client")
 
-    @cached_property
+    @property
     def celeryconfig(self) -> dict:
         raise NotImplementedError("CeleryTestContainer.celeryconfig")
 
-    def ready(self) -> bool:
-        max_tries = defaults.DEFAULT_MAX_RETRIES
-        tries = 1
-        while tries <= max_tries:
-            try:
-                wait_for_callable(
-                    f" Container '{self.name}' is warming up",
-                    super().ready,
-                    timeout=defaults.DEFAULT_READY_TIMEOUT,
-                )
-                return True
-            except TimeoutError:
-                tries += 1
-
-        raise ContainerNotReady(
-            self,
-            f"Can't get test container to be ready (attempted {tries} times): {self.name}",
+    @retry(
+        RETRY_ERRORS + (IndexError,),
+        tries=defaults.MAX_TRIES,
+        delay=defaults.DELAY_SECONDS,
+        max_delay=defaults.MAX_DELAY_SECONDS,
+    )
+    def _port(self, port: str) -> int:
+        wait_for_callable(
+            f">>> Waiting for port '{port}' to be ready: '{self.__class__.__name__}::{self.name}'",
+            partial(self.get_addr, port),
+            timeout=defaults.READY_TIMEOUT,
         )
+        _, p = self.get_addr(port)
+        return p
 
+    @retry(
+        RETRY_ERRORS,
+        tries=defaults.MAX_TRIES,
+        delay=defaults.DELAY_SECONDS,
+        max_delay=defaults.MAX_DELAY_SECONDS,
+    )
     def _full_ready(self, match_log: str = "", check_client: bool = True) -> bool:
+        wait_for_callable(
+            f">>> Waiting for container to warm up: '{self.__class__.__name__}::{self.name}'",
+            super().ready,
+            timeout=defaults.READY_TIMEOUT,
+        )
         ready = super().ready()
-        if ready and match_log:
-            ready = ready and match_log in self.logs()
-        if ready and check_client:
-            wait_for_callable(
-                "Waiting for client to be ready",
-                lambda: self.client is not None,
-            )
-            ready = ready and self.client is not None
+
+        if ready:
+            if match_log:
+                ready = match_log in self.logs()
+            if check_client:
+                wait_for_callable(
+                    f">>> Waiting for client to be ready: '{self.__class__.__name__}::{self.name}'",
+                    lambda: self.client is not None,
+                    timeout=defaults.READY_TIMEOUT,
+                )
+                ready = ready and self.client is not None
         return ready

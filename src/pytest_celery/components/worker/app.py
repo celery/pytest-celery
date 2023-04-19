@@ -4,7 +4,7 @@ import sys
 from celery import Celery
 from celery.signals import after_setup_logger
 
-# Will be replaced with the import string for the tasks at runtime
+# Will be replaced with the import strings at runtime
 {}
 
 app = Celery("celery_test_app")

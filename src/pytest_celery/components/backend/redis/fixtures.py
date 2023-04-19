@@ -1,3 +1,5 @@
+# mypy: disable-error-code="misc"
+
 from typing import Type
 
 import pytest
@@ -11,7 +13,10 @@ from pytest_celery.containers.redis import RedisContainer
 
 @pytest.fixture
 def celery_redis_backend(default_redis_backend: RedisContainer) -> RedisTestBackend:
-    return RedisTestBackend(default_redis_backend)
+    backend = RedisTestBackend(default_redis_backend)
+    backend.ready()
+    yield backend
+    backend.teardown()
 
 
 @pytest.fixture
@@ -31,19 +36,19 @@ default_redis_backend = container(
 
 @pytest.fixture
 def default_redis_backend_env(default_redis_backend_cls: Type[RedisContainer]) -> dict:
-    return default_redis_backend_cls.env()
+    yield default_redis_backend_cls.env()
 
 
 @pytest.fixture
 def default_redis_backend_image(default_redis_backend_cls: Type[RedisContainer]) -> str:
-    return default_redis_backend_cls.image()
+    yield default_redis_backend_cls.image()
 
 
 @pytest.fixture
 def default_redis_backend_ports(default_redis_backend_cls: Type[RedisContainer]) -> dict:
-    return default_redis_backend_cls.ports()
+    yield default_redis_backend_cls.ports()
 
 
 @pytest.fixture
 def default_redis_backend_celeryconfig(default_redis_backend: RedisContainer) -> dict:
-    return {"result_backend": default_redis_backend.celeryconfig["url"]}
+    yield {"result_backend": default_redis_backend.celeryconfig["url"]}

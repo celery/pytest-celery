@@ -1,12 +1,9 @@
-from time import sleep
-from typing import Union
+from typing import Optional
 
-from pytest_docker_tools.wrappers.container import wait_for_callable
-from redis import Redis
+from redis import StrictRedis as Redis
 
 from pytest_celery import defaults
 from pytest_celery.api.container import CeleryTestContainer
-from pytest_celery.utils import cached_property
 
 
 class RedisContainer(CeleryTestContainer):
@@ -25,26 +22,16 @@ class RedisContainer(CeleryTestContainer):
                 c.delete("ready")
         return ready
 
-    @cached_property
-    def client(self) -> Union[Redis, None]:
-        tries = 1
-        max_tries = defaults.DEFAULT_MAX_RETRIES
-        while tries <= max_tries:
-            try:
-                celeryconfig = self.celeryconfig
-                client = Redis.from_url(
-                    celeryconfig["local_url"],
-                    decode_responses=True,
-                )
-                return client
-            except Exception as e:
-                if tries == max_tries:
-                    raise e
-                sleep(5 * tries)
-                tries += 1
-        return None
+    @property
+    def client(self) -> Optional[Redis]:
+        celeryconfig = self.celeryconfig
+        client = Redis.from_url(
+            celeryconfig["local_url"],
+            decode_responses=True,
+        )
+        return client
 
-    @cached_property
+    @property
     def celeryconfig(self) -> dict:
         return {
             "url": self.url,
@@ -54,32 +41,23 @@ class RedisContainer(CeleryTestContainer):
             "vhost": self.vhost,
         }
 
-    @cached_property
+    @property
     def url(self) -> str:
         return f"redis://{self.hostname}/{self.vhost}"
 
-    @cached_property
+    @property
     def local_url(self) -> str:
         return f"redis://localhost:{self.port}/{self.vhost}"
 
-    @cached_property
+    @property
     def hostname(self) -> str:
         return self.attrs["Config"]["Hostname"]
 
-    @cached_property
+    @property
     def port(self) -> int:
-        try:
-            wait_for_callable(
-                "Waiting for port to be ready",
-                lambda: self.get_addr("6379/tcp"),
-            )
-        except IndexError:
-            sleep(1)
+        return self._port("6379/tcp")
 
-        _, port = self.get_addr("6379/tcp")
-        return port
-
-    @cached_property
+    @property
     def vhost(self) -> str:
         return "0"
 

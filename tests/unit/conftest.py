@@ -1,3 +1,4 @@
+from typing import Any
 from typing import Type
 
 import pytest
@@ -8,6 +9,7 @@ from pytest_docker_tools import fetch
 from pytest_docker_tools import fxtr
 from pytest_docker_tools import network
 from pytest_docker_tools import volume
+from retry import retry
 
 from pytest_celery import defaults
 from pytest_celery.api.components.worker.node import CeleryTestWorker
@@ -20,22 +22,18 @@ from pytest_celery.containers.worker import CeleryWorkerContainer
 from tests.unit.docker.api import UnitTestContainer
 from tests.unit.docker.api import UnitWorkerContainer
 
-try:
-    unit_tests_network = network(scope="session")
-except Exception:
-    # This is a workaround for a bug in pytest-docker-tools
-    # that causes the network fixture to fail when running tests in parallel.
-    from time import sleep
 
-    tries = 1
-    while tries <= defaults.DEFAULT_MAX_RETRIES:
-        try:
-            unit_tests_network = network(scope="session")
-        except Exception as e:
-            if tries == 3:
-                raise e
-            sleep(5 * tries)
-            tries += 1
+@retry(
+    defaults.RETRY_ERRORS,
+    tries=defaults.MAX_TRIES,
+    delay=defaults.DELAY_SECONDS,
+    max_delay=defaults.MAX_DELAY_SECONDS,
+)
+def session_network_with_retry() -> Any:
+    return network(scope="session")
+
+
+unit_tests_network = session_network_with_retry()
 
 unit_tests_image = build(
     path="tests/unit/docker",
@@ -79,12 +77,12 @@ def worker_test_container_initial_content(
     default_worker_container_cls: Type[CeleryWorkerContainer],
     worker_test_container_tasks: set,
 ) -> dict:
-    return default_worker_container_cls.initial_content(worker_test_container_tasks)
+    yield default_worker_container_cls.initial_content(worker_test_container_tasks)
 
 
 @pytest.fixture(scope="session")
 def worker_test_container_tasks(default_worker_container_cls: Type[CeleryWorkerContainer]) -> set:
-    return default_worker_container_cls.tasks_modules()
+    yield default_worker_container_cls.tasks_modules()
 
 
 worker_test_container = container(
@@ -103,10 +101,13 @@ def celery_setup_worker(
     worker_test_container: UnitWorkerContainer,
     celery_setup_app: Celery,
 ) -> CeleryTestWorker:
-    return CeleryTestWorker(
+    worker = CeleryTestWorker(
         container=worker_test_container,
         app=celery_setup_app,
     )
+    worker.ready()
+    yield worker
+    worker.teardown()
 
 
 redis_image = fetch(repository=defaults.REDIS_IMAGE)
@@ -141,12 +142,18 @@ redis_broker_container = container(
 
 @pytest.fixture
 def celery_redis_backend(redis_backend_container: RedisContainer) -> RedisTestBackend:
-    return RedisTestBackend(redis_backend_container)
+    backend = RedisTestBackend(redis_backend_container)
+    backend.ready()
+    yield backend
+    backend.teardown()
 
 
 @pytest.fixture
 def celery_redis_broker(redis_broker_container: RedisContainer) -> RedisTestBroker:
-    return RedisTestBroker(redis_broker_container)
+    broker = RedisTestBroker(redis_broker_container)
+    broker.ready()
+    yield broker
+    broker.teardown()
 
 
 rabbitmq_image = fetch(repository=defaults.RABBITMQ_IMAGE)
@@ -163,4 +170,7 @@ rabbitmq_test_container = container(
 
 @pytest.fixture
 def celery_rabbitmq_broker(rabbitmq_test_container: RabbitMQContainer) -> RabbitMQTestBroker:
-    return RabbitMQTestBroker(rabbitmq_test_container)
+    broker = RabbitMQTestBroker(rabbitmq_test_container)
+    broker.ready()
+    yield broker
+    broker.teardown()

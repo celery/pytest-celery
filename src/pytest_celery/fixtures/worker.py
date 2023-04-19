@@ -3,17 +3,22 @@ import pytest
 from pytest_celery import defaults
 from pytest_celery.api.components.worker import CeleryTestWorker
 from pytest_celery.api.components.worker import CeleryWorkerCluster
-from pytest_celery.utils import resilient_getfixturevalue
 
 
 @pytest.fixture(params=defaults.ALL_CELERY_WORKERS)
-def celery_worker(request: pytest.FixtureRequest) -> CeleryTestWorker:
-    return resilient_getfixturevalue(request)
+def celery_worker(request: pytest.FixtureRequest) -> CeleryTestWorker:  # type: ignore
+    worker: CeleryTestWorker = request.getfixturevalue(request.param)
+    worker.ready()
+    yield worker
+    worker.teardown()
 
 
 @pytest.fixture
-def celery_worker_cluster(celery_worker: CeleryTestWorker) -> CeleryWorkerCluster:
-    return CeleryWorkerCluster(celery_worker)  # type: ignore
+def celery_worker_cluster(celery_worker: CeleryTestWorker) -> CeleryWorkerCluster:  # type: ignore
+    cluster = CeleryWorkerCluster(celery_worker)  # type: ignore
+    cluster.ready()
+    yield cluster
+    cluster.teardown()
 
 
 @pytest.fixture

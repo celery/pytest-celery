@@ -5,30 +5,56 @@ components fixtures. You can override these values by hooking to the
 matchin fixture and returning your own value.
 """
 
+
+from typing import Any
+
+import docker
+import pytest
+import pytest_docker_tools
+import redis
+import requests
 from pytest_docker_tools import network
+from retry import retry
 
 ##########
 # Docker
 ##########
 
-DEFAULT_READY_TIMEOUT = 30
-DEFAULT_MAX_RETRIES = 5
-try:
-    DEFAULT_NETWORK = network()
-except Exception:
-    # This is a workaround for a bug in pytest-docker-tools
-    # that causes the network fixture to fail when running tests in parallel.
-    from time import sleep
+RETRY_ERRORS = (
+    docker.errors.NotFound,
+    docker.errors.APIError,
+    requests.exceptions.HTTPError,
+    redis.exceptions.ConnectionError,
+    ConnectionRefusedError,
+    BrokenPipeError,
+    TimeoutError,
+    pytest_docker_tools.exceptions.TimeoutError,
+    pytest.PytestUnraisableExceptionWarning,
+)
 
-    tries = 1
-    while tries <= DEFAULT_MAX_RETRIES:
-        try:
-            DEFAULT_NETWORK = network()
-        except Exception as e:
-            if tries == 3:
-                raise e
-            sleep(5 * tries)
-            tries += 1
+READY_TIMEOUT = 30
+RESULT_TIMEOUT = 30
+MAX_TRIES = 10
+DELAY_SECONDS = 10
+MAX_DELAY_SECONDS = 300
+
+
+@retry(
+    RETRY_ERRORS,
+    tries=MAX_TRIES,
+    delay=DELAY_SECONDS,
+    max_delay=MAX_DELAY_SECONDS,
+)
+def network_with_retry() -> Any:
+    try:
+        return network()
+    except RETRY_ERRORS as exc:
+        # This is a workaround when running out of IPv4 addresses
+        # that causes the network fixture to fail when running tests in parallel.
+        raise exc
+
+
+DEFAULT_NETWORK = network_with_retry()
 
 
 ##########
@@ -107,10 +133,12 @@ ALL_CELERY_BROKERS = (
 # Default container settings for all worker container fixtures
 WORKER_CELERY_APP_NAME = "celery_test_app"
 WORKER_CELERY_VERSION = "5.3.0b2"
+WORKER_LOG_LEVEL = "INFO"
+WORKER_NAME = CELERY_SETUP_WORKER
+WORKER_QUEUE = "celery"
 WORKER_ENV = {
     "CELERY_BROKER_URL": "memory://",
     "CELERY_RESULT_BACKEND": "cache+memory://",
-    "LOG_LEVEL": "INFO",
     "PYTHONUNBUFFERED": "1",
 }
 WORKER_VOLUME = {
@@ -125,8 +153,11 @@ WORKER_VOLUME = {
 ###################
 DEFAULT_WORKER_APP_NAME = WORKER_CELERY_APP_NAME
 DEFAULT_WORKER_VERSION = WORKER_CELERY_VERSION
+DEFAULT_WORKER_LOG_LEVEL = WORKER_LOG_LEVEL
+DEFAULT_WORKER_NAME = WORKER_NAME
 DEFAULT_WORKER_ENV = WORKER_ENV
-DEFAULT_WORKER_CONTAINER_TIMEOUT = DEFAULT_READY_TIMEOUT
+DEFAULT_WORKER_QUEUE = WORKER_QUEUE
+DEFAULT_WORKER_CONTAINER_TIMEOUT = READY_TIMEOUT
 DEFAULT_WORKER_VOLUME = WORKER_VOLUME
 
 ##########################
@@ -138,7 +169,7 @@ DEFAULT_WORKER_VOLUME = WORKER_VOLUME
 REDIS_IMAGE = "redis:latest"
 REDIS_PORTS = {"6379/tcp": None}
 REDIS_ENV: dict = {}
-REDIS_CONTAINER_TIMEOUT = DEFAULT_READY_TIMEOUT
+REDIS_CONTAINER_TIMEOUT = READY_TIMEOUT
 
 # Docker containers settings
 #################################################
@@ -166,7 +197,7 @@ DEFAULT_REDIS_BROKER_PORTS = REDIS_PORTS
 RABBITMQ_IMAGE = "rabbitmq:latest"
 RABBITMQ_PORTS = {"5672/tcp": None}
 RABBITMQ_ENV: dict = {}
-RABBITMQ_CONTAINER_TIMEOUT = 120
+RABBITMQ_CONTAINER_TIMEOUT = READY_TIMEOUT
 
 # Docker containers settings
 #################################################

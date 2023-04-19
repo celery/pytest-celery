@@ -1,3 +1,5 @@
+# mypy: disable-error-code="misc"
+
 from typing import Type
 
 import pytest
@@ -11,7 +13,10 @@ from pytest_celery.containers.rabbitmq import RabbitMQContainer
 
 @pytest.fixture
 def celery_rabbitmq_broker(default_rabbitmq_broker: RabbitMQContainer) -> RabbitMQTestBroker:
-    return RabbitMQTestBroker(default_rabbitmq_broker)
+    broker = RabbitMQTestBroker(default_rabbitmq_broker)
+    broker.ready()
+    yield broker
+    broker.teardown()
 
 
 @pytest.fixture
@@ -31,19 +36,19 @@ default_rabbitmq_broker = container(
 
 @pytest.fixture
 def default_rabbitmq_broker_env(default_rabbitmq_broker_cls: Type[RabbitMQContainer]) -> dict:
-    return default_rabbitmq_broker_cls.env()
+    yield default_rabbitmq_broker_cls.env()
 
 
 @pytest.fixture
 def default_rabbitmq_broker_image(default_rabbitmq_broker_cls: Type[RabbitMQContainer]) -> str:
-    return default_rabbitmq_broker_cls.image()
+    yield default_rabbitmq_broker_cls.image()
 
 
 @pytest.fixture
 def default_rabbitmq_broker_ports(default_rabbitmq_broker_cls: Type[RabbitMQContainer]) -> dict:
-    return default_rabbitmq_broker_cls.ports()
+    yield default_rabbitmq_broker_cls.ports()
 
 
 @pytest.fixture
 def default_rabbitmq_broker_celeryconfig(default_rabbitmq_broker: RabbitMQContainer) -> dict:
-    return {"broker_url": default_rabbitmq_broker.celeryconfig["url"]}
+    yield {"broker_url": default_rabbitmq_broker.celeryconfig["url"]}

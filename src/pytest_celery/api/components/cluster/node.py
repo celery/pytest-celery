@@ -1,5 +1,3 @@
-from pytest_docker_tools.exceptions import ContainerNotReady
-from pytest_docker_tools.exceptions import TimeoutError
 from pytest_docker_tools.wrappers.container import wait_for_callable
 
 from pytest_celery import defaults
@@ -14,23 +12,13 @@ class CeleryTestNode:
     def container(self) -> CeleryTestContainer:
         return self._container
 
-    def ready(self, max_tries: int = defaults.DEFAULT_MAX_RETRIES) -> bool:
-        tries = 1
-        while tries <= max_tries:
-            try:
-                wait_for_callable(
-                    f"Waiting for the node's container to be ready: '{self.container.name}'",
-                    self.container.ready,
-                    timeout=defaults.DEFAULT_READY_TIMEOUT,
-                )
-                return True
-            except TimeoutError:
-                tries += 1
-
-        raise ContainerNotReady(
-            self.container,
-            f"Can't get node to be ready (attempted {tries} times): '{self.container.name}'",
+    def ready(self) -> bool:
+        wait_for_callable(
+            f">>> Waiting for the node's container to be ready: '{self.__class__.__name__}::{self.container.name}'",
+            self.container.ready,
+            timeout=defaults.READY_TIMEOUT,
         )
+        return self.container.ready()
 
     def config(self, *args: tuple, **kwargs: dict) -> dict:
         return self.container.celeryconfig
@@ -43,3 +31,12 @@ class CeleryTestNode:
         if isinstance(__value, CeleryTestNode):
             return self.container == __value.container
         return False
+
+    def logs(self) -> str:
+        return self.container.logs()
+
+    def kill(self) -> None:
+        self.container.kill()
+
+    def teardown(self) -> None:
+        pass

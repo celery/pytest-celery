@@ -1,3 +1,5 @@
+from time import sleep
+
 import pytest
 from celery.canvas import chain
 from celery.canvas import chord
@@ -5,44 +7,106 @@ from celery.canvas import group
 from celery.canvas import signature
 
 from pytest_celery import CeleryTestSetup
+from pytest_celery import defaults
+from pytest_celery.api.components.worker.node import CeleryTestWorker
 from tests.common.tasks import identity
 from tests.smoke.tasks import add
 
 
 class test_acceptance:
     def test_sanity(self, celery_setup: CeleryTestSetup):
-        assert 3 <= len(celery_setup) <= 4
-        assert identity.s("test_ready").delay().get(timeout=60) == "test_ready"
-        assert add.s(1, 2).delay().get(timeout=60) == 3
+        assert celery_setup.ready(ping=True)
+        worker = celery_setup.worker_cluster[0]
+        queue = worker.worker_queue
+        expected = "test_sanity"
+        res = identity.s(expected).apply_async(queue=queue)
+        assert res.get(timeout=defaults.RESULT_TIMEOUT) == expected
+
+        if expected not in worker.logs():
+            sleep(2)  # wait for logs to be flushed
+            assert expected in worker.logs()
+
+        if len(celery_setup.worker_cluster) > 1:
+            queue = celery_setup.worker_cluster[1].worker_queue
+
+        res = add.s(1, 2).apply_async(queue=queue)
+        assert res.get(timeout=defaults.RESULT_TIMEOUT) == 3
+
+        sleep(2)  # wait for logs to be flushed
+        if len(celery_setup.worker_cluster) > 1:
+            assert expected not in celery_setup.worker_cluster[1].logs()
+            assert "succeeded" in celery_setup.worker_cluster[1].logs()
+        else:
+            assert expected in worker.logs()
 
     def test_signature(self, celery_setup: CeleryTestSetup):
-        sig = signature(identity, args=("test_signature",))
-        assert sig.delay().get(timeout=60) == "test_signature"
+        worker: CeleryTestWorker
+        for worker in celery_setup.worker_cluster:
+            queue = worker.worker_queue
+            sig = signature(identity, args=("test_signature",), queue=queue)
+            assert sig.delay().get(timeout=defaults.RESULT_TIMEOUT) == "test_signature"
 
     def test_group(self, celery_setup: CeleryTestSetup):
-        sig = group(
-            group(add.s(1, 1), add.s(2, 2)),
-            group([add.si(1, 1), add.si(2, 2)]),
-            group(s for s in [add.si(1, 1), add.si(2, 2)]),
-        )
-        assert sig.delay().get(timeout=60) == [2, 4, 2, 4, 2, 4]
+        worker: CeleryTestWorker
+        for worker in celery_setup.worker_cluster:
+            queue = worker.worker_queue
+            sig = group(
+                group(add.si(1, 1), add.si(2, 2)),
+                group([add.si(1, 1), add.si(2, 2)]),
+                group(s for s in [add.si(1, 1), add.si(2, 2)]),
+            )
+            res = sig.apply_async(queue=queue)
+            assert res.get(timeout=defaults.RESULT_TIMEOUT)  # == [2, 4, 2, 4, 2, 4]
 
     def test_chain(self, celery_setup: CeleryTestSetup):
-        sig = chain(identity.si("task1"), identity.si("task2"))
-        assert sig.delay().get(timeout=60) == "task2"
+        worker: CeleryTestWorker
+        for worker in celery_setup.worker_cluster:
+            queue = worker.worker_queue
+            sig = chain(
+                identity.si("chain_task1").set(queue=queue),
+                identity.si("chain_task2").set(queue=queue),
+            ) | identity.si("test_chain").set(queue=queue)
+            res = sig.apply_async()
+            assert res.get(timeout=defaults.RESULT_TIMEOUT) == "test_chain"
 
     def test_chord(self, celery_setup: CeleryTestSetup):
+        worker: CeleryTestWorker
         if not celery_setup.chords_allowed():
             pytest.skip("Chords are not supported")
 
-        sig = group(
-            [
-                chord(group(identity.si("header_task1"), identity.si("header_task2")), identity.si("body_task")),
-                group(identity.si("header_task1"), identity.si("header_task2")) | identity.si("body_task"),
-                chord(
-                    (sig for sig in [identity.si("header_task1"), identity.si("header_task2")]),
-                    identity.si("body_task"),
-                ),
-            ]
-        )
-        assert sig.delay().get(timeout=60) == ["body_task"] * 3
+        for worker in celery_setup.worker_cluster:
+            queue = worker.worker_queue
+
+            upgraded_chord = signature(
+                group(
+                    identity.si("header_task1"),
+                    identity.si("header_task2"),
+                )
+                | identity.si("body_task"),
+                queue=queue,
+            )
+
+            sig = group(
+                [
+                    upgraded_chord,
+                    chord(
+                        group(
+                            identity.si("header_task3"),
+                            identity.si("header_task4"),
+                        ),
+                        identity.si("body_task"),
+                    ),
+                    chord(
+                        (
+                            sig
+                            for sig in [
+                                identity.si("header_task5"),
+                                identity.si("header_task6"),
+                            ]
+                        ),
+                        identity.si("body_task"),
+                    ),
+                ]
+            )
+            res = sig.apply_async(queue=queue)
+            assert res.get(timeout=defaults.RESULT_TIMEOUT) == ["body_task"] * 3

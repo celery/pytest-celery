@@ -4,10 +4,9 @@ from pytest_celery.api.components.backend.node import CeleryTestBackend
 from pytest_celery.api.components.broker.node import CeleryTestBroker
 from pytest_celery.api.components.worker.node import CeleryTestWorker
 from pytest_celery.api.setup import CeleryTestSetup
-from tests.common.test_setup import shared_celery_test_setup_suite
 
 
-class test_celery_test_setup(shared_celery_test_setup_suite):
+class test_celery_test_setup_unit:
     def test_setup_has_worker_cluster(self, celery_setup: CeleryTestSetup, celery_worker: CeleryTestWorker):
         assert len(celery_setup.worker_cluster) == 1
         assert celery_worker in celery_setup.worker_cluster
