@@ -45,9 +45,9 @@ class CeleryTestSetup:
     def ready(self, ping: bool = False) -> bool:
         ready = all(
             [
-                self._worker_cluster.ready(),
-                self._broker_cluster.ready(),
-                self._backend_cluster.ready(),
+                self.worker_cluster.ready(),
+                self.broker_cluster.ready(),
+                self.backend_cluster.ready(),
             ]
         )
 
@@ -62,8 +62,9 @@ class CeleryTestSetup:
         if not ping:
             return ready
 
-        res = self.ping.s().delay()
-        return ready and res.get(timeout=30) == "pong"
+        queue = self.worker_cluster[0].worker_queue  # type: ignore
+        res = self.ping.s().apply_async(queue=queue)
+        return ready and res.get(timeout=defaults.RESULT_TIMEOUT) == "pong"
 
     @classmethod
     def name(cls) -> str:
@@ -71,7 +72,9 @@ class CeleryTestSetup:
 
     @classmethod
     def config(cls, celery_worker_cluster_config: dict) -> dict:
-        # TODO: Check input
+        if not celery_worker_cluster_config:
+            raise ValueError("celery_worker_cluster_config is empty")
+
         celery_broker_cluster_config: dict = celery_worker_cluster_config["celery_broker_cluster_config"]
         celery_backend_cluster_config: dict = celery_worker_cluster_config["celery_backend_cluster_config"]
         return {
@@ -81,7 +84,12 @@ class CeleryTestSetup:
 
     @classmethod
     def create_setup_app(cls, celery_setup_config: dict, celery_setup_app_name: str) -> Celery:
-        # TODO: Check input
+        if not celery_setup_config:
+            raise ValueError("celery_setup_config is empty")
+
+        if not celery_setup_app_name:
+            raise ValueError("celery_setup_app_name is empty")
+
         app = Celery(celery_setup_app_name)
         app.config_from_object(celery_setup_config)
         return app
@@ -96,3 +104,8 @@ class CeleryTestSetup:
             return False
 
         return True
+
+    def teardown(self) -> None:
+        self.worker_cluster.teardown()
+        self.broker_cluster.teardown()
+        self.backend_cluster.teardown()

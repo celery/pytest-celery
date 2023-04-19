@@ -10,32 +10,32 @@ from pytest_celery.api.setup import CeleryTestSetup
 
 
 @pytest.fixture
-def celery_setup_name() -> str:
-    return CeleryTestSetup.name()
+def celery_setup_name() -> str:  # type: ignore
+    yield CeleryTestSetup.name()
 
 
 @pytest.fixture
-def celery_setup_config(celery_worker_cluster_config: dict) -> dict:
-    return CeleryTestSetup.config(
+def celery_setup_config(celery_worker_cluster_config: dict) -> dict:  # type: ignore
+    yield CeleryTestSetup.config(
         celery_worker_cluster_config=celery_worker_cluster_config,
     )
 
 
 @pytest.fixture
-def celery_setup_app(celery_setup_config: dict, celery_setup_name: str) -> Celery:
-    return CeleryTestSetup.create_setup_app(
+def celery_setup_app(celery_setup_config: dict, celery_setup_name: str) -> Celery:  # type: ignore
+    yield CeleryTestSetup.create_setup_app(
         celery_setup_config=celery_setup_config,
         celery_setup_app_name=celery_setup_name,
     )
 
 
 @pytest.fixture
-def celery_setup_cls() -> Type[CeleryTestSetup]:
+def celery_setup_cls() -> Type[CeleryTestSetup]:  # type: ignore
     return CeleryTestSetup
 
 
 @pytest.fixture
-def celery_setup(
+def celery_setup(  # type: ignore
     celery_setup_cls: Type[CeleryTestSetup],
     celery_worker_cluster: CeleryWorkerCluster,
     celery_broker_cluster: CeleryBrokerCluster,
@@ -49,4 +49,5 @@ def celery_setup(
         app=celery_setup_app,
     )
     setup.ready()
-    return setup
+    yield setup
+    setup.teardown()

@@ -73,3 +73,7 @@ class CeleryTestCluster:
     @classmethod
     def default_config(cls) -> dict:
         return {}
+
+    def teardown(self) -> None:
+        for node in self:
+            node.teardown()

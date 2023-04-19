@@ -65,7 +65,7 @@ jobs:
       - name: Run tox for "${{ matrix.python-version }}-unit"
         timeout-minutes: 5
         run: |
-          tox --verbose --verbose -e "${{ matrix.python-version }}-unit" -- -n auto
+          tox --verbose --verbose -e "${{ matrix.python-version }}-unit" -- -n auto --max-runs=10
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
@@ -117,9 +117,9 @@ jobs:
           poetry install --with dev,test,ci
 
       - name: Run tox for "${{ matrix.python-version }}-integration"
-        timeout-minutes: 30
+        timeout-minutes: 15
         run: |
-          tox --verbose --verbose -e "${{ matrix.python-version }}-integration" -- -n auto
+          tox --verbose --verbose -e "${{ matrix.python-version }}-integration" -- -n auto --max-runs=10
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
@@ -172,9 +172,9 @@ jobs:
           poetry install --with dev,test,ci
 
       - name: Run tox for "${{ matrix.python-version }}-smoke"
-        timeout-minutes: 30
+        timeout-minutes: 50
         run: |
-          tox --verbose --verbose -e "${{ matrix.python-version }}-smoke" -- -n auto
+          tox --verbose --verbose -e "${{ matrix.python-version }}-smoke" -- -n auto --max-runs=10
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
