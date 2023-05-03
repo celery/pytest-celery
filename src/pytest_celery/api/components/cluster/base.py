@@ -75,5 +75,4 @@ class CeleryTestCluster:
         return {}
 
     def teardown(self) -> None:
-        for node in self:
-            node.teardown()
+        pass

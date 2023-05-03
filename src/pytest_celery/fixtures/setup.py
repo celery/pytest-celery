@@ -48,6 +48,6 @@ def celery_setup(  # type: ignore
         backend_cluster=celery_backend_cluster,
         app=celery_setup_app,
     )
-    setup.ready()
+    assert setup.ready()
     yield setup
     setup.teardown()

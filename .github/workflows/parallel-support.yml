@@ -65,7 +65,7 @@ jobs:
       - name: Run tox for all environments in parallel
         timeout-minutes: 50
         run: |
-          tox -e xdist -- --max-runs=10
+          tox -e xdist
 
   parallel:
     runs-on: ${{ matrix.os }}

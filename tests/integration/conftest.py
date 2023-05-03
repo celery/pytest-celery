@@ -7,7 +7,6 @@ from pytest_docker_tools import container
 from pytest_docker_tools import fxtr
 
 from pytest_celery import defaults
-from pytest_celery.api.setup import CeleryTestSetup
 from pytest_celery.containers.worker import CeleryWorkerContainer
 
 
@@ -43,12 +42,7 @@ def default_worker_container_session_cls() -> Type[CeleryWorkerContainer]:
 integration_tests_worker_image = build(
     path="src/pytest_celery/components/worker",
     tag="pytest-celery/components/worker:integration",
-    buildargs={
-        "CELERY_VERSION": IntegrationWorkerContainer.version(),
-        "CELERY_LOG_LEVEL": IntegrationWorkerContainer.log_level(),
-        "CELERY_WORKER_NAME": IntegrationWorkerContainer.worker_name(),
-        "CELERY_WORKER_QUEUE": IntegrationWorkerContainer.worker_queue(),
-    },
+    buildargs=IntegrationWorkerContainer.buildargs(),
 )
 
 
@@ -60,14 +54,3 @@ default_worker_container = container(
     wrapper_class=IntegrationWorkerContainer,
     timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,
 )
-
-
-class IntegrationSetup(CeleryTestSetup):
-    def ready(self, *args: tuple, **kwargs: dict) -> bool:
-        kwargs["ping"] = True
-        return super().ready(*args, **kwargs)
-
-
-@pytest.fixture
-def celery_setup_cls() -> Type[CeleryTestSetup]:
-    return IntegrationSetup

@@ -5,57 +5,17 @@ components fixtures. You can override these values by hooking to the
 matchin fixture and returning your own value.
 """
 
-
-from typing import Any
-
-import docker
-import pytest
-import pytest_docker_tools
-import redis
-import requests
 from pytest_docker_tools import network
-from retry import retry
 
 ##########
 # Docker
 ##########
 
-RETRY_ERRORS = (
-    docker.errors.NotFound,
-    docker.errors.APIError,
-    requests.exceptions.HTTPError,
-    redis.exceptions.ConnectionError,
-    ConnectionRefusedError,
-    BrokenPipeError,
-    TimeoutError,
-    pytest_docker_tools.exceptions.TimeoutError,
-    pytest.PytestUnraisableExceptionWarning,
-)
-
-READY_TIMEOUT = 30
-RESULT_TIMEOUT = 30
-MAX_TRIES = 10
-DELAY_SECONDS = 10
-MAX_DELAY_SECONDS = 300
+CONTAINER_TIMEOUT = 60
+RESULT_TIMEOUT = 60
 
 
-@retry(
-    RETRY_ERRORS,
-    tries=MAX_TRIES,
-    delay=DELAY_SECONDS,
-    max_delay=MAX_DELAY_SECONDS,
-)
-def network_with_retry() -> Any:
-    try:
-        return network()
-    except RETRY_ERRORS as exc:
-        # This is a workaround when running out of IPv4 addresses
-        # that causes the network fixture to fail when running tests in parallel.
-        raise exc
-
-
-DEFAULT_NETWORK = network_with_retry()
-
+DEFAULT_NETWORK = network()
 
 ##########
 # Fixtures
@@ -157,7 +117,7 @@ DEFAULT_WORKER_LOG_LEVEL = WORKER_LOG_LEVEL
 DEFAULT_WORKER_NAME = WORKER_NAME
 DEFAULT_WORKER_ENV = WORKER_ENV
 DEFAULT_WORKER_QUEUE = WORKER_QUEUE
-DEFAULT_WORKER_CONTAINER_TIMEOUT = READY_TIMEOUT
+DEFAULT_WORKER_CONTAINER_TIMEOUT = CONTAINER_TIMEOUT
 DEFAULT_WORKER_VOLUME = WORKER_VOLUME
 
 ##########################
@@ -169,7 +129,7 @@ DEFAULT_WORKER_VOLUME = WORKER_VOLUME
 REDIS_IMAGE = "redis:latest"
 REDIS_PORTS = {"6379/tcp": None}
 REDIS_ENV: dict = {}
-REDIS_CONTAINER_TIMEOUT = READY_TIMEOUT
+REDIS_CONTAINER_TIMEOUT = CONTAINER_TIMEOUT
 
 # Docker containers settings
 #################################################
@@ -197,7 +157,7 @@ DEFAULT_REDIS_BROKER_PORTS = REDIS_PORTS
 RABBITMQ_IMAGE = "rabbitmq:latest"
 RABBITMQ_PORTS = {"5672/tcp": None}
 RABBITMQ_ENV: dict = {}
-RABBITMQ_CONTAINER_TIMEOUT = READY_TIMEOUT
+RABBITMQ_CONTAINER_TIMEOUT = CONTAINER_TIMEOUT * 2
 
 # Docker containers settings
 #################################################

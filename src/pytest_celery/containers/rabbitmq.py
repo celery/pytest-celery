@@ -1,35 +1,22 @@
+from typing import Optional
+
 from kombu import Connection
+from kombu.utils import cached_property
 
 from pytest_celery import defaults
 from pytest_celery.api.container import CeleryTestContainer
 
 
 class RabbitMQContainer(CeleryTestContainer):
-    __ready_prompt__ = "Server startup complete"
-
-    def ready(self) -> bool:
-        return self._full_ready(self.__ready_prompt__)
-
-    def _full_ready(self, match_log: str = "", check_client: bool = True) -> bool:
-        ready = super()._full_ready(match_log, check_client)
-        if ready and check_client:
-            c: Connection = self.client  # type: ignore
-            try:
-                ready = bool(c.connect())
-            finally:
-                c.release()
-        return ready
-
-    @property
+    @cached_property
     def client(self) -> Connection:
-        celeryconfig = self.celeryconfig
         client = Connection(
-            f"amqp://localhost/{celeryconfig['vhost']}",
-            port=celeryconfig["port"],
+            self.celeryconfig["local_url"],
+            port=self.celeryconfig["port"],
         )
         return client
 
-    @property
+    @cached_property
     def celeryconfig(self) -> dict:
         return {
             "url": self.url,
@@ -53,7 +40,7 @@ class RabbitMQContainer(CeleryTestContainer):
 
     @property
     def port(self) -> int:
-        return self._port("5672/tcp")
+        return self._wait_port("5672/tcp")
 
     @property
     def vhost(self) -> str:
@@ -74,3 +61,7 @@ class RabbitMQContainer(CeleryTestContainer):
     @classmethod
     def ports(cls) -> dict:
         return defaults.DEFAULT_RABBITMQ_BROKER_PORTS
+
+    @property
+    def ready_prompt(self) -> Optional[str]:
+        return "Server startup complete"

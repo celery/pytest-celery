@@ -7,9 +7,6 @@ from pytest_celery import defaults
 
 
 class test_celery_worker_container:
-    def test_full_ready(self, worker_test_container: CeleryWorkerContainer):
-        assert worker_test_container._full_ready(CeleryWorkerContainer.__ready_prompt__)
-
     def test_client(self, worker_test_container: CeleryWorkerContainer):
         worker_test_container.client
 

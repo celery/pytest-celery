@@ -24,7 +24,6 @@ failover_broker = container(
 @pytest.fixture
 def failover_rabbitmq_broker(failover_broker: RabbitMQContainer) -> RabbitMQTestBroker:
     broker = RabbitMQTestBroker(failover_broker)
-    broker.ready()
     yield broker
     broker.teardown()
 
@@ -35,7 +34,6 @@ def celery_broker_cluster(
     failover_rabbitmq_broker: RabbitMQTestBroker,
 ) -> CeleryBrokerCluster:
     cluster = CeleryBrokerCluster(celery_rabbitmq_broker, failover_rabbitmq_broker)
-    cluster.ready()
     yield cluster
     cluster.teardown()
 
@@ -48,4 +46,4 @@ class test_failover:
         for worker in celery_setup.worker_cluster:
             expected = "test_broker_failover"
             res = identity.s(expected).apply_async(queue=worker.worker_queue)
-            assert res.get() == expected
+            assert res.get(timeout=defaults.RESULT_TIMEOUT) == expected

@@ -4,6 +4,7 @@ from pytest_celery import defaults
 from pytest_celery.api.components.backend.cluster import CeleryBackendCluster
 from pytest_celery.api.components.broker.cluster import CeleryBrokerCluster
 from pytest_celery.api.components.worker.cluster import CeleryWorkerCluster
+from pytest_celery.api.components.worker.node import CeleryTestWorker
 
 
 class CeleryTestSetup:
@@ -45,26 +46,20 @@ class CeleryTestSetup:
     def ready(self, ping: bool = False) -> bool:
         ready = all(
             [
-                self.worker_cluster.ready(),
                 self.broker_cluster.ready(),
                 self.backend_cluster.ready(),
             ]
         )
+        ready = ready and self.worker_cluster.ready()
 
-        r = self.app.control.ping()
-        ready = all(
-            [
-                ready,
-                all([all([res["ok"] == "pong" for _, res in response.items()]) for response in r]),
-            ]
-        )
+        if ping and ready:
+            # TODO: ignore mypy globally for type overriding
+            worker: CeleryTestWorker
+            for worker in self.worker_cluster:  # type: ignore
+                res = self.ping.s().apply_async(queue=worker.worker_queue)
+                ready = ready and res.get(timeout=defaults.RESULT_TIMEOUT) == "pong"
 
-        if not ping:
-            return ready
-
-        queue = self.worker_cluster[0].worker_queue  # type: ignore
-        res = self.ping.s().apply_async(queue=queue)
-        return ready and res.get(timeout=defaults.RESULT_TIMEOUT) == "pong"
+        return ready
 
     @classmethod
     def name(cls) -> str:
@@ -83,6 +78,11 @@ class CeleryTestSetup:
         }
 
     @classmethod
+    def update_app_config(cls, app: Celery) -> None:
+        # Use app.conf.update() to update the app config
+        pass
+
+    @classmethod
     def create_setup_app(cls, celery_setup_config: dict, celery_setup_app_name: str) -> Celery:
         if not celery_setup_config:
             raise ValueError("celery_setup_config is empty")
@@ -92,6 +92,8 @@ class CeleryTestSetup:
 
         app = Celery(celery_setup_app_name)
         app.config_from_object(celery_setup_config)
+        cls.update_app_config(app)
+
         return app
 
     def chords_allowed(self) -> bool:
@@ -106,6 +108,4 @@ class CeleryTestSetup:
         return True
 
     def teardown(self) -> None:
-        self.worker_cluster.teardown()
-        self.broker_cluster.teardown()
-        self.backend_cluster.teardown()
+        pass
