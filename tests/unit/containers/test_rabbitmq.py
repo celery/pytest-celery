@@ -3,9 +3,6 @@ from pytest_celery import defaults
 
 
 class test_rabbitmq_container:
-    def test_full_ready(self, rabbitmq_test_container: RabbitMQContainer):
-        assert rabbitmq_test_container._full_ready(RabbitMQContainer.__ready_prompt__)
-
     def test_client(self, rabbitmq_test_container: RabbitMQContainer):
         assert rabbitmq_test_container.client
 
@@ -17,7 +14,7 @@ class test_rabbitmq_container:
         assert rabbitmq_test_container.version() == "latest"
 
     def test_env(self, rabbitmq_test_container: RabbitMQContainer):
-        assert rabbitmq_test_container.env() == {}
+        assert rabbitmq_test_container.env() == defaults.RABBITMQ_ENV
 
     def test_image(self, rabbitmq_test_container: RabbitMQContainer):
         assert rabbitmq_test_container.image() == defaults.RABBITMQ_IMAGE

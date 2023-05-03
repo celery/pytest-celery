@@ -6,11 +6,6 @@ from pytest_celery.api.container import CeleryTestContainer
 
 
 class CeleryWorkerContainer(CeleryTestContainer):
-    __ready_prompt__ = "ready."
-
-    def ready(self) -> bool:
-        return self._full_ready(self.__ready_prompt__)
-
     @classmethod
     def version(cls) -> str:
         return defaults.DEFAULT_WORKER_VERSION
@@ -26,6 +21,15 @@ class CeleryWorkerContainer(CeleryTestContainer):
     @classmethod
     def worker_queue(cls) -> str:
         return defaults.DEFAULT_WORKER_QUEUE
+
+    @classmethod
+    def buildargs(cls) -> dict:
+        return {
+            "CELERY_VERSION": cls.version(),
+            "CELERY_LOG_LEVEL": cls.log_level(),
+            "CELERY_WORKER_NAME": cls.worker_name(),
+            "CELERY_WORKER_QUEUE": cls.worker_queue(),
+        }
 
     @classmethod
     def env(cls, celery_worker_cluster_config: dict) -> dict:
@@ -110,5 +114,9 @@ class CeleryWorkerContainer(CeleryTestContainer):
     def signals_modules(cls) -> set:
         return set()
 
-    def _port(self, port: str) -> int:
+    def _wait_port(self, port: str) -> int:
         raise NotImplementedError
+
+    @property
+    def ready_prompt(self) -> str:
+        return "ready."

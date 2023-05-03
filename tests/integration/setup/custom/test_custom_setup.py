@@ -1,4 +1,5 @@
 from celery import Celery
+from pytest_docker_tools.wrappers.container import wait_for_callable
 
 from pytest_celery import defaults
 from pytest_celery.api.components.worker.node import CeleryTestWorker
@@ -30,7 +31,11 @@ class test_custom_setup:
         worker: CeleryTestWorker
         for worker in celery_setup.worker_cluster:
             if worker.logs():
-                assert worker.log_level in worker.logs()
+                wait_for_callable(
+                    "waiting for worker.log_level in worker.logs()",
+                    lambda: worker.log_level in worker.logs(),
+                    timeout=defaults.RESULT_TIMEOUT,
+                )
 
     def test_celery_setup_override(self, celery_setup: CeleryTestSetup):
         assert celery_setup.app

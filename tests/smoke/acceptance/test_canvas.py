@@ -1,10 +1,9 @@
-from time import sleep
-
 import pytest
 from celery.canvas import chain
 from celery.canvas import chord
 from celery.canvas import group
 from celery.canvas import signature
+from pytest_docker_tools.wrappers.container import wait_for_callable
 
 from pytest_celery import CeleryTestSetup
 from pytest_celery import defaults
@@ -13,7 +12,7 @@ from tests.common.tasks import identity
 from tests.smoke.tasks import add
 
 
-class test_acceptance:
+class test_canvas:
     def test_sanity(self, celery_setup: CeleryTestSetup):
         assert celery_setup.ready(ping=True)
         worker = celery_setup.worker_cluster[0]
@@ -22,9 +21,11 @@ class test_acceptance:
         res = identity.s(expected).apply_async(queue=queue)
         assert res.get(timeout=defaults.RESULT_TIMEOUT) == expected
 
-        if expected not in worker.logs():
-            sleep(2)  # wait for logs to be flushed
-            assert expected in worker.logs()
+        wait_for_callable(
+            f"waiting for {expected} in worker.logs()",
+            lambda: expected in worker.logs(),
+            timeout=defaults.RESULT_TIMEOUT,
+        )
 
         if len(celery_setup.worker_cluster) > 1:
             queue = celery_setup.worker_cluster[1].worker_queue
@@ -32,12 +33,20 @@ class test_acceptance:
         res = add.s(1, 2).apply_async(queue=queue)
         assert res.get(timeout=defaults.RESULT_TIMEOUT) == 3
 
-        sleep(2)  # wait for logs to be flushed
         if len(celery_setup.worker_cluster) > 1:
             assert expected not in celery_setup.worker_cluster[1].logs()
-            assert "succeeded" in celery_setup.worker_cluster[1].logs()
+            expected = "succeeded"
+            wait_for_callable(
+                f"waiting for {expected} in celery_setup.worker_cluster[1].logs()",
+                lambda: expected in celery_setup.worker_cluster[1].logs(),
+                timeout=defaults.RESULT_TIMEOUT,
+            )
         else:
-            assert expected in worker.logs()
+            wait_for_callable(
+                f"waiting for {expected} in worker.logs()",
+                lambda: expected in worker.logs(),
+                timeout=defaults.RESULT_TIMEOUT,
+            )
 
     def test_signature(self, celery_setup: CeleryTestSetup):
         worker: CeleryTestWorker
@@ -56,7 +65,7 @@ class test_acceptance:
                 group(s for s in [add.si(1, 1), add.si(2, 2)]),
             )
             res = sig.apply_async(queue=queue)
-            assert res.get(timeout=defaults.RESULT_TIMEOUT)  # == [2, 4, 2, 4, 2, 4]
+            assert res.get(timeout=defaults.RESULT_TIMEOUT) == [2, 4, 2, 4, 2, 4]
 
     def test_chain(self, celery_setup: CeleryTestSetup):
         worker: CeleryTestWorker

@@ -14,7 +14,6 @@ from pytest_celery.containers.redis import RedisContainer
 @pytest.fixture
 def celery_redis_broker(default_redis_broker: RedisContainer) -> RedisTestBroker:
     broker = RedisTestBroker(default_redis_broker)
-    broker.ready()
     yield broker
     broker.teardown()
 

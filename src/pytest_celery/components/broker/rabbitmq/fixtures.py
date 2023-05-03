@@ -14,7 +14,6 @@ from pytest_celery.containers.rabbitmq import RabbitMQContainer
 @pytest.fixture
 def celery_rabbitmq_broker(default_rabbitmq_broker: RabbitMQContainer) -> RabbitMQTestBroker:
     broker = RabbitMQTestBroker(default_rabbitmq_broker)
-    broker.ready()
     yield broker
     broker.teardown()
 

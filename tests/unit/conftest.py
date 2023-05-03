@@ -1,4 +1,4 @@
-from typing import Any
+# from typing import Any
 from typing import Type
 
 import pytest
@@ -9,7 +9,6 @@ from pytest_docker_tools import fetch
 from pytest_docker_tools import fxtr
 from pytest_docker_tools import network
 from pytest_docker_tools import volume
-from retry import retry
 
 from pytest_celery import defaults
 from pytest_celery.api.components.worker.node import CeleryTestWorker
@@ -22,18 +21,7 @@ from pytest_celery.containers.worker import CeleryWorkerContainer
 from tests.unit.docker.api import UnitTestContainer
 from tests.unit.docker.api import UnitWorkerContainer
 
-
-@retry(
-    defaults.RETRY_ERRORS,
-    tries=defaults.MAX_TRIES,
-    delay=defaults.DELAY_SECONDS,
-    max_delay=defaults.MAX_DELAY_SECONDS,
-)
-def session_network_with_retry() -> Any:
-    return network(scope="session")
-
-
-unit_tests_network = session_network_with_retry()
+unit_tests_network = network(scope="session")
 
 unit_tests_image = build(
     path="tests/unit/docker",
@@ -56,9 +44,7 @@ local_test_container = container(
 celery_unit_worker_image = build(
     path="src/pytest_celery/components/worker",
     tag="pytest-celery/components/worker:unit",
-    buildargs={
-        "CELERY_VERSION": fxtr("default_worker_celery_version"),
-    },
+    buildargs=UnitWorkerContainer.buildargs(),
 )
 
 worker_test_container_volume = volume(
@@ -105,7 +91,6 @@ def celery_setup_worker(
         container=worker_test_container,
         app=celery_setup_app,
     )
-    worker.ready()
     yield worker
     worker.teardown()
 
@@ -143,7 +128,6 @@ redis_broker_container = container(
 @pytest.fixture
 def celery_redis_backend(redis_backend_container: RedisContainer) -> RedisTestBackend:
     backend = RedisTestBackend(redis_backend_container)
-    backend.ready()
     yield backend
     backend.teardown()
 
@@ -151,7 +135,6 @@ def celery_redis_backend(redis_backend_container: RedisContainer) -> RedisTestBa
 @pytest.fixture
 def celery_redis_broker(redis_broker_container: RedisContainer) -> RedisTestBroker:
     broker = RedisTestBroker(redis_broker_container)
-    broker.ready()
     yield broker
     broker.teardown()
 
@@ -171,6 +154,5 @@ rabbitmq_test_container = container(
 @pytest.fixture
 def celery_rabbitmq_broker(rabbitmq_test_container: RabbitMQContainer) -> RabbitMQTestBroker:
     broker = RabbitMQTestBroker(rabbitmq_test_container)
-    broker.ready()
     yield broker
     broker.teardown()

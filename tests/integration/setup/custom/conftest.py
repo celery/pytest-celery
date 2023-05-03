@@ -13,6 +13,13 @@ from pytest_celery.containers.worker import CeleryWorkerContainer
 from tests.common.celery4.fixtures import *  # noqa
 
 
+@pytest.fixture
+def default_worker_tasks() -> set:
+    from tests.common import tasks
+
+    return {tasks}
+
+
 class Celery5WorkerContainer(CeleryWorkerContainer):
     @property
     def client(self) -> Any:
@@ -25,11 +32,16 @@ class Celery5WorkerContainer(CeleryWorkerContainer):
 
     @classmethod
     def log_level(cls) -> str:
-        return "DEBUG"
+        return "INFO"
 
     @classmethod
     def worker_queue(cls) -> str:
         return "celery5"
+
+
+@pytest.fixture
+def default_worker_container_cls() -> Type[CeleryWorkerContainer]:
+    return Celery5WorkerContainer
 
 
 @pytest.fixture(scope="session")
@@ -40,12 +52,7 @@ def default_worker_container_session_cls() -> Type[CeleryWorkerContainer]:
 celery5_worker_image = build(
     path="src/pytest_celery/components/worker",
     tag="pytest-celery/components/worker:celery5",
-    buildargs={
-        "CELERY_VERSION": Celery5WorkerContainer.version(),
-        "CELERY_LOG_LEVEL": Celery5WorkerContainer.log_level(),
-        "CELERY_WORKER_NAME": Celery5WorkerContainer.worker_name(),
-        "CELERY_WORKER_QUEUE": Celery5WorkerContainer.worker_queue(),
-    },
+    buildargs=Celery5WorkerContainer.buildargs(),
 )
 
 default_worker_container = container(
@@ -59,13 +66,6 @@ default_worker_container = container(
 
 
 @pytest.fixture
-def default_worker_tasks() -> set:
-    from tests.common import tasks
-
-    return {tasks}
-
-
-@pytest.fixture
 def celery_worker_cluster(
     celery_worker: CeleryTestWorker,
     celery4_worker: CeleryTestWorker,
@@ -74,6 +74,5 @@ def celery_worker_cluster(
         celery_worker,
         celery4_worker,
     )
-    cluster.ready()
     yield cluster
     cluster.teardown()

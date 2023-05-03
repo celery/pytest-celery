@@ -29,7 +29,6 @@ def celery_setup_worker(
         container=default_worker_container,
         app=celery_setup_app,
     )
-    worker.ready()
     yield worker
     worker.teardown()
 

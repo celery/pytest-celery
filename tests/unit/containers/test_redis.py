@@ -3,9 +3,6 @@ from pytest_celery import defaults
 
 
 class test_redis_container:
-    def test_full_ready(self, redis_test_container: RedisContainer):
-        assert redis_test_container._full_ready(RedisContainer.__ready_prompt__)
-
     def test_client(self, redis_test_container: RedisContainer):
         assert redis_test_container.client
 
@@ -17,7 +14,7 @@ class test_redis_container:
         assert redis_test_container.version() == "latest"
 
     def test_env(self, redis_test_container: RedisContainer):
-        assert redis_test_container.env() == {}
+        assert redis_test_container.env() == defaults.REDIS_ENV
 
     def test_image(self, redis_test_container: RedisContainer):
         assert redis_test_container.image() == defaults.REDIS_IMAGE

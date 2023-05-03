@@ -1,5 +1,6 @@
 from typing import Optional
 
+from kombu.utils import cached_property
 from redis import StrictRedis as Redis
 
 from pytest_celery import defaults
@@ -7,31 +8,15 @@ from pytest_celery.api.container import CeleryTestContainer
 
 
 class RedisContainer(CeleryTestContainer):
-    __ready_prompt__ = "Ready to accept connections"
-
-    def ready(self) -> bool:
-        return self._full_ready(self.__ready_prompt__)
-
-    def _full_ready(self, match_log: str = "", check_client: bool = True) -> bool:
-        ready = super()._full_ready(match_log, check_client)
-        if ready and check_client:
-            c: Redis = self.client  # type: ignore
-            if c.ping():
-                c.set("ready", "1")
-                ready = c.get("ready") == "1"
-                c.delete("ready")
-        return ready
-
-    @property
+    @cached_property
     def client(self) -> Optional[Redis]:
-        celeryconfig = self.celeryconfig
         client = Redis.from_url(
-            celeryconfig["local_url"],
+            self.celeryconfig["local_url"],
             decode_responses=True,
         )
         return client
 
-    @property
+    @cached_property
     def celeryconfig(self) -> dict:
         return {
             "url": self.url,
@@ -55,7 +40,7 @@ class RedisContainer(CeleryTestContainer):
 
     @property
     def port(self) -> int:
-        return self._port("6379/tcp")
+        return self._wait_port("6379/tcp")
 
     @property
     def vhost(self) -> str:
@@ -76,3 +61,7 @@ class RedisContainer(CeleryTestContainer):
     @classmethod
     def ports(cls) -> dict:
         return defaults.DEFAULT_REDIS_BACKEND_PORTS
+
+    @property
+    def ready_prompt(self) -> Optional[str]:
+        return "Ready to accept connections"
