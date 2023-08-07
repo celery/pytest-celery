@@ -34,7 +34,7 @@ jobs:
           python -m pip install tox-gh-actions
 
       - name: Install Poetry
-        uses: snok/install-poetry@v1.3.3
+        uses: snok/install-poetry@v1.3.4
 
       - name: Install tox and mypy
         run: poetry install --with dev,test,ci
