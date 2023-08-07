@@ -56,7 +56,7 @@ jobs:
 
       - name: Install Poetry
         if: startsWith(matrix.os, 'ubuntu-')
-        uses: snok/install-poetry@v1.3.3
+        uses: snok/install-poetry@v1.3.4
 
       - name: Install tox
         run: |
@@ -101,7 +101,7 @@ jobs:
 
       - name: Install Poetry
         if: startsWith(matrix.os, 'ubuntu-')
-        uses: snok/install-poetry@v1.3.3
+        uses: snok/install-poetry@v1.3.4
 
       - name: Install tox
         run: |
