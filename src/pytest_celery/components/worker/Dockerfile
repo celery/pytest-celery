@@ -16,6 +16,9 @@ ENV LOG_LEVEL=$CELERY_LOG_LEVEL
 ENV WORKER_NAME=$CELERY_WORKER_NAME
 ENV WORKER_QUEUE=$CELERY_WORKER_QUEUE
 
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
+
 # Install Python dependencies
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir celery[redis]==$PIP_VERSION
