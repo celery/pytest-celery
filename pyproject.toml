@@ -105,10 +105,6 @@ tox = [
 [tool.poetry.plugins.pytest11]
 celery = "pytest_celery.plugin"
 
-# [tool.pytest.ini_options]
-# addopts = "-p no:celery --runpytest subprocess"
-# pytester_example_dir = "examples"
-
 [tool.pytest.ini_options]
 addopts = [
     "--verbose",
