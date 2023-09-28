@@ -63,9 +63,9 @@ class CeleryWorkerContainer(CeleryTestContainer):
 
     @classmethod
     def _initial_content_worker_tasks(cls, worker_tasks: set) -> dict:
-        from pytest_celery.components.worker import common
+        from pytest_celery.components.worker import tasks
 
-        worker_tasks.add(common)
+        worker_tasks.add(tasks)
 
         import_string = ""
 
