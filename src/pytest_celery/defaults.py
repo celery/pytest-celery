@@ -100,6 +100,7 @@ WORKER_ENV = {
     "CELERY_BROKER_URL": "memory://",
     "CELERY_RESULT_BACKEND": "cache+memory://",
     "PYTHONUNBUFFERED": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
 }
 WORKER_VOLUME = {
     "bind": "/app",
