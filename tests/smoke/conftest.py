@@ -12,11 +12,11 @@ from pytest_celery.containers.worker import CeleryWorkerContainer
 
 @pytest.fixture
 def default_worker_tasks() -> set:
-    from tests.common import tasks as common_tasks
+    from tests import tasks as tests_tasks
     from tests.smoke import tasks as smoke_tasks
 
     yield {
-        common_tasks,
+        tests_tasks,
         smoke_tasks,
     }
 

@@ -9,7 +9,7 @@ from pytest_celery import defaults
 from pytest_celery.api.components.broker.cluster import CeleryBrokerCluster
 from pytest_celery.components.broker.rabbitmq.api import RabbitMQTestBroker
 from pytest_celery.containers.rabbitmq import RabbitMQContainer
-from tests.common.tasks import identity
+from tests.tasks import identity
 
 failover_broker = container(
     image="{default_rabbitmq_broker_image}",

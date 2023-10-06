@@ -8,8 +8,8 @@ from pytest_docker_tools.wrappers.container import wait_for_callable
 from pytest_celery import CeleryTestSetup
 from pytest_celery import defaults
 from pytest_celery.api.components.worker.node import CeleryTestWorker
-from tests.common.tasks import identity
 from tests.smoke.tasks import add
+from tests.tasks import identity
 
 
 class test_canvas:
