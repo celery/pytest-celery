@@ -1,14 +1,13 @@
 from typing import Optional
 
 from kombu import Connection
-from kombu.utils import cached_property
 
 from pytest_celery import defaults
 from pytest_celery.api.container import CeleryTestContainer
 
 
 class RabbitMQContainer(CeleryTestContainer):
-    @cached_property
+    @property
     def client(self) -> Connection:
         client = Connection(
             self.celeryconfig["local_url"],
@@ -16,7 +15,7 @@ class RabbitMQContainer(CeleryTestContainer):
         )
         return client
 
-    @cached_property
+    @property
     def celeryconfig(self) -> dict:
         return {
             "url": self.url,

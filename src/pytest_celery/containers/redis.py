@@ -1,6 +1,5 @@
 from typing import Optional
 
-from kombu.utils import cached_property
 from redis import StrictRedis as Redis
 
 from pytest_celery import defaults
@@ -8,7 +7,7 @@ from pytest_celery.api.container import CeleryTestContainer
 
 
 class RedisContainer(CeleryTestContainer):
-    @cached_property
+    @property
     def client(self) -> Optional[Redis]:
         client = Redis.from_url(
             self.celeryconfig["local_url"],
@@ -16,7 +15,7 @@ class RedisContainer(CeleryTestContainer):
         )
         return client
 
-    @cached_property
+    @property
     def celeryconfig(self) -> dict:
         return {
             "url": self.url,

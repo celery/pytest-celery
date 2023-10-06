@@ -2,18 +2,17 @@ from typing import Any
 from typing import Optional
 
 import pytest_docker_tools
-from kombu.utils import cached_property
 from pytest_docker_tools import wrappers
 from pytest_docker_tools.wrappers.container import wait_for_callable
 from retry import retry
 
 
 class CeleryTestContainer(wrappers.Container):
-    @cached_property
+    @property
     def client(self) -> Any:
         raise NotImplementedError("CeleryTestContainer.client")
 
-    @cached_property
+    @property
     def celeryconfig(self) -> dict:
         raise NotImplementedError("CeleryTestContainer.celeryconfig")
 
