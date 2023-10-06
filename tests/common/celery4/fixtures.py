@@ -10,7 +10,7 @@ from pytest_celery.containers.worker import CeleryWorkerContainer
 from tests.common.celery4.api import Celery4WorkerContainer
 
 celery4_worker_image = build(
-    path="tests/common/celery4",
+    path="src/pytest_celery/components/worker",
     tag="pytest-celery/components/worker:celery4",
     buildargs=Celery4WorkerContainer.buildargs(),
 )
