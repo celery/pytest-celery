@@ -5,12 +5,12 @@ from pytest_docker_tools.wrappers.container import wait_for_callable
 from pytest_celery import defaults
 from pytest_celery.api.components.worker.node import CeleryTestWorker
 from pytest_celery.api.setup import CeleryTestSetup
-from tests.common.tasks import identity
+from tests.tasks import identity
 
 
 @pytest.fixture
 def default_worker_tasks() -> set:
-    from tests.common import tasks
+    from tests import tasks
 
     yield {tasks}
 

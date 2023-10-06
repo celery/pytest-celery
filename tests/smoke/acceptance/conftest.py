@@ -4,7 +4,6 @@ import pytest
 
 from pytest_celery.api.components.worker.cluster import CeleryWorkerCluster
 from pytest_celery.api.components.worker.node import CeleryTestWorker
-from tests.common.celery4.fixtures import *  # noqa
 
 
 @pytest.fixture(

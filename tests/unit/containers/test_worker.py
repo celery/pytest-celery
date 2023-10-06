@@ -24,11 +24,11 @@ class test_celery_worker_container:
         assert worker_test_container.tasks_modules() == set()
 
     def test_initial_content_default_tasks(self, worker_test_container: CeleryWorkerContainer):
-        from tests.common import tasks
+        from tests import tasks
 
         expected_partial_initial_content = {
             "__init__.py": b"",
-            "tests/common/tasks.py": inspect.getsource(tasks).encode(),
+            "tests/tasks.py": inspect.getsource(tasks).encode(),
         }
         actual_initial_content = worker_test_container.initial_content({tasks})
         assert "app.py" in actual_initial_content
@@ -36,10 +36,10 @@ class test_celery_worker_container:
             assert actual_initial_content[key] == value
 
     def test_initial_content_import_formatting(self, worker_test_container: CeleryWorkerContainer):
-        from tests.common import tasks
+        from tests import tasks
 
         actual_initial_content = worker_test_container.initial_content({tasks})
-        assert "from tests.common.tasks import *" in str(actual_initial_content["app.py"])
+        assert "from tests.tasks import *" in str(actual_initial_content["app.py"])
 
     def test_task_modules(self, worker_test_container: CeleryWorkerContainer):
         assert worker_test_container.tasks_modules() == set()
