@@ -3,10 +3,10 @@ from typing import Type
 import pytest
 from celery import Celery
 
-from pytest_celery.api.components.backend.cluster import CeleryBackendCluster
-from pytest_celery.api.components.broker.cluster import CeleryBrokerCluster
-from pytest_celery.api.components.worker.cluster import CeleryWorkerCluster
+from pytest_celery.api.backend import CeleryBackendCluster
+from pytest_celery.api.broker import CeleryBrokerCluster
 from pytest_celery.api.setup import CeleryTestSetup
+from pytest_celery.api.worker import CeleryWorkerCluster
 
 
 @pytest.fixture

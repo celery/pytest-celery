@@ -4,8 +4,8 @@ from celery.signals import before_task_publish
 from pytest_docker_tools.wrappers.container import wait_for_callable
 
 from pytest_celery import CeleryTestSetup
+from pytest_celery import CeleryTestWorker
 from pytest_celery import defaults
-from pytest_celery.api.components.worker.node import CeleryTestWorker
 from tests.tasks import identity
 
 

@@ -4,8 +4,8 @@ from pytest_lazyfixture import lazy_fixture
 
 from pytest_celery import CeleryTestWorker
 from pytest_celery import CeleryWorkerCluster
+from pytest_celery import CeleryWorkerContainer
 from pytest_celery import defaults
-from pytest_celery.containers.worker import CeleryWorkerContainer
 
 
 @pytest.mark.parametrize("node", [lazy_fixture(defaults.CELERY_WORKER)])

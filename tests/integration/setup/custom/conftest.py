@@ -4,10 +4,10 @@ import pytest
 from pytest_docker_tools import container
 from pytest_docker_tools import fxtr
 
+from pytest_celery import CeleryTestWorker
+from pytest_celery import CeleryWorkerCluster
+from pytest_celery import CeleryWorkerContainer
 from pytest_celery import defaults
-from pytest_celery.api.components.worker.cluster import CeleryWorkerCluster
-from pytest_celery.api.components.worker.node import CeleryTestWorker
-from pytest_celery.containers.worker import CeleryWorkerContainer
 from tests.conftest import Celery5WorkerContainer
 
 

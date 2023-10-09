@@ -2,8 +2,8 @@ import pytest
 from celery import Celery
 from pytest_lazyfixture import lazy_fixture
 
+from pytest_celery import CeleryTestWorker
 from pytest_celery import defaults
-from pytest_celery.api.components.worker.node import CeleryTestWorker
 
 
 @pytest.mark.parametrize("node", [lazy_fixture(defaults.CELERY_SETUP_WORKER)])

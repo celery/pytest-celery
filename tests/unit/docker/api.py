@@ -1,7 +1,7 @@
 from typing import Any
 
 from pytest_celery import CeleryTestContainer
-from pytest_celery.containers.worker import CeleryWorkerContainer
+from pytest_celery import CeleryWorkerContainer
 
 
 class UnitTestContainer(CeleryTestContainer):

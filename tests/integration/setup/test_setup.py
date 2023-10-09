@@ -2,9 +2,9 @@ import pytest
 from celery import Celery
 from pytest_docker_tools.wrappers.container import wait_for_callable
 
+from pytest_celery import CeleryTestSetup
+from pytest_celery import CeleryTestWorker
 from pytest_celery import defaults
-from pytest_celery.api.components.worker.node import CeleryTestWorker
-from pytest_celery.api.setup import CeleryTestSetup
 from tests.tasks import identity
 
 

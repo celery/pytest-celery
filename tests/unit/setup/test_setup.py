@@ -1,9 +1,9 @@
 from celery import Celery
 
-from pytest_celery.api.components.backend.node import CeleryTestBackend
-from pytest_celery.api.components.broker.node import CeleryTestBroker
-from pytest_celery.api.components.worker.node import CeleryTestWorker
-from pytest_celery.api.setup import CeleryTestSetup
+from pytest_celery import CeleryTestBackend
+from pytest_celery import CeleryTestBroker
+from pytest_celery import CeleryTestSetup
+from pytest_celery import CeleryTestWorker
 
 
 class test_celery_test_setup_unit:

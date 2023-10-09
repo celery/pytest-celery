@@ -3,8 +3,8 @@
 import pytest
 
 from pytest_celery import defaults
-from pytest_celery.api.components.worker import CeleryTestWorker
-from pytest_celery.api.components.worker import CeleryWorkerCluster
+from pytest_celery.api.worker import CeleryTestWorker
+from pytest_celery.api.worker import CeleryWorkerCluster
 
 
 @pytest.fixture(params=defaults.ALL_CELERY_WORKERS)

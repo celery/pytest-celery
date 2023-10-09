@@ -1,0 +1,53 @@
+# mypy: disable-error-code="misc"
+
+from typing import Type
+
+import pytest
+from pytest_docker_tools import container
+from pytest_docker_tools import fxtr
+
+from pytest_celery import defaults
+from pytest_celery.vendors.redis.broker.api import RedisTestBroker
+from pytest_celery.vendors.redis.container import RedisContainer
+
+
+@pytest.fixture
+def celery_redis_broker(default_redis_broker: RedisContainer) -> RedisTestBroker:
+    broker = RedisTestBroker(default_redis_broker)
+    yield broker
+    broker.teardown()
+
+
+@pytest.fixture
+def default_redis_broker_cls() -> Type[RedisContainer]:
+    return RedisContainer
+
+
+default_redis_broker = container(
+    image="{default_redis_broker_image}",
+    ports=fxtr("default_redis_broker_ports"),
+    environment=fxtr("default_redis_broker_env"),
+    network="{DEFAULT_NETWORK.name}",
+    wrapper_class=RedisContainer,
+    timeout=defaults.REDIS_CONTAINER_TIMEOUT,
+)
+
+
+@pytest.fixture
+def default_redis_broker_env(default_redis_broker_cls: Type[RedisContainer]) -> dict:
+    yield default_redis_broker_cls.env()
+
+
+@pytest.fixture
+def default_redis_broker_image(default_redis_broker_cls: Type[RedisContainer]) -> str:
+    yield default_redis_broker_cls.image()
+
+
+@pytest.fixture
+def default_redis_broker_ports(default_redis_broker_cls: Type[RedisContainer]) -> dict:
+    yield default_redis_broker_cls.ports()
+
+
+@pytest.fixture
+def default_redis_broker_celeryconfig(default_redis_broker: RedisContainer) -> dict:
+    yield {"broker_url": default_redis_broker.celeryconfig["url"]}

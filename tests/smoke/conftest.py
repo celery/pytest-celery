@@ -6,8 +6,8 @@ from pytest_docker_tools import build
 from pytest_docker_tools import container
 from pytest_docker_tools import fxtr
 
+from pytest_celery import CeleryWorkerContainer
 from pytest_celery import defaults
-from pytest_celery.containers.worker import CeleryWorkerContainer
 
 
 @pytest.fixture
@@ -47,7 +47,7 @@ def default_worker_container_session_cls() -> Type[CeleryWorkerContainer]:
 
 
 smoke_tests_worker_image = build(
-    path="src/pytest_celery/components/worker",
+    path="src/pytest_celery/vendors/worker",
     tag="pytest-celery/components/worker:smoke",
     buildargs=SmokeWorkerContainer.buildargs(),
 )

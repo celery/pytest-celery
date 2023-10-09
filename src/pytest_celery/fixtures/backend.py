@@ -3,8 +3,8 @@
 import pytest
 
 from pytest_celery import defaults
-from pytest_celery.api.components.backend import CeleryBackendCluster
-from pytest_celery.api.components.backend import CeleryTestBackend
+from pytest_celery.api.backend import CeleryBackendCluster
+from pytest_celery.api.backend import CeleryTestBackend
 
 
 @pytest.fixture(params=defaults.ALL_CELERY_BACKENDS)
