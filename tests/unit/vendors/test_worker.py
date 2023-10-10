@@ -1,7 +1,9 @@
 import inspect
 
 import pytest
+from celery import Celery
 
+from pytest_celery import CeleryTestWorker
 from pytest_celery import CeleryWorkerContainer
 from pytest_celery import defaults
 
@@ -43,3 +45,11 @@ class test_celery_worker_container:
 
     def test_task_modules(self, worker_test_container: CeleryWorkerContainer):
         assert worker_test_container.tasks_modules() == set()
+
+
+class test_base_test_worker:
+    def test_ready(self, celery_setup_worker: CeleryTestWorker):
+        assert celery_setup_worker.ready()
+
+    def test_app(self, celery_setup_worker: CeleryTestWorker, celery_setup_app: Celery):
+        assert celery_setup_worker.app is celery_setup_app

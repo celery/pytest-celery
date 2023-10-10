@@ -1,4 +1,5 @@
 from pytest_celery import RabbitMQContainer
+from pytest_celery import RabbitMQTestBroker
 from pytest_celery import defaults
 
 
@@ -18,3 +19,8 @@ class test_rabbitmq_container:
 
     def test_image(self, rabbitmq_test_container: RabbitMQContainer):
         assert rabbitmq_test_container.image() == defaults.RABBITMQ_IMAGE
+
+
+class test_rabbitmq_test_broker:
+    def test_ready(self, celery_rabbitmq_broker: RabbitMQTestBroker):
+        assert celery_rabbitmq_broker.ready()
