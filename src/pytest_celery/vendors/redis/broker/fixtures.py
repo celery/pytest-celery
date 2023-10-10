@@ -27,7 +27,7 @@ default_redis_broker = container(
     image="{default_redis_broker_image}",
     ports=fxtr("default_redis_broker_ports"),
     environment=fxtr("default_redis_broker_env"),
-    network="{DEFAULT_NETWORK.name}",
+    network="{default_pytest_celery_network.name}",
     wrapper_class=RedisContainer,
     timeout=defaults.REDIS_CONTAINER_TIMEOUT,
 )

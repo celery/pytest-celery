@@ -27,7 +27,7 @@ default_rabbitmq_broker = container(
     image="{default_rabbitmq_broker_image}",
     ports=fxtr("default_rabbitmq_broker_ports"),
     environment=fxtr("default_rabbitmq_broker_env"),
-    network="{DEFAULT_NETWORK.name}",
+    network="{default_pytest_celery_network.name}",
     wrapper_class=RabbitMQContainer,
     timeout=defaults.RABBITMQ_CONTAINER_TIMEOUT,
 )

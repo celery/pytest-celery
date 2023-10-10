@@ -46,7 +46,7 @@ def default_worker_container_session_cls() -> Type[CeleryWorkerContainer]:
 default_worker_container = container(
     image="{celery_base_worker_image.id}",
     environment=fxtr("default_worker_env"),
-    network="{DEFAULT_NETWORK.name}",
+    network="{default_pytest_celery_network.name}",
     volumes={"{default_worker_volume.name}": defaults.DEFAULT_WORKER_VOLUME},
     wrapper_class=CeleryWorkerContainer,
     timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,

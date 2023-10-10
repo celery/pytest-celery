@@ -27,7 +27,7 @@ default_redis_backend = container(
     image="{default_redis_backend_image}",
     ports=fxtr("default_redis_backend_ports"),
     environment=fxtr("default_redis_backend_env"),
-    network="{DEFAULT_NETWORK.name}",
+    network="{default_pytest_celery_network.name}",
     wrapper_class=RedisContainer,
     timeout=defaults.REDIS_CONTAINER_TIMEOUT,
 )

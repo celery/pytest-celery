@@ -15,7 +15,7 @@ CONTAINER_TIMEOUT = 60
 RESULT_TIMEOUT = 60
 
 
-DEFAULT_NETWORK = network()
+default_pytest_celery_network = network()
 
 ##########
 # Fixtures
