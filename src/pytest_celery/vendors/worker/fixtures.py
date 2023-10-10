@@ -54,7 +54,7 @@ default_worker_container = container(
 
 celery_base_worker_image = build(
     path=defaults.WORKER_DOCKERFILE_ROOTDIR,
-    tag="pytest-celery/components/worker:base",
+    tag="pytest-celery/components/worker:default",
     buildargs={
         "CELERY_VERSION": fxtr("default_worker_celery_version"),
         "CELERY_LOG_LEVEL": fxtr("default_worker_celery_log_level"),
