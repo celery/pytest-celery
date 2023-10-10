@@ -42,7 +42,7 @@ local_test_container = container(
 )
 
 celery_unit_worker_image = build(
-    path="src/pytest_celery/vendors/worker",
+    path=defaults.WORKER_DOCKERFILE_ROOTDIR,
     tag="pytest-celery/components/worker:unit",
     buildargs=UnitWorkerContainer.buildargs(),
 )

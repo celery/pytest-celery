@@ -34,7 +34,7 @@ class Celery4WorkerContainer(CeleryWorkerContainer):
 
 
 celery4_worker_image = build(
-    path="src/pytest_celery/vendors/worker",
+    path=defaults.WORKER_DOCKERFILE_ROOTDIR,
     tag="pytest-celery/components/worker:celery4",
     buildargs=Celery4WorkerContainer.buildargs(),
 )
@@ -82,7 +82,7 @@ class Celery5WorkerContainer(CeleryWorkerContainer):
 
 
 celery5_worker_image = build(
-    path="src/pytest_celery/vendors/worker",
+    path=defaults.WORKER_DOCKERFILE_ROOTDIR,
     tag="pytest-celery/components/worker:celery5",
     buildargs=Celery5WorkerContainer.buildargs(),
 )

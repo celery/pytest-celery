@@ -47,7 +47,7 @@ def default_worker_container_session_cls() -> Type[CeleryWorkerContainer]:
 
 
 smoke_tests_worker_image = build(
-    path="src/pytest_celery/vendors/worker",
+    path=defaults.WORKER_DOCKERFILE_ROOTDIR,
     tag="pytest-celery/components/worker:smoke",
     buildargs=SmokeWorkerContainer.buildargs(),
 )
