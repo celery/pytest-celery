@@ -3,8 +3,8 @@
 import pytest
 
 from pytest_celery import defaults
-from pytest_celery.api.components.broker import CeleryBrokerCluster
-from pytest_celery.api.components.broker import CeleryTestBroker
+from pytest_celery.api.broker import CeleryBrokerCluster
+from pytest_celery.api.broker import CeleryTestBroker
 
 
 @pytest.fixture(params=defaults.ALL_CELERY_BROKERS)

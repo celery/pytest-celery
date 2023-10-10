@@ -6,8 +6,8 @@ from pytest_docker_tools import build
 from pytest_docker_tools import container
 from pytest_docker_tools import fxtr
 
+from pytest_celery import CeleryWorkerContainer
 from pytest_celery import defaults
-from pytest_celery.containers.worker import CeleryWorkerContainer
 
 
 class IntegrationWorkerContainer(CeleryWorkerContainer):
@@ -40,7 +40,7 @@ def default_worker_container_session_cls() -> Type[CeleryWorkerContainer]:
 
 
 integration_tests_worker_image = build(
-    path="src/pytest_celery/components/worker",
+    path=defaults.WORKER_DOCKERFILE_ROOTDIR,
     tag="pytest-celery/components/worker:integration",
     buildargs=IntegrationWorkerContainer.buildargs(),
 )
@@ -49,7 +49,7 @@ integration_tests_worker_image = build(
 default_worker_container = container(
     image="{integration_tests_worker_image.id}",
     environment=fxtr("default_worker_env"),
-    network="{DEFAULT_NETWORK.name}",
+    network="{default_pytest_celery_network.name}",
     volumes={"{default_worker_volume.name}": defaults.DEFAULT_WORKER_VOLUME},
     wrapper_class=IntegrationWorkerContainer,
     timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,

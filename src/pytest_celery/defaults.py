@@ -15,7 +15,7 @@ CONTAINER_TIMEOUT = 60
 RESULT_TIMEOUT = 60
 
 
-DEFAULT_NETWORK = network()
+default_pytest_celery_network = network()
 
 ##########
 # Fixtures
@@ -90,9 +90,11 @@ ALL_CELERY_BROKERS = (
 # Worker Container Settings
 ##########################
 
+WORKER_DOCKERFILE_ROOTDIR = "src/pytest_celery/vendors/worker"
+
 # Default container settings for all worker container fixtures
 WORKER_CELERY_APP_NAME = "celery_test_app"
-WORKER_CELERY_VERSION = "5.3.0b2"
+WORKER_CELERY_VERSION = "5.3"
 WORKER_LOG_LEVEL = "INFO"
 WORKER_NAME = CELERY_SETUP_WORKER
 WORKER_QUEUE = "celery"

@@ -2,8 +2,8 @@ from typing import Tuple
 
 import pytest
 
-from pytest_celery.api.components.worker.cluster import CeleryWorkerCluster
-from pytest_celery.api.components.worker.node import CeleryTestWorker
+from pytest_celery import CeleryTestWorker
+from pytest_celery import CeleryWorkerCluster
 
 
 @pytest.fixture(

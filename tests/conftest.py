@@ -6,9 +6,9 @@ from pytest_docker_tools import build
 from pytest_docker_tools import container
 from pytest_docker_tools import fxtr
 
+from pytest_celery import CeleryTestWorker
+from pytest_celery import CeleryWorkerContainer
 from pytest_celery import defaults
-from pytest_celery.api.components.worker.node import CeleryTestWorker
-from pytest_celery.containers.worker import CeleryWorkerContainer
 
 
 class Celery4WorkerContainer(CeleryWorkerContainer):
@@ -34,7 +34,7 @@ class Celery4WorkerContainer(CeleryWorkerContainer):
 
 
 celery4_worker_image = build(
-    path="src/pytest_celery/components/worker",
+    path=defaults.WORKER_DOCKERFILE_ROOTDIR,
     tag="pytest-celery/components/worker:celery4",
     buildargs=Celery4WorkerContainer.buildargs(),
 )
@@ -43,7 +43,7 @@ celery4_worker_image = build(
 celery4_worker_container = container(
     image="{celery4_worker_image.id}",
     environment=fxtr("default_worker_env"),
-    network="{DEFAULT_NETWORK.name}",
+    network="{default_pytest_celery_network.name}",
     volumes={"{default_worker_volume.name}": defaults.DEFAULT_WORKER_VOLUME},
     wrapper_class=Celery4WorkerContainer,
     timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,
@@ -82,7 +82,7 @@ class Celery5WorkerContainer(CeleryWorkerContainer):
 
 
 celery5_worker_image = build(
-    path="src/pytest_celery/components/worker",
+    path=defaults.WORKER_DOCKERFILE_ROOTDIR,
     tag="pytest-celery/components/worker:celery5",
     buildargs=Celery5WorkerContainer.buildargs(),
 )

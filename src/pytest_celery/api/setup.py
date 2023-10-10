@@ -1,10 +1,11 @@
 from celery import Celery
 
 from pytest_celery import defaults
-from pytest_celery.api.components.backend.cluster import CeleryBackendCluster
-from pytest_celery.api.components.broker.cluster import CeleryBrokerCluster
-from pytest_celery.api.components.worker.cluster import CeleryWorkerCluster
-from pytest_celery.api.components.worker.node import CeleryTestWorker
+from pytest_celery.api.backend import CeleryBackendCluster
+from pytest_celery.api.broker import CeleryBrokerCluster
+from pytest_celery.api.worker import CeleryTestWorker
+from pytest_celery.api.worker import CeleryWorkerCluster
+from pytest_celery.vendors.worker.tasks import ping
 
 
 class CeleryTestSetup:
@@ -19,8 +20,6 @@ class CeleryTestSetup:
         self._broker_cluster = broker_cluster
         self._backend_cluster = backend_cluster
         self._app = app
-
-        from pytest_celery.components.worker.tasks import ping
 
         self.ping = ping
 

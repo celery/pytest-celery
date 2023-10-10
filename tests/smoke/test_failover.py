@@ -4,18 +4,18 @@ import pytest
 from pytest_docker_tools import container
 from pytest_docker_tools import fxtr
 
+from pytest_celery import CeleryBrokerCluster
 from pytest_celery import CeleryTestSetup
+from pytest_celery import RabbitMQContainer
+from pytest_celery import RabbitMQTestBroker
 from pytest_celery import defaults
-from pytest_celery.api.components.broker.cluster import CeleryBrokerCluster
-from pytest_celery.components.broker.rabbitmq.api import RabbitMQTestBroker
-from pytest_celery.containers.rabbitmq import RabbitMQContainer
 from tests.tasks import identity
 
 failover_broker = container(
     image="{default_rabbitmq_broker_image}",
     ports=fxtr("default_rabbitmq_broker_ports"),
     environment=fxtr("default_rabbitmq_broker_env"),
-    network="{DEFAULT_NETWORK.name}",
+    network="{default_pytest_celery_network.name}",
     wrapper_class=RabbitMQContainer,
     timeout=defaults.RABBITMQ_CONTAINER_TIMEOUT,
 )

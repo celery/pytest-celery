@@ -10,14 +10,14 @@ from pytest_docker_tools import fxtr
 from pytest_docker_tools import network
 from pytest_docker_tools import volume
 
+from pytest_celery import CeleryTestWorker
+from pytest_celery import CeleryWorkerContainer
+from pytest_celery import RabbitMQContainer
+from pytest_celery import RabbitMQTestBroker
+from pytest_celery import RedisContainer
+from pytest_celery import RedisTestBackend
+from pytest_celery import RedisTestBroker
 from pytest_celery import defaults
-from pytest_celery.api.components.worker.node import CeleryTestWorker
-from pytest_celery.components.backend.redis.api import RedisTestBackend
-from pytest_celery.components.broker.rabbitmq.api import RabbitMQTestBroker
-from pytest_celery.components.broker.redis.api import RedisTestBroker
-from pytest_celery.containers.rabbitmq import RabbitMQContainer
-from pytest_celery.containers.redis import RedisContainer
-from pytest_celery.containers.worker import CeleryWorkerContainer
 from tests.unit.docker.api import UnitTestContainer
 from tests.unit.docker.api import UnitWorkerContainer
 
@@ -42,7 +42,7 @@ local_test_container = container(
 )
 
 celery_unit_worker_image = build(
-    path="src/pytest_celery/components/worker",
+    path=defaults.WORKER_DOCKERFILE_ROOTDIR,
     tag="pytest-celery/components/worker:unit",
     buildargs=UnitWorkerContainer.buildargs(),
 )

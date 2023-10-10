@@ -1,32 +1,14 @@
+# mypy: disable-error-code="misc"
+
 from typing import Type
 
 import pytest
 from celery import Celery
 
-from pytest_celery.api.components.backend.cluster import CeleryBackendCluster
-from pytest_celery.api.components.broker.cluster import CeleryBrokerCluster
-from pytest_celery.api.components.worker.cluster import CeleryWorkerCluster
+from pytest_celery.api.backend import CeleryBackendCluster
+from pytest_celery.api.broker import CeleryBrokerCluster
 from pytest_celery.api.setup import CeleryTestSetup
-
-
-@pytest.fixture
-def celery_setup_name() -> str:  # type: ignore
-    yield CeleryTestSetup.name()
-
-
-@pytest.fixture
-def celery_setup_config(celery_worker_cluster_config: dict) -> dict:  # type: ignore
-    yield CeleryTestSetup.config(
-        celery_worker_cluster_config=celery_worker_cluster_config,
-    )
-
-
-@pytest.fixture
-def celery_setup_app(celery_setup_config: dict, celery_setup_name: str) -> Celery:  # type: ignore
-    yield CeleryTestSetup.create_setup_app(
-        celery_setup_config=celery_setup_config,
-        celery_setup_app_name=celery_setup_name,
-    )
+from pytest_celery.api.worker import CeleryWorkerCluster
 
 
 @pytest.fixture
@@ -51,3 +33,30 @@ def celery_setup(  # type: ignore
     assert setup.ready()
     yield setup
     setup.teardown()
+
+
+@pytest.fixture
+def celery_setup_name(celery_setup_cls: Type[CeleryTestSetup]) -> str:  # type: ignore
+    yield celery_setup_cls.name()
+
+
+@pytest.fixture
+def celery_setup_config(
+    celery_setup_cls: Type[CeleryTestSetup],
+    celery_worker_cluster_config: dict,
+) -> dict:
+    yield celery_setup_cls.config(
+        celery_worker_cluster_config=celery_worker_cluster_config,
+    )
+
+
+@pytest.fixture
+def celery_setup_app(
+    celery_setup_cls: Type[CeleryTestSetup],
+    celery_setup_config: dict,
+    celery_setup_name: str,
+) -> Celery:
+    yield celery_setup_cls.create_setup_app(
+        celery_setup_config=celery_setup_config,
+        celery_setup_app_name=celery_setup_name,
+    )
