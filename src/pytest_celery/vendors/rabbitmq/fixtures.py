@@ -46,8 +46,3 @@ def default_rabbitmq_broker_image(default_rabbitmq_broker_cls: Type[RabbitMQCont
 @pytest.fixture
 def default_rabbitmq_broker_ports(default_rabbitmq_broker_cls: Type[RabbitMQContainer]) -> dict:
     yield default_rabbitmq_broker_cls.ports()
-
-
-@pytest.fixture
-def default_rabbitmq_broker_celeryconfig(default_rabbitmq_broker: RabbitMQContainer) -> dict:
-    yield {"broker_url": default_rabbitmq_broker.celeryconfig["url"]}

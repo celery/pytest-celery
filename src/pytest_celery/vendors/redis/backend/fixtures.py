@@ -46,8 +46,3 @@ def default_redis_backend_image(default_redis_backend_cls: Type[RedisContainer])
 @pytest.fixture
 def default_redis_backend_ports(default_redis_backend_cls: Type[RedisContainer]) -> dict:
     yield default_redis_backend_cls.ports()
-
-
-@pytest.fixture
-def default_redis_backend_celeryconfig(default_redis_backend: RedisContainer) -> dict:
-    yield {"result_backend": default_redis_backend.celeryconfig["url"]}
