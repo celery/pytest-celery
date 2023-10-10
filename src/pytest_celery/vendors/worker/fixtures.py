@@ -15,11 +15,6 @@ from pytest_celery.vendors.worker.container import CeleryWorkerContainer
 
 
 @pytest.fixture
-def default_worker_cls() -> Type[CeleryTestWorker]:
-    return CeleryTestWorker
-
-
-@pytest.fixture
 def celery_setup_worker(
     default_worker_cls: Type[CeleryTestWorker],
     default_worker_container: CeleryWorkerContainer,
@@ -31,6 +26,11 @@ def celery_setup_worker(
     )
     yield worker
     worker.teardown()
+
+
+@pytest.fixture
+def default_worker_cls() -> Type[CeleryTestWorker]:
+    return CeleryTestWorker
 
 
 @pytest.fixture
@@ -59,7 +59,7 @@ celery_base_worker_image = build(
         "CELERY_VERSION": fxtr("default_worker_celery_version"),
         "CELERY_LOG_LEVEL": fxtr("default_worker_celery_log_level"),
         "CELERY_WORKER_NAME": fxtr("default_worker_celery_worker_name"),
-        "CELERY_WORKER_QUEUE": fxtr("default_worker_celerky_worker_queue"),
+        "CELERY_WORKER_QUEUE": fxtr("default_worker_celery_worker_queue"),
     },
 )
 
@@ -84,7 +84,7 @@ def default_worker_celery_worker_name(default_worker_container_session_cls: Type
 
 
 @pytest.fixture(scope="session")
-def default_worker_celerky_worker_queue(default_worker_container_session_cls: Type[CeleryWorkerContainer]) -> str:
+def default_worker_celery_worker_queue(default_worker_container_session_cls: Type[CeleryWorkerContainer]) -> str:
     yield default_worker_container_session_cls.worker_queue()
 
 
