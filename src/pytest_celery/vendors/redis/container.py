@@ -2,8 +2,10 @@ from typing import Optional
 
 from redis import StrictRedis as Redis
 
-from pytest_celery import defaults
 from pytest_celery.api.container import CeleryTestContainer
+from pytest_celery.vendors.redis.defaults import REDIS_ENV
+from pytest_celery.vendors.redis.defaults import REDIS_IMAGE
+from pytest_celery.vendors.redis.defaults import REDIS_PORTS
 
 
 class RedisContainer(CeleryTestContainer):
@@ -51,15 +53,15 @@ class RedisContainer(CeleryTestContainer):
 
     @classmethod
     def env(cls) -> dict:
-        return defaults.DEFAULT_REDIS_BACKEND_ENV
+        return REDIS_ENV
 
     @classmethod
     def image(cls) -> str:
-        return defaults.DEFAULT_REDIS_BACKEND_IMAGE
+        return REDIS_IMAGE
 
     @classmethod
     def ports(cls) -> dict:
-        return defaults.DEFAULT_REDIS_BACKEND_PORTS
+        return REDIS_PORTS
 
     @property
     def ready_prompt(self) -> Optional[str]:

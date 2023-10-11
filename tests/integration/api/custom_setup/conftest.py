@@ -7,10 +7,12 @@ from pytest_docker_tools import build
 from pytest_docker_tools import container
 from pytest_docker_tools import fxtr
 
+from pytest_celery import DEFAULT_WORKER_CONTAINER_TIMEOUT
+from pytest_celery import DEFAULT_WORKER_VOLUME
+from pytest_celery import WORKER_DOCKERFILE_ROOTDIR
 from pytest_celery import CeleryTestWorker
 from pytest_celery import CeleryWorkerCluster
 from pytest_celery import CeleryWorkerContainer
-from pytest_celery import defaults
 
 
 class Celery4WorkerContainer(CeleryWorkerContainer):
@@ -36,7 +38,7 @@ class Celery4WorkerContainer(CeleryWorkerContainer):
 
 
 celery4_worker_image = build(
-    path=defaults.WORKER_DOCKERFILE_ROOTDIR,
+    path=WORKER_DOCKERFILE_ROOTDIR,
     tag="pytest-celery/components/worker:celery4",
     buildargs=Celery4WorkerContainer.buildargs(),
 )
@@ -46,9 +48,9 @@ celery4_worker_container = container(
     image="{celery4_worker_image.id}",
     environment=fxtr("default_worker_env"),
     network="{default_pytest_celery_network.name}",
-    volumes={"{default_worker_volume.name}": defaults.DEFAULT_WORKER_VOLUME},
+    volumes={"{default_worker_volume.name}": DEFAULT_WORKER_VOLUME},
     wrapper_class=Celery4WorkerContainer,
-    timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,
+    timeout=DEFAULT_WORKER_CONTAINER_TIMEOUT,
 )
 
 
@@ -84,7 +86,7 @@ class Celery5WorkerContainer(CeleryWorkerContainer):
 
 
 celery5_worker_image = build(
-    path=defaults.WORKER_DOCKERFILE_ROOTDIR,
+    path=WORKER_DOCKERFILE_ROOTDIR,
     tag="pytest-celery/components/worker:celery5",
     buildargs=Celery5WorkerContainer.buildargs(),
 )
@@ -104,9 +106,9 @@ default_worker_container = container(
     image="{celery5_worker_image.id}",
     environment=fxtr("default_worker_env"),
     network="{default_pytest_celery_network.name}",
-    volumes={"{default_worker_volume.name}": defaults.DEFAULT_WORKER_VOLUME},
+    volumes={"{default_worker_volume.name}": DEFAULT_WORKER_VOLUME},
     wrapper_class=Celery5WorkerContainer,
-    timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,
+    timeout=DEFAULT_WORKER_CONTAINER_TIMEOUT,
 )
 
 

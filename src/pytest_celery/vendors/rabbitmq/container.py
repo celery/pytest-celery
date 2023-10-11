@@ -2,8 +2,10 @@ from typing import Optional
 
 from kombu import Connection
 
-from pytest_celery import defaults
 from pytest_celery.api.container import CeleryTestContainer
+from pytest_celery.vendors.rabbitmq.defaults import RABBITMQ_ENV
+from pytest_celery.vendors.rabbitmq.defaults import RABBITMQ_IMAGE
+from pytest_celery.vendors.rabbitmq.defaults import RABBITMQ_PORTS
 
 
 class RabbitMQContainer(CeleryTestContainer):
@@ -51,15 +53,15 @@ class RabbitMQContainer(CeleryTestContainer):
 
     @classmethod
     def env(cls) -> dict:
-        return defaults.DEFAULT_RABBITMQ_BROKER_ENV
+        return RABBITMQ_ENV
 
     @classmethod
     def image(cls) -> str:
-        return defaults.DEFAULT_RABBITMQ_BROKER_IMAGE
+        return RABBITMQ_IMAGE
 
     @classmethod
     def ports(cls) -> dict:
-        return defaults.DEFAULT_RABBITMQ_BROKER_PORTS
+        return RABBITMQ_PORTS
 
     @property
     def ready_prompt(self) -> Optional[str]:

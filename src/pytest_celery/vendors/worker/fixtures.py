@@ -9,9 +9,11 @@ from pytest_docker_tools import container
 from pytest_docker_tools import fxtr
 from pytest_docker_tools import volume
 
-from pytest_celery import defaults
 from pytest_celery.api.worker import CeleryTestWorker
 from pytest_celery.vendors.worker.container import CeleryWorkerContainer
+from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_CONTAINER_TIMEOUT
+from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_VOLUME
+from pytest_celery.vendors.worker.defaults import WORKER_DOCKERFILE_ROOTDIR
 
 
 @pytest.fixture
@@ -47,13 +49,13 @@ default_worker_container = container(
     image="{celery_base_worker_image.id}",
     environment=fxtr("default_worker_env"),
     network="{default_pytest_celery_network.name}",
-    volumes={"{default_worker_volume.name}": defaults.DEFAULT_WORKER_VOLUME},
+    volumes={"{default_worker_volume.name}": DEFAULT_WORKER_VOLUME},
     wrapper_class=CeleryWorkerContainer,
-    timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,
+    timeout=DEFAULT_WORKER_CONTAINER_TIMEOUT,
 )
 
 celery_base_worker_image = build(
-    path=defaults.WORKER_DOCKERFILE_ROOTDIR,
+    path=WORKER_DOCKERFILE_ROOTDIR,
     tag="pytest-celery/components/worker:default",
     buildargs={
         "CELERY_VERSION": fxtr("default_worker_celery_version"),

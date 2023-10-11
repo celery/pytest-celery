@@ -3,9 +3,10 @@ import inspect
 import pytest
 from celery import Celery
 
+from pytest_celery import WORKER_CELERY_VERSION
+from pytest_celery import WORKER_ENV
 from pytest_celery import CeleryTestWorker
 from pytest_celery import CeleryWorkerContainer
-from pytest_celery import defaults
 
 
 class test_celery_worker_container:
@@ -17,10 +18,10 @@ class test_celery_worker_container:
             worker_test_container.celeryconfig
 
     def test_version(self, worker_test_container: CeleryWorkerContainer):
-        assert worker_test_container.version() == defaults.WORKER_CELERY_VERSION
+        assert worker_test_container.version() == WORKER_CELERY_VERSION
 
     def test_env(self, worker_test_container: CeleryWorkerContainer, celery_worker_cluster_config: dict):
-        assert worker_test_container.env(celery_worker_cluster_config) == defaults.WORKER_ENV
+        assert worker_test_container.env(celery_worker_cluster_config) == WORKER_ENV
 
     def test_tasks_modules(self, worker_test_container: CeleryWorkerContainer):
         assert worker_test_container.tasks_modules() == set()

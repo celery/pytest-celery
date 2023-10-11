@@ -10,6 +10,18 @@ from pytest_docker_tools import fxtr
 from pytest_docker_tools import network
 from pytest_docker_tools import volume
 
+from pytest_celery import DEFAULT_WORKER_CONTAINER_TIMEOUT
+from pytest_celery import DEFAULT_WORKER_ENV
+from pytest_celery import DEFAULT_WORKER_VOLUME
+from pytest_celery import RABBITMQ_CONTAINER_TIMEOUT
+from pytest_celery import RABBITMQ_ENV
+from pytest_celery import RABBITMQ_IMAGE
+from pytest_celery import RABBITMQ_PORTS
+from pytest_celery import REDIS_CONTAINER_TIMEOUT
+from pytest_celery import REDIS_ENV
+from pytest_celery import REDIS_IMAGE
+from pytest_celery import REDIS_PORTS
+from pytest_celery import WORKER_DOCKERFILE_ROOTDIR
 from pytest_celery import CeleryTestWorker
 from pytest_celery import CeleryWorkerContainer
 from pytest_celery import RabbitMQContainer
@@ -17,7 +29,6 @@ from pytest_celery import RabbitMQTestBroker
 from pytest_celery import RedisContainer
 from pytest_celery import RedisTestBackend
 from pytest_celery import RedisTestBroker
-from pytest_celery import defaults
 from tests.unit.docker.api import UnitTestContainer
 from tests.unit.docker.api import UnitWorkerContainer
 
@@ -42,7 +53,7 @@ local_test_container = container(
 )
 
 celery_unit_worker_image = build(
-    path=defaults.WORKER_DOCKERFILE_ROOTDIR,
+    path=WORKER_DOCKERFILE_ROOTDIR,
     tag="pytest-celery/components/worker:unit",
     buildargs=UnitWorkerContainer.buildargs(),
 )
@@ -74,11 +85,11 @@ def worker_test_container_tasks(default_worker_container_cls: Type[CeleryWorkerC
 worker_test_container = container(
     image="{celery_unit_worker_image.id}",
     scope="session",
-    environment=defaults.DEFAULT_WORKER_ENV,
+    environment=DEFAULT_WORKER_ENV,
     network="{unit_tests_network.name}",
-    volumes={"{worker_test_container_volume.name}": defaults.DEFAULT_WORKER_VOLUME},
+    volumes={"{worker_test_container_volume.name}": DEFAULT_WORKER_VOLUME},
     wrapper_class=UnitWorkerContainer,
-    timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,
+    timeout=DEFAULT_WORKER_CONTAINER_TIMEOUT,
 )
 
 
@@ -95,33 +106,33 @@ def celery_setup_worker(
     worker.teardown()
 
 
-redis_image = fetch(repository=defaults.REDIS_IMAGE)
+redis_image = fetch(repository=REDIS_IMAGE)
 redis_test_container = container(
     image="{redis_image.id}",
     scope="session",
-    ports=defaults.REDIS_PORTS,
-    environment=defaults.REDIS_ENV,
+    ports=REDIS_PORTS,
+    environment=REDIS_ENV,
     network="{unit_tests_network.name}",
     wrapper_class=RedisContainer,
-    timeout=defaults.REDIS_CONTAINER_TIMEOUT,
+    timeout=REDIS_CONTAINER_TIMEOUT,
 )
 redis_backend_container = container(
     image="{redis_image.id}",
     scope="session",
-    ports=defaults.REDIS_PORTS,
-    environment=defaults.REDIS_ENV,
+    ports=REDIS_PORTS,
+    environment=REDIS_ENV,
     network="{unit_tests_network.name}",
     wrapper_class=RedisContainer,
-    timeout=defaults.REDIS_CONTAINER_TIMEOUT,
+    timeout=REDIS_CONTAINER_TIMEOUT,
 )
 redis_broker_container = container(
     image="{redis_image.id}",
     scope="session",
-    ports=defaults.REDIS_PORTS,
-    environment=defaults.REDIS_ENV,
+    ports=REDIS_PORTS,
+    environment=REDIS_ENV,
     network="{unit_tests_network.name}",
     wrapper_class=RedisContainer,
-    timeout=defaults.REDIS_CONTAINER_TIMEOUT,
+    timeout=REDIS_CONTAINER_TIMEOUT,
 )
 
 
@@ -139,15 +150,15 @@ def celery_redis_broker(redis_broker_container: RedisContainer) -> RedisTestBrok
     broker.teardown()
 
 
-rabbitmq_image = fetch(repository=defaults.RABBITMQ_IMAGE)
+rabbitmq_image = fetch(repository=RABBITMQ_IMAGE)
 rabbitmq_test_container = container(
     image="{rabbitmq_image.id}",
     scope="session",
-    ports=defaults.RABBITMQ_PORTS,
-    environment=defaults.RABBITMQ_ENV,
+    ports=RABBITMQ_PORTS,
+    environment=RABBITMQ_ENV,
     network="{unit_tests_network.name}",
     wrapper_class=RabbitMQContainer,
-    timeout=defaults.RABBITMQ_CONTAINER_TIMEOUT,
+    timeout=RABBITMQ_CONTAINER_TIMEOUT,
 )
 
 

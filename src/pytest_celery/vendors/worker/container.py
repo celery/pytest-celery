@@ -1,26 +1,30 @@
 import inspect
 from typing import Union
 
-from pytest_celery import defaults
 from pytest_celery.api.container import CeleryTestContainer
+from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_ENV
+from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_LOG_LEVEL
+from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_NAME
+from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_QUEUE
+from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_VERSION
 
 
 class CeleryWorkerContainer(CeleryTestContainer):
     @classmethod
     def version(cls) -> str:
-        return defaults.DEFAULT_WORKER_VERSION
+        return DEFAULT_WORKER_VERSION
 
     @classmethod
     def log_level(cls) -> str:
-        return defaults.DEFAULT_WORKER_LOG_LEVEL
+        return DEFAULT_WORKER_LOG_LEVEL
 
     @classmethod
     def worker_name(cls) -> str:
-        return defaults.DEFAULT_WORKER_NAME
+        return DEFAULT_WORKER_NAME
 
     @classmethod
     def worker_queue(cls) -> str:
-        return defaults.DEFAULT_WORKER_QUEUE
+        return DEFAULT_WORKER_QUEUE
 
     @classmethod
     def buildargs(cls) -> dict:
@@ -40,7 +44,7 @@ class CeleryWorkerContainer(CeleryTestContainer):
             env["CELERY_BROKER_URL"] = ";".join(celery_broker_cluster_config["urls"])
         if celery_backend_cluster_config:
             env["CELERY_RESULT_BACKEND"] = ";".join(celery_backend_cluster_config["urls"])
-        return {**defaults.DEFAULT_WORKER_ENV, **env}
+        return {**DEFAULT_WORKER_ENV, **env}
 
     @classmethod
     def initial_content(cls, worker_tasks: set, worker_signals: Union[set, None] = None) -> dict:

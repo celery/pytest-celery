@@ -2,12 +2,13 @@
 
 import pytest
 
-from pytest_celery import defaults
 from pytest_celery.api.backend import CeleryBackendCluster
 from pytest_celery.api.backend import CeleryTestBackend
+from pytest_celery.defaults import ALL_CELERY_BACKENDS
+from pytest_celery.defaults import CELERY_BACKEND_CLUSTER
 
 
-@pytest.fixture(params=defaults.ALL_CELERY_BACKENDS)
+@pytest.fixture(params=ALL_CELERY_BACKENDS)
 def celery_backend(request: pytest.FixtureRequest) -> CeleryTestBackend:  # type: ignore
     backend: CeleryTestBackend = request.getfixturevalue(request.param)
     yield backend
@@ -25,7 +26,7 @@ def celery_backend_cluster(celery_backend: CeleryTestBackend) -> CeleryBackendCl
 def celery_backend_cluster_config(request: pytest.FixtureRequest) -> dict:
     try:
         use_default_config = pytest.fail.Exception
-        cluster: CeleryBackendCluster = request.getfixturevalue(defaults.CELERY_BACKEND_CLUSTER)
+        cluster: CeleryBackendCluster = request.getfixturevalue(CELERY_BACKEND_CLUSTER)
         return cluster.config()
     except use_default_config:
         return CeleryBackendCluster.default_config()

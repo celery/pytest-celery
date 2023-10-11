@@ -1,7 +1,8 @@
+from pytest_celery import REDIS_ENV
+from pytest_celery import REDIS_IMAGE
 from pytest_celery import RedisContainer
 from pytest_celery import RedisTestBackend
 from pytest_celery import RedisTestBroker
-from pytest_celery import defaults
 
 
 class test_redis_container:
@@ -16,10 +17,10 @@ class test_redis_container:
         assert redis_test_container.version() == "latest"
 
     def test_env(self, redis_test_container: RedisContainer):
-        assert redis_test_container.env() == defaults.REDIS_ENV
+        assert redis_test_container.env() == REDIS_ENV
 
     def test_image(self, redis_test_container: RedisContainer):
-        assert redis_test_container.image() == defaults.REDIS_IMAGE
+        assert redis_test_container.image() == REDIS_IMAGE
 
 
 class test_redis_test_backend:

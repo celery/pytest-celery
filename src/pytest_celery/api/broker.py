@@ -2,18 +2,18 @@ from typing import Tuple
 from typing import Type
 from typing import Union
 
-from pytest_celery import defaults
 from pytest_celery.api.base import CeleryTestCluster
 from pytest_celery.api.base import CeleryTestNode
 from pytest_celery.api.container import CeleryTestContainer
+from pytest_celery.defaults import WORKER_ENV
 
 
 class CeleryTestBroker(CeleryTestNode):
     @classmethod
     def default_config(cls) -> dict:
         return {
-            "url": defaults.WORKER_ENV["CELERY_BROKER_URL"],
-            "local_url": defaults.WORKER_ENV["CELERY_BROKER_URL"],
+            "url": WORKER_ENV["CELERY_BROKER_URL"],
+            "local_url": WORKER_ENV["CELERY_BROKER_URL"],
         }
 
 
@@ -31,6 +31,6 @@ class CeleryBrokerCluster(CeleryTestCluster):
     @classmethod
     def default_config(cls) -> dict:
         return {
-            "urls": [defaults.WORKER_ENV["CELERY_BROKER_URL"]],
-            "local_urls": [defaults.WORKER_ENV["CELERY_BROKER_URL"]],
+            "urls": [WORKER_ENV["CELERY_BROKER_URL"]],
+            "local_urls": [WORKER_ENV["CELERY_BROKER_URL"]],
         }
