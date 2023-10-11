@@ -1,24 +1,64 @@
 from typing import Any
+from typing import Tuple
 from typing import Type
 
 import pytest
+from celery import Celery
 from pytest_docker_tools import build
 from pytest_docker_tools import container
 from pytest_docker_tools import fxtr
 
+from pytest_celery import CeleryTestWorker
+from pytest_celery import CeleryWorkerCluster
 from pytest_celery import CeleryWorkerContainer
 from pytest_celery import defaults
 
 
-@pytest.fixture
-def default_worker_tasks() -> set:
-    from tests import tasks as tests_tasks
-    from tests.smoke import tasks as smoke_tasks
+class CeleryLatestWorkerContainer(CeleryWorkerContainer):
+    @property
+    def client(self) -> Any:
+        return self
 
-    yield {
-        tests_tasks,
-        smoke_tasks,
-    }
+    @classmethod
+    def version(cls) -> str:
+        return ""  # Latest
+
+    @classmethod
+    def worker_name(cls) -> str:
+        return CeleryWorkerContainer.worker_name() + "-latest"
+
+    @classmethod
+    def worker_queue(cls) -> str:
+        return CeleryWorkerContainer.worker_queue() + "-latest"
+
+
+celery_latest_worker_image = build(
+    path=defaults.WORKER_DOCKERFILE_ROOTDIR,
+    tag="pytest-celery/components/worker:celery_latest",
+    buildargs=CeleryLatestWorkerContainer.buildargs(),
+)
+
+
+celery_latest_worker_container = container(
+    image="{celery_latest_worker_image.id}",
+    environment=fxtr("default_worker_env"),
+    network="{default_pytest_celery_network.name}",
+    volumes={"{default_worker_volume.name}": defaults.DEFAULT_WORKER_VOLUME},
+    wrapper_class=CeleryLatestWorkerContainer,
+    timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,
+)
+
+
+@pytest.fixture
+def celery_latest_worker(
+    celery_latest_worker_container: CeleryWorkerContainer,
+    celery_setup_app: Celery,
+) -> CeleryTestWorker:
+    worker = CeleryTestWorker(
+        celery_latest_worker_container,
+        app=celery_setup_app,
+    )
+    yield worker
 
 
 class SmokeWorkerContainer(CeleryWorkerContainer):
@@ -61,3 +101,28 @@ default_worker_container = container(
     wrapper_class=SmokeWorkerContainer,
     timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,
 )
+
+
+@pytest.fixture
+def default_worker_tasks() -> set:
+    from tests import tasks as tests_tasks
+    from tests.smoke import tasks as smoke_tasks
+
+    yield {
+        tests_tasks,
+        smoke_tasks,
+    }
+
+
+@pytest.fixture(
+    # Each param item is a list of workers to be used in the cluster
+    params=[
+        ["celery_setup_worker"],
+        ["celery_setup_worker", "celery_latest_worker"],
+    ]
+)
+def celery_worker_cluster(request: pytest.FixtureRequest) -> CeleryWorkerCluster:
+    nodes: Tuple[CeleryTestWorker] = [request.getfixturevalue(worker) for worker in request.param]
+    cluster = CeleryWorkerCluster(*nodes)
+    yield cluster
+    cluster.teardown()

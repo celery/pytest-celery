@@ -94,7 +94,7 @@ WORKER_DOCKERFILE_ROOTDIR = "src/pytest_celery/vendors/worker"
 
 # Default container settings for all worker container fixtures
 WORKER_CELERY_APP_NAME = "celery_test_app"
-WORKER_CELERY_VERSION = "5.3"
+WORKER_CELERY_VERSION = ""  # latest from pypi
 WORKER_LOG_LEVEL = "INFO"
 WORKER_NAME = CELERY_SETUP_WORKER
 WORKER_QUEUE = "celery"
