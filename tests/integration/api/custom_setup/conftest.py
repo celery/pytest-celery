@@ -12,13 +12,6 @@ from tests.conftest import Celery5WorkerContainer
 
 
 @pytest.fixture
-def default_worker_tasks() -> set:
-    from tests import tasks
-
-    return {tasks}
-
-
-@pytest.fixture
 def default_worker_container_cls() -> Type[CeleryWorkerContainer]:
     return Celery5WorkerContainer
 

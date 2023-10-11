@@ -54,3 +54,10 @@ default_worker_container = container(
     wrapper_class=IntegrationWorkerContainer,
     timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,
 )
+
+
+@pytest.fixture
+def default_worker_tasks() -> set:
+    from tests import tasks
+
+    yield {tasks}
