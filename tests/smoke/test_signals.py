@@ -3,9 +3,9 @@ from celery.signals import after_task_publish
 from celery.signals import before_task_publish
 from pytest_docker_tools.wrappers.container import wait_for_callable
 
+from pytest_celery import RESULT_TIMEOUT
 from pytest_celery import CeleryTestSetup
 from pytest_celery import CeleryTestWorker
-from pytest_celery import defaults
 from tests.tasks import identity
 
 
@@ -54,7 +54,7 @@ class test_signals:
             wait_for_callable(
                 "waiting for worker_init_handler in worker.logs()",
                 lambda: "worker_init_handler" in worker.logs(),
-                timeout=defaults.RESULT_TIMEOUT,
+                timeout=RESULT_TIMEOUT,
             )
 
     def test_worker_process_init(self, celery_setup: CeleryTestSetup):
@@ -63,7 +63,7 @@ class test_signals:
             wait_for_callable(
                 "waiting for worker_process_init_handler in worker.logs()",
                 lambda: "worker_process_init_handler" in worker.logs(),
-                timeout=defaults.RESULT_TIMEOUT,
+                timeout=RESULT_TIMEOUT,
             )
 
     def test_worker_ready(self, celery_setup: CeleryTestSetup):
@@ -72,7 +72,7 @@ class test_signals:
             wait_for_callable(
                 "waiting for worker_ready_handler in worker.logs()",
                 lambda: "worker_ready_handler" in worker.logs(),
-                timeout=defaults.RESULT_TIMEOUT,
+                timeout=RESULT_TIMEOUT,
             )
 
     def test_worker_process_shutdown(self, celery_setup: CeleryTestSetup):
@@ -82,7 +82,7 @@ class test_signals:
             wait_for_callable(
                 "waiting for worker_process_shutdown_handler in worker.logs()",
                 lambda: "worker_process_shutdown_handler" in worker.logs(),
-                timeout=defaults.RESULT_TIMEOUT,
+                timeout=RESULT_TIMEOUT,
             )
 
     def test_worker_shutdown(self, celery_setup: CeleryTestSetup):
@@ -92,5 +92,5 @@ class test_signals:
             wait_for_callable(
                 "waiting for worker_shutdown_handler in worker.logs()",
                 lambda: "worker_shutdown_handler" in worker.logs(),
-                timeout=defaults.RESULT_TIMEOUT,
+                timeout=RESULT_TIMEOUT,
             )

@@ -2,12 +2,12 @@
 
 import pytest
 
-from pytest_celery import defaults
 from pytest_celery.api.worker import CeleryTestWorker
 from pytest_celery.api.worker import CeleryWorkerCluster
+from pytest_celery.defaults import ALL_CELERY_WORKERS
 
 
-@pytest.fixture(params=defaults.ALL_CELERY_WORKERS)
+@pytest.fixture(params=ALL_CELERY_WORKERS)
 def celery_worker(request: pytest.FixtureRequest) -> CeleryTestWorker:  # type: ignore
     worker: CeleryTestWorker = request.getfixturevalue(request.param)
     yield worker

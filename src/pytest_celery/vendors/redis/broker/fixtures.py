@@ -6,9 +6,9 @@ import pytest
 from pytest_docker_tools import container
 from pytest_docker_tools import fxtr
 
-from pytest_celery import defaults
 from pytest_celery.vendors.redis.broker.api import RedisTestBroker
 from pytest_celery.vendors.redis.container import RedisContainer
+from pytest_celery.vendors.redis.defaults import REDIS_CONTAINER_TIMEOUT
 
 
 @pytest.fixture
@@ -29,7 +29,7 @@ default_redis_broker = container(
     environment=fxtr("default_redis_broker_env"),
     network="{default_pytest_celery_network.name}",
     wrapper_class=RedisContainer,
-    timeout=defaults.REDIS_CONTAINER_TIMEOUT,
+    timeout=REDIS_CONTAINER_TIMEOUT,
 )
 
 

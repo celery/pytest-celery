@@ -1,10 +1,11 @@
 from celery import Celery
 
-from pytest_celery import defaults
 from pytest_celery.api.backend import CeleryBackendCluster
 from pytest_celery.api.broker import CeleryBrokerCluster
 from pytest_celery.api.worker import CeleryTestWorker
 from pytest_celery.api.worker import CeleryWorkerCluster
+from pytest_celery.defaults import DEFAULT_WORKER_APP_NAME
+from pytest_celery.defaults import RESULT_TIMEOUT
 from pytest_celery.vendors.worker.tasks import ping
 
 
@@ -56,13 +57,13 @@ class CeleryTestSetup:
             worker: CeleryTestWorker
             for worker in self.worker_cluster:  # type: ignore
                 res = self.ping.s().apply_async(queue=worker.worker_queue)
-                ready = ready and res.get(timeout=defaults.RESULT_TIMEOUT) == "pong"
+                ready = ready and res.get(timeout=RESULT_TIMEOUT) == "pong"
 
         return ready
 
     @classmethod
     def name(cls) -> str:
-        return defaults.DEFAULT_WORKER_APP_NAME
+        return DEFAULT_WORKER_APP_NAME
 
     @classmethod
     def config(cls, celery_worker_cluster_config: dict) -> dict:

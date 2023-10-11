@@ -8,10 +8,12 @@ from pytest_docker_tools import build
 from pytest_docker_tools import container
 from pytest_docker_tools import fxtr
 
+from pytest_celery import DEFAULT_WORKER_CONTAINER_TIMEOUT
+from pytest_celery import DEFAULT_WORKER_VOLUME
+from pytest_celery import WORKER_DOCKERFILE_ROOTDIR
 from pytest_celery import CeleryTestWorker
 from pytest_celery import CeleryWorkerCluster
 from pytest_celery import CeleryWorkerContainer
-from pytest_celery import defaults
 
 
 class CeleryLatestWorkerContainer(CeleryWorkerContainer):
@@ -33,7 +35,7 @@ class CeleryLatestWorkerContainer(CeleryWorkerContainer):
 
 
 celery_latest_worker_image = build(
-    path=defaults.WORKER_DOCKERFILE_ROOTDIR,
+    path=WORKER_DOCKERFILE_ROOTDIR,
     tag="pytest-celery/components/worker:celery_latest",
     buildargs=CeleryLatestWorkerContainer.buildargs(),
 )
@@ -43,9 +45,9 @@ celery_latest_worker_container = container(
     image="{celery_latest_worker_image.id}",
     environment=fxtr("default_worker_env"),
     network="{default_pytest_celery_network.name}",
-    volumes={"{default_worker_volume.name}": defaults.DEFAULT_WORKER_VOLUME},
+    volumes={"{default_worker_volume.name}": DEFAULT_WORKER_VOLUME},
     wrapper_class=CeleryLatestWorkerContainer,
-    timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,
+    timeout=DEFAULT_WORKER_CONTAINER_TIMEOUT,
 )
 
 
@@ -87,7 +89,7 @@ def default_worker_container_session_cls() -> Type[CeleryWorkerContainer]:
 
 
 smoke_tests_worker_image = build(
-    path=defaults.WORKER_DOCKERFILE_ROOTDIR,
+    path=WORKER_DOCKERFILE_ROOTDIR,
     tag="pytest-celery/components/worker:smoke",
     buildargs=SmokeWorkerContainer.buildargs(),
 )
@@ -97,9 +99,9 @@ default_worker_container = container(
     image="{smoke_tests_worker_image.id}",  # TODO: Use fixture to avoid defining default_worker_container again
     environment=fxtr("default_worker_env"),
     network="{default_pytest_celery_network.name}",
-    volumes={"{default_worker_volume.name}": defaults.DEFAULT_WORKER_VOLUME},
+    volumes={"{default_worker_volume.name}": DEFAULT_WORKER_VOLUME},
     wrapper_class=SmokeWorkerContainer,
-    timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,
+    timeout=DEFAULT_WORKER_CONTAINER_TIMEOUT,
 )
 
 
