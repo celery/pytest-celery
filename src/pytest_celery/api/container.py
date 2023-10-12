@@ -1,3 +1,4 @@
+import sys
 from typing import Any
 from typing import Optional
 
@@ -38,14 +39,15 @@ class CeleryTestContainer(wrappers.Container):
 
     @retry(pytest_docker_tools.exceptions.TimeoutError, delay=10, tries=3)
     def _wait_ready(self, timeout: int = 30) -> bool:
-        if self.ready_prompt is None:
-            return True
+        if self.ready_prompt is not None:
+            if self.ready_prompt not in self.logs():
+                wait_for_callable(
+                    f"Waiting for {self.__class__.__name__}::{self.name} to get ready",
+                    lambda: self.ready_prompt in self.logs(),
+                    timeout=timeout,
+                )
 
-        wait_for_callable(
-            f"Waiting for {self.__class__.__name__}::{self.name} to get ready",
-            lambda: self.ready_prompt in self.logs(),
-            timeout=timeout,
-        )
+        sys.stdout.write(f"{self.__class__.__name__}::{self.name} is ready\n")
 
         return True
 
