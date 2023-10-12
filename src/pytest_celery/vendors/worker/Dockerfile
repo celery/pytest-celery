@@ -20,7 +20,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 
 # Install Python dependencies
 RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir celery[redis,memcache]${CELERY_VERSION:+==$CELERY_VERSION}
+    && pip install --no-cache-dir celery[redis,memcache,pymemcache]${CELERY_VERSION:+==$CELERY_VERSION}
 
 # The workdir must be /app
 WORKDIR /app

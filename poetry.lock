@@ -193,6 +193,7 @@ click-repl = ">=0.2.0"
 kombu = ">=5.3.2,<6.0"
 pylibmc = {version = "1.6.3", optional = true, markers = "platform_system != \"Windows\" and extra == \"memcache\""}
 python-dateutil = ">=2.8.2"
+python-memcached = {version = "1.59", optional = true, markers = "extra == \"pymemcache\""}
 redis = {version = ">=4.5.2,<4.5.5 || >4.5.5,<5.0.0", optional = true, markers = "extra == \"redis\""}
 tzdata = ">=2022.7"
 vine = ">=5.0.0,<6.0"
@@ -1268,6 +1269,20 @@ files = [
 six = ">=1.5"
 
 [[package]]
+name = "python-memcached"
+version = "1.59"
+description = "Pure python memcached client"
+optional = false
+python-versions = "*"
+files = [
+    {file = "python-memcached-1.59.tar.gz", hash = "sha256:a2e28637be13ee0bf1a8b6843e7490f9456fd3f2a4cb60471733c7b5d5557e4f"},
+    {file = "python_memcached-1.59-py2.py3-none-any.whl", hash = "sha256:4dac64916871bd3550263323fc2ce18e1e439080a2d5670c594cf3118d99b594"},
+]
+
+[package.dependencies]
+six = ">=1.4.0"
+
+[[package]]
 name = "pywin32"
 version = "306"
 description = "Python for Window Extensions"
@@ -1661,4 +1676,4 @@ test = ["websockets"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">= 3.8,<4.0"
-content-hash = "591a3d10f32e7637fbb3cce3780ba60e66e74fe4af8cfca6fad607df3e912c39"
+content-hash = "c9362905976cbe93ae7500f1c76b9b121ebc544c030c16ec5c9ac333be0c772b"

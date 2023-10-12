@@ -1,4 +1,9 @@
-import pylibmc as memcache
+import sys
+
+if sys.platform == "win32":
+    import memcache
+else:
+    import pylibmc as memcache
 
 from pytest_celery.api.container import CeleryTestContainer
 from pytest_celery.vendors.memcached.defaults import MEMCACHED_ENV
