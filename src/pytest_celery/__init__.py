@@ -18,6 +18,9 @@ from pytest_celery.fixtures.backend import *
 from pytest_celery.fixtures.broker import *
 from pytest_celery.fixtures.setup import *
 from pytest_celery.fixtures.worker import *
+from pytest_celery.vendors.memcached.api import *
+from pytest_celery.vendors.memcached.container import *
+from pytest_celery.vendors.memcached.fixtures import *
 from pytest_celery.vendors.rabbitmq.api import *
 from pytest_celery.vendors.rabbitmq.container import *
 from pytest_celery.vendors.rabbitmq.fixtures import *
