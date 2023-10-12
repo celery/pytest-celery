@@ -14,7 +14,10 @@ class test_custom_setup:
         assert celery_setup.ready()
 
     def test_worker_is_connected_to_backend_custom_setup(self, celery_setup: CeleryTestSetup):
-        backend_urls = [backend.container.celeryconfig["local_url"] for backend in celery_setup.backend_cluster]
+        backend_urls = [
+            backend.container.celeryconfig["local_url"].replace("cache+", "")
+            for backend in celery_setup.backend_cluster
+        ]
         worker: CeleryTestWorker
         for worker in celery_setup.worker_cluster:
             app: Celery = worker.app

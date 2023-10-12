@@ -13,6 +13,10 @@ from pytest_docker_tools import volume
 from pytest_celery import DEFAULT_WORKER_CONTAINER_TIMEOUT
 from pytest_celery import DEFAULT_WORKER_ENV
 from pytest_celery import DEFAULT_WORKER_VOLUME
+from pytest_celery import MEMCACHED_CONTAINER_TIMEOUT
+from pytest_celery import MEMCACHED_ENV
+from pytest_celery import MEMCACHED_IMAGE
+from pytest_celery import MEMCACHED_PORTS
 from pytest_celery import RABBITMQ_CONTAINER_TIMEOUT
 from pytest_celery import RABBITMQ_ENV
 from pytest_celery import RABBITMQ_IMAGE
@@ -24,6 +28,8 @@ from pytest_celery import REDIS_PORTS
 from pytest_celery import WORKER_DOCKERFILE_ROOTDIR
 from pytest_celery import CeleryTestWorker
 from pytest_celery import CeleryWorkerContainer
+from pytest_celery import MemcachedContainer
+from pytest_celery import MemcachedTestBackend
 from pytest_celery import RabbitMQContainer
 from pytest_celery import RabbitMQTestBroker
 from pytest_celery import RedisContainer
@@ -167,3 +173,22 @@ def celery_rabbitmq_broker(rabbitmq_test_container: RabbitMQContainer) -> Rabbit
     broker = RabbitMQTestBroker(rabbitmq_test_container)
     yield broker
     broker.teardown()
+
+
+memcached_image = fetch(repository=MEMCACHED_IMAGE)
+memcached_test_container = container(
+    image="{memcached_image.id}",
+    scope="session",
+    ports=MEMCACHED_PORTS,
+    environment=MEMCACHED_ENV,
+    network="{unit_tests_network.name}",
+    wrapper_class=MemcachedContainer,
+    timeout=MEMCACHED_CONTAINER_TIMEOUT,
+)
+
+
+@pytest.fixture
+def celery_memcached_backend(memcached_test_container: MemcachedContainer) -> MemcachedTestBackend:
+    backend = MemcachedTestBackend(memcached_test_container)
+    yield backend
+    backend.teardown()

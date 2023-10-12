@@ -2,6 +2,8 @@
 
 from pytest_docker_tools import network
 
+from pytest_celery.vendors.memcached.defaults import CELERY_MEMCACHED_BACKEND
+from pytest_celery.vendors.memcached.defaults import *
 from pytest_celery.vendors.rabbitmq.defaults import CELERY_RABBITMQ_BROKER
 from pytest_celery.vendors.rabbitmq.defaults import *
 from pytest_celery.vendors.redis.backend.defaults import CELERY_REDIS_BACKEND
@@ -29,7 +31,10 @@ CELERY_BROKER_CLUSTER = "celery_broker_cluster"
 ######################
 
 ALL_CELERY_WORKERS = (CELERY_SETUP_WORKER,)
-ALL_CELERY_BACKENDS = (CELERY_REDIS_BACKEND,)
+ALL_CELERY_BACKENDS = (
+    CELERY_REDIS_BACKEND,
+    CELERY_MEMCACHED_BACKEND,
+)
 ALL_CELERY_BROKERS = (
     CELERY_REDIS_BROKER,
     CELERY_RABBITMQ_BROKER,
