@@ -7,6 +7,7 @@ from pytest_celery import WORKER_CELERY_VERSION
 from pytest_celery import WORKER_ENV
 from pytest_celery import CeleryTestWorker
 from pytest_celery import CeleryWorkerContainer
+from tests.unit.docker.api import UnitWorkerContainer
 
 
 class test_celery_worker_container:
@@ -54,3 +55,7 @@ class test_base_test_worker:
 
     def test_app(self, celery_setup_worker: CeleryTestWorker, celery_setup_app: Celery):
         assert celery_setup_worker.app is celery_setup_app
+
+    def test_wait_for_log(self, celery_setup_worker: CeleryTestWorker):
+        log = f"{UnitWorkerContainer.worker_name()}@{celery_setup_worker.hostname()} v{celery_setup_worker.version}"
+        celery_setup_worker.wait_for_log(log, "test_base_test_worker.test_wait_for_log")
