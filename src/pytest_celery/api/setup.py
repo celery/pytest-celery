@@ -1,7 +1,9 @@
 from celery import Celery
 
 from pytest_celery.api.backend import CeleryBackendCluster
+from pytest_celery.api.backend import CeleryTestBackend
 from pytest_celery.api.broker import CeleryBrokerCluster
+from pytest_celery.api.broker import CeleryTestBroker
 from pytest_celery.api.worker import CeleryTestWorker
 from pytest_celery.api.worker import CeleryWorkerCluster
 from pytest_celery.defaults import DEFAULT_WORKER_APP_NAME
@@ -36,12 +38,24 @@ class CeleryTestSetup:
         return self._worker_cluster
 
     @property
+    def worker(self) -> CeleryTestWorker:
+        return self._worker_cluster[0]  # type: ignore
+
+    @property
     def broker_cluster(self) -> CeleryBrokerCluster:
         return self._broker_cluster
 
     @property
+    def broker(self) -> CeleryTestBroker:
+        return self._broker_cluster[0]  # type: ignore
+
+    @property
     def backend_cluster(self) -> CeleryBackendCluster:
         return self._backend_cluster
+
+    @property
+    def backend(self) -> CeleryTestBackend:
+        return self._backend_cluster[0]  # type: ignore
 
     def ready(self, ping: bool = False) -> bool:
         ready = all(
