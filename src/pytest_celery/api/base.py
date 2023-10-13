@@ -43,6 +43,9 @@ class CeleryTestNode:
     def kill(self) -> None:
         self.container.kill()
 
+    def restart(self) -> None:
+        self.container.restart()
+
     def teardown(self) -> None:
         self.container.teardown()
 
