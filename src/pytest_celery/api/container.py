@@ -1,4 +1,3 @@
-import sys
 from typing import Any
 from typing import Optional
 
@@ -47,8 +46,10 @@ class CeleryTestContainer(wrappers.Container):
                     timeout=timeout,
                 )
 
-        sys.stdout.write(f"{self.__class__.__name__}::{self.name} is ready\n")
-
+        wait_for_callable(
+            f"{self.__class__.__name__}::{self.name} is ready",
+            lambda: self.ready_prompt or "" in self.logs(),
+        )
         return True
 
     def ready(self) -> bool:
