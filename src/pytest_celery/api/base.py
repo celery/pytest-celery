@@ -76,11 +76,11 @@ class CeleryTestCluster:
 
     @property
     def nodes(self) -> Tuple[CeleryTestNode]:
-        return self.s
+        return self._nodes
 
     @nodes.setter
     def nodes(self, nodes: Tuple[Union[CeleryTestNode, CeleryTestContainer]]) -> None:
-        self.s = self._set_nodes(*nodes)  # type: ignore
+        self._nodes = self._set_nodes(*nodes)  # type: ignore
 
     @abstractmethod
     def _set_nodes(
