@@ -4,7 +4,7 @@ WORKER_DOCKERFILE_ROOTDIR = "src/pytest_celery/vendors/worker"
 WORKER_CELERY_APP_NAME = "celery_test_app"
 WORKER_CELERY_VERSION = ""  # latest from pypi
 WORKER_LOG_LEVEL = "INFO"
-WORKER_NAME = CELERY_SETUP_WORKER
+WORKER_NAME = "celery_test_worker"
 WORKER_QUEUE = "celery"
 WORKER_ENV = {
     "CELERY_BROKER_URL": "memory://",

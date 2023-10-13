@@ -26,6 +26,10 @@ class test_celey_test_worker:
         node = CeleryTestWorker(unit_tests_container, celery_setup_app)
         assert node.version == "unknown"
 
+    def test_wait_for_log(self, unit_tests_container: CeleryTestContainer, celery_setup_app: Celery):
+        node = CeleryTestWorker(unit_tests_container, celery_setup_app)
+        node.wait_for_log("", "test_celey_test_worker.test_wait_for_log")
+
 
 class test_celery_worker_cluster:
     def test_ready(
