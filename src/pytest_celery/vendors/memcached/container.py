@@ -1,6 +1,6 @@
-import sys
+from celery import platforms
 
-if sys.platform == "win32":
+if platforms.IS_WINDOWS:
     import memcache
 else:
     import pylibmc as memcache
