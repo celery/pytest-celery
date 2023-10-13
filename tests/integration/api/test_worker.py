@@ -7,6 +7,7 @@ from pytest_celery import CELERY_WORKER_CLUSTER
 from pytest_celery import CeleryTestWorker
 from pytest_celery import CeleryWorkerCluster
 from pytest_celery import CeleryWorkerContainer
+from tests.integration.conftest import IntegrationWorkerContainer
 
 
 @pytest.mark.parametrize("node", [lazy_fixture(CELERY_WORKER)])
@@ -19,6 +20,10 @@ class test_celey_test_worker:
 
     def test_version(self, node: CeleryTestWorker):
         assert node.version == CeleryWorkerContainer.version()
+
+    def test_wait_for_log(self, node: CeleryTestWorker):
+        log = f"{IntegrationWorkerContainer.worker_name()}@{node.hostname()} v{node.version}"
+        node.wait_for_log(log, "test_celey_test_worker.test_wait_for_log")
 
 
 @pytest.mark.parametrize("cluster", [lazy_fixture(CELERY_WORKER_CLUSTER)])

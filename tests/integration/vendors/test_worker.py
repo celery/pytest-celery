@@ -6,6 +6,7 @@ from pytest_celery import CELERY_SETUP_WORKER
 from pytest_celery import CeleryTestWorker
 from pytest_celery import CeleryWorkerContainer
 from tests.defaults import ALL_WORKERS_FIXTURES
+from tests.integration.conftest import IntegrationWorkerContainer
 
 
 @pytest.mark.parametrize("container", lazy_fixture(ALL_WORKERS_FIXTURES))
@@ -22,3 +23,7 @@ class test_base_test_worker:
 
     def test_app(self, node: CeleryTestWorker, celery_setup_app: Celery):
         assert node.app is celery_setup_app
+
+    def test_wait_for_log(self, node: CeleryTestWorker):
+        log = f"{IntegrationWorkerContainer.worker_name()}@{node.hostname()} v{node.version}"
+        node.wait_for_log(log, "test_base_test_worker.test_wait_for_log")

@@ -37,6 +37,9 @@ class CeleryTestNode:
     def name(self) -> str:
         return self.container.name
 
+    def hostname(self) -> str:
+        return self.container.id[:12]
+
     def kill(self) -> None:
         self.container.kill()
 
