@@ -3,7 +3,6 @@ from celery.canvas import chain
 from celery.canvas import chord
 from celery.canvas import group
 from celery.canvas import signature
-from pytest_docker_tools.wrappers.container import wait_for_callable
 
 from pytest_celery import RESULT_TIMEOUT
 from pytest_celery import CeleryTestSetup
@@ -15,17 +14,13 @@ from tests.tasks import identity
 class test_canvas:
     def test_sanity(self, celery_setup: CeleryTestSetup):
         assert celery_setup.ready(ping=True)
-        worker = celery_setup.worker_cluster[0]
+        worker: CeleryTestWorker = celery_setup.worker_cluster[0]
         queue = worker.worker_queue
         expected = "test_sanity"
         res = identity.s(expected).apply_async(queue=queue)
         assert res.get(timeout=RESULT_TIMEOUT) == expected
 
-        wait_for_callable(
-            f"waiting for {expected} in worker.logs()",
-            lambda: expected in worker.logs(),
-            timeout=RESULT_TIMEOUT,
-        )
+        worker.wait_for_log(expected)
 
         if len(celery_setup.worker_cluster) > 1:
             queue = celery_setup.worker_cluster[1].worker_queue
@@ -36,17 +31,9 @@ class test_canvas:
         if len(celery_setup.worker_cluster) > 1:
             assert expected not in celery_setup.worker_cluster[1].logs()
             expected = "succeeded"
-            wait_for_callable(
-                f"waiting for {expected} in celery_setup.worker_cluster[1].logs()",
-                lambda: expected in celery_setup.worker_cluster[1].logs(),
-                timeout=RESULT_TIMEOUT,
-            )
+            celery_setup.worker_cluster[1].wait_for_log(expected)
         else:
-            wait_for_callable(
-                f"waiting for {expected} in worker.logs()",
-                lambda: expected in worker.logs(),
-                timeout=RESULT_TIMEOUT,
-            )
+            worker.wait_for_log(expected)
 
     def test_signature(self, celery_setup: CeleryTestSetup):
         worker: CeleryTestWorker

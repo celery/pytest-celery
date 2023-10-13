@@ -1,5 +1,4 @@
 from celery import Celery
-from pytest_docker_tools.wrappers.container import wait_for_callable
 
 from pytest_celery import RESULT_TIMEOUT
 from pytest_celery import CeleryTestSetup
@@ -31,13 +30,10 @@ class test_celery_test_setup_integration:
     def test_log_level(self, celery_setup: CeleryTestSetup):
         worker: CeleryTestWorker
         for worker in celery_setup.worker_cluster:
-            wait_for_callable(
-                "waiting for worker.log_level in worker.logs()",
-                lambda: worker.log_level in worker.logs(),
-                timeout=RESULT_TIMEOUT,
-            )
+            worker.wait_for_log(worker.log_level)
 
     def test_ready(self, celery_setup: CeleryTestSetup):
+        worker: CeleryTestWorker
         for worker in celery_setup.worker_cluster:
             queue = worker.worker_queue
             r = identity.s("test_ready").apply_async(queue=queue)

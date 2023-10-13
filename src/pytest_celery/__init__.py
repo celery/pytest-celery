@@ -7,6 +7,7 @@ pytest-celery a shim pytest plugin to enable celery.contrib.pytest
 
 __version__ = "1.0.0a1"
 
+
 from pytest_celery.api.backend import *
 from pytest_celery.api.base import *
 from pytest_celery.api.broker import *

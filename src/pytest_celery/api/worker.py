@@ -4,10 +4,12 @@ from typing import Type
 from typing import Union
 
 from celery import Celery
+from pytest_docker_tools.wrappers.container import wait_for_callable
 
 from pytest_celery.api.base import CeleryTestCluster
 from pytest_celery.api.base import CeleryTestNode
 from pytest_celery.api.container import CeleryTestContainer
+from pytest_celery.defaults import RESULT_TIMEOUT
 from pytest_celery.vendors.worker.container import CeleryWorkerContainer
 
 
@@ -39,6 +41,10 @@ class CeleryTestWorker(CeleryTestNode):
     @property
     def worker_queue(self) -> str:
         return self.container.worker_queue()
+
+    def wait_for_log(self, log: str, message: str = "", timeout: int = RESULT_TIMEOUT) -> None:
+        message = message or f"Waiting for worker container '{self.name()}' to log -> {log}"
+        wait_for_callable(message=message, func=lambda: log in self.logs(), timeout=timeout)
 
 
 class CeleryWorkerCluster(CeleryTestCluster):
