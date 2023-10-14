@@ -44,8 +44,8 @@ ALL_CELERY_BROKERS = (
 # Docker
 ##########
 
-CONTAINER_TIMEOUT = 60
-RESULT_TIMEOUT = 60
-
 
 default_pytest_celery_network = network()
+
+CONTAINER_TIMEOUT = 60
+RESULT_TIMEOUT = 60
