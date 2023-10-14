@@ -1,6 +1,9 @@
 import inspect
 from typing import Union
 
+from celery import Celery
+from celery.app.base import PendingConfiguration
+
 from pytest_celery.api.container import CeleryTestContainer
 from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_ENV
 from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_LOG_LEVEL
@@ -47,7 +50,12 @@ class CeleryWorkerContainer(CeleryTestContainer):
         return {**DEFAULT_WORKER_ENV, **env}
 
     @classmethod
-    def initial_content(cls, worker_tasks: set, worker_signals: Union[set, None] = None) -> dict:
+    def initial_content(
+        cls,
+        worker_tasks: set,
+        worker_signals: Union[set, None] = None,
+        worker_app: Union[Celery, None] = None,
+    ) -> dict:
         from pytest_celery.vendors.worker import app as app_module
 
         app_module_src = inspect.getsource(app_module)
@@ -58,10 +66,38 @@ class CeleryWorkerContainer(CeleryTestContainer):
         if worker_signals:
             initial_content.update(cls._initial_content_worker_signals(worker_signals))
             imports["signals_imports"] = initial_content.pop("signals_imports")
+        if worker_app:
+            # Accessing the worker_app.conf.changes.data property will trigger the PendingConfiguration to be resolved
+            # and the changes will be applied to the worker_app.conf, so we make a clone app to avoid affecting the
+            # original app object.
+            app = Celery(worker_app.main)
+            app.conf = worker_app.conf
+            config_changes_from_defaults = app.conf.changes.copy()
+            if isinstance(config_changes_from_defaults, PendingConfiguration):
+                config_changes_from_defaults = config_changes_from_defaults.data.changes
+            if not isinstance(config_changes_from_defaults, dict):
+                raise TypeError(f"Unexpected type for config_changes: {type(config_changes_from_defaults)}")
+            del config_changes_from_defaults["deprecated_settings"]
+
+            name_code = f'name = "{worker_app.main}"'
+        else:
+            config_changes_from_defaults = {}
+            name_code = f'name = "{cls.worker_name()}"'
 
         imports_format = "{%s}" % "}{".join(imports.keys())
-        app_module_src = app_module_src.format(imports_format)
-        app_module_src = app_module_src.format(**imports)
+        imports_format = imports_format.format(**imports)
+        app_module_src = app_module_src.replace("{0}", imports_format)
+
+        app_module_src = app_module_src.replace("{1}", name_code)
+
+        config_items = (f"    {repr(key)}: {repr(value)}" for key, value in config_changes_from_defaults.items())
+        config_code = (
+            "config_updates = {\n" + ",\n".join(config_items) + "\n}"
+            if config_changes_from_defaults
+            else "config_updates = {}"
+        )
+        app_module_src = app_module_src.replace("{2}", config_code)
+
         initial_content["app.py"] = app_module_src.encode()
         return initial_content
 

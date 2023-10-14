@@ -20,11 +20,11 @@ from pytest_celery.vendors.worker.defaults import WORKER_DOCKERFILE_ROOTDIR
 def celery_setup_worker(
     default_worker_cls: Type[CeleryTestWorker],
     default_worker_container: CeleryWorkerContainer,
-    celery_setup_app: Celery,
+    default_worker_app: Celery,
 ) -> CeleryTestWorker:
     worker = default_worker_cls(
         container=default_worker_container,
-        app=celery_setup_app,
+        app=default_worker_app,
     )
     yield worker
     worker.teardown()
@@ -103,10 +103,12 @@ def default_worker_initial_content(
     default_worker_container_cls: Type[CeleryWorkerContainer],
     default_worker_tasks: set,
     default_worker_signals: set,
+    default_worker_app: Celery,
 ) -> dict:
     yield default_worker_container_cls.initial_content(
         worker_tasks=default_worker_tasks,
         worker_signals=default_worker_signals,
+        worker_app=default_worker_app,
     )
 
 
@@ -118,3 +120,8 @@ def default_worker_tasks(default_worker_container_cls: Type[CeleryWorkerContaine
 @pytest.fixture
 def default_worker_signals(default_worker_container_cls: Type[CeleryWorkerContainer]) -> set:
     yield default_worker_container_cls.signals_modules()
+
+
+@pytest.fixture
+def default_worker_app(celery_setup_app: Celery) -> Celery:
+    yield celery_setup_app
