@@ -79,13 +79,22 @@ def default_worker_container_cls() -> Type[CeleryWorkerContainer]:
 def worker_test_container_initial_content(
     default_worker_container_cls: Type[CeleryWorkerContainer],
     worker_test_container_tasks: set,
+    worker_test_container_signals: set,
 ) -> dict:
-    yield default_worker_container_cls.initial_content(worker_test_container_tasks)
+    yield default_worker_container_cls.initial_content(
+        worker_tasks=worker_test_container_tasks,
+        worker_signals=worker_test_container_signals,
+    )
 
 
 @pytest.fixture(scope="session")
 def worker_test_container_tasks(default_worker_container_cls: Type[CeleryWorkerContainer]) -> set:
     yield default_worker_container_cls.tasks_modules()
+
+
+@pytest.fixture(scope="session")
+def worker_test_container_signals(default_worker_container_cls: Type[CeleryWorkerContainer]) -> set:
+    yield default_worker_container_cls.signals_modules()
 
 
 worker_test_container = container(
