@@ -57,14 +57,19 @@ class CeleryTestSetup:
     def backend(self) -> CeleryTestBackend:
         return self._backend_cluster[0]  # type: ignore
 
-    def ready(self, ping: bool = False) -> bool:
-        ready = all(
-            [
-                self.broker_cluster.ready(),
-                self.backend_cluster.ready(),
-            ]
-        )
-        ready = ready and self.worker_cluster.ready()
+    def ready(self, ping: bool = False, control: bool = False, docker: bool = True) -> bool:
+        if not ping and not control and not docker:
+            return True
+
+        ready = True
+
+        if docker and ready:
+            ready = all([self.broker_cluster.ready(), self.backend_cluster.ready()])
+            ready = ready and self.worker_cluster.ready()
+
+        if control and ready:
+            r = self.app.control.ping()
+            ready = ready and all([all([res["ok"] == "pong" for _, res in response.items()]) for response in r])
 
         if ping and ready:
             # TODO: ignore mypy globally for type overriding
