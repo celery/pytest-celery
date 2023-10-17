@@ -7,7 +7,7 @@ from celery.canvas import signature
 from pytest_celery import RESULT_TIMEOUT
 from pytest_celery import CeleryTestSetup
 from pytest_celery import CeleryTestWorker
-from tests.smoke.tasks import add
+from tests.tasks import add
 from tests.tasks import identity
 
 

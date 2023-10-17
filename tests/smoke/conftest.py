@@ -105,17 +105,6 @@ default_worker_container = container(
 )
 
 
-@pytest.fixture
-def default_worker_tasks() -> set:
-    from tests import tasks as tests_tasks
-    from tests.smoke import tasks as smoke_tasks
-
-    yield {
-        tests_tasks,
-        smoke_tasks,
-    }
-
-
 @pytest.fixture(
     # Each param item is a list of workers to be used in the cluster
     params=[

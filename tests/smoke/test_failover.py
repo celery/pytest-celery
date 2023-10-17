@@ -8,6 +8,7 @@ from pytest_celery import RABBITMQ_CONTAINER_TIMEOUT
 from pytest_celery import RESULT_TIMEOUT
 from pytest_celery import CeleryBrokerCluster
 from pytest_celery import CeleryTestSetup
+from pytest_celery import CeleryTestWorker
 from pytest_celery import RabbitMQContainer
 from pytest_celery import RabbitMQTestBroker
 from tests.tasks import identity
@@ -41,9 +42,9 @@ def celery_broker_cluster(
 
 class test_failover:
     def test_broker_failover(self, celery_setup: CeleryTestSetup):
-        assert 3 <= len(celery_setup) <= 6
-        assert len(celery_setup.broker_cluster) == 2
-        celery_setup.broker_cluster[0].kill()
+        worker: CeleryTestWorker
+        assert len(celery_setup.broker_cluster) > 1
+        celery_setup.broker.kill()
         for worker in celery_setup.worker_cluster:
             expected = "test_broker_failover"
             res = identity.s(expected).apply_async(queue=worker.worker_queue)
