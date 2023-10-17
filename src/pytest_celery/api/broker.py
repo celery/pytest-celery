@@ -16,6 +16,12 @@ class CeleryTestBroker(CeleryTestNode):
             "local_url": WORKER_ENV["CELERY_BROKER_URL"],
         }
 
+    def restart(self) -> None:
+        super().restart()
+        self._app.conf.update(
+            broker_url=self.config()["local_url"],
+        )
+
 
 class CeleryBrokerCluster(CeleryTestCluster):
     def __init__(self, *brokers: Tuple[Union[CeleryTestBroker, CeleryTestContainer]]) -> None:

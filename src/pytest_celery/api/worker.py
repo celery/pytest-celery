@@ -15,8 +15,9 @@ from pytest_celery.vendors.worker.container import CeleryWorkerContainer
 
 class CeleryTestWorker(CeleryTestNode):
     def __init__(self, container: CeleryTestContainer, app: Celery):
-        super().__init__(container)
-        self._app = app
+        super().__init__(container, app)
+
+        # Helps with autocomplete in the IDE
         self.container: CeleryWorkerContainer
 
     @property

@@ -5,12 +5,15 @@ from typing import Tuple
 from typing import Type
 from typing import Union
 
+from celery import Celery
+
 from pytest_celery.api.container import CeleryTestContainer
 
 
 class CeleryTestNode:
-    def __init__(self, container: CeleryTestContainer):
+    def __init__(self, container: CeleryTestContainer, app: Celery = None) -> None:
         self._container = container
+        self._app = app
 
     @property
     def container(self) -> CeleryTestContainer:

@@ -16,6 +16,12 @@ class CeleryTestBackend(CeleryTestNode):
             "local_url": WORKER_ENV["CELERY_RESULT_BACKEND"],
         }
 
+    def restart(self) -> None:
+        super().restart()
+        self._app.conf.update(
+            result_backend=self.config()["local_url"],
+        )
+
 
 class CeleryBackendCluster(CeleryTestCluster):
     def __init__(self, *backends: Tuple[Union[CeleryTestBackend, CeleryTestContainer]]) -> None:

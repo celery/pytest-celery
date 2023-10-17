@@ -58,9 +58,6 @@ class CeleryTestSetup:
         return self._backend_cluster[0]  # type: ignore
 
     def ready(self, ping: bool = False, control: bool = False, docker: bool = True) -> bool:
-        if not ping and not control and not docker:
-            return True
-
         ready = True
 
         if docker and ready:
@@ -77,6 +74,11 @@ class CeleryTestSetup:
             for worker in self.worker_cluster:  # type: ignore
                 res = self.ping.s().apply_async(queue=worker.worker_queue)
                 ready = ready and res.get(timeout=RESULT_TIMEOUT) == "pong"
+
+        # Set app for all nodes
+        nodes = self.broker_cluster.nodes + self.backend_cluster.nodes
+        for node in nodes:
+            node._app = self.app
 
         return ready
 
