@@ -30,6 +30,10 @@ class test_celey_test_worker:
         node = CeleryTestWorker(unit_tests_container, celery_setup_app)
         node.wait_for_log("", "test_celey_test_worker.test_wait_for_log")
 
+    def test_assert_log_exists(self, unit_tests_container: CeleryTestContainer, celery_setup_app: Celery):
+        node = CeleryTestWorker(unit_tests_container, celery_setup_app)
+        node.assert_log_exists("", "test_celey_test_worker.test_assert_log_exists")
+
 
 class test_celery_worker_cluster:
     def test_ready(

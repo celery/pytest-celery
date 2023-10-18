@@ -33,7 +33,7 @@ class test_custom_setup:
         worker: CeleryTestWorker
         for worker in celery_setup.worker_cluster:
             if worker.logs():
-                worker.wait_for_log(worker.log_level)
+                worker.assert_log_exists(worker.log_level)
 
     def test_celery_setup_override(self, celery_setup: CeleryTestSetup):
         assert celery_setup.app

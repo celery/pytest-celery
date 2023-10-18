@@ -30,7 +30,7 @@ class test_celery_test_setup_integration:
     def test_log_level(self, celery_setup: CeleryTestSetup):
         worker: CeleryTestWorker
         for worker in celery_setup.worker_cluster:
-            worker.wait_for_log(worker.log_level)
+            worker.assert_log_exists(worker.log_level)
 
     def test_ready(self, celery_setup: CeleryTestSetup):
         worker: CeleryTestWorker
