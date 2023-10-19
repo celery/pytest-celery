@@ -18,7 +18,7 @@ class CeleryTestBackend(CeleryTestNode):
 
     def restart(self) -> None:
         super().restart()
-        self._app.conf.update(
+        self.app.conf.update(
             result_backend=self.config()["local_url"],
         )
 

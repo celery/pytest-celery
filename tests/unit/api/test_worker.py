@@ -10,10 +10,6 @@ class test_celey_test_worker:
         node = CeleryTestWorker(unit_tests_container, celery_setup_app)
         assert node.ready()
 
-    def test_app(self, unit_tests_container: CeleryTestContainer, celery_setup_app: Celery):
-        node = CeleryTestWorker(unit_tests_container, celery_setup_app)
-        assert node.app is celery_setup_app
-
     def test_default_config_format(
         self,
         unit_tests_container: CeleryTestContainer,

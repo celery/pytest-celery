@@ -22,6 +22,10 @@ class CeleryTestNode:
     def container(self) -> CeleryTestContainer:
         return self._container
 
+    @property
+    def app(self) -> Celery:
+        return self._app
+
     def ready(self) -> bool:
         return self.container.ready()
 
