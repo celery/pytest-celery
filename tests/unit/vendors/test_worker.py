@@ -59,3 +59,7 @@ class test_base_test_worker:
     def test_wait_for_log(self, celery_setup_worker: CeleryTestWorker):
         log = f"{UnitWorkerContainer.worker_name()}@{celery_setup_worker.hostname()} v{celery_setup_worker.version}"
         celery_setup_worker.wait_for_log(log, "test_base_test_worker.test_wait_for_log")
+
+    def test_assert_log_exists(self, celery_setup_worker: CeleryTestWorker):
+        log = f"{UnitWorkerContainer.worker_name()}@{celery_setup_worker.hostname()} v{celery_setup_worker.version}"
+        celery_setup_worker.assert_log_exists(log, "test_base_test_worker.test_assert_log_exists")

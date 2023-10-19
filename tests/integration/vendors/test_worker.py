@@ -27,3 +27,7 @@ class test_base_test_worker:
     def test_wait_for_log(self, node: CeleryTestWorker):
         log = f"{IntegrationWorkerContainer.worker_name()}@{node.hostname()} v{node.version}"
         node.wait_for_log(log, "test_base_test_worker.test_wait_for_log")
+
+    def test_assert_log_exists(self, node: CeleryTestWorker):
+        log = f"{IntegrationWorkerContainer.worker_name()}@{node.hostname()} v{node.version}"
+        node.assert_log_exists(log, "test_base_test_worker.test_assert_log_exists")

@@ -20,7 +20,7 @@ class test_canvas:
         res = identity.s(expected).apply_async(queue=queue)
         assert res.get(timeout=RESULT_TIMEOUT) == expected
 
-        worker.wait_for_log(expected)
+        worker.assert_log_exists(expected)
 
         if len(celery_setup.worker_cluster) > 1:
             queue = celery_setup.worker_cluster[1].worker_queue
@@ -31,9 +31,9 @@ class test_canvas:
         if len(celery_setup.worker_cluster) > 1:
             assert expected not in celery_setup.worker_cluster[1].logs()
             expected = "succeeded"
-            celery_setup.worker_cluster[1].wait_for_log(expected)
+            celery_setup.worker_cluster[1].assert_log_exists(expected)
         else:
-            worker.wait_for_log(expected)
+            worker.assert_log_exists(expected)
 
     def test_signature(self, celery_setup: CeleryTestSetup):
         worker: CeleryTestWorker

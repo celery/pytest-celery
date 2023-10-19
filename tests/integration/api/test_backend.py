@@ -12,6 +12,9 @@ class test_celey_test_backend:
     def test_ready(self, node: CeleryTestBackend):
         assert node.ready()
 
+    def test_app(self, node: CeleryTestBackend):
+        assert node.app is None
+
 
 @pytest.mark.parametrize("cluster", [lazy_fixture(CELERY_BACKEND_CLUSTER)])
 class test_celery_backend_cluster:

@@ -1,3 +1,5 @@
+from celery import Celery
+
 from pytest_celery import CeleryTestCluster
 from pytest_celery import CeleryTestContainer
 from pytest_celery import CeleryTestNode
@@ -7,6 +9,11 @@ class test_celery_test_node:
     def test_ready(self, unit_tests_container: CeleryTestContainer):
         node = CeleryTestNode(unit_tests_container)
         assert node.ready()
+
+    def test_app(self, unit_tests_container: CeleryTestContainer):
+        expected_app = Celery()
+        node = CeleryTestNode(unit_tests_container, expected_app)
+        assert node.app is expected_app
 
     def test_default_config_format(self, unit_tests_container: CeleryTestContainer):
         node = CeleryTestNode(unit_tests_container)

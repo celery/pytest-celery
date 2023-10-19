@@ -28,7 +28,7 @@ class test_signals:
     def test_sanity(self, celery_setup: CeleryTestSetup, log: str, control: str):
         if control:
             celery_setup.app.control.broadcast(control)
-        celery_setup.worker.wait_for_log(log)
+        celery_setup.worker.assert_log_exists(log)
 
     def test_before_task_publish(self, celery_setup: CeleryTestSetup):
         @before_task_publish.connect

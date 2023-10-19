@@ -25,6 +25,10 @@ class test_celey_test_worker:
         log = f"{IntegrationWorkerContainer.worker_name()}@{node.hostname()} v{node.version}"
         node.wait_for_log(log, "test_celey_test_worker.test_wait_for_log")
 
+    def test_assert_log_exists(self, node: CeleryTestWorker):
+        log = f"{IntegrationWorkerContainer.worker_name()}@{node.hostname()} v{node.version}"
+        node.assert_log_exists(log, "test_celey_test_worker.test_assert_log_exists")
+
 
 @pytest.mark.parametrize("cluster", [lazy_fixture(CELERY_WORKER_CLUSTER)])
 class test_celery_worker_cluster:
