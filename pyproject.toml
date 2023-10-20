@@ -92,7 +92,6 @@ pytest-xdist = "^3.1.0"
 pytest-subtests = "^0.10.0"
 pytest-rerunfailures = "^11.1.2"
 
-
 [tool.poetry.group.ci]
 optional = true
 
@@ -101,6 +100,15 @@ tox = [
     { version = "^3.0.0", python = "<3.8.1" },
     { version = "^4.0.0", python = ">=3.8.1,<4.0" },
 ]
+
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+sphinx_celery = ">=2.0.0"
+Sphinx = "==5.3.0"
+sphinx-testing = "~1.0.1"
+sphinx-click = "==4.4.0"
 
 [tool.poetry.plugins.pytest11]
 celery = "pytest_celery.plugin"
