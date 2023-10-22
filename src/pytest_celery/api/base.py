@@ -69,6 +69,14 @@ class CeleryTestNode:
         except pytest_docker_tools.exceptions.TimeoutError:
             assert False, f"Worker container '{self.name()}' did not log -> {log} within {timeout} seconds"
 
+    def assert_log_does_not_exist(self, log: str, message: str = "", timeout: int = 1) -> None:
+        message = message or f"Waiting for worker container '{self.name()}' to not log -> {log}"
+        try:
+            self.wait_for_log(log, message, timeout)
+        except pytest_docker_tools.exceptions.TimeoutError:
+            return
+        assert False, f"Worker container '{self.name()}' logged -> {log} within {timeout} seconds"
+
 
 class CeleryTestCluster:
     def __init__(self, *nodes: Tuple[Union[CeleryTestNode, CeleryTestContainer]]) -> None:
