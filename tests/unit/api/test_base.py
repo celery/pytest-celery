@@ -7,23 +7,37 @@ from pytest_celery import CeleryTestNode
 
 class test_celery_test_node:
     def test_ready(self, unit_tests_container: CeleryTestContainer):
+        # TODO: Use mock instead of real container
         node = CeleryTestNode(unit_tests_container)
         assert node.ready()
 
     def test_app(self, unit_tests_container: CeleryTestContainer):
+        # TODO: Use mock instead of real container
         expected_app = Celery()
         node = CeleryTestNode(unit_tests_container, expected_app)
         assert node.app is expected_app
 
     def test_default_config_format(self, unit_tests_container: CeleryTestContainer):
+        # TODO: Use mock instead of real container
         node = CeleryTestNode(unit_tests_container)
         assert node.default_config() == dict()
 
     def test_eq_opertor(self, unit_tests_container: CeleryTestContainer):
+        # TODO: Use mock instead of real container
         node1 = CeleryTestNode(unit_tests_container)
         node2 = CeleryTestNode(unit_tests_container)
         assert node1 == node2
         assert node1 is not node2
+
+    def test_wait_for_log(self, unit_tests_container: CeleryTestContainer, celery_setup_app: Celery):
+        # TODO: Use mock instead of real container
+        node = CeleryTestNode(unit_tests_container, celery_setup_app)
+        node.wait_for_log("", "test_celey_test_worker.test_wait_for_log")
+
+    def test_assert_log_exists(self, unit_tests_container: CeleryTestContainer, celery_setup_app: Celery):
+        # TODO: Use mock instead of real container
+        node = CeleryTestNode(unit_tests_container, celery_setup_app)
+        node.assert_log_exists("", "test_celey_test_worker.test_assert_log_exists")
 
 
 class test_celery_test_cluster:
@@ -32,6 +46,7 @@ class test_celery_test_cluster:
         unit_tests_container: CeleryTestContainer,
         local_test_container: CeleryTestContainer,
     ):
+        # TODO: Use mock instead of real container
         node1 = CeleryTestNode(unit_tests_container)
         node2 = CeleryTestNode(local_test_container)
         cluster = CeleryTestCluster(node1, node2)
@@ -42,12 +57,14 @@ class test_celery_test_cluster:
         unit_tests_container: CeleryTestContainer,
         local_test_container: CeleryTestContainer,
     ):
+        # TODO: Use mock instead of real container
         node1 = CeleryTestNode(unit_tests_container)
         node2 = CeleryTestNode(local_test_container)
         cluster = CeleryTestCluster(node1, node2)
         assert cluster.default_config() == dict()
 
     def test_set_nodes(self, unit_tests_container: CeleryTestContainer):
+        # TODO: Use mock instead of real container
         node1 = CeleryTestNode(unit_tests_container)
         node2 = CeleryTestNode(unit_tests_container)
         cluster = CeleryTestCluster(node1)
@@ -55,16 +72,19 @@ class test_celery_test_cluster:
         assert cluster[0] == node2
 
     def test_iter(self, unit_tests_container: CeleryTestContainer):
+        # TODO: Use mock instead of real container
         node1 = CeleryTestNode(unit_tests_container)
         cluster = CeleryTestCluster(node1)
         assert list(cluster) == [node1]
 
     def test_len(self, unit_tests_container: CeleryTestContainer):
+        # TODO: Use mock instead of real container
         node1 = CeleryTestNode(unit_tests_container)
         cluster = CeleryTestCluster(node1)
         assert len(cluster) == 1
 
     def test_getitem(self, unit_tests_container: CeleryTestContainer):
+        # TODO: Use mock instead of real container
         node1 = CeleryTestNode(unit_tests_container)
         cluster = CeleryTestCluster(node1)
         assert cluster[0] == node1

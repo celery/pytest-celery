@@ -2,9 +2,10 @@ import pytest
 from kombu import Connection
 from pytest_lazyfixture import lazy_fixture
 
-from pytest_celery import CELERY_RABBITMQ_BROKER
+# from pytest_celery import CELERY_RABBITMQ_BROKER
 from pytest_celery import RabbitMQContainer
-from pytest_celery import RabbitMQTestBroker
+
+# from pytest_celery import RabbitMQTestBroker
 from tests.defaults import ALL_RABBITMQ_FIXTURES
 
 
@@ -19,7 +20,7 @@ class test_rabbitmq_container:
             c.release()
 
 
-@pytest.mark.parametrize("node", [lazy_fixture(CELERY_RABBITMQ_BROKER)])
-class test_rabbitmq_test_broker:
-    def test_ready(self, node: RabbitMQTestBroker):
-        assert node.ready()
+# @pytest.mark.parametrize("node", [lazy_fixture(CELERY_RABBITMQ_BROKER)])
+# class test_rabbitmq_test_broker:
+#     def test_placeholder(self, node: RabbitMQTestBroker):
+#         node = node

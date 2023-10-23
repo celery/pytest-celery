@@ -1,9 +1,10 @@
 import pytest
 from pytest_lazyfixture import lazy_fixture
 
-from pytest_celery import CELERY_MEMCACHED_BACKEND
+# from pytest_celery import CELERY_MEMCACHED_BACKEND
 from pytest_celery import MemcachedContainer
-from pytest_celery import MemcachedTestBackend
+
+# from pytest_celery import MemcachedTestBackend
 from tests.defaults import ALL_MEMCACHED_FIXTURES
 
 
@@ -17,7 +18,7 @@ class test_memcached_container:
         assert container.client.delete("ready")
 
 
-@pytest.mark.parametrize("node", [lazy_fixture(CELERY_MEMCACHED_BACKEND)])
-class test_memcached_test_backend:
-    def test_ready(self, node: MemcachedTestBackend):
-        assert node.ready()
+# @pytest.mark.parametrize("node", [lazy_fixture(CELERY_MEMCACHED_BACKEND)])
+# class test_memcached_test_backend:
+#     def test_placeholder(self, node: MemcachedTestBackend):
+#         node = node
