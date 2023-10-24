@@ -1,7 +1,10 @@
 import inspect
 
+import pytest
 from celery import Celery
+from pytest_lazyfixture import lazy_fixture
 
+from pytest_celery import CELERY_SETUP_WORKER
 from pytest_celery import DEFAULT_WORKER_ENV
 from pytest_celery import DEFAULT_WORKER_VERSION
 from pytest_celery import CeleryTestWorker
@@ -40,13 +43,14 @@ class test_celery_worker_container:
         assert CeleryWorkerContainer.tasks_modules() == set()
 
 
+@pytest.mark.parametrize("worker", [lazy_fixture(CELERY_SETUP_WORKER)])
 class test_base_worker_api:
-    def test_ready(self, celery_setup_worker: CeleryTestWorker):
-        celery_setup_worker.ready()
-        celery_setup_worker.container.ready.assert_called_once()
+    def test_ready(self, worker: CeleryTestWorker):
+        worker.ready()
+        worker.container.ready.assert_called_once()
 
-    def test_app(self, celery_setup_worker: CeleryTestWorker, celery_setup_app: Celery):
-        assert celery_setup_worker.app is celery_setup_app
+    def test_app(self, worker: CeleryTestWorker, celery_setup_app: Celery):
+        assert worker.app is celery_setup_app
 
-    def test_version(self, celery_setup_worker: CeleryTestWorker):
-        assert celery_setup_worker.version == CeleryWorkerContainer.version()
+    def test_version(self, worker: CeleryTestWorker):
+        assert worker.version == CeleryWorkerContainer.version()

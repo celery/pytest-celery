@@ -1,3 +1,7 @@
+import pytest
+from pytest_lazyfixture import lazy_fixture
+
+from pytest_celery import CELERY_MEMCACHED_BACKEND
 from pytest_celery import MEMCACHED_ENV
 from pytest_celery import MEMCACHED_IMAGE
 from pytest_celery import MemcachedContainer
@@ -15,7 +19,8 @@ class test_memcached_container:
         assert MemcachedContainer.image() == MEMCACHED_IMAGE
 
 
+@pytest.mark.parametrize("backend", [lazy_fixture(CELERY_MEMCACHED_BACKEND)])
 class test_memcached_backend_api:
-    def test_ready(self, celery_memcached_backend: MemcachedTestBackend):
-        celery_memcached_backend.ready()
-        celery_memcached_backend.container.ready.assert_called_once()
+    def test_ready(self, backend: MemcachedTestBackend):
+        backend.ready()
+        backend.container.ready.assert_called_once()
