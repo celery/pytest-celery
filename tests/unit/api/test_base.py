@@ -1,5 +1,4 @@
 from unittest.mock import Mock
-from unittest.mock import patch
 
 import pytest
 from celery import Celery
@@ -12,12 +11,6 @@ from pytest_celery import CeleryTestNode
 @pytest.fixture
 def mocked_test_container() -> CeleryTestContainer:
     return Mock(spec=CeleryTestContainer)
-
-
-@pytest.fixture(autouse=True)
-def mock_wait_for_callable():
-    with patch("pytest_celery.api.base.wait_for_callable", new=Mock()):
-        yield
 
 
 class test_celery_test_node:

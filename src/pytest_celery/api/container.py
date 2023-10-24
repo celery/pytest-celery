@@ -31,6 +31,9 @@ class CeleryTestContainer(wrappers.Container):
         return None
 
     def _wait_port(self, port: str) -> int:
+        if not port:
+            raise ValueError("Port cannot be empty")
+
         while not super().ready():
             pass
         _, p = self.get_addr(port)

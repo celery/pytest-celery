@@ -1,5 +1,6 @@
 from typing import Type
 from unittest.mock import Mock
+from unittest.mock import patch
 
 import pytest
 
@@ -7,6 +8,13 @@ from pytest_celery import CeleryWorkerContainer
 from pytest_celery import MemcachedContainer
 from pytest_celery import RabbitMQContainer
 from pytest_celery import RedisContainer
+
+
+@pytest.fixture(autouse=True)
+def mock_wait_for_callable():
+    with patch("pytest_celery.api.base.wait_for_callable", new=Mock()):
+        with patch("pytest_celery.api.container.wait_for_callable", new=Mock()):
+            yield
 
 
 def mocked_container(spec: Type) -> Mock:
