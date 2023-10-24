@@ -19,6 +19,10 @@ class test_redis_container:
         assert container.client.get("ready") == "1"
         assert container.client.delete("ready")
 
+    def test_celeryconfig(self, container: RedisContainer):
+        expected_keys = {"url", "local_url", "hostname", "port", "vhost"}
+        assert set(container.celeryconfig.keys()) == expected_keys
+
 
 # @pytest.mark.parametrize("node", [lazy_fixture(CELERY_REDIS_BACKEND)])
 # class test_redis_test_backend:

@@ -6,28 +6,23 @@ from pytest_celery import RedisTestBroker
 
 
 class test_redis_container:
-    def test_client(self, redis_test_container: RedisContainer):
-        assert redis_test_container.client
+    def test_version(self):
+        assert RedisContainer.version() == "latest"
 
-    def test_celeryconfig(self, redis_test_container: RedisContainer):
-        expected_keys = {"url", "local_url", "hostname", "port", "vhost"}
-        assert set(redis_test_container.celeryconfig.keys()) == expected_keys
+    def test_env(self):
+        assert RedisContainer.env() == REDIS_ENV
 
-    def test_version(self, redis_test_container: RedisContainer):
-        assert redis_test_container.version() == "latest"
-
-    def test_env(self, redis_test_container: RedisContainer):
-        assert redis_test_container.env() == REDIS_ENV
-
-    def test_image(self, redis_test_container: RedisContainer):
-        assert redis_test_container.image() == REDIS_IMAGE
+    def test_image(self):
+        assert RedisContainer.image() == REDIS_IMAGE
 
 
-class test_redis_test_backend:
+class test_redis_backend_api:
     def test_ready(self, celery_redis_backend: RedisTestBackend):
-        assert celery_redis_backend.ready()
+        celery_redis_backend.ready()
+        celery_redis_backend.container.ready.assert_called_once()
 
 
-class test_redis_test_broker:
+class test_redis_broker_api:
     def test_ready(self, celery_redis_broker: RedisTestBroker):
-        assert celery_redis_broker.ready()
+        celery_redis_broker.ready()
+        celery_redis_broker.container.ready.assert_called_once()

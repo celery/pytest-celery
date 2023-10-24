@@ -5,23 +5,17 @@ from pytest_celery import RabbitMQTestBroker
 
 
 class test_rabbitmq_container:
-    def test_client(self, rabbitmq_test_container: RabbitMQContainer):
-        assert rabbitmq_test_container.client
+    def test_version(self):
+        assert RabbitMQContainer.version() == "latest"
 
-    def test_celeryconfig(self, rabbitmq_test_container: RabbitMQContainer):
-        expected_keys = {"url", "local_url", "hostname", "port", "vhost"}
-        assert set(rabbitmq_test_container.celeryconfig.keys()) == expected_keys
+    def test_env(self):
+        assert RabbitMQContainer.env() == RABBITMQ_ENV
 
-    def test_version(self, rabbitmq_test_container: RabbitMQContainer):
-        assert rabbitmq_test_container.version() == "latest"
-
-    def test_env(self, rabbitmq_test_container: RabbitMQContainer):
-        assert rabbitmq_test_container.env() == RABBITMQ_ENV
-
-    def test_image(self, rabbitmq_test_container: RabbitMQContainer):
-        assert rabbitmq_test_container.image() == RABBITMQ_IMAGE
+    def test_image(self):
+        assert RabbitMQContainer.image() == RABBITMQ_IMAGE
 
 
-class test_rabbitmq_test_broker:
+class test_rabbitmq_broker_api:
     def test_ready(self, celery_rabbitmq_broker: RabbitMQTestBroker):
-        assert celery_rabbitmq_broker.ready()
+        celery_rabbitmq_broker.ready()
+        celery_rabbitmq_broker.container.ready.assert_called_once()

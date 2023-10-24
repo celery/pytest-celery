@@ -13,6 +13,10 @@ class test_celery_worker_container:
         assert container.client
         assert container.client == container
 
+    def test_celeryconfig(self, container: CeleryWorkerContainer):
+        with pytest.raises(NotImplementedError):
+            container.celeryconfig
+
 
 # @pytest.mark.parametrize("node", [lazy_fixture(CELERY_SETUP_WORKER)])
 # class test_base_test_worker:
