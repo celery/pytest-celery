@@ -2,10 +2,9 @@ import pytest
 from kombu import Connection
 from pytest_lazyfixture import lazy_fixture
 
-# from pytest_celery import CELERY_RABBITMQ_BROKER
+from pytest_celery import CELERY_RABBITMQ_BROKER
 from pytest_celery import RabbitMQContainer
-
-# from pytest_celery import RabbitMQTestBroker
+from pytest_celery import RabbitMQTestBroker
 from tests.defaults import ALL_RABBITMQ_FIXTURES
 
 
@@ -24,7 +23,8 @@ class test_rabbitmq_container:
         assert set(container.celeryconfig.keys()) == expected_keys
 
 
-# @pytest.mark.parametrize("node", [lazy_fixture(CELERY_RABBITMQ_BROKER)])
-# class test_rabbitmq_test_broker:
-#     def test_placeholder(self, node: RabbitMQTestBroker):
-#         node = node
+@pytest.mark.parametrize("broker", [lazy_fixture(CELERY_RABBITMQ_BROKER)])
+class test_rabbitmq_test_broker:
+    @pytest.mark.skip("Placeholder")
+    def test_placeholder(self, broker: RabbitMQTestBroker):
+        broker = broker

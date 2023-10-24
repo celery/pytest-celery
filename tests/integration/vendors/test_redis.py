@@ -1,12 +1,11 @@
 import pytest
 from pytest_lazyfixture import lazy_fixture
 
-# from pytest_celery import CELERY_REDIS_BACKEND
-# from pytest_celery import CELERY_REDIS_BROKER
+from pytest_celery import CELERY_REDIS_BACKEND
+from pytest_celery import CELERY_REDIS_BROKER
 from pytest_celery import RedisContainer
-
-# from pytest_celery import RedisTestBackend
-# from pytest_celery import RedisTestBroker
+from pytest_celery import RedisTestBackend
+from pytest_celery import RedisTestBroker
 from tests.defaults import ALL_REDIS_FIXTURES
 
 
@@ -24,13 +23,15 @@ class test_redis_container:
         assert set(container.celeryconfig.keys()) == expected_keys
 
 
-# @pytest.mark.parametrize("node", [lazy_fixture(CELERY_REDIS_BACKEND)])
-# class test_redis_test_backend:
-#     def test_placeholder(self, node: RedisTestBackend):
-#         node = node
+@pytest.mark.parametrize("backend", [lazy_fixture(CELERY_REDIS_BACKEND)])
+class test_redis_test_backend:
+    @pytest.mark.skip("Placeholder")
+    def test_placeholder(self, backend: RedisTestBackend):
+        backend = backend
 
 
-# @pytest.mark.parametrize("node", [lazy_fixture(CELERY_REDIS_BROKER)])
-# class test_redis_test_broker:
-#     def test_placeholder(self, node: RedisTestBroker):
-#         node = node
+@pytest.mark.parametrize("broker", [lazy_fixture(CELERY_REDIS_BROKER)])
+class test_redis_test_broker:
+    @pytest.mark.skip("Placeholder")
+    def test_placeholder(self, broker: RedisTestBroker):
+        broker = broker

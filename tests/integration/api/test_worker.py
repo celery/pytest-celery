@@ -10,29 +10,29 @@ from pytest_celery import CeleryWorkerContainer
 from tests.integration.conftest import IntegrationWorkerContainer
 
 
-@pytest.mark.parametrize("node", [lazy_fixture(CELERY_WORKER)])
+@pytest.mark.parametrize("worker", [lazy_fixture(CELERY_WORKER)])
 class test_celey_test_worker:
-    def test_app(self, node: CeleryTestWorker, celery_setup_app: Celery):
-        assert node.app is celery_setup_app
+    def test_app(self, worker: CeleryTestWorker, celery_setup_app: Celery):
+        assert worker.app is celery_setup_app
 
-    def test_version(self, node: CeleryTestWorker):
-        assert node.version == CeleryWorkerContainer.version()
+    def test_version(self, worker: CeleryTestWorker):
+        assert worker.version == CeleryWorkerContainer.version()
 
-    def test_wait_for_log(self, node: CeleryTestWorker):
-        log = f"{IntegrationWorkerContainer.worker_name()}@{node.hostname()} v{node.version}"
-        node.wait_for_log(log, "test_celey_test_worker.test_wait_for_log")
+    def test_wait_for_log(self, worker: CeleryTestWorker):
+        log = f"{IntegrationWorkerContainer.worker_name()}@{worker.hostname()} v{worker.version}"
+        worker.wait_for_log(log, "test_celey_test_worker.test_wait_for_log")
 
-    def test_assert_log_exists(self, node: CeleryTestWorker):
-        log = f"{IntegrationWorkerContainer.worker_name()}@{node.hostname()} v{node.version}"
-        node.assert_log_exists(log, "test_celey_test_worker.test_assert_log_exists")
+    def test_assert_log_exists(self, worker: CeleryTestWorker):
+        log = f"{IntegrationWorkerContainer.worker_name()}@{worker.hostname()} v{worker.version}"
+        worker.assert_log_exists(log, "test_celey_test_worker.test_assert_log_exists")
 
 
 @pytest.mark.parametrize("cluster", [lazy_fixture(CELERY_WORKER_CLUSTER)])
 class test_celery_worker_cluster:
     def test_app(self, cluster: CeleryWorkerCluster, celery_setup_app: Celery):
-        node: CeleryTestWorker
-        for node in cluster:
-            assert node.app is celery_setup_app
+        worker: CeleryTestWorker
+        for worker in cluster:
+            assert worker.app is celery_setup_app
 
     def test_versions(self, cluster: CeleryWorkerCluster):
         assert cluster.versions == {CeleryWorkerContainer.version()}
