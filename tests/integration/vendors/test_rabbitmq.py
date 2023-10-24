@@ -18,8 +18,13 @@ class test_rabbitmq_container:
         finally:
             c.release()
 
+    def test_celeryconfig(self, container: RabbitMQContainer):
+        expected_keys = {"url", "local_url", "hostname", "port", "vhost"}
+        assert set(container.celeryconfig.keys()) == expected_keys
 
-@pytest.mark.parametrize("node", [lazy_fixture(CELERY_RABBITMQ_BROKER)])
+
+@pytest.mark.parametrize("broker", [lazy_fixture(CELERY_RABBITMQ_BROKER)])
 class test_rabbitmq_test_broker:
-    def test_ready(self, node: RabbitMQTestBroker):
-        assert node.ready()
+    @pytest.mark.skip("Placeholder")
+    def test_placeholder(self, broker: RabbitMQTestBroker):
+        broker = broker

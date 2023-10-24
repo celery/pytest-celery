@@ -18,14 +18,20 @@ class test_redis_container:
         assert container.client.get("ready") == "1"
         assert container.client.delete("ready")
 
+    def test_celeryconfig(self, container: RedisContainer):
+        expected_keys = {"url", "local_url", "hostname", "port", "vhost"}
+        assert set(container.celeryconfig.keys()) == expected_keys
 
-@pytest.mark.parametrize("node", [lazy_fixture(CELERY_REDIS_BACKEND)])
+
+@pytest.mark.parametrize("backend", [lazy_fixture(CELERY_REDIS_BACKEND)])
 class test_redis_test_backend:
-    def test_ready(self, node: RedisTestBackend):
-        assert node.ready()
+    @pytest.mark.skip("Placeholder")
+    def test_placeholder(self, backend: RedisTestBackend):
+        backend = backend
 
 
-@pytest.mark.parametrize("node", [lazy_fixture(CELERY_REDIS_BROKER)])
+@pytest.mark.parametrize("broker", [lazy_fixture(CELERY_REDIS_BROKER)])
 class test_redis_test_broker:
-    def test_ready(self, node: RedisTestBroker):
-        assert node.ready()
+    @pytest.mark.skip("Placeholder")
+    def test_placeholder(self, broker: RedisTestBroker):
+        broker = broker

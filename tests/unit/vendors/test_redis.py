@@ -1,3 +1,8 @@
+import pytest
+from pytest_lazyfixture import lazy_fixture
+
+from pytest_celery import CELERY_REDIS_BACKEND
+from pytest_celery import CELERY_REDIS_BROKER
 from pytest_celery import REDIS_ENV
 from pytest_celery import REDIS_IMAGE
 from pytest_celery import RedisContainer
@@ -6,28 +11,25 @@ from pytest_celery import RedisTestBroker
 
 
 class test_redis_container:
-    def test_client(self, redis_test_container: RedisContainer):
-        assert redis_test_container.client
+    def test_version(self):
+        assert RedisContainer.version() == "latest"
 
-    def test_celeryconfig(self, redis_test_container: RedisContainer):
-        expected_keys = {"url", "local_url", "hostname", "port", "vhost"}
-        assert set(redis_test_container.celeryconfig.keys()) == expected_keys
+    def test_env(self):
+        assert RedisContainer.env() == REDIS_ENV
 
-    def test_version(self, redis_test_container: RedisContainer):
-        assert redis_test_container.version() == "latest"
-
-    def test_env(self, redis_test_container: RedisContainer):
-        assert redis_test_container.env() == REDIS_ENV
-
-    def test_image(self, redis_test_container: RedisContainer):
-        assert redis_test_container.image() == REDIS_IMAGE
+    def test_image(self):
+        assert RedisContainer.image() == REDIS_IMAGE
 
 
-class test_redis_test_backend:
-    def test_ready(self, celery_redis_backend: RedisTestBackend):
-        assert celery_redis_backend.ready()
+@pytest.mark.parametrize("backend", [lazy_fixture(CELERY_REDIS_BACKEND)])
+class test_redis_backend_api:
+    def test_ready(self, backend: RedisTestBackend):
+        backend.ready()
+        backend.container.ready.assert_called_once()
 
 
-class test_redis_test_broker:
-    def test_ready(self, celery_redis_broker: RedisTestBroker):
-        assert celery_redis_broker.ready()
+@pytest.mark.parametrize("broker", [lazy_fixture(CELERY_REDIS_BROKER)])
+class test_redis_broker_api:
+    def test_ready(self, broker: RedisTestBroker):
+        broker.ready()
+        broker.container.ready.assert_called_once()

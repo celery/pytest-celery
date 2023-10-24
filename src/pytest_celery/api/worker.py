@@ -20,10 +20,7 @@ class CeleryTestWorker(CeleryTestNode):
 
     @property
     def version(self) -> str:
-        if hasattr(self.container, "version"):
-            return self.container.version()
-        else:
-            return "unknown"
+        return self.container.version()
 
     @property
     def log_level(self) -> str:
