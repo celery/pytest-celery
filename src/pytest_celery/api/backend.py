@@ -5,22 +5,23 @@ from typing import Union
 from pytest_celery.api.base import CeleryTestCluster
 from pytest_celery.api.base import CeleryTestNode
 from pytest_celery.api.container import CeleryTestContainer
-from pytest_celery.defaults import WORKER_ENV
+from pytest_celery.defaults import DEFAULT_WORKER_ENV
 
 
 class CeleryTestBackend(CeleryTestNode):
     @classmethod
     def default_config(cls) -> dict:
         return {
-            "url": WORKER_ENV["CELERY_RESULT_BACKEND"],
-            "local_url": WORKER_ENV["CELERY_RESULT_BACKEND"],
+            "url": DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"],
+            "local_url": DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"],
         }
 
     def restart(self) -> None:
         super().restart()
-        self.app.conf.update(
-            result_backend=self.config()["local_url"],
-        )
+        if self.app:
+            self.app.conf.update(
+                result_backend=self.config()["local_url"],
+            )
 
 
 class CeleryBackendCluster(CeleryTestCluster):
@@ -37,6 +38,6 @@ class CeleryBackendCluster(CeleryTestCluster):
     @classmethod
     def default_config(cls) -> dict:
         return {
-            "urls": [WORKER_ENV["CELERY_RESULT_BACKEND"]],
-            "local_urls": [WORKER_ENV["CELERY_RESULT_BACKEND"]],
+            "urls": [DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"]],
+            "local_urls": [DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"]],
         }
