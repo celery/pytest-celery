@@ -26,20 +26,25 @@ class CeleryTestNode:
     def app(self) -> Celery:
         return self._app
 
-    def ready(self) -> bool:
-        return self.container.ready()
-
-    def config(self, *args: tuple, **kwargs: dict) -> dict:
-        return self.container.celeryconfig
+    def __eq__(self, __value: object) -> bool:
+        if isinstance(__value, CeleryTestNode):
+            return all(
+                (
+                    self.container == __value.container,
+                    self.app == __value.app,
+                )
+            )
+        return False
 
     @classmethod
     def default_config(cls) -> dict:
         return {}
 
-    def __eq__(self, __value: object) -> bool:
-        if isinstance(__value, CeleryTestNode):
-            return self.container == __value.container
-        return False
+    def ready(self) -> bool:
+        return self.container.ready()
+
+    def config(self, *args: tuple, **kwargs: dict) -> dict:
+        return self.container.celeryconfig
 
     def logs(self) -> str:
         return self.container.logs()
@@ -89,6 +94,14 @@ class CeleryTestCluster:
 
         self.nodes = nodes  # type: ignore
 
+    @property
+    def nodes(self) -> Tuple[CeleryTestNode]:
+        return self._nodes
+
+    @nodes.setter
+    def nodes(self, nodes: Tuple[Union[CeleryTestNode, CeleryTestContainer]]) -> None:
+        self._nodes = self._set_nodes(*nodes)  # type: ignore
+
     def __iter__(self) -> Iterator[CeleryTestNode]:
         return iter(self.nodes)
 
@@ -105,13 +118,9 @@ class CeleryTestCluster:
                     return False
         return False
 
-    @property
-    def nodes(self) -> Tuple[CeleryTestNode]:
-        return self._nodes
-
-    @nodes.setter
-    def nodes(self, nodes: Tuple[Union[CeleryTestNode, CeleryTestContainer]]) -> None:
-        self._nodes = self._set_nodes(*nodes)  # type: ignore
+    @classmethod
+    def default_config(cls) -> dict:
+        return {}
 
     @abstractmethod
     def _set_nodes(
@@ -139,9 +148,7 @@ class CeleryTestCluster:
             "local_urls": [c["local_url"] for c in config],
         }
 
-    @classmethod
-    def default_config(cls) -> dict:
-        return {}
-
     def teardown(self) -> None:
+        # Do not need to call teardown on the nodes
+        # but only tear down self
         pass

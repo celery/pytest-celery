@@ -4,6 +4,7 @@ from pytest_lazyfixture import lazy_fixture
 from pytest_celery import CELERY_RABBITMQ_BROKER
 from pytest_celery import RABBITMQ_ENV
 from pytest_celery import RABBITMQ_IMAGE
+from pytest_celery import RABBITMQ_PORTS
 from pytest_celery import RabbitMQContainer
 from pytest_celery import RabbitMQTestBroker
 
@@ -19,9 +20,16 @@ class test_rabbitmq_container:
     def test_image(self):
         assert RabbitMQContainer.image() == RABBITMQ_IMAGE
 
+    def test_ports(self):
+        assert RabbitMQContainer.ports() == RABBITMQ_PORTS
+
 
 @pytest.mark.parametrize("broker", [lazy_fixture(CELERY_RABBITMQ_BROKER)])
 class test_rabbitmq_broker_api:
-    def test_ready(self, broker: RabbitMQTestBroker):
-        broker.ready()
-        broker.container.ready.assert_called_once()
+    @pytest.mark.skip(reason="Placeholder")
+    def test_placeholder(self, broker: RabbitMQTestBroker):
+        # The class RabbitMQTestBroker is currently a placeholder
+        # so we don't have any specific tests for it yet.
+        # This test suite is pre-configured to test the RabbitMQTestBroker
+        # and ready to be used once the class is implemented.
+        pass

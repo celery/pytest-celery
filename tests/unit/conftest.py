@@ -1,5 +1,6 @@
 from typing import Type
 from unittest.mock import Mock
+from unittest.mock import patch
 
 import pytest
 
@@ -9,8 +10,16 @@ from pytest_celery import RabbitMQContainer
 from pytest_celery import RedisContainer
 
 
+@pytest.fixture(autouse=True)
+def mock_wait_for_callable():
+    with patch("pytest_celery.api.base.wait_for_callable", new=Mock()):
+        with patch("pytest_celery.api.container.wait_for_callable", new=Mock()):
+            yield
+
+
 def mocked_container(spec: Type) -> Mock:
     mocked_container = Mock(spec=spec)
+    mocked_container.id = "mocked_test_container_id"
     mocked_container.celeryconfig = {
         "url": "mocked_url",
         "local_url": "mocked_local_url",
@@ -40,6 +49,4 @@ def default_redis_broker() -> RedisContainer:
 
 @pytest.fixture
 def default_worker_container() -> CeleryWorkerContainer:
-    m = mocked_container(CeleryWorkerContainer)
-    m.version.return_value = CeleryWorkerContainer.version()
-    return m
+    return mocked_container(CeleryWorkerContainer)

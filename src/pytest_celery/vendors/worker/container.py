@@ -13,6 +13,13 @@ from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_VERSION
 
 
 class CeleryWorkerContainer(CeleryTestContainer):
+    def _wait_port(self, port: str) -> int:
+        raise NotImplementedError
+
+    @property
+    def ready_prompt(self) -> str:
+        return "ready."
+
     @classmethod
     def version(cls) -> str:
         return DEFAULT_WORKER_VERSION
@@ -28,6 +35,14 @@ class CeleryWorkerContainer(CeleryTestContainer):
     @classmethod
     def worker_queue(cls) -> str:
         return DEFAULT_WORKER_QUEUE
+
+    @classmethod
+    def tasks_modules(cls) -> set:
+        return set()
+
+    @classmethod
+    def signals_modules(cls) -> set:
+        return set()
 
     @classmethod
     def buildargs(cls) -> dict:
@@ -145,18 +160,3 @@ class CeleryWorkerContainer(CeleryTestContainer):
         else:
             print("No signals found")
         return initial_content
-
-    @classmethod
-    def tasks_modules(cls) -> set:
-        return set()
-
-    @classmethod
-    def signals_modules(cls) -> set:
-        return set()
-
-    def _wait_port(self, port: str) -> int:
-        raise NotImplementedError
-
-    @property
-    def ready_prompt(self) -> str:
-        return "ready."
