@@ -34,12 +34,12 @@ class CeleryTestSetup:
         return self._app
 
     @property
-    def worker_cluster(self) -> CeleryWorkerCluster:
-        return self._worker_cluster
+    def backend_cluster(self) -> CeleryBackendCluster:
+        return self._backend_cluster
 
     @property
-    def worker(self) -> CeleryTestWorker:
-        return self._worker_cluster[0]  # type: ignore
+    def backend(self) -> CeleryTestBackend:
+        return self._backend_cluster[0]  # type: ignore
 
     @property
     def broker_cluster(self) -> CeleryBrokerCluster:
@@ -50,37 +50,12 @@ class CeleryTestSetup:
         return self._broker_cluster[0]  # type: ignore
 
     @property
-    def backend_cluster(self) -> CeleryBackendCluster:
-        return self._backend_cluster
+    def worker_cluster(self) -> CeleryWorkerCluster:
+        return self._worker_cluster
 
     @property
-    def backend(self) -> CeleryTestBackend:
-        return self._backend_cluster[0]  # type: ignore
-
-    def ready(self, ping: bool = False, control: bool = False, docker: bool = True) -> bool:
-        ready = True
-
-        if docker and ready:
-            ready = all([self.broker_cluster.ready(), self.backend_cluster.ready()])
-            ready = ready and self.worker_cluster.ready()
-
-        if control and ready:
-            r = self.app.control.ping()
-            ready = ready and all([all([res["ok"] == "pong" for _, res in response.items()]) for response in r])
-
-        if ping and ready:
-            # TODO: ignore mypy globally for type overriding
-            worker: CeleryTestWorker
-            for worker in self.worker_cluster:  # type: ignore
-                res = self.ping.s().apply_async(queue=worker.worker_queue)
-                ready = ready and res.get(timeout=RESULT_TIMEOUT) == "pong"
-
-        # Set app for all nodes
-        nodes = self.broker_cluster.nodes + self.backend_cluster.nodes
-        for node in nodes:
-            node._app = self.app
-
-        return ready
+    def worker(self) -> CeleryTestWorker:
+        return self._worker_cluster[0]  # type: ignore
 
     @classmethod
     def name(cls) -> str:
@@ -130,3 +105,28 @@ class CeleryTestSetup:
 
     def teardown(self) -> None:
         pass
+
+    def ready(self, ping: bool = False, control: bool = False, docker: bool = True) -> bool:
+        ready = True
+
+        if docker and ready:
+            ready = all([self.broker_cluster.ready(), self.backend_cluster.ready()])
+            ready = ready and self.worker_cluster.ready()
+
+        if control and ready:
+            r = self.app.control.ping()
+            ready = ready and all([all([res["ok"] == "pong" for _, res in response.items()]) for response in r])
+
+        if ping and ready:
+            # TODO: ignore mypy globally for type overriding
+            worker: CeleryTestWorker
+            for worker in self.worker_cluster:  # type: ignore
+                res = self.ping.s().apply_async(queue=worker.worker_queue)
+                ready = ready and res.get(timeout=RESULT_TIMEOUT) == "pong"
+
+        # Set app for all nodes
+        nodes = self.broker_cluster.nodes + self.backend_cluster.nodes
+        for node in nodes:
+            node._app = self.app
+
+        return ready
