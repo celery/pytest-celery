@@ -19,3 +19,7 @@ class test_celery_backend_cluster:
         backend: CeleryTestBackend
         for backend in cluster:
             assert backend.app is None
+
+    def test_config(self, cluster: CeleryBackendCluster):
+        expected_keys = {"urls", "local_urls"}
+        assert set(cluster.config().keys()) == expected_keys
