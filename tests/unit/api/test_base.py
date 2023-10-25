@@ -27,10 +27,16 @@ class test_celery_test_node:
             node = CeleryTestNode(mocked_test_container, expected_app)
             assert node.app is expected_app
 
-        def test_eq_opertor(self, mocked_test_container: CeleryTestContainer):
+        def test_eq_opertor_eq(self, mocked_test_container: CeleryTestContainer):
             node1 = CeleryTestNode(mocked_test_container)
             node2 = CeleryTestNode(mocked_test_container)
             assert node1 == node2
+            assert node1 is not node2
+
+        def test_eq_opertor_not_eq(self, mocked_test_container: CeleryTestContainer):
+            node1 = CeleryTestNode(mocked_test_container)
+            node2 = CeleryTestNode(mocked_container(CeleryTestContainer))
+            assert node1 != node2
             assert node1 is not node2
 
     def test_container(self, node: CeleryTestNode):
