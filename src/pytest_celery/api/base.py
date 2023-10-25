@@ -64,6 +64,8 @@ class CeleryTestNode:
         self.container.restart()
         if reload_container:
             self.container.reload()
+        if self.app:
+            self.app.set_current()
 
     def teardown(self) -> None:
         self.container.teardown()
