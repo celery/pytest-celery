@@ -55,11 +55,15 @@ class CeleryTestNode:
     def hostname(self) -> str:
         return self.container.id[:12]
 
-    def kill(self) -> None:
+    def kill(self, reload_container: bool = True) -> None:
         self.container.kill()
+        if reload_container:
+            self.container.reload()
 
-    def restart(self) -> None:
+    def restart(self, reload_container: bool = True) -> None:
         self.container.restart()
+        if reload_container:
+            self.container.reload()
 
     def teardown(self) -> None:
         self.container.teardown()
