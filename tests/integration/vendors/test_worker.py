@@ -20,6 +20,6 @@ class test_celery_worker_container:
 
 @pytest.mark.parametrize("worker", [lazy_fixture(CELERY_SETUP_WORKER)])
 class test_base_test_worker:
-    @pytest.mark.skip("Placeholder")
-    def test_placeholder(self, worker: CeleryTestWorker):
-        worker = worker
+    def test_config(self, worker: CeleryTestWorker):
+        with pytest.raises(NotImplementedError):
+            worker.config()
