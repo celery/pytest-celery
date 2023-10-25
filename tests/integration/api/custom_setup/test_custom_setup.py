@@ -9,10 +9,10 @@ from tests.tasks import identity
 
 
 class test_custom_setup:
-    def test_basic_ready_custom_setup(self, celery_setup: CeleryTestSetup):
+    def test_ready(self, celery_setup: CeleryTestSetup):
         assert celery_setup.ready()
 
-    def test_worker_is_connected_to_backend_custom_setup(self, celery_setup: CeleryTestSetup):
+    def test_worker_is_connected_to_backend(self, celery_setup: CeleryTestSetup):
         backend_urls = [
             backend.container.celeryconfig["local_url"].replace("cache+", "")
             for backend in celery_setup.backend_cluster
@@ -22,24 +22,24 @@ class test_custom_setup:
             app: Celery = worker.app
             assert app.backend.as_uri() in backend_urls
 
-    def test_worker_is_connected_to_broker_custom_setup(self, celery_setup: CeleryTestSetup):
+    def test_worker_is_connected_to_broker(self, celery_setup: CeleryTestSetup):
         broker_urls = [broker.container.celeryconfig["local_url"] for broker in celery_setup.broker_cluster]
         worker: CeleryTestWorker
         for worker in celery_setup.worker_cluster:
             app: Celery = worker.app
             assert app.connection().as_uri().replace("guest:**@", "") in broker_urls
 
-    def test_log_level_custom_setup(self, celery_setup: CeleryTestSetup):
+    def test_log_level(self, celery_setup: CeleryTestSetup):
         worker: CeleryTestWorker
         for worker in celery_setup.worker_cluster:
             if worker.logs():
                 worker.assert_log_exists(worker.log_level)
 
-    def test_celery_setup_override(self, celery_setup: CeleryTestSetup):
+    def test_apply_async(self, celery_setup: CeleryTestSetup):
         assert celery_setup.app
         worker: CeleryTestWorker
         for worker in celery_setup.worker_cluster:
-            expected = "test_celery_setup_override"
+            expected = "test_apply_async"
             queue = worker.worker_queue
             sig = identity.s(expected)
             res = sig.apply_async(queue=queue)

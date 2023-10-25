@@ -7,7 +7,7 @@ from tests.tasks import identity
 
 
 class test_celery_test_setup_integration:
-    def test_basic_ready(self, celery_setup: CeleryTestSetup):
+    def test_ready(self, celery_setup: CeleryTestSetup):
         assert celery_setup.ready()
 
     def test_worker_is_connected_to_backend(self, celery_setup: CeleryTestSetup):
@@ -32,15 +32,15 @@ class test_celery_test_setup_integration:
         for worker in celery_setup.worker_cluster:
             worker.assert_log_exists(worker.log_level)
 
-    def test_ready(self, celery_setup: CeleryTestSetup):
-        worker: CeleryTestWorker
-        for worker in celery_setup.worker_cluster:
-            queue = worker.worker_queue
-            r = identity.s("test_ready").apply_async(queue=queue)
-            assert r.get(timeout=RESULT_TIMEOUT) == "test_ready"
-
     def test_celery_test_setup_ready_ping(self, celery_setup: CeleryTestSetup):
         assert celery_setup.ready(ping=True)
 
     def test_celery_test_setup_ready_ping_false(self, celery_setup: CeleryTestSetup):
         assert celery_setup.ready(ping=False)
+
+    def test_apply_async(self, celery_setup: CeleryTestSetup):
+        worker: CeleryTestWorker
+        for worker in celery_setup.worker_cluster:
+            queue = worker.worker_queue
+            r = identity.s("test_ready").apply_async(queue=queue)
+            assert r.get(timeout=RESULT_TIMEOUT) == "test_ready"
