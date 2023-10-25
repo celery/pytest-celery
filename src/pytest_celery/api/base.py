@@ -10,6 +10,7 @@ from celery import Celery
 from pytest_docker_tools.wrappers.container import wait_for_callable
 
 from pytest_celery.api.container import CeleryTestContainer
+from pytest_celery.defaults import CONTAINER_TIMEOUT
 from pytest_celery.defaults import RESULT_TIMEOUT
 
 
@@ -61,7 +62,7 @@ class CeleryTestNode:
             self.container.reload()
 
     def restart(self, reload_container: bool = True) -> None:
-        self.container.restart()
+        self.container.restart(timeout=CONTAINER_TIMEOUT)
         if reload_container:
             self.container.reload()
         if self.app:
