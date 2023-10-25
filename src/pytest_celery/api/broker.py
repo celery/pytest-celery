@@ -5,22 +5,23 @@ from typing import Union
 from pytest_celery.api.base import CeleryTestCluster
 from pytest_celery.api.base import CeleryTestNode
 from pytest_celery.api.container import CeleryTestContainer
-from pytest_celery.defaults import WORKER_ENV
+from pytest_celery.defaults import DEFAULT_WORKER_ENV
 
 
 class CeleryTestBroker(CeleryTestNode):
     @classmethod
     def default_config(cls) -> dict:
         return {
-            "url": WORKER_ENV["CELERY_BROKER_URL"],
-            "local_url": WORKER_ENV["CELERY_BROKER_URL"],
+            "url": DEFAULT_WORKER_ENV["CELERY_BROKER_URL"],
+            "local_url": DEFAULT_WORKER_ENV["CELERY_BROKER_URL"],
         }
 
     def restart(self) -> None:
         super().restart()
-        self.app.conf.update(
-            broker_url=self.config()["local_url"],
-        )
+        if self.app:
+            self.app.conf.update(
+                broker_url=self.config()["local_url"],
+            )
 
 
 class CeleryBrokerCluster(CeleryTestCluster):
@@ -37,6 +38,6 @@ class CeleryBrokerCluster(CeleryTestCluster):
     @classmethod
     def default_config(cls) -> dict:
         return {
-            "urls": [WORKER_ENV["CELERY_BROKER_URL"]],
-            "local_urls": [WORKER_ENV["CELERY_BROKER_URL"]],
+            "urls": [DEFAULT_WORKER_ENV["CELERY_BROKER_URL"]],
+            "local_urls": [DEFAULT_WORKER_ENV["CELERY_BROKER_URL"]],
         }
