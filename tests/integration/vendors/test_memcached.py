@@ -2,6 +2,7 @@ import pytest
 from pytest_lazyfixture import lazy_fixture
 
 from pytest_celery import CELERY_MEMCACHED_BACKEND
+from pytest_celery import MEMCACHED_PREFIX
 from pytest_celery import MemcachedContainer
 from pytest_celery import MemcachedTestBackend
 from tests.defaults import ALL_MEMCACHED_FIXTURES
@@ -18,11 +19,16 @@ class test_memcached_container:
 
     def test_celeryconfig(self, container: MemcachedContainer):
         expected_keys = {"url", "local_url", "hostname", "port"}
-        assert set(container.celeryconfig.keys()) == expected_keys
+        config = container.celeryconfig
+        assert set(config.keys()) == expected_keys
+        assert MEMCACHED_PREFIX in config["url"]
+        assert MEMCACHED_PREFIX in config["local_url"]
 
 
 @pytest.mark.parametrize("backend", [lazy_fixture(CELERY_MEMCACHED_BACKEND)])
 class test_memcached_test_backend:
-    @pytest.mark.skip("Placeholder")
-    def test_placeholder(self, backend: MemcachedTestBackend):
-        backend = backend
+    def test_config(self, backend: MemcachedTestBackend):
+        expected_keys = {"url", "local_url", "hostname", "port"}
+        assert set(backend.config().keys()) == expected_keys
+        assert MEMCACHED_PREFIX in backend.config()["url"]
+        assert MEMCACHED_PREFIX in backend.config()["local_url"]
