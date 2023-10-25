@@ -19,6 +19,7 @@ def mock_wait_for_callable():
 
 def mocked_container(spec: Type) -> Mock:
     mocked_container = Mock(spec=spec)
+    mocked_container.id = "mocked_test_container_id"
     mocked_container.celeryconfig = {
         "url": "mocked_url",
         "local_url": "mocked_local_url",
