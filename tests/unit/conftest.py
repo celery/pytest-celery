@@ -49,6 +49,4 @@ def default_redis_broker() -> RedisContainer:
 
 @pytest.fixture
 def default_worker_container() -> CeleryWorkerContainer:
-    m = mocked_container(CeleryWorkerContainer)
-    m.version.return_value = CeleryWorkerContainer.version()
-    return m
+    return mocked_container(CeleryWorkerContainer)
