@@ -6,6 +6,7 @@ from pytest_celery.api.container import CeleryTestContainer
 from pytest_celery.vendors.rabbitmq.defaults import RABBITMQ_ENV
 from pytest_celery.vendors.rabbitmq.defaults import RABBITMQ_IMAGE
 from pytest_celery.vendors.rabbitmq.defaults import RABBITMQ_PORTS
+from pytest_celery.vendors.rabbitmq.defaults import RABBITMQ_PREFIX
 
 
 class RabbitMQContainer(CeleryTestContainer):
@@ -29,11 +30,11 @@ class RabbitMQContainer(CeleryTestContainer):
 
     @property
     def url(self) -> str:
-        return f"amqp://{self.hostname}/{self.vhost}"
+        return f"{RABBITMQ_PREFIX}{self.hostname}/{self.vhost}"
 
     @property
     def local_url(self) -> str:
-        return f"amqp://localhost:{self.port}/{self.vhost}"
+        return f"{RABBITMQ_PREFIX}localhost:{self.port}/{self.vhost}"
 
     @property
     def hostname(self) -> str:
