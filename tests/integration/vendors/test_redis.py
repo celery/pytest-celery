@@ -20,18 +20,25 @@ class test_redis_container:
 
     def test_celeryconfig(self, container: RedisContainer):
         expected_keys = {"url", "local_url", "hostname", "port", "vhost"}
-        assert set(container.celeryconfig.keys()) == expected_keys
+        config = container.celeryconfig
+        assert set(config.keys()) == expected_keys
+        assert container.prefix() in config["url"]
+        assert container.prefix() in config["local_url"]
 
 
 @pytest.mark.parametrize("backend", [lazy_fixture(CELERY_REDIS_BACKEND)])
 class test_redis_test_backend:
-    @pytest.mark.skip("Placeholder")
-    def test_placeholder(self, backend: RedisTestBackend):
-        backend = backend
+    def test_config(self, backend: RedisTestBackend):
+        expected_keys = {"url", "local_url", "hostname", "port", "vhost"}
+        assert set(backend.config().keys()) == expected_keys
+        assert backend.container.prefix() in backend.config()["url"]
+        assert backend.container.prefix() in backend.config()["local_url"]
 
 
 @pytest.mark.parametrize("broker", [lazy_fixture(CELERY_REDIS_BROKER)])
 class test_redis_test_broker:
-    @pytest.mark.skip("Placeholder")
-    def test_placeholder(self, broker: RedisTestBroker):
-        broker = broker
+    def test_config(self, broker: RedisTestBroker):
+        expected_keys = {"url", "local_url", "hostname", "port", "vhost"}
+        assert set(broker.config().keys()) == expected_keys
+        assert broker.container.prefix() in broker.config()["url"]
+        assert broker.container.prefix() in broker.config()["local_url"]

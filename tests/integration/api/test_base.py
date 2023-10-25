@@ -12,8 +12,53 @@ class test_celery_test_node:
     def test_ready(self, node: CeleryTestNode):
         assert node.ready()
 
+    def test_logs(self, node: CeleryTestNode):
+        node.logs()
+
+    def test_name(self, node: CeleryTestNode):
+        assert isinstance(node.name(), str)
+
+    def test_hostname(self, node: CeleryTestNode):
+        hostname = node.hostname()
+        assert isinstance(hostname, str)
+        assert len(hostname) == 12
+
+    def test_kill(self, node: CeleryTestNode):
+        node.kill()
+        assert node.container.status == "exited"
+
+    def test_kill_no_reload(self, node: CeleryTestNode):
+        node.kill(reload_container=False)
+        assert node.container.status != "exited"
+
+    def test_restart(self, node: CeleryTestNode):
+        node.restart()
+        assert node.container.status == "running"
+
+    def test_restart_no_reload(self, node: CeleryTestNode):
+        node.restart(reload_container=False)
+        assert node.container.status == "running"
+
+    def test_teardown(self, node: CeleryTestNode):
+        node.teardown()
+
+    @pytest.mark.skip(reason="TODO")
+    def test_wait_for_logs(self, node: CeleryTestNode):
+        pass
+
+    @pytest.mark.skip(reason="TODO")
+    def test_assert_log_exists(self, node: CeleryTestNode):
+        pass
+
+    @pytest.mark.skip(reason="TODO")
+    def test_assert_log_does_not_exist(self, node: CeleryTestNode):
+        pass
+
 
 @pytest.mark.parametrize("cluster", lazy_fixture(ALL_CLUSTERS_FIXTURES))
 class test_celery_test_cluster:
     def test_ready(self, cluster: CeleryTestCluster):
         assert cluster.ready()
+
+    def test_teardown(self, cluster: CeleryTestCluster):
+        cluster.teardown()

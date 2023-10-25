@@ -5,6 +5,7 @@ from pytest_celery import CELERY_RABBITMQ_BROKER
 from pytest_celery import RABBITMQ_ENV
 from pytest_celery import RABBITMQ_IMAGE
 from pytest_celery import RABBITMQ_PORTS
+from pytest_celery import RABBITMQ_PREFIX
 from pytest_celery import RabbitMQContainer
 from pytest_celery import RabbitMQTestBroker
 
@@ -22,6 +23,9 @@ class test_rabbitmq_container:
 
     def test_ports(self):
         assert RabbitMQContainer.ports() == RABBITMQ_PORTS
+
+    def test_prefix(self):
+        assert RabbitMQContainer.prefix() == RABBITMQ_PREFIX
 
 
 @pytest.mark.parametrize("broker", [lazy_fixture(CELERY_RABBITMQ_BROKER)])

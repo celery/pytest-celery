@@ -19,3 +19,7 @@ class test_celery_broker_cluster:
         broker: CeleryTestBroker
         for broker in cluster:
             assert broker.app is None
+
+    def test_config(self, cluster: CeleryBrokerCluster):
+        expected_keys = {"urls", "local_urls"}
+        assert set(cluster.config().keys()) == expected_keys

@@ -20,11 +20,16 @@ class test_rabbitmq_container:
 
     def test_celeryconfig(self, container: RabbitMQContainer):
         expected_keys = {"url", "local_url", "hostname", "port", "vhost"}
-        assert set(container.celeryconfig.keys()) == expected_keys
+        config = container.celeryconfig
+        assert set(config.keys()) == expected_keys
+        assert container.prefix() in config["url"]
+        assert container.prefix() in config["local_url"]
 
 
 @pytest.mark.parametrize("broker", [lazy_fixture(CELERY_RABBITMQ_BROKER)])
 class test_rabbitmq_test_broker:
-    @pytest.mark.skip("Placeholder")
-    def test_placeholder(self, broker: RabbitMQTestBroker):
-        broker = broker
+    def test_config(self, broker: RabbitMQTestBroker):
+        expected_keys = {"url", "local_url", "hostname", "port", "vhost"}
+        assert set(broker.config().keys()) == expected_keys
+        assert broker.container.prefix() in broker.config()["url"]
+        assert broker.container.prefix() in broker.config()["local_url"]

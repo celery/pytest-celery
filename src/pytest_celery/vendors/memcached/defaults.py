@@ -4,3 +4,4 @@ MEMCACHED_IMAGE = "memcached:latest"
 MEMCACHED_PORTS = {"11211/tcp": None}
 MEMCACHED_ENV: dict = {}
 MEMCACHED_CONTAINER_TIMEOUT = 60
+MEMCACHED_PREFIX = "cache+memcached://"

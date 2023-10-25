@@ -16,8 +16,8 @@ class CeleryTestBroker(CeleryTestNode):
             "local_url": DEFAULT_WORKER_ENV["CELERY_BROKER_URL"],
         }
 
-    def restart(self) -> None:
-        super().restart()
+    def restart(self, reload_container: bool = True) -> None:
+        super().restart(reload_container)
         if self.app:
             self.app.conf.update(
                 broker_url=self.config()["local_url"],

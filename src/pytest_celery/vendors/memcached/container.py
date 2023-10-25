@@ -9,6 +9,7 @@ from pytest_celery.api.container import CeleryTestContainer
 from pytest_celery.vendors.memcached.defaults import MEMCACHED_ENV
 from pytest_celery.vendors.memcached.defaults import MEMCACHED_IMAGE
 from pytest_celery.vendors.memcached.defaults import MEMCACHED_PORTS
+from pytest_celery.vendors.memcached.defaults import MEMCACHED_PREFIX
 
 
 class MemcachedContainer(CeleryTestContainer):
@@ -30,11 +31,11 @@ class MemcachedContainer(CeleryTestContainer):
 
     @property
     def url(self) -> str:
-        return f"cache+memcached://{self.hostname}/"
+        return f"{self.prefix()}{self.hostname}/"
 
     @property
     def local_url(self) -> str:
-        return f"cache+memcached://localhost:{self.port}/"
+        return f"{self.prefix()}localhost:{self.port}/"
 
     @property
     def hostname(self) -> str:
@@ -59,3 +60,7 @@ class MemcachedContainer(CeleryTestContainer):
     @classmethod
     def ports(cls) -> dict:
         return MEMCACHED_PORTS
+
+    @classmethod
+    def prefix(cls) -> str:
+        return MEMCACHED_PREFIX

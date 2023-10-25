@@ -34,5 +34,9 @@ class test_celery_worker_cluster:
         for worker in cluster:
             assert worker.app is celery_setup_app
 
+    def test_config(self, cluster: CeleryWorkerCluster):
+        with pytest.raises(NotImplementedError):
+            cluster.config()
+
     def test_versions(self, cluster: CeleryWorkerCluster):
         assert cluster.versions == {CeleryWorkerContainer.version()}
