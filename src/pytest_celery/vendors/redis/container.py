@@ -6,6 +6,7 @@ from pytest_celery.api.container import CeleryTestContainer
 from pytest_celery.vendors.redis.defaults import REDIS_ENV
 from pytest_celery.vendors.redis.defaults import REDIS_IMAGE
 from pytest_celery.vendors.redis.defaults import REDIS_PORTS
+from pytest_celery.vendors.redis.defaults import REDIS_PREFIX
 
 
 class RedisContainer(CeleryTestContainer):
@@ -29,11 +30,11 @@ class RedisContainer(CeleryTestContainer):
 
     @property
     def url(self) -> str:
-        return f"redis://{self.hostname}/{self.vhost}"
+        return f"{REDIS_PREFIX}{self.hostname}/{self.vhost}"
 
     @property
     def local_url(self) -> str:
-        return f"redis://localhost:{self.port}/{self.vhost}"
+        return f"{REDIS_PREFIX}localhost:{self.port}/{self.vhost}"
 
     @property
     def hostname(self) -> str:

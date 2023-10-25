@@ -3,6 +3,7 @@ from pytest_lazyfixture import lazy_fixture
 
 from pytest_celery import CELERY_REDIS_BACKEND
 from pytest_celery import CELERY_REDIS_BROKER
+from pytest_celery import REDIS_PREFIX
 from pytest_celery import RedisContainer
 from pytest_celery import RedisTestBackend
 from pytest_celery import RedisTestBroker
@@ -20,18 +21,25 @@ class test_redis_container:
 
     def test_celeryconfig(self, container: RedisContainer):
         expected_keys = {"url", "local_url", "hostname", "port", "vhost"}
-        assert set(container.celeryconfig.keys()) == expected_keys
+        config = container.celeryconfig
+        assert set(config.keys()) == expected_keys
+        assert REDIS_PREFIX in config["url"]
+        assert REDIS_PREFIX in config["local_url"]
 
 
 @pytest.mark.parametrize("backend", [lazy_fixture(CELERY_REDIS_BACKEND)])
 class test_redis_test_backend:
-    @pytest.mark.skip("Placeholder")
-    def test_placeholder(self, backend: RedisTestBackend):
-        backend = backend
+    def test_config(self, backend: RedisTestBackend):
+        expected_keys = {"url", "local_url", "hostname", "port", "vhost"}
+        assert set(backend.config().keys()) == expected_keys
+        assert REDIS_PREFIX in backend.config()["url"]
+        assert REDIS_PREFIX in backend.config()["local_url"]
 
 
 @pytest.mark.parametrize("broker", [lazy_fixture(CELERY_REDIS_BROKER)])
 class test_redis_test_broker:
-    @pytest.mark.skip("Placeholder")
-    def test_placeholder(self, broker: RedisTestBroker):
-        broker = broker
+    def test_config(self, broker: RedisTestBroker):
+        expected_keys = {"url", "local_url", "hostname", "port", "vhost"}
+        assert set(broker.config().keys()) == expected_keys
+        assert REDIS_PREFIX in broker.config()["url"]
+        assert REDIS_PREFIX in broker.config()["local_url"]
