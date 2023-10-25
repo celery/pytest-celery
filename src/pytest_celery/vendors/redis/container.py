@@ -30,11 +30,11 @@ class RedisContainer(CeleryTestContainer):
 
     @property
     def url(self) -> str:
-        return f"{REDIS_PREFIX}{self.hostname}/{self.vhost}"
+        return f"{self.prefix()}{self.hostname}/{self.vhost}"
 
     @property
     def local_url(self) -> str:
-        return f"{REDIS_PREFIX}localhost:{self.port}/{self.vhost}"
+        return f"{self.prefix()}localhost:{self.port}/{self.vhost}"
 
     @property
     def hostname(self) -> str:
@@ -63,6 +63,10 @@ class RedisContainer(CeleryTestContainer):
     @classmethod
     def ports(cls) -> dict:
         return REDIS_PORTS
+
+    @classmethod
+    def prefix(cls) -> str:
+        return REDIS_PREFIX
 
     @property
     def ready_prompt(self) -> Optional[str]:

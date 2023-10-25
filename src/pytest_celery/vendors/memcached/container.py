@@ -31,11 +31,11 @@ class MemcachedContainer(CeleryTestContainer):
 
     @property
     def url(self) -> str:
-        return f"{MEMCACHED_PREFIX}{self.hostname}/"
+        return f"{self.prefix()}{self.hostname}/"
 
     @property
     def local_url(self) -> str:
-        return f"{MEMCACHED_PREFIX}localhost:{self.port}/"
+        return f"{self.prefix()}localhost:{self.port}/"
 
     @property
     def hostname(self) -> str:
@@ -60,3 +60,7 @@ class MemcachedContainer(CeleryTestContainer):
     @classmethod
     def ports(cls) -> dict:
         return MEMCACHED_PORTS
+
+    @classmethod
+    def prefix(cls) -> str:
+        return MEMCACHED_PREFIX

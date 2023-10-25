@@ -30,11 +30,11 @@ class RabbitMQContainer(CeleryTestContainer):
 
     @property
     def url(self) -> str:
-        return f"{RABBITMQ_PREFIX}{self.hostname}/{self.vhost}"
+        return f"{self.prefix()}{self.hostname}/{self.vhost}"
 
     @property
     def local_url(self) -> str:
-        return f"{RABBITMQ_PREFIX}localhost:{self.port}/{self.vhost}"
+        return f"{self.prefix()}localhost:{self.port}/{self.vhost}"
 
     @property
     def hostname(self) -> str:
@@ -63,6 +63,10 @@ class RabbitMQContainer(CeleryTestContainer):
     @classmethod
     def ports(cls) -> dict:
         return RABBITMQ_PORTS
+
+    @classmethod
+    def prefix(cls) -> str:
+        return RABBITMQ_PREFIX
 
     @property
     def ready_prompt(self) -> Optional[str]:

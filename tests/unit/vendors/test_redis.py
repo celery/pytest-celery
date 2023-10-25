@@ -6,6 +6,7 @@ from pytest_celery import CELERY_REDIS_BROKER
 from pytest_celery import REDIS_ENV
 from pytest_celery import REDIS_IMAGE
 from pytest_celery import REDIS_PORTS
+from pytest_celery import REDIS_PREFIX
 from pytest_celery import RedisContainer
 from pytest_celery import RedisTestBackend
 from pytest_celery import RedisTestBroker
@@ -23,6 +24,9 @@ class test_redis_container:
 
     def test_ports(self):
         assert RedisContainer.ports() == REDIS_PORTS
+
+    def test_prefix(self):
+        assert RedisContainer.prefix() == REDIS_PREFIX
 
 
 @pytest.mark.parametrize("backend", [lazy_fixture(CELERY_REDIS_BACKEND)])
