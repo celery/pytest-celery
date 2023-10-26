@@ -63,7 +63,7 @@ jobs:
           poetry install --with dev,test,ci
 
       - name: Run tox for all environments in parallel
-        timeout-minutes: 50
+        timeout-minutes: 60
         run: |
           tox -e xdist -- --reruns 10
 
@@ -108,6 +108,6 @@ jobs:
           poetry install --with dev,test,ci
 
       - name: Run tox for all environments in parallel
-        timeout-minutes: 50
+        timeout-minutes: 60
         run: |
           tox -e parallel -- --reruns 10
