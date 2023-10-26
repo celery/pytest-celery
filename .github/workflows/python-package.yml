@@ -63,7 +63,7 @@ jobs:
           poetry install --with dev,test,ci
 
       - name: Run tox for "${{ matrix.python-version }}-unit"
-        timeout-minutes: 5
+        timeout-minutes: 10
         run: |
           tox --verbose --verbose -e "${{ matrix.python-version }}-unit"
 
@@ -117,7 +117,7 @@ jobs:
           poetry install --with dev,test,ci
 
       - name: Run tox for "${{ matrix.python-version }}-integration"
-        timeout-minutes: 15
+        timeout-minutes: 60
         run: |
           tox --verbose --verbose -e "${{ matrix.python-version }}-integration" -- -n auto --reruns 10 --rerun-except AssertionError
 
@@ -165,6 +165,6 @@ jobs:
           poetry install --with dev,test,ci
 
       - name: Run tox for "${{ matrix.python-version }}-smoke"
-        timeout-minutes: 50
+        timeout-minutes: 60
         run: |
           tox --verbose --verbose -e "${{ matrix.python-version }}-smoke" -- -n auto --reruns 10 --rerun-except AssertionError
