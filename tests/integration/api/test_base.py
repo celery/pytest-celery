@@ -3,6 +3,7 @@ from pytest_lazyfixture import lazy_fixture
 
 from pytest_celery import CeleryTestCluster
 from pytest_celery import CeleryTestNode
+from pytest_celery import RedisTestBackend
 from tests.defaults import ALL_CLUSTERS_FIXTURES
 from tests.defaults import ALL_NODES_FIXTURES
 
@@ -40,6 +41,8 @@ class test_celery_test_node:
         assert node.container.status == "running"
 
     def test_teardown(self, node: CeleryTestNode):
+        if isinstance(node, RedisTestBackend):
+            pytest.skip("RedisTestBackend.teardown() breaks the testing environment")
         node.teardown()
 
     @pytest.mark.skip(reason="TODO")
