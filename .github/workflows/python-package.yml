@@ -65,7 +65,7 @@ jobs:
       - name: Run tox for "${{ matrix.python-version }}-unit"
         timeout-minutes: 5
         run: |
-          tox --verbose --verbose -e "${{ matrix.python-version }}-unit" -- -n auto --reruns 5 --rerun-except AssertionError
+          tox --verbose --verbose -e "${{ matrix.python-version }}-unit"
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
@@ -119,7 +119,7 @@ jobs:
       - name: Run tox for "${{ matrix.python-version }}-integration"
         timeout-minutes: 15
         run: |
-          tox --verbose --verbose -e "${{ matrix.python-version }}-integration" -- -n auto --reruns 5 --rerun-except AssertionError
+          tox --verbose --verbose -e "${{ matrix.python-version }}-integration" -- -n auto --reruns 10 --rerun-except AssertionError
 
   Smoke:
     needs:
@@ -167,4 +167,4 @@ jobs:
       - name: Run tox for "${{ matrix.python-version }}-smoke"
         timeout-minutes: 50
         run: |
-          tox --verbose --verbose -e "${{ matrix.python-version }}-smoke" -- -n auto --reruns 5 --rerun-except AssertionError
+          tox --verbose --verbose -e "${{ matrix.python-version }}-smoke" -- -n auto --reruns 10 --rerun-except AssertionError

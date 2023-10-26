@@ -18,8 +18,7 @@ class CeleryTestContainer(wrappers.Container):
 
     @classmethod
     def command(cls) -> list:
-        # To be used with pytest_docker_tools.container
-        # using the command kwarg with the class method as value
+        # To be used with pytest_docker_tools.container using the command kwarg with the class method as value
         # e.g. command=MyContainer.command()
         raise NotImplementedError("CeleryTestContainer.command")
 
