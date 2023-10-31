@@ -106,6 +106,3 @@ class test_canvas:
             )
             res = sig.apply_async(queue=queue)
             assert res.get(timeout=RESULT_TIMEOUT) == ["body_task"] * 3
-
-    def test_replace(self, celery_setup: CeleryTestSetup):
-        pytest.skip("Not implemented")
