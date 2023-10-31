@@ -30,10 +30,14 @@ CELERY_BROKER_CLUSTER = "celery_broker_cluster"
 # Fixtures collections
 ######################
 
+# These collections define which components are used by
+# pytest-celery by default. If not specified otherwise, the
+# user's tests will have a matrix of all possible combinations automatically
+
 ALL_CELERY_WORKERS = (CELERY_SETUP_WORKER,)
 ALL_CELERY_BACKENDS = (
     CELERY_REDIS_BACKEND,
-    CELERY_MEMCACHED_BACKEND,
+    # CELERY_MEMCACHED_BACKEND,  # Beta support at the moment, to be used manually
 )
 ALL_CELERY_BROKERS = (
     CELERY_REDIS_BROKER,
