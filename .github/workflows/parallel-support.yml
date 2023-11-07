@@ -11,12 +11,14 @@ on:
       - "**.txt"
       - ".github/workflows/parallel-support.yml"
       - "**.toml"
+      - "tox.ini"
   pull_request:
     paths:
       - "**.py"
       - "**.txt"
       - "**.toml"
       - ".github/workflows/parallel-support.yml"
+      - "tox.ini"
 
 permissions:
   contents: read # to fetch code (actions/checkout)
