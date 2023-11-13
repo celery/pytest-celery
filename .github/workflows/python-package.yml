@@ -11,12 +11,14 @@ on:
       - "**.txt"
       - ".github/workflows/python-package.yml"
       - "**.toml"
+      - "tox.ini"
   pull_request:
     paths:
       - "**.py"
       - "**.txt"
       - "**.toml"
       - ".github/workflows/python-package.yml"
+      - "tox.ini"
 
 permissions:
   contents: read # to fetch code (actions/checkout)
@@ -28,7 +30,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
         os: ["ubuntu-latest"]
 
     steps:
@@ -42,6 +44,7 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
+          sudo apt install -y libmemcached-dev
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
@@ -82,7 +85,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
         os: ["ubuntu-latest"]
 
     steps:
@@ -96,6 +99,7 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
+          sudo apt install -y libmemcached-dev
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
@@ -130,7 +134,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
         os: ["ubuntu-latest"]
 
     steps:
@@ -144,6 +148,7 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
+          sudo apt install -y libmemcached-dev
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
