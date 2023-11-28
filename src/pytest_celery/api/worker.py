@@ -1,7 +1,4 @@
-from typing import Set
-from typing import Tuple
-from typing import Type
-from typing import Union
+from __future__ import annotations
 
 from celery import Celery
 
@@ -36,16 +33,16 @@ class CeleryTestWorker(CeleryTestNode):
 
 
 class CeleryWorkerCluster(CeleryTestCluster):
-    def __init__(self, *workers: Tuple[Union[CeleryTestWorker, CeleryTestContainer]]) -> None:
+    def __init__(self, *workers: tuple[CeleryTestWorker | CeleryTestContainer]) -> None:
         super().__init__(*workers)
 
     def _set_nodes(
         self,
-        *nodes: Tuple[Union[CeleryTestNode, CeleryTestContainer]],
-        node_cls: Type[CeleryTestNode] = CeleryTestWorker,
-    ) -> Tuple[CeleryTestNode]:
+        *nodes: tuple[CeleryTestNode | CeleryTestContainer],
+        node_cls: type[CeleryTestNode] = CeleryTestWorker,
+    ) -> tuple[CeleryTestNode]:
         return super()._set_nodes(*nodes, node_cls=node_cls)
 
     @property
-    def versions(self) -> Set[str]:
+    def versions(self) -> set[str]:
         return {worker.version for worker in self}  # type: ignore

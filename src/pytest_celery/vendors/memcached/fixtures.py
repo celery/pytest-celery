@@ -1,6 +1,6 @@
 # mypy: disable-error-code="misc"
 
-from typing import Type
+from __future__ import annotations
 
 import pytest
 from pytest_docker_tools import container
@@ -19,7 +19,7 @@ def celery_memcached_backend(default_memcached_backend: MemcachedContainer) -> M
 
 
 @pytest.fixture
-def default_memcached_backend_cls() -> Type[MemcachedContainer]:
+def default_memcached_backend_cls() -> type[MemcachedContainer]:
     return MemcachedContainer
 
 
@@ -34,15 +34,15 @@ default_memcached_backend = container(
 
 
 @pytest.fixture
-def default_memcached_backend_env(default_memcached_backend_cls: Type[MemcachedContainer]) -> dict:
+def default_memcached_backend_env(default_memcached_backend_cls: type[MemcachedContainer]) -> dict:
     yield default_memcached_backend_cls.env()
 
 
 @pytest.fixture
-def default_memcached_backend_image(default_memcached_backend_cls: Type[MemcachedContainer]) -> str:
+def default_memcached_backend_image(default_memcached_backend_cls: type[MemcachedContainer]) -> str:
     yield default_memcached_backend_cls.image()
 
 
 @pytest.fixture
-def default_memcached_backend_ports(default_memcached_backend_cls: Type[MemcachedContainer]) -> dict:
+def default_memcached_backend_ports(default_memcached_backend_cls: type[MemcachedContainer]) -> dict:
     yield default_memcached_backend_cls.ports()

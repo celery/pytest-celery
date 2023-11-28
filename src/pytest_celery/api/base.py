@@ -1,9 +1,8 @@
+from __future__ import annotations
+
 from abc import abstractmethod
 from typing import Any
 from typing import Iterator
-from typing import Tuple
-from typing import Type
-from typing import Union
 
 import pytest_docker_tools
 from celery import Celery
@@ -91,7 +90,7 @@ class CeleryTestNode:
 
 
 class CeleryTestCluster:
-    def __init__(self, *nodes: Tuple[Union[CeleryTestNode, CeleryTestContainer]]) -> None:
+    def __init__(self, *nodes: tuple[CeleryTestNode | CeleryTestContainer]) -> None:
         if not nodes:
             raise ValueError("At least one node is required")
         if len(nodes) == 1 and isinstance(nodes[0], list):
@@ -102,11 +101,11 @@ class CeleryTestCluster:
         self.nodes = nodes  # type: ignore
 
     @property
-    def nodes(self) -> Tuple[CeleryTestNode]:
+    def nodes(self) -> tuple[CeleryTestNode]:
         return self._nodes
 
     @nodes.setter
-    def nodes(self, nodes: Tuple[Union[CeleryTestNode, CeleryTestContainer]]) -> None:
+    def nodes(self, nodes: tuple[CeleryTestNode | CeleryTestContainer]) -> None:
         self._nodes = self._set_nodes(*nodes)  # type: ignore
 
     def __iter__(self) -> Iterator[CeleryTestNode]:
@@ -132,9 +131,9 @@ class CeleryTestCluster:
     @abstractmethod
     def _set_nodes(
         self,
-        *nodes: Tuple[Union[CeleryTestNode, CeleryTestContainer]],
-        node_cls: Type[CeleryTestNode] = CeleryTestNode,
-    ) -> Tuple[CeleryTestNode]:
+        *nodes: tuple[CeleryTestNode | CeleryTestContainer],
+        node_cls: type[CeleryTestNode] = CeleryTestNode,
+    ) -> tuple[CeleryTestNode]:
         return tuple(
             node_cls(node)
             if isinstance(

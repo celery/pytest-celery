@@ -1,4 +1,4 @@
-from typing import Optional
+from __future__ import annotations
 
 from kombu import Connection
 
@@ -69,5 +69,5 @@ class RabbitMQContainer(CeleryTestContainer):
         return RABBITMQ_PREFIX
 
     @property
-    def ready_prompt(self) -> Optional[str]:
+    def ready_prompt(self) -> str | None:
         return "Server startup complete"
