@@ -1,10 +1,14 @@
 import inspect
 
+import pytest
+
 from pytest_celery import DEFAULT_WORKER_ENV
 from pytest_celery import DEFAULT_WORKER_LOG_LEVEL
 from pytest_celery import DEFAULT_WORKER_NAME
 from pytest_celery import DEFAULT_WORKER_QUEUE
 from pytest_celery import DEFAULT_WORKER_VERSION
+from pytest_celery import CeleryBackendCluster
+from pytest_celery import CeleryBrokerCluster
 from pytest_celery import CeleryWorkerContainer
 
 
@@ -35,8 +39,24 @@ class test_celery_worker_container:
             "CELERY_WORKER_QUEUE": DEFAULT_WORKER_QUEUE,
         }
 
-    def test_env(self, celery_worker_cluster_config: dict):
-        assert CeleryWorkerContainer.env(celery_worker_cluster_config) == DEFAULT_WORKER_ENV
+    class test_celery_worker_container_env:
+        def test_env(self, celery_worker_cluster_config: dict):
+            assert CeleryWorkerContainer.env(celery_worker_cluster_config) == DEFAULT_WORKER_ENV
+
+        class test_disabling_cluster:
+            @pytest.fixture
+            def celery_backend_cluster(self) -> CeleryBackendCluster:
+                return None
+
+            @pytest.fixture
+            def celery_broker_cluster(self) -> CeleryBrokerCluster:
+                return None
+
+            def test_disabling_clusters(self, celery_worker_cluster_config: dict):
+                expected_env = DEFAULT_WORKER_ENV.copy()
+                expected_env.pop("CELERY_BROKER_URL")
+                expected_env.pop("CELERY_RESULT_BACKEND")
+                assert CeleryWorkerContainer.env(celery_worker_cluster_config) == expected_env
 
     def test_initial_content_default_tasks(self):
         from tests import tasks

@@ -31,3 +31,12 @@ class test_celery_backend_cluster:
     def test_default_config_format(self, cluster: CeleryBackendCluster):
         assert cluster.default_config()["urls"] == [DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"]]
         assert cluster.default_config()["local_urls"] == [DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"]]
+
+    class test_disabling_cluster:
+        @pytest.fixture
+        def celery_backend_cluster(self) -> CeleryBackendCluster:
+            return None
+
+        def test_disabling_backend_cluster(self, cluster: CeleryBackendCluster, celery_backend_cluster_config: dict):
+            assert cluster is None
+            assert celery_backend_cluster_config is None

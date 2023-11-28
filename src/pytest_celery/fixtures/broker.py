@@ -1,5 +1,7 @@
 # mypy: disable-error-code="misc"
 
+from __future__ import annotations
+
 import pytest
 
 from pytest_celery.api.broker import CeleryBrokerCluster
@@ -23,10 +25,10 @@ def celery_broker_cluster(celery_broker: CeleryTestBroker) -> CeleryBrokerCluste
 
 
 @pytest.fixture
-def celery_broker_cluster_config(request: pytest.FixtureRequest) -> dict:
+def celery_broker_cluster_config(request: pytest.FixtureRequest) -> dict | None:
     try:
         use_default_config = pytest.fail.Exception
         cluster: CeleryBrokerCluster = request.getfixturevalue(CELERY_BROKER_CLUSTER)
-        return cluster.config()
+        return cluster.config() if cluster else None
     except use_default_config:
         return CeleryBrokerCluster.default_config()
