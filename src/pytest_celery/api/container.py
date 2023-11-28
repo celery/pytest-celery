@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 from typing import Any
-from typing import Optional
 
 import pytest_docker_tools
 from pytest_docker_tools import wrappers
@@ -27,7 +28,7 @@ class CeleryTestContainer(wrappers.Container):
         pass
 
     @property
-    def ready_prompt(self) -> Optional[str]:
+    def ready_prompt(self) -> str | None:
         return None
 
     def _wait_port(self, port: str) -> int:

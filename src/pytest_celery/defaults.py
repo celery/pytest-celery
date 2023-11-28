@@ -1,5 +1,7 @@
 # flake8: noqa
 
+from __future__ import annotations
+
 from pytest_docker_tools import network
 
 from pytest_celery.vendors.memcached.defaults import CELERY_MEMCACHED_BACKEND

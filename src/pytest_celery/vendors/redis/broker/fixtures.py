@@ -1,6 +1,6 @@
 # mypy: disable-error-code="misc"
 
-from typing import Type
+from __future__ import annotations
 
 import pytest
 from pytest_docker_tools import container
@@ -19,7 +19,7 @@ def celery_redis_broker(default_redis_broker: RedisContainer) -> RedisTestBroker
 
 
 @pytest.fixture
-def default_redis_broker_cls() -> Type[RedisContainer]:
+def default_redis_broker_cls() -> type[RedisContainer]:
     return RedisContainer
 
 
@@ -34,15 +34,15 @@ default_redis_broker = container(
 
 
 @pytest.fixture
-def default_redis_broker_env(default_redis_broker_cls: Type[RedisContainer]) -> dict:
+def default_redis_broker_env(default_redis_broker_cls: type[RedisContainer]) -> dict:
     yield default_redis_broker_cls.env()
 
 
 @pytest.fixture
-def default_redis_broker_image(default_redis_broker_cls: Type[RedisContainer]) -> str:
+def default_redis_broker_image(default_redis_broker_cls: type[RedisContainer]) -> str:
     yield default_redis_broker_cls.image()
 
 
 @pytest.fixture
-def default_redis_broker_ports(default_redis_broker_cls: Type[RedisContainer]) -> dict:
+def default_redis_broker_ports(default_redis_broker_cls: type[RedisContainer]) -> dict:
     yield default_redis_broker_cls.ports()

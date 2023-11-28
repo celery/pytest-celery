@@ -1,4 +1,4 @@
-from typing import Optional
+from __future__ import annotations
 
 from redis import StrictRedis as Redis
 
@@ -11,7 +11,7 @@ from pytest_celery.vendors.redis.defaults import REDIS_PREFIX
 
 class RedisContainer(CeleryTestContainer):
     @property
-    def client(self) -> Optional[Redis]:
+    def client(self) -> Redis | None:
         client = Redis.from_url(
             self.celeryconfig["local_url"],
             decode_responses=True,
@@ -69,5 +69,5 @@ class RedisContainer(CeleryTestContainer):
         return REDIS_PREFIX
 
     @property
-    def ready_prompt(self) -> Optional[str]:
+    def ready_prompt(self) -> str | None:
         return "Ready to accept connections"

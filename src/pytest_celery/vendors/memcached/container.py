@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from celery import platforms
 
 if platforms.IS_WINDOWS:

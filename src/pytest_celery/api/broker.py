@@ -1,6 +1,4 @@
-from typing import Tuple
-from typing import Type
-from typing import Union
+from __future__ import annotations
 
 from pytest_celery.api.base import CeleryTestCluster
 from pytest_celery.api.base import CeleryTestNode
@@ -25,14 +23,14 @@ class CeleryTestBroker(CeleryTestNode):
 
 
 class CeleryBrokerCluster(CeleryTestCluster):
-    def __init__(self, *brokers: Tuple[Union[CeleryTestBroker, CeleryTestContainer]]) -> None:
+    def __init__(self, *brokers: tuple[CeleryTestBroker | CeleryTestContainer]) -> None:
         super().__init__(*brokers)
 
     def _set_nodes(
         self,
-        *nodes: Tuple[Union[CeleryTestNode, CeleryTestContainer]],
-        node_cls: Type[CeleryTestNode] = CeleryTestBroker,
-    ) -> Tuple[CeleryTestNode]:
+        *nodes: tuple[CeleryTestNode | CeleryTestContainer],
+        node_cls: type[CeleryTestNode] = CeleryTestBroker,
+    ) -> tuple[CeleryTestNode]:
         return super()._set_nodes(*nodes, node_cls=node_cls)
 
     @classmethod

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from celery import Celery
 
 from pytest_celery.api.backend import CeleryBackendCluster

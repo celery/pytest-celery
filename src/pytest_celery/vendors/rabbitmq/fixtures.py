@@ -1,6 +1,6 @@
 # mypy: disable-error-code="misc"
 
-from typing import Type
+from __future__ import annotations
 
 import pytest
 from pytest_docker_tools import container
@@ -19,7 +19,7 @@ def celery_rabbitmq_broker(default_rabbitmq_broker: RabbitMQContainer) -> Rabbit
 
 
 @pytest.fixture
-def default_rabbitmq_broker_cls() -> Type[RabbitMQContainer]:
+def default_rabbitmq_broker_cls() -> type[RabbitMQContainer]:
     return RabbitMQContainer
 
 
@@ -34,15 +34,15 @@ default_rabbitmq_broker = container(
 
 
 @pytest.fixture
-def default_rabbitmq_broker_env(default_rabbitmq_broker_cls: Type[RabbitMQContainer]) -> dict:
+def default_rabbitmq_broker_env(default_rabbitmq_broker_cls: type[RabbitMQContainer]) -> dict:
     yield default_rabbitmq_broker_cls.env()
 
 
 @pytest.fixture
-def default_rabbitmq_broker_image(default_rabbitmq_broker_cls: Type[RabbitMQContainer]) -> str:
+def default_rabbitmq_broker_image(default_rabbitmq_broker_cls: type[RabbitMQContainer]) -> str:
     yield default_rabbitmq_broker_cls.image()
 
 
 @pytest.fixture
-def default_rabbitmq_broker_ports(default_rabbitmq_broker_cls: Type[RabbitMQContainer]) -> dict:
+def default_rabbitmq_broker_ports(default_rabbitmq_broker_cls: type[RabbitMQContainer]) -> dict:
     yield default_rabbitmq_broker_cls.ports()
