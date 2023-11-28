@@ -41,7 +41,7 @@ class test_celery_test_setup_unit:
 
     def test_create_setup_app_no_config(self, celery_setup: CeleryTestSetup):
         with pytest.raises(ValueError):
-            celery_setup.create_setup_app({}, celery_setup.name())
+            celery_setup.create_setup_app(None, celery_setup.name())
 
     def test_create_setup_app_no_name(self, celery_setup: CeleryTestSetup, celery_setup_config: dict):
         with pytest.raises(ValueError):

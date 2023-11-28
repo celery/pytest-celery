@@ -31,3 +31,12 @@ class test_celery_broker_cluster:
     def test_default_config_format(self, cluster: CeleryBrokerCluster):
         assert cluster.default_config()["urls"] == [DEFAULT_WORKER_ENV["CELERY_BROKER_URL"]]
         assert cluster.default_config()["local_urls"] == [DEFAULT_WORKER_ENV["CELERY_BROKER_URL"]]
+
+    class test_disabling_cluster:
+        @pytest.fixture
+        def celery_broker_cluster(self) -> CeleryBrokerCluster:
+            return None
+
+        def test_disabling_broker_cluster(self, cluster: CeleryBrokerCluster, celery_broker_cluster_config: dict):
+            assert cluster is None
+            assert celery_broker_cluster_config is None

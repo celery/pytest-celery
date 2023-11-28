@@ -66,12 +66,14 @@ class CeleryTestSetup:
         if not celery_worker_cluster_config:
             raise ValueError("celery_worker_cluster_config is empty")
 
-        celery_broker_cluster_config: dict = celery_worker_cluster_config["celery_broker_cluster_config"]
-        celery_backend_cluster_config: dict = celery_worker_cluster_config["celery_backend_cluster_config"]
-        return {
-            "broker_url": ";".join(celery_broker_cluster_config["local_urls"]),
-            "result_backend": ";".join(celery_backend_cluster_config["local_urls"]),
-        }
+        celery_broker_cluster_config: dict = celery_worker_cluster_config.get("celery_broker_cluster_config", {})
+        celery_backend_cluster_config: dict = celery_worker_cluster_config.get("celery_backend_cluster_config", {})
+        config = {}
+        if celery_broker_cluster_config:
+            config["broker_url"] = ";".join(celery_broker_cluster_config["local_urls"])
+        if celery_backend_cluster_config:
+            config["result_backend"] = ";".join(celery_backend_cluster_config["local_urls"])
+        return config
 
     @classmethod
     def update_app_config(cls, app: Celery) -> None:
@@ -80,8 +82,8 @@ class CeleryTestSetup:
 
     @classmethod
     def create_setup_app(cls, celery_setup_config: dict, celery_setup_app_name: str) -> Celery:
-        if not celery_setup_config:
-            raise ValueError("celery_setup_config is empty")
+        if celery_setup_config is None:
+            raise ValueError("celery_setup_config is None")
 
         if not celery_setup_app_name:
             raise ValueError("celery_setup_app_name is empty")
@@ -110,8 +112,12 @@ class CeleryTestSetup:
         ready = True
 
         if docker and ready:
-            ready = all([self.broker_cluster.ready(), self.backend_cluster.ready()])
-            ready = ready and self.worker_cluster.ready()
+            if self.broker_cluster:
+                ready = ready and self.broker_cluster.ready()
+            if self.backend_cluster:
+                ready = ready and self.backend_cluster.ready()
+            if self.worker_cluster:
+                ready = ready and self.worker_cluster.ready()
 
         if control and ready:
             r = self.app.control.ping()
@@ -125,7 +131,13 @@ class CeleryTestSetup:
                 ready = ready and res.get(timeout=RESULT_TIMEOUT) == "pong"
 
         # Set app for all nodes
-        nodes = self.broker_cluster.nodes + self.backend_cluster.nodes
+        nodes: tuple = tuple()
+        if self.broker_cluster:
+            nodes += self.broker_cluster.nodes
+        if self.backend_cluster:
+            nodes += self.backend_cluster.nodes
+        if self.worker_cluster:
+            nodes += self.worker_cluster.nodes
         for node in nodes:
             node._app = self.app
 

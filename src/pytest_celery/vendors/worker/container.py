@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 import inspect
-from typing import Union
 
 from celery import Celery
 from celery.app.base import PendingConfiguration
@@ -54,22 +55,30 @@ class CeleryWorkerContainer(CeleryTestContainer):
         }
 
     @classmethod
-    def env(cls, celery_worker_cluster_config: dict) -> dict:
-        celery_broker_cluster_config = celery_worker_cluster_config.get("celery_broker_cluster_config")
-        celery_backend_cluster_config = celery_worker_cluster_config.get("celery_backend_cluster_config")
-        env = {}
-        if celery_broker_cluster_config:
-            env["CELERY_BROKER_URL"] = ";".join(celery_broker_cluster_config["urls"])
-        if celery_backend_cluster_config:
-            env["CELERY_RESULT_BACKEND"] = ";".join(celery_backend_cluster_config["urls"])
-        return {**DEFAULT_WORKER_ENV, **env}
+    def env(cls, celery_worker_cluster_config: dict, initial: dict | None = None) -> dict:
+        env = initial or {}
+        env = {**env, **DEFAULT_WORKER_ENV.copy()}
+
+        config_mappings = [
+            ("celery_broker_cluster_config", "CELERY_BROKER_URL"),
+            ("celery_backend_cluster_config", "CELERY_RESULT_BACKEND"),
+        ]
+
+        for config_key, env_key in config_mappings:
+            cluster_config = celery_worker_cluster_config.get(config_key)
+            if cluster_config:
+                env[env_key] = ";".join(cluster_config["urls"])
+            else:
+                del env[env_key]
+
+        return env
 
     @classmethod
     def initial_content(
         cls,
         worker_tasks: set,
-        worker_signals: Union[set, None] = None,
-        worker_app: Union[Celery, None] = None,
+        worker_signals: set | None = None,
+        worker_app: Celery | None = None,
     ) -> dict:
         from pytest_celery.vendors.worker import app as app_module
 

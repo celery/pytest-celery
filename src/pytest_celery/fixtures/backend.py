@@ -1,5 +1,7 @@
 # mypy: disable-error-code="misc"
 
+from __future__ import annotations
+
 import pytest
 
 from pytest_celery.api.backend import CeleryBackendCluster
@@ -23,10 +25,10 @@ def celery_backend_cluster(celery_backend: CeleryTestBackend) -> CeleryBackendCl
 
 
 @pytest.fixture
-def celery_backend_cluster_config(request: pytest.FixtureRequest) -> dict:
+def celery_backend_cluster_config(request: pytest.FixtureRequest) -> dict | None:
     try:
         use_default_config = pytest.fail.Exception
         cluster: CeleryBackendCluster = request.getfixturevalue(CELERY_BACKEND_CLUSTER)
-        return cluster.config()
+        return cluster.config() if cluster else None
     except use_default_config:
         return CeleryBackendCluster.default_config()
