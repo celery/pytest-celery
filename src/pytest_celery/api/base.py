@@ -55,12 +55,15 @@ class CeleryTestNode:
     def hostname(self) -> str:
         return self.container.id[:12]
 
-    def kill(self, reload_container: bool = True) -> None:
-        self.container.kill()
+    def kill(self, signal: str | int = "SIGKILL", reload_container: bool = True) -> None:
+        if self.container.status == "running":
+            self.container.kill(signal=signal)
         if reload_container:
             self.container.reload()
 
-    def restart(self, reload_container: bool = True) -> None:
+    def restart(self, reload_container: bool = True, force: bool = True) -> None:
+        if force:
+            self.kill(reload_container=reload_container)
         self.container.restart(timeout=CONTAINER_TIMEOUT)
         if reload_container:
             self.container.reload()

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import pytest
 from pytest_lazyfixture import lazy_fixture
 
@@ -24,16 +26,18 @@ class test_celery_test_node:
         assert isinstance(hostname, str)
         assert len(hostname) == 12
 
-    def test_kill(self, node: CeleryTestNode):
-        node.kill()
+    @pytest.mark.parametrize("signal", [None, "SIGKILL"])
+    def test_kill(self, node: CeleryTestNode, signal: str | int):
+        node.kill(signal)
         assert node.container.status == "exited"
 
     def test_kill_no_reload(self, node: CeleryTestNode):
         node.kill(reload_container=False)
         assert node.container.status != "exited"
 
-    def test_restart(self, node: CeleryTestNode):
-        node.restart()
+    @pytest.mark.parametrize("force", [True, False])
+    def test_restart(self, node: CeleryTestNode, force: bool):
+        node.restart(force=force)
         assert node.container.status == "running"
 
     def test_restart_no_reload(self, node: CeleryTestNode):
