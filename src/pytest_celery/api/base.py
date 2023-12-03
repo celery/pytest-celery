@@ -63,7 +63,7 @@ class CeleryTestNode:
 
     def restart(self, reload_container: bool = True, force: bool = False) -> None:
         if force:
-            self.kill(reload_container=reload_container)
+            self.kill(signal="SIGTERM", reload_container=reload_container)
         self.container.restart(timeout=CONTAINER_TIMEOUT)
         if reload_container:
             self.container.reload()
