@@ -14,7 +14,7 @@ class CeleryTestBackend(CeleryTestNode):
             "local_url": DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"],
         }
 
-    def restart(self, reload_container: bool = True, force: bool = True) -> None:
+    def restart(self, reload_container: bool = True, force: bool = False) -> None:
         super().restart(reload_container, force)
         if self.app:
             self.app.conf.update(
