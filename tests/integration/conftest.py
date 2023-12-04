@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 from typing import Any
-from typing import Type
 
 import pytest
 from pytest_docker_tools import build
@@ -32,12 +33,12 @@ class IntegrationWorkerContainer(CeleryWorkerContainer):
 
 
 @pytest.fixture
-def default_worker_container_cls() -> Type[CeleryWorkerContainer]:
+def default_worker_container_cls() -> type[CeleryWorkerContainer]:
     return IntegrationWorkerContainer
 
 
 @pytest.fixture(scope="session")
-def default_worker_container_session_cls() -> Type[CeleryWorkerContainer]:
+def default_worker_container_session_cls() -> type[CeleryWorkerContainer]:
     return IntegrationWorkerContainer
 
 

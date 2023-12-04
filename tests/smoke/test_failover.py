@@ -1,5 +1,7 @@
 # mypy: disable-error-code="misc"
 
+from __future__ import annotations
+
 import pytest
 from pytest_docker_tools import container
 from pytest_docker_tools import fxtr

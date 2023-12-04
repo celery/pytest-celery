@@ -1,6 +1,6 @@
+from __future__ import annotations
+
 from typing import Any
-from typing import Tuple
-from typing import Type
 
 import pytest
 from celery import Celery
@@ -79,12 +79,12 @@ class SmokeWorkerContainer(CeleryWorkerContainer):
 
 
 @pytest.fixture
-def default_worker_container_cls() -> Type[CeleryWorkerContainer]:
+def default_worker_container_cls() -> type[CeleryWorkerContainer]:
     return SmokeWorkerContainer
 
 
 @pytest.fixture(scope="session")
-def default_worker_container_session_cls() -> Type[CeleryWorkerContainer]:
+def default_worker_container_session_cls() -> type[CeleryWorkerContainer]:
     return SmokeWorkerContainer
 
 
@@ -113,7 +113,7 @@ default_worker_container = container(
     ]
 )
 def celery_worker_cluster(request: pytest.FixtureRequest) -> CeleryWorkerCluster:
-    nodes: Tuple[CeleryTestWorker] = [request.getfixturevalue(worker) for worker in request.param]
+    nodes: tuple[CeleryTestWorker] = [request.getfixturevalue(worker) for worker in request.param]
     cluster = CeleryWorkerCluster(*nodes)
     yield cluster
     cluster.teardown()

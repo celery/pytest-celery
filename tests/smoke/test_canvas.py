@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import pytest
 from celery.canvas import chain
 from celery.canvas import chord

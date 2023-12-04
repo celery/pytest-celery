@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import pytest
 from celery import Celery
 from pytest_lazyfixture import lazy_fixture

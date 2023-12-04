@@ -1,4 +1,3 @@
-from typing import Type
 from unittest.mock import Mock
 from unittest.mock import patch
 
@@ -17,7 +16,7 @@ def mock_wait_for_callable():
             yield
 
 
-def mocked_container(spec: Type) -> Mock:
+def mocked_container(spec: type) -> Mock:
     mocked_container = Mock(spec=spec)
     mocked_container.id = "mocked_test_container_id"
     mocked_container.celeryconfig = {

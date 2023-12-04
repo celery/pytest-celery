@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import pytest
 from celery.signals import after_task_publish
 from celery.signals import before_task_publish

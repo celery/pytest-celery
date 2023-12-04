@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from celery.signals import worker_init
 from celery.signals import worker_process_init
 from celery.signals import worker_process_shutdown
