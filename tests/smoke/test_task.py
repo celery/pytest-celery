@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from celery import signature
 
 from pytest_celery import RESULT_TIMEOUT

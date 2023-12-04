@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 from typing import Any
-from typing import Type
 
 import pytest
 from celery import Celery
@@ -93,12 +94,12 @@ celery5_worker_image = build(
 
 
 @pytest.fixture
-def default_worker_container_cls() -> Type[CeleryWorkerContainer]:
+def default_worker_container_cls() -> type[CeleryWorkerContainer]:
     return Celery5WorkerContainer
 
 
 @pytest.fixture(scope="session")
-def default_worker_container_session_cls() -> Type[CeleryWorkerContainer]:
+def default_worker_container_session_cls() -> type[CeleryWorkerContainer]:
     return Celery5WorkerContainer
 
 
