@@ -1,0 +1,25 @@
+name: Docker
+
+on:
+    pull_request:
+      branches: [ 'main']
+      paths:
+          - '/src/pytest_celery/vendors/worker/**'
+          - '.github/workflows/docker.yml'
+          - 'Dockerfile'
+    push:
+      branches: [ 'main']
+      paths:
+          - '/src/pytest_celery/vendors/worker/**'
+          - '.github/workflows/docker.yml'
+          - 'Dockerfile'
+
+
+jobs:
+  build-worker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build Celery Worker
+      run: cd src/pytest_celery/vendors/worker && docker build -t pytest-celery-worker .
