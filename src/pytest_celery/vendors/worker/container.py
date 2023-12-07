@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from types import ModuleType
+
 from celery import Celery
 
 from pytest_celery.api.container import CeleryTestContainer
@@ -36,8 +38,16 @@ class CeleryWorkerContainer(CeleryTestContainer):
         return DEFAULT_WORKER_QUEUE
 
     @classmethod
+    def app_module(cls) -> ModuleType:
+        from pytest_celery.vendors.worker import app
+
+        return app
+
+    @classmethod
     def tasks_modules(cls) -> set:
-        return set()
+        from pytest_celery.vendors.worker import tasks
+
+        return {tasks}
 
     @classmethod
     def signals_modules(cls) -> set:
@@ -77,12 +87,13 @@ class CeleryWorkerContainer(CeleryTestContainer):
         worker_tasks: set | None = None,
         worker_signals: set | None = None,
         worker_app: Celery | None = None,
+        app_module: ModuleType | None = None,
     ) -> dict:
-        from pytest_celery.vendors.worker import app as app_module
-        from pytest_celery.vendors.worker import tasks as plugin_tasks
+        if app_module is None:
+            app_module = cls.app_module()
 
-        worker_tasks = worker_tasks or set()
-        worker_tasks.add(plugin_tasks)
+        if worker_tasks is None:
+            worker_tasks = cls.tasks_modules()
 
         content = WorkerInitialContent()
         content.set_app_module(app_module)

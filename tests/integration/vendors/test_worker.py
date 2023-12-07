@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from types import ModuleType
+
 import pytest
 from pytest_lazyfixture import lazy_fixture
 
@@ -31,6 +33,19 @@ class test_celery_worker_container:
 
             results = DEFAULT_WORKER_ENV["CELERY_BROKER_URL"]
             assert container.logs().count(f"transport:   {results}")
+
+    class test_replacing_app_module:
+        @pytest.fixture(params=["Default", "Custom"])
+        def default_worker_app_module(self, request: pytest.FixtureRequest) -> ModuleType:
+            if request.param == "Default":
+                yield request.getfixturevalue("default_worker_app_module")
+            else:
+                from pytest_celery.vendors.worker import app
+
+                yield app
+
+        def test_replacing_app_module(self, container: CeleryWorkerContainer, default_worker_app_module: ModuleType):
+            assert container.app_module() == default_worker_app_module
 
 
 @pytest.mark.parametrize("worker", [lazy_fixture(CELERY_SETUP_WORKER)])
