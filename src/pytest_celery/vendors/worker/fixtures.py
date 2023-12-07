@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from types import ModuleType
+
 import pytest
 from celery import Celery
 from pytest_docker_tools import build
@@ -101,15 +103,22 @@ def default_worker_env(
 @pytest.fixture
 def default_worker_initial_content(
     default_worker_container_cls: type[CeleryWorkerContainer],
+    default_worker_app_module: ModuleType,
     default_worker_tasks: set,
     default_worker_signals: set,
     default_worker_app: Celery,
 ) -> dict:
     yield default_worker_container_cls.initial_content(
+        app_module=default_worker_app_module,
         worker_tasks=default_worker_tasks,
         worker_signals=default_worker_signals,
         worker_app=default_worker_app,
     )
+
+
+@pytest.fixture
+def default_worker_app_module(default_worker_container_cls: type[CeleryWorkerContainer]) -> ModuleType:
+    yield default_worker_container_cls.app_module()
 
 
 @pytest.fixture

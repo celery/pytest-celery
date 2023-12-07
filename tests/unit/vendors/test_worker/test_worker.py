@@ -27,8 +27,15 @@ class test_celery_worker_container:
     def test_worker_queue(self):
         assert CeleryWorkerContainer.worker_queue() == DEFAULT_WORKER_QUEUE
 
+    def test_app_module(self):
+        from pytest_celery.vendors.worker import app
+
+        assert CeleryWorkerContainer.app_module() == app
+
     def test_tasks_modules(self):
-        assert CeleryWorkerContainer.tasks_modules() == set()
+        from pytest_celery.vendors.worker import tasks
+
+        assert CeleryWorkerContainer.tasks_modules() == {tasks}
 
     def test_signals_modules(self):
         assert CeleryWorkerContainer.signals_modules() == set()
@@ -77,6 +84,3 @@ class test_celery_worker_container:
 
         actual_initial_content = CeleryWorkerContainer.initial_content({tasks})
         assert "from tests.tasks import *" in str(actual_initial_content["app.py"])
-
-    def test_task_modules(self):
-        assert CeleryWorkerContainer.tasks_modules() == set()
