@@ -61,7 +61,7 @@ description = "Pytest plugin for Celery"
 homepage = "https://github.com/celery/pytest-celery"
 license = "BSD"
 name = "pytest-celery"
-version = "1.0.0a1"
+version = "1.0.0a2"
 
 [tool.poetry_bumpversion.file."src/pytest_celery/__init__.py"]
 
