@@ -37,11 +37,26 @@ max-line-length = 120
 
 [tool.poetry]
 authors = [
+    "Tomer Nosrati <tomer.nosrati@kcg.tech>",
     "Thomas Grainger <pytest-celery@graingert.co.uk>",
     "Omer Katz <omer.katz@omerkatz.com>",
-    "Tomer Nosrati <tomer.nosrati@kcg.tech>",
 ]
-classifiers = ["License :: OSI Approved :: BSD License"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: BSD License",
+    "Topic :: Software Development :: Testing",
+    "Framework :: Celery",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Operating System :: OS Independent",
+]
+
 description = "Pytest plugin for Celery"
 homepage = "https://github.com/celery/pytest-celery"
 license = "BSD"
