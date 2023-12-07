@@ -4,13 +4,13 @@ on:
     pull_request:
       branches: [ 'main']
       paths:
-          - '/src/pytest_celery/vendors/worker/**'
+          - 'src/pytest_celery/vendors/worker/**'
           - '.github/workflows/docker.yml'
           - 'Dockerfile'
     push:
       branches: [ 'main']
       paths:
-          - '/src/pytest_celery/vendors/worker/**'
+          - 'src/pytest_celery/vendors/worker/**'
           - '.github/workflows/docker.yml'
           - 'Dockerfile'
 
