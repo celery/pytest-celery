@@ -21,7 +21,8 @@ class WorkerInitialContent:
                 src[f"{module.__name__.replace('.', '/')}.py"] = inspect.getsource(module).encode()
             return src
 
-        def app_name(self, name: str = DEFAULT_WORKER_APP_NAME) -> str:
+        def app_name(self, name: str | None = None) -> str:
+            name = name or DEFAULT_WORKER_APP_NAME
             return f"app = Celery('{name}')"
 
         def config(self, app: Celery | None = None) -> str:
@@ -47,17 +48,38 @@ class WorkerInitialContent:
                 config = "config = None"
             return config
 
-    def __init__(self) -> None:
+    def __init__(self, app_module: ModuleType | None = None) -> None:
         self.parser = self.Parser()
         self._initial_content = {
             "__init__.py": b"",
             "imports": dict(),
         }
+        self.set_app_module(app_module)
         self.set_app_name()
         self.set_config_from_object()
 
-    def set_app_module(self, app_module: ModuleType) -> None:
-        self._app_module_src = inspect.getsource(app_module)
+    def __eq__(self, __value: object) -> bool:
+        if not isinstance(__value, WorkerInitialContent):
+            return False
+        try:
+            return self.generate() == __value.generate()
+        except ValueError:
+            return all(
+                [
+                    self._app_module_src == __value._app_module_src,
+                    self._initial_content == __value._initial_content,
+                    self._app == __value._app,
+                    self._config == __value._config,
+                ]
+            )
+
+    def set_app_module(self, app_module: ModuleType | None = None) -> None:
+        self._app_module_src: str | None
+
+        if app_module:
+            self._app_module_src = inspect.getsource(app_module)
+        else:
+            self._app_module_src = None
 
     def add_modules(self, name: str, modules: set[ModuleType]) -> None:
         if not name:
@@ -69,14 +91,21 @@ class WorkerInitialContent:
         self._initial_content["imports"][name] = self.parser.imports_str(modules)  # type: ignore
         self._initial_content.update(self.parser.imports_src(modules))
 
-    def set_app_name(self, name: str = DEFAULT_WORKER_APP_NAME) -> None:
+    def set_app_name(self, name: str | None = None) -> None:
+        name = name or DEFAULT_WORKER_APP_NAME
         self._app = self.parser.app_name(name)
 
     def set_config_from_object(self, app: Celery | None = None) -> None:
         self._config = self.parser.config(app)
 
     def generate(self) -> dict:
+        if not self._app_module_src:
+            raise ValueError("Please set_app_module() before calling generate()")
+
         initial_content = self._initial_content.copy()
+
+        if not initial_content["imports"]:
+            raise ValueError("Please add_modules() before calling generate()")
 
         _imports: dict | Any = initial_content.pop("imports")
         imports = "{%s}" % "}{".join(_imports.keys())
