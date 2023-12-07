@@ -63,6 +63,8 @@ license = "BSD"
 name = "pytest-celery"
 version = "1.0.0a1"
 
+[tool.poetry_bumpversion.file."src/pytest_celery/__init__.py"]
+
 [tool.poetry.dependencies]
 python = ">= 3.8,<4.0"
 celery = { version = "^5", extras = ["redis", "memcache", "pymemcache"] }
