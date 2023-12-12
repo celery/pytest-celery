@@ -63,7 +63,7 @@ class test_celery_test_node:
         assert node.name()
 
     def test_hostname(self, node: CeleryTestNode):
-        assert node.hostname()
+        assert node.container.id[:12] in node.hostname()
 
     def test_kill(self, node: CeleryTestNode):
         node.kill()

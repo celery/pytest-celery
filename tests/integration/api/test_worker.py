@@ -9,7 +9,6 @@ from pytest_celery import CELERY_WORKER_CLUSTER
 from pytest_celery import CeleryTestWorker
 from pytest_celery import CeleryWorkerCluster
 from pytest_celery import CeleryWorkerContainer
-from tests.integration.conftest import IntegrationWorkerContainer
 
 
 @pytest.mark.parametrize("worker", [lazy_fixture(CELERY_WORKER)])
@@ -20,12 +19,18 @@ class test_celey_test_worker:
     def test_version(self, worker: CeleryTestWorker):
         assert worker.version == CeleryWorkerContainer.version()
 
+    def test_hostname(self, worker: CeleryTestWorker):
+        hostname = worker.hostname()
+        assert "@" in hostname
+        assert worker.worker_name in hostname.split("@")[0]
+        assert worker.container.id[:12] in hostname.split("@")[1]
+
     def test_wait_for_log(self, worker: CeleryTestWorker):
-        log = f"{IntegrationWorkerContainer.worker_name()}@{worker.hostname()} v{worker.version}"
+        log = f"{worker.hostname()} v{worker.version}"
         worker.wait_for_log(log, "test_celey_test_worker.test_wait_for_log")
 
     def test_assert_log_exists(self, worker: CeleryTestWorker):
-        log = f"{IntegrationWorkerContainer.worker_name()}@{worker.hostname()} v{worker.version}"
+        log = f"{worker.hostname()} v{worker.version}"
         worker.assert_log_exists(log, "test_celey_test_worker.test_assert_log_exists")
 
 

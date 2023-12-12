@@ -24,7 +24,7 @@ class test_celery_test_node:
     def test_hostname(self, node: CeleryTestNode):
         hostname = node.hostname()
         assert isinstance(hostname, str)
-        assert len(hostname) == 12
+        assert node.container.id[:12] in hostname
 
     @pytest.mark.parametrize("signal", [None, "SIGKILL"])
     def test_kill(self, node: CeleryTestNode, signal: str | int):

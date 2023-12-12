@@ -31,6 +31,9 @@ class CeleryTestWorker(CeleryTestNode):
     def worker_queue(self) -> str:
         return self.container.worker_queue()
 
+    def hostname(self) -> str:
+        return f"{self.worker_name}@{super().hostname()}"
+
 
 class CeleryWorkerCluster(CeleryTestCluster):
     def __init__(self, *workers: tuple[CeleryTestWorker | CeleryTestContainer]) -> None:
