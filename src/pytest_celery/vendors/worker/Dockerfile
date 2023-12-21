@@ -26,7 +26,7 @@ RUN pip install --no-cache-dir --upgrade \
 # The workdir must be /app
 WORKDIR /app
 
-COPY app.py app.py
+COPY content/ .
 
 # Switch to the test_user
 USER test_user

@@ -39,7 +39,7 @@ class CeleryWorkerContainer(CeleryTestContainer):
 
     @classmethod
     def app_module(cls) -> ModuleType:
-        from pytest_celery.vendors.worker import app
+        from pytest_celery.vendors.worker.content import app
 
         return app
 

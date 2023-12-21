@@ -75,7 +75,7 @@ class test_worker_initial_content:
         assert actual_content._config == "config = None"
 
     def test_eq(self):
-        from pytest_celery.vendors.worker import app as app_module
+        from pytest_celery.vendors.worker.content import app as app_module
 
         actual_content = WorkerInitialContent()
 
@@ -87,7 +87,7 @@ class test_worker_initial_content:
         assert actual_content != WorkerInitialContent()
 
     def test_set_app_module(self):
-        from pytest_celery.vendors.worker import app as app_module
+        from pytest_celery.vendors.worker.content import app as app_module
 
         actual_content = WorkerInitialContent()
 
@@ -114,7 +114,7 @@ class test_worker_initial_content:
         ],
     )
     def test_add_modules(self, modules: dict[str, set[ModuleType]]):
-        from pytest_celery.vendors.worker import app as app_module
+        from pytest_celery.vendors.worker.content import app as app_module
 
         actual_content = WorkerInitialContent()
 
@@ -172,7 +172,7 @@ class test_worker_initial_content:
             ],
         )
         def test_generate(self, app: Celery | None):
-            from pytest_celery.vendors.worker import app as app_module
+            from pytest_celery.vendors.worker.content import app as app_module
 
             actual_content = WorkerInitialContent()
 

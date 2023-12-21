@@ -28,7 +28,7 @@ class test_celery_worker_container:
         assert CeleryWorkerContainer.worker_queue() == DEFAULT_WORKER_QUEUE
 
     def test_app_module(self):
-        from pytest_celery.vendors.worker import app
+        from pytest_celery.vendors.worker.content import app
 
         assert CeleryWorkerContainer.app_module() == app
 
