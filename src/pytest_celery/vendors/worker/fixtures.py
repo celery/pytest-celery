@@ -104,12 +104,14 @@ def default_worker_env(
 def default_worker_initial_content(
     default_worker_container_cls: type[CeleryWorkerContainer],
     default_worker_app_module: ModuleType,
+    default_worker_utils_module: ModuleType,
     default_worker_tasks: set,
     default_worker_signals: set,
     default_worker_app: Celery,
 ) -> dict:
     yield default_worker_container_cls.initial_content(
         app_module=default_worker_app_module,
+        utils_module=default_worker_utils_module,
         worker_tasks=default_worker_tasks,
         worker_signals=default_worker_signals,
         worker_app=default_worker_app,
@@ -119,6 +121,11 @@ def default_worker_initial_content(
 @pytest.fixture
 def default_worker_app_module(default_worker_container_cls: type[CeleryWorkerContainer]) -> ModuleType:
     yield default_worker_container_cls.app_module()
+
+
+@pytest.fixture
+def default_worker_utils_module(default_worker_container_cls: type[CeleryWorkerContainer]) -> ModuleType:
+    yield default_worker_container_cls.utils_module()
 
 
 @pytest.fixture

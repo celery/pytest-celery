@@ -48,13 +48,18 @@ class WorkerInitialContent:
                 config = "config = None"
             return config
 
-    def __init__(self, app_module: ModuleType | None = None) -> None:
+    def __init__(
+        self,
+        app_module: ModuleType | None = None,
+        utils_module: ModuleType | None = None,
+    ) -> None:
         self.parser = self.Parser()
         self._initial_content = {
             "__init__.py": b"",
             "imports": dict(),  # Placeholder item
         }
         self.set_app_module(app_module)
+        self.set_utils_module(utils_module)
         self.set_app_name()
         self.set_config_from_object()
 
@@ -67,6 +72,7 @@ class WorkerInitialContent:
             return all(
                 [
                     self._app_module_src == __value._app_module_src,
+                    self._utils_module_src == __value._utils_module_src,
                     self._initial_content == __value._initial_content,
                     self._app == __value._app,
                     self._config == __value._config,
@@ -80,6 +86,14 @@ class WorkerInitialContent:
             self._app_module_src = inspect.getsource(app_module)
         else:
             self._app_module_src = None
+
+    def set_utils_module(self, utils_module: ModuleType | None = None) -> None:
+        self._utils_module_src: str | None
+
+        if utils_module:
+            self._utils_module_src = inspect.getsource(utils_module)
+        else:
+            self._utils_module_src = None
 
     def add_modules(self, name: str, modules: set[ModuleType]) -> None:
         if not name:
@@ -101,6 +115,7 @@ class WorkerInitialContent:
     def generate(self) -> dict:
         initial_content = self._initial_content.copy()
         initial_content["app.py"] = self._generate_app_py(initial_content)
+        initial_content["utils.py"] = self._generate_utils_py()
         return initial_content
 
     def _generate_app_py(self, initial_content: dict) -> bytes:
@@ -126,3 +141,9 @@ class WorkerInitialContent:
         self._app_module_src = self._app_module_src.replace(replacement_args["config"], config)
 
         return self._app_module_src.encode()
+
+    def _generate_utils_py(self) -> bytes:
+        if not self._utils_module_src:
+            raise ValueError("Please set_utils_module() before generating initial content")
+
+        return self._utils_module_src.encode()
