@@ -52,7 +52,7 @@ class WorkerInitialContent:
         self.parser = self.Parser()
         self._initial_content = {
             "__init__.py": b"",
-            "imports": dict(),
+            "imports": dict(),  # Placeholder item
         }
         self.set_app_module(app_module)
         self.set_app_name()
@@ -99,13 +99,16 @@ class WorkerInitialContent:
         self._config = self.parser.config(app)
 
     def generate(self) -> dict:
-        if not self._app_module_src:
-            raise ValueError("Please set_app_module() before calling generate()")
-
         initial_content = self._initial_content.copy()
+        initial_content["app.py"] = self._generate_app_py(initial_content)
+        return initial_content
+
+    def _generate_app_py(self, initial_content: dict) -> bytes:
+        if not self._app_module_src:
+            raise ValueError("Please set_app_module() before generating initial content")
 
         if not initial_content["imports"]:
-            raise ValueError("Please add_modules() before calling generate()")
+            raise ValueError("Please add_modules() before generating initial content")
 
         _imports: dict | Any = initial_content.pop("imports")
         imports = "{%s}" % "}{".join(_imports.keys())
@@ -122,6 +125,4 @@ class WorkerInitialContent:
         self._app_module_src = self._app_module_src.replace(replacement_args["app"], app)
         self._app_module_src = self._app_module_src.replace(replacement_args["config"], config)
 
-        initial_content["app.py"] = self._app_module_src.encode()
-
-        return initial_content
+        return self._app_module_src.encode()
