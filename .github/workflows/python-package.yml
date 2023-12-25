@@ -123,7 +123,7 @@ jobs:
       - name: Run tox for "${{ matrix.python-version }}-integration"
         timeout-minutes: 15
         run: |
-          tox --verbose --verbose -e "${{ matrix.python-version }}-integration" -- -n auto --reruns 10 --rerun-except AssertionError
+          tox --verbose --verbose -e "${{ matrix.python-version }}-integration" -- -n auto --reruns 2 --rerun-except AssertionError
 
   Smoke:
     needs:
@@ -172,4 +172,4 @@ jobs:
       - name: Run tox for "${{ matrix.python-version }}-smoke"
         timeout-minutes: 15
         run: |
-          tox --verbose --verbose -e "${{ matrix.python-version }}-smoke" -- -n auto --reruns 10 --rerun-except AssertionError
+          tox --verbose --verbose -e "${{ matrix.python-version }}-smoke" -- -n auto --reruns 2 --rerun-except AssertionError
