@@ -63,19 +63,19 @@ class WorkerInitialContent:
         self.set_app_name()
         self.set_config_from_object()
 
-    def __eq__(self, __value: object) -> bool:
-        if not isinstance(__value, WorkerInitialContent):
+    def __eq__(self, other: WorkerInitialContent) -> bool:
+        if not isinstance(other, WorkerInitialContent):
             return False
         try:
-            return self.generate() == __value.generate()
+            return self.generate() == other.generate()
         except ValueError:
             return all(
                 [
-                    self._app_module_src == __value._app_module_src,
-                    self._utils_module_src == __value._utils_module_src,
-                    self._initial_content == __value._initial_content,
-                    self._app == __value._app,
-                    self._config == __value._config,
+                    self._app_module_src == other._app_module_src,
+                    self._utils_module_src == other._utils_module_src,
+                    self._initial_content == other._initial_content,
+                    self._app == other._app,
+                    self._config == other._config,
                 ]
             )
 

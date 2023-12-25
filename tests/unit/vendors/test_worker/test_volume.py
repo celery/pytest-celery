@@ -115,12 +115,15 @@ class test_worker_initial_content:
     )
     def test_add_modules(self, modules: dict[str, set[ModuleType]]):
         from pytest_celery.vendors.worker.content import app as app_module
+        from pytest_celery.vendors.worker.content import utils as utils_module
 
         actual_content = WorkerInitialContent()
 
         expected_content = WorkerInitialContent()
         actual_content.set_app_module(app_module)
+        actual_content.set_utils_module(utils_module)
         expected_content.set_app_module(app_module)
+        expected_content.set_utils_module(utils_module)
 
         for module_name, module_set in modules.items():
             actual_content.add_modules(module_name, module_set)
@@ -173,14 +176,13 @@ class test_worker_initial_content:
         )
         def test_generate(self, app: Celery | None):
             from pytest_celery.vendors.worker.content import app as app_module
+            from pytest_celery.vendors.worker.content import utils as utils_module
 
-            actual_content = WorkerInitialContent()
-
-            actual_content.set_app_module(app_module)
+            actual_content = WorkerInitialContent(app_module, utils_module)
             actual_content.add_modules("tests_modules", {pytest, pytest_celery})
             actual_content.set_config_from_object(app)
 
-            expected_content = WorkerInitialContent(app_module)
+            expected_content = WorkerInitialContent(app_module, utils_module)
             expected_content.add_modules("tests_modules", {pytest, pytest_celery})
             expected_content.set_config_from_object(app)
 
