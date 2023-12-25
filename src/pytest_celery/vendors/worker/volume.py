@@ -63,7 +63,7 @@ class WorkerInitialContent:
         self.set_app_name()
         self.set_config_from_object()
 
-    def __eq__(self, other: WorkerInitialContent) -> bool:
+    def __eq__(self, other: object) -> bool:
         if not isinstance(other, WorkerInitialContent):
             return False
         try:
