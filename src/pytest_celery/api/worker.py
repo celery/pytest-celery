@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+
 from celery import Celery
 
 from pytest_celery.api.base import CeleryTestCluster
@@ -33,6 +35,26 @@ class CeleryTestWorker(CeleryTestNode):
 
     def hostname(self) -> str:
         return f"{self.worker_name}@{super().hostname()}"
+
+    def get_running_processes_info(
+        self,
+        columns: list[str] | None = None,
+        filters: dict[str, str] | None = None,
+    ) -> list[dict]:
+        exit_code, output = self.container.exec_run(
+            f'python -c "from utils import get_running_processes_info; print(get_running_processes_info({columns!r}))"'
+        )
+
+        if exit_code != 0:
+            raise RuntimeError(f"Failed to get processes info: {output}")
+
+        decoded_str = output.decode("utf-8")
+        output = json.loads(decoded_str)
+
+        if filters:
+            output = [item for item in output if all(item.get(key) == value for key, value in filters.items())]
+
+        return output
 
 
 class CeleryWorkerCluster(CeleryTestCluster):
