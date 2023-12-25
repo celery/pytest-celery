@@ -66,9 +66,9 @@ jobs:
           poetry install --with dev,test,ci
 
       - name: Run tox for all environments in parallel
-        timeout-minutes: 20
+        timeout-minutes: 15
         run: |
-          tox -e xdist -- --reruns 10
+          tox -e xdist
 
   parallel:
     runs-on: ${{ matrix.os }}
@@ -112,6 +112,6 @@ jobs:
           poetry install --with dev,test,ci
 
       - name: Run tox for all environments in parallel
-        timeout-minutes: 20
+        timeout-minutes: 15
         run: |
-          tox -e parallel -- --reruns 10
+          tox -e parallel

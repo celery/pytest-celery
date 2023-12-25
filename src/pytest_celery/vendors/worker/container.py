@@ -39,9 +39,15 @@ class CeleryWorkerContainer(CeleryTestContainer):
 
     @classmethod
     def app_module(cls) -> ModuleType:
-        from pytest_celery.vendors.worker import app
+        from pytest_celery.vendors.worker.content import app
 
         return app
+
+    @classmethod
+    def utils_module(cls) -> ModuleType:
+        from pytest_celery.vendors.worker.content import utils
+
+        return utils
 
     @classmethod
     def tasks_modules(cls) -> set:
@@ -88,15 +94,20 @@ class CeleryWorkerContainer(CeleryTestContainer):
         worker_signals: set | None = None,
         worker_app: Celery | None = None,
         app_module: ModuleType | None = None,
+        utils_module: ModuleType | None = None,
     ) -> dict:
         if app_module is None:
             app_module = cls.app_module()
+
+        if utils_module is None:
+            utils_module = cls.utils_module()
 
         if worker_tasks is None:
             worker_tasks = cls.tasks_modules()
 
         content = WorkerInitialContent()
         content.set_app_module(app_module)
+        content.set_utils_module(utils_module)
         content.add_modules("tasks", worker_tasks)
         if worker_signals:
             content.add_modules("signals", worker_signals)

@@ -48,28 +48,34 @@ class WorkerInitialContent:
                 config = "config = None"
             return config
 
-    def __init__(self, app_module: ModuleType | None = None) -> None:
+    def __init__(
+        self,
+        app_module: ModuleType | None = None,
+        utils_module: ModuleType | None = None,
+    ) -> None:
         self.parser = self.Parser()
         self._initial_content = {
             "__init__.py": b"",
-            "imports": dict(),
+            "imports": dict(),  # Placeholder item
         }
         self.set_app_module(app_module)
+        self.set_utils_module(utils_module)
         self.set_app_name()
         self.set_config_from_object()
 
-    def __eq__(self, __value: object) -> bool:
-        if not isinstance(__value, WorkerInitialContent):
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, WorkerInitialContent):
             return False
         try:
-            return self.generate() == __value.generate()
+            return self.generate() == other.generate()
         except ValueError:
             return all(
                 [
-                    self._app_module_src == __value._app_module_src,
-                    self._initial_content == __value._initial_content,
-                    self._app == __value._app,
-                    self._config == __value._config,
+                    self._app_module_src == other._app_module_src,
+                    self._utils_module_src == other._utils_module_src,
+                    self._initial_content == other._initial_content,
+                    self._app == other._app,
+                    self._config == other._config,
                 ]
             )
 
@@ -80,6 +86,14 @@ class WorkerInitialContent:
             self._app_module_src = inspect.getsource(app_module)
         else:
             self._app_module_src = None
+
+    def set_utils_module(self, utils_module: ModuleType | None = None) -> None:
+        self._utils_module_src: str | None
+
+        if utils_module:
+            self._utils_module_src = inspect.getsource(utils_module)
+        else:
+            self._utils_module_src = None
 
     def add_modules(self, name: str, modules: set[ModuleType]) -> None:
         if not name:
@@ -99,13 +113,17 @@ class WorkerInitialContent:
         self._config = self.parser.config(app)
 
     def generate(self) -> dict:
-        if not self._app_module_src:
-            raise ValueError("Please set_app_module() before calling generate()")
-
         initial_content = self._initial_content.copy()
+        initial_content["app.py"] = self._generate_app_py(initial_content)
+        initial_content["utils.py"] = self._generate_utils_py()
+        return initial_content
+
+    def _generate_app_py(self, initial_content: dict) -> bytes:
+        if not self._app_module_src:
+            raise ValueError("Please set_app_module() before generating initial content")
 
         if not initial_content["imports"]:
-            raise ValueError("Please add_modules() before calling generate()")
+            raise ValueError("Please add_modules() before generating initial content")
 
         _imports: dict | Any = initial_content.pop("imports")
         imports = "{%s}" % "}{".join(_imports.keys())
@@ -122,6 +140,10 @@ class WorkerInitialContent:
         self._app_module_src = self._app_module_src.replace(replacement_args["app"], app)
         self._app_module_src = self._app_module_src.replace(replacement_args["config"], config)
 
-        initial_content["app.py"] = self._app_module_src.encode()
+        return self._app_module_src.encode()
 
-        return initial_content
+    def _generate_utils_py(self) -> bytes:
+        if not self._utils_module_src:
+            raise ValueError("Please set_utils_module() before generating initial content")
+
+        return self._utils_module_src.encode()

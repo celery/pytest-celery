@@ -40,7 +40,7 @@ class test_celery_worker_container:
             if request.param == "Default":
                 yield request.getfixturevalue("default_worker_app_module")
             else:
-                from pytest_celery.vendors.worker import app
+                from pytest_celery.vendors.worker.content import app
 
                 yield app
 
