@@ -30,6 +30,7 @@ default_redis_broker = container(
     network="{default_pytest_celery_network.name}",
     wrapper_class=RedisContainer,
     timeout=REDIS_CONTAINER_TIMEOUT,
+    command=RedisContainer.command("--maxclients", "100000"),
 )
 
 

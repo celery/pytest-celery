@@ -28,6 +28,10 @@ class RedisContainer(CeleryTestContainer):
             "vhost": self.vhost,
         }
 
+    @classmethod
+    def command(cls, *args: str) -> list:
+        return ["redis-server", *args]
+
     @property
     def url(self) -> str:
         return f"{self.prefix()}{self.hostname}/{self.vhost}"
