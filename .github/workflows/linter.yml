@@ -39,7 +39,7 @@ jobs:
         uses: snok/install-poetry@v1.3.4
 
       - name: Install tox and mypy
-        run: poetry install --with dev,test,ci
+        run: poetry install --with ci
 
       - name: Run mypy
         run: tox -e mypy
