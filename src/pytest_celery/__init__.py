@@ -47,14 +47,10 @@ version_info_t = namedtuple(
     ),
 )
 
+
 # bumpversion can only search for {current_version}
 # so we have to parse the version here.
-match = re.match(r"(\d+)\.(\d+)\.(\d+)(.+)?", __version__)
-if match:
-    _temp = match.groups()
-else:
-    # Comments are not allowed in the same line as the version string.
-    raise ValueError(f"The version string '{__version__}' does not match the expected pattern.")
+_temp = re.match(r"(\d+)\.(\d+).(\d+)(.+)?", __version__).groups()  # type: ignore
 VERSION = version_info = version_info_t(int(_temp[0]), int(_temp[1]), int(_temp[2]), _temp[3] or "", "")
 del _temp
 del re
