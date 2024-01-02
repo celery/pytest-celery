@@ -79,7 +79,7 @@ psutil = "^5.9.7"
 [tool.poetry.group.dev.dependencies]
 poetry-bumpversion = "*"
 black = "*"
-toml-sort = "^0.22.1"
+toml-sort = "^0.23.1"
 autoflake = [
     { version = "^1.7.0", python = "<3.8.1" },
     { version = "^2.0.0", python = ">=3.8.1,<4.0" },
