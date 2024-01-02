@@ -49,7 +49,7 @@ version_info_t = namedtuple(
 
 # bumpversion can only search for {current_version}
 # so we have to parse the version here.
-match = re.match(r"(\d+)\.(\d+)\.(\d+)([a-zA-Z]+[0-9]*)?", __version__)
+match = re.match(r"(\d+)\.(\d+)\.(\d+)(.+)?", __version__)
 if match:
     _temp = match.groups()
 else:
