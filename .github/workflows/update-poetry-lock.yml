@@ -32,6 +32,8 @@ jobs:
 
     - name: Update dependencies and commit poetry.lock
       run: |
+        git fetch origin +${{ github.head_ref }}:${{ github.head_ref }}
+        git checkout ${{ github.head_ref }}
         poetry update --with test,dev,ci,docs
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
