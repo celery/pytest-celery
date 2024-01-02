@@ -35,4 +35,4 @@ jobs:
         git config --local user.name "GitHub Action"
         git add poetry.lock
         git commit -m "Update poetry.lock" || echo "No changes to commit"
-        git push origin "${{ github.head_ref }}"
+        git push origin HEAD:refs/heads/${{ github.head_ref }}
