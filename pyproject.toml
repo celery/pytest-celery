@@ -165,5 +165,10 @@ source = ["src"]
 omit = ["tests"]
 
 [tool.coverage.report]
-exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:", "except ImportError:"]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "except ImportError:",
+    '__version__ = ".*"',
+]
 omit = ["*/python?.?/*", "*/site-packages/*", "*/pypy/*"]
