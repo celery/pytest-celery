@@ -64,6 +64,8 @@ name = "pytest-celery"
 version = "1.0.0a7"
 
 [tool.poetry_bumpversion.file."src/pytest_celery/__init__.py"]
+search = '__version__ = "{current_version}"'
+replace = '__version__ = "{new_version}"'
 
 [tool.poetry.dependencies]
 python = ">= 3.8,<4.0"
