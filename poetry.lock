@@ -2483,13 +2483,13 @@ Sphinx = ">=2.0.0"
 
 [[package]]
 name = "sphinx-click"
-version = "4.4.0"
+version = "5.1.0"
 description = "Sphinx extension that automatically documents click applications"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "sphinx-click-4.4.0.tar.gz", hash = "sha256:cc67692bd28f482c7f01531c61b64e9d2f069bfcf3d24cbbb51d4a84a749fa48"},
-    {file = "sphinx_click-4.4.0-py3-none-any.whl", hash = "sha256:2821c10a68fc9ee6ce7c92fad26540d8d8c8f45e6d7258f0e4fb7529ae8fab49"},
+    {file = "sphinx-click-5.1.0.tar.gz", hash = "sha256:6812c2db62d3fae71a4addbe5a8a0a16c97eb491f3cd63fe34b4ed7e07236f33"},
+    {file = "sphinx_click-5.1.0-py3-none-any.whl", hash = "sha256:ae97557a4e9ec646045089326c3b90e026c58a45e083b8f35f17d5d6558d08a0"},
 ]
 
 [package.dependencies]
@@ -2925,4 +2925,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">= 3.8,<4.0"
-content-hash = "790356ae5cce3c3c4c352a1dbac5e982fd24c025fc031f10393062a562058d7c"
+content-hash = "c6301dbe8c8c069c9d1385427dd1c14c6009330a3661b9a5ea19734fdb588f19"

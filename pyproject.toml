@@ -128,7 +128,7 @@ optional = true
 sphinx_celery = ">=2.0.0"
 Sphinx = "==7.1.2"
 sphinx-testing = "~1.0.1"
-sphinx-click = "==4.4.0"
+sphinx-click = "==5.1.0"
 
 [tool.poetry.plugins.pytest11]
 celery = "pytest_celery.plugin"
