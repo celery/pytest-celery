@@ -20,6 +20,11 @@ jobs:
       with:
         python-version: '3.x'
 
+    - name: Install system dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y libmemcached-dev
+
     - name: Install Poetry
       run: pip install poetry
 
