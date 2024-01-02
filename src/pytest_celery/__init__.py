@@ -5,7 +5,7 @@ pytest-celery a shim pytest plugin to enable celery.contrib.pytest
 # flake8: noqa
 
 
-__version__ = "1.0.0a7"  # pragma: no cover
+__version__ = "1.0.0a8"
 
 
 import re
@@ -49,10 +49,11 @@ version_info_t = namedtuple(
 
 # bumpversion can only search for {current_version}
 # so we have to parse the version here.
-match = re.match(r"(\d+)\.(\d+)\.(\d+)([a-zA-Z]+[0-9]*)?", __version__)
+match = re.match(r"(\d+)\.(\d+)\.(\d+)(.+)?", __version__)
 if match:
     _temp = match.groups()
 else:
+    # Comments are not allowed in the same line as the version string.
     raise ValueError(f"The version string '{__version__}' does not match the expected pattern.")
 VERSION = version_info = version_info_t(int(_temp[0]), int(_temp[1]), int(_temp[2]), _temp[3] or "", "")
 del _temp

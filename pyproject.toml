@@ -61,9 +61,11 @@ description = "Pytest plugin for Celery"
 homepage = "https://github.com/celery/pytest-celery"
 license = "BSD"
 name = "pytest-celery"
-version = "1.0.0a7"
+version = "1.0.0a8"
 
 [tool.poetry_bumpversion.file."src/pytest_celery/__init__.py"]
+search = '__version__ = "{current_version}"'
+replace = '__version__ = "{new_version}"'
 
 [tool.poetry.dependencies]
 python = ">= 3.8,<4.0"
@@ -163,5 +165,10 @@ source = ["src"]
 omit = ["tests"]
 
 [tool.coverage.report]
-exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:", "except ImportError:"]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "except ImportError:",
+    '__version__ = ".*"',
+]
 omit = ["*/python?.?/*", "*/site-packages/*", "*/pypy/*"]
