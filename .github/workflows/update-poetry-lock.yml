@@ -9,6 +9,8 @@ on:
 jobs:
   update-lock:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     if: github.actor == 'dependabot[bot]'
 
     steps:
