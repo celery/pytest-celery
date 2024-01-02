@@ -109,7 +109,7 @@ pytest-sugar = { version = "^0.9.6", python = ">=3.8,<4.0" }
 pytest-lazy-fixture = "^0.6.3"
 pytest-cov = "^4.0.0"
 pytest-xdist = "^3.1.0"
-pytest-subtests = "^0.10.0"
+pytest-subtests = "^0.11.0"
 pytest-rerunfailures = "^13.0"
 
 [tool.poetry.group.ci]
