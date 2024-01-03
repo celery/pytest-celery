@@ -6,6 +6,10 @@ pytest-celery a shim pytest plugin to enable celery.contrib.pytest
 
 
 __version__ = "1.0.0a10"
+__author__ = "Tomer Nosrati"
+__contact__ = "tomer.nosrati@gmail.com"
+__homepage__ = "https://pytest-celery.readthedocs.io/"
+__docformat__ = "restructuredtext"
 
 
 import re
@@ -49,7 +53,7 @@ version_info_t = namedtuple(
 
 
 # Required for RTD to build
-_temp = re.match(r"(\d+)\.(\d+)\.(\d+)([a-zA-Z0-9]+)?", __version__).groups()  # type: ignore
+_temp = re.match(r"v?(\d+)\.(\d+)\.(\d+)([a-zA-Z0-9]+)?", __version__).groups()  # type: ignore
 VERSION = version_info = version_info_t(int(_temp[0]), int(_temp[1]), int(_temp[2]), _temp[3] or "", "")
 del _temp
 del re
