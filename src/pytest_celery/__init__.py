@@ -6,6 +6,10 @@ pytest-celery a shim pytest plugin to enable celery.contrib.pytest
 
 
 __version__ = "1.0.0a10"
+__author__ = "Tomer Nosrati"
+__contact__ = "tomer.nosrati@gmail.com"
+__homepage__ = "https://pytest-celery.readthedocs.io/"
+__docformat__ = "restructuredtext"
 
 
 import re
