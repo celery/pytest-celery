@@ -1,11 +1,6 @@
 from __future__ import annotations
 
-from celery import platforms
-
-if platforms.IS_WINDOWS:
-    import memcache
-else:
-    import pylibmc as memcache
+import memcache
 
 from pytest_celery.api.container import CeleryTestContainer
 from pytest_celery.vendors.memcached.defaults import MEMCACHED_ENV
