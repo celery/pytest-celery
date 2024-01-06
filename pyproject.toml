@@ -78,7 +78,7 @@ psutil = "^5.9.7"
 [tool.poetry.group.dev]
 
 [tool.poetry.group.dev.dependencies]
-poetry-bumpversion = "*"
+poetry-bumpversion = "^0.3.2"
 black = "*"
 toml-sort = "^0.23.1"
 autoflake = [
