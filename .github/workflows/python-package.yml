@@ -43,12 +43,6 @@ jobs:
               os: "windows-latest"
 
     steps:
-      - name: Fetch Docker Images
-        run: |
-          docker pull redis:latest
-          docker pull rabbitmq:latest
-          docker pull memcached:latest
-
       - name: Install apt packages
         if: startsWith(matrix.os, 'ubuntu-')
         run: |
@@ -107,12 +101,6 @@ jobs:
               os: "windows-latest"
 
     steps:
-      - name: Fetch Docker Images
-        run: |
-          docker pull redis:latest
-          docker pull rabbitmq:latest
-          docker pull memcached:latest
-
       - name: Install apt packages
         if: startsWith(matrix.os, 'ubuntu-')
         run: |
@@ -165,12 +153,6 @@ jobs:
               os: "windows-latest"
 
     steps:
-      - name: Fetch Docker Images
-        run: |
-          docker pull redis:latest
-          docker pull rabbitmq:latest
-          docker pull memcached:latest
-
       - name: Install apt packages
         if: startsWith(matrix.os, 'ubuntu-')
         run: |
