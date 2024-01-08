@@ -1,6 +1,8 @@
+from pkg_resources import resource_filename
+
 CELERY_SETUP_WORKER = "celery_setup_worker"
 DEFAULT_WORKER = "default_worker_container"
-WORKER_DOCKERFILE_ROOTDIR = "src/pytest_celery/vendors/worker"
+WORKER_DOCKERFILE_ROOTDIR = resource_filename("pytest_celery.vendors.worker", "")
 WORKER_CELERY_APP_NAME = "celery_test_app"
 WORKER_CELERY_VERSION = ""  # latest from pypi
 WORKER_LOG_LEVEL = "INFO"
