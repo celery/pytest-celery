@@ -13,6 +13,7 @@ WORKER_ENV = {
     "CELERY_RESULT_BACKEND": "cache+memory://",
     "PYTHONUNBUFFERED": "1",
     "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "/app",
 }
 WORKER_VOLUME = {
     "bind": "/app",
