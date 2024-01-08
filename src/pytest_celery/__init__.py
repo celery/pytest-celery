@@ -5,7 +5,7 @@ pytest-celery a shim pytest plugin to enable celery.contrib.pytest
 # flake8: noqa
 
 
-__version__ = "1.0.0a11"
+__version__ = "1.0.0a12"
 __author__ = "Tomer Nosrati"
 __contact__ = "tomer.nosrati@gmail.com"
 __homepage__ = "https://pytest-celery.readthedocs.io/"
