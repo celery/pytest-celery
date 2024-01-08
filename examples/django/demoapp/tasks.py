@@ -1,8 +1,8 @@
 # Create your tasks here
 
-from .models import Widget
-
 from celery import shared_task
+
+from .models import Widget
 
 
 @shared_task
