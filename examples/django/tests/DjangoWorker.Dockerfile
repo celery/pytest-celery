@@ -17,7 +17,7 @@ ENV WORKER_QUEUE=$CELERY_WORKER_QUEUE
 # Install packages
 WORKDIR /src
 
-COPY requirements.txt .
+COPY --chown=test_user:test_user requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip
 RUN pip install -r ./requirements.txt
 
