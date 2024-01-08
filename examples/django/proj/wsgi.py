@@ -1,5 +1,4 @@
-"""
-WSGI config for proj project.
+"""WSGI config for proj project.
 
 This module contains the WSGI application used by Django's development server
 and any production WSGI deployments. It should expose a module-level variable
@@ -11,7 +10,6 @@ might make sense to replace the whole Django WSGI application with a custom one
 that later delegates to the Django one. For example, you could introduce WSGI
 middleware here, or combine a Django application with an application of another
 framework.
-
 """
 
 import os

@@ -1,6 +1,4 @@
-"""
-pytest-celery entry point.
-"""
+"""Pytest-celery entry point."""
 
 # pytest-celery < 1.0.0 infrastructure
 from celery.contrib.pytest import *  # noqa
