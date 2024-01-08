@@ -71,7 +71,7 @@ class CeleryWorkerContainer(CeleryTestContainer):
     @classmethod
     def env(cls, celery_worker_cluster_config: dict, initial: dict | None = None) -> dict:
         env = initial or {}
-        env = {**env, **DEFAULT_WORKER_ENV.copy()}
+        env = {**DEFAULT_WORKER_ENV.copy(), **env}
 
         config_mappings = [
             ("celery_broker_cluster_config", "CELERY_BROKER_URL"),
