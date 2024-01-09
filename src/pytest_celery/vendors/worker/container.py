@@ -14,6 +14,18 @@ from pytest_celery.vendors.worker.volume import WorkerInitialContent
 
 
 class CeleryWorkerContainer(CeleryTestContainer):
+    """This is the base class for all Celery worker containers. It is
+    preconfigured for a built-in Celery worker image and should be customized
+    for your own worker image.
+
+    The purpose of this class is manupulating the container volume and
+    configurations to warm up the worker container according to the test case requirements.
+
+    Responsibility Scope:
+        Prepare the worker container with the required filesystem, configurations and
+        dependencies of your project.
+    """
+
     def _wait_port(self, port: str) -> int:
         raise NotImplementedError
 
@@ -39,28 +51,42 @@ class CeleryWorkerContainer(CeleryTestContainer):
 
     @classmethod
     def app_module(cls) -> ModuleType:
+        """A preconfigured module that contains the Celery app instance.
+
+        The module is manipulated at runtime to inject the required
+        configurations from the test case.
+        """
         from pytest_celery.vendors.worker.content import app
 
         return app
 
     @classmethod
     def utils_module(cls) -> ModuleType:
+        """A utility helper module for running python code in the worker
+        container context."""
         from pytest_celery.vendors.worker.content import utils
 
         return utils
 
     @classmethod
     def tasks_modules(cls) -> set:
-        from pytest_celery.vendors.worker import tasks
+        """Tasks modules."""
+        from pytest_celery.vendors.worker import tasks as default_tasks
 
-        return {tasks}
+        return {default_tasks}
 
     @classmethod
     def signals_modules(cls) -> set:
+        """Signals handlers modules.
+
+        This is an optional feature that can be used to inject signals
+        handlers that needs to in the context of the worker container.
+        """
         return set()
 
     @classmethod
     def buildargs(cls) -> dict:
+        """Build arguments for the built-in worker image."""
         return {
             "CELERY_VERSION": cls.version(),
             "CELERY_LOG_LEVEL": cls.log_level(),
@@ -70,6 +96,17 @@ class CeleryWorkerContainer(CeleryTestContainer):
 
     @classmethod
     def env(cls, celery_worker_cluster_config: dict, initial: dict | None = None) -> dict:
+        """Defines the environment variables for the worker container.
+
+        See more: pytest_docker_tools.container()
+
+        Args:
+            celery_worker_cluster_config (dict): Environment variables to set.
+            initial (dict | None, optional): Additional variables. Defaults to None.
+
+        Returns:
+            dict: Environment variables set for the worker container from the test case.
+        """
         env = initial or {}
         env = {**DEFAULT_WORKER_ENV.copy(), **env}
 
@@ -96,6 +133,20 @@ class CeleryWorkerContainer(CeleryTestContainer):
         app_module: ModuleType | None = None,
         utils_module: ModuleType | None = None,
     ) -> dict:
+        """Defines the initial content of the worker container.
+
+        See more: pytest_docker_tools.volume()
+
+        Args:
+            worker_tasks (set | None, optional): Set of tasks modules. Defaults to None.
+            worker_signals (set | None, optional): Set of signals handlers modules. Defaults to None.
+            worker_app (Celery | None, optional): Celery app instance. Defaults to None.
+            app_module (ModuleType | None, optional): app module. Defaults to None.
+            utils_module (ModuleType | None, optional): utils module. Defaults to None.
+
+        Returns:
+            dict: Custome volume content for the worker container.
+        """
         if app_module is None:
             app_module = cls.app_module()
 

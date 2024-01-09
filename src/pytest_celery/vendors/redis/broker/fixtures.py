@@ -13,6 +13,12 @@ from pytest_celery.vendors.redis.defaults import REDIS_CONTAINER_TIMEOUT
 
 @pytest.fixture
 def celery_redis_broker(default_redis_broker: RedisContainer) -> RedisTestBroker:
+    """Creates a RedisTestBroker instance. Responsible for tearing down the
+    node.
+
+    Args:
+        default_redis_broker (RedisContainer): Instantiated RedisContainer.
+    """
     broker = RedisTestBroker(default_redis_broker)
     yield broker
     broker.teardown()

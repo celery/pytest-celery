@@ -28,7 +28,8 @@ def celery_broker_cluster(celery_broker: CeleryTestBroker) -> CeleryBrokerCluste
     """Defines the cluster of broker nodes for the test. Responsible for
     tearing down the cluster.
 
-    It is not recommended to disable the broker cluster, but it can be done by overriding this fixture and returning None.
+    It is not recommended to disable the broker cluster, but it can be done by
+    overriding this fixture and returning None.
 
     Args:
         celery_broker (CeleryTestBroker): Parameterized fixture for all supported celery brokers.

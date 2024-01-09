@@ -13,6 +13,12 @@ from pytest_celery.vendors.redis.defaults import REDIS_CONTAINER_TIMEOUT
 
 @pytest.fixture
 def celery_redis_backend(default_redis_backend: RedisContainer) -> RedisTestBackend:
+    """Creates a RedisTestBackend instance. Responsible for tearing down the
+    node.
+
+    Args:
+        default_redis_backend (RedisContainer): Instantiated RedisContainer.
+    """
     backend = RedisTestBackend(default_redis_backend)
     yield backend
     backend.teardown()

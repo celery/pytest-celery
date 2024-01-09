@@ -24,6 +24,14 @@ def celery_setup_worker(
     default_worker_container: CeleryWorkerContainer,
     default_worker_app: Celery,
 ) -> CeleryTestWorker:
+    """Creates a CeleryTestWorker instance. Responsible for tearing down the
+    node.
+
+    Args:
+        default_worker_cls (type[CeleryTestWorker]): Interface class.
+        default_worker_container (CeleryWorkerContainer): Instantiated CeleryWorkerContainer.
+        default_worker_app (Celery): Celery app instance.
+    """
     worker = default_worker_cls(
         container=default_worker_container,
         app=default_worker_app,
