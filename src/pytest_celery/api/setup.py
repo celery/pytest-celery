@@ -14,6 +14,17 @@ from pytest_celery.vendors.worker.tasks import ping
 
 
 class CeleryTestSetup:
+    """The test setup is the main entrypoint for accessing the celery
+    architecture from the test. It is the glue that holds all of the relevant
+    entities of the specific test case environment.
+
+    Each test case will have its own test setup instance, which is created for the
+    test case by the plugin and is configured for the specific run and its given configurations.
+
+    Responsibility Scope:
+        Provide useful access to the celery architecture from the test.
+    """
+
     def __init__(
         self,
         worker_cluster: CeleryWorkerCluster,
@@ -21,11 +32,20 @@ class CeleryTestSetup:
         backend_cluster: CeleryBackendCluster,
         app: Celery = None,
     ):
+        """Setup the base components of a setup.
+
+        Args:
+            worker_cluster (CeleryWorkerCluster): Precorfigured worker cluster.
+            broker_cluster (CeleryBrokerCluster): Precorfigured broker cluster.
+            backend_cluster (CeleryBackendCluster): Precorfigured backend cluster.
+            app (Celery, optional): Celery app configured for all of the nodes. Defaults to None.
+        """
         self._worker_cluster = worker_cluster
         self._broker_cluster = broker_cluster
         self._backend_cluster = backend_cluster
         self._app = app
 
+        # Special internal ping task, does not conflict with user "ping" tasks
         self.ping = ping
 
     def __len__(self) -> int:
@@ -33,38 +53,55 @@ class CeleryTestSetup:
 
     @property
     def app(self) -> Celery:
+        """The celery app configured for all of the nodes."""
         return self._app
 
     @property
     def backend_cluster(self) -> CeleryBackendCluster:
+        """The backend cluster of this setup."""
         return self._backend_cluster
 
     @property
     def backend(self) -> CeleryTestBackend:
+        """The first backend node of the backend cluster."""
         return self._backend_cluster[0]  # type: ignore
 
     @property
     def broker_cluster(self) -> CeleryBrokerCluster:
+        """The broker cluster of this setup."""
         return self._broker_cluster
 
     @property
     def broker(self) -> CeleryTestBroker:
+        """The first broker node of the broker cluster."""
         return self._broker_cluster[0]  # type: ignore
 
     @property
     def worker_cluster(self) -> CeleryWorkerCluster:
+        """The worker cluster of this setup."""
         return self._worker_cluster
 
     @property
     def worker(self) -> CeleryTestWorker:
+        """The first worker node of the worker cluster."""
         return self._worker_cluster[0]  # type: ignore
 
     @classmethod
     def name(cls) -> str:
+        # TODO: Possibly not needed/required refactoring
         return DEFAULT_WORKER_APP_NAME
 
     @classmethod
     def config(cls, celery_worker_cluster_config: dict) -> dict:
+        """Creates a configuration dict to be used by app.config_from_object().
+        The configuration is compiled from all of the nodes in the setup.
+
+        Args:
+            celery_worker_cluster_config (dict): The configuration of the worker cluster.
+
+        Returns:
+            dict: Celery-aware configuration dict.
+        """
         if not celery_worker_cluster_config:
             raise ValueError("celery_worker_cluster_config is empty")
 
@@ -79,11 +116,23 @@ class CeleryTestSetup:
 
     @classmethod
     def update_app_config(cls, app: Celery) -> None:
-        # Use app.conf.update() to update the app config
-        pass
+        """Hook for updating the app configuration in a subclass.
+
+        Args:
+            app (Celery): App after initial configuration.
+        """
 
     @classmethod
     def create_setup_app(cls, celery_setup_config: dict, celery_setup_app_name: str) -> Celery:
+        """Creates a celery app for the setup.
+
+        Args:
+            celery_setup_config (dict): Celery configuration dict.
+            celery_setup_app_name (str): Celery app name.
+
+        Returns:
+            Celery: Celery app configured for this setup.
+        """
         if celery_setup_config is None:
             raise ValueError("celery_setup_config is None")
 
@@ -97,36 +146,61 @@ class CeleryTestSetup:
         return app
 
     def chords_allowed(self) -> bool:
+        # TODO: Possibly a not relevant
         try:
             self.app.backend.ensure_chords_allowed()
         except NotImplementedError:
             return False
 
+        # TODO: Possibly a bug
         if any([v.startswith("4.") for v in self.worker_cluster.versions]):
             return False
 
         return True
 
     def teardown(self) -> None:
-        pass
+        """Teardown the setup."""
 
-    def ready(self, ping: bool = False, control: bool = False, docker: bool = True) -> bool:
+    def ready(
+        self,
+        ping: bool = False,
+        control: bool = False,
+        docker: bool = True,
+    ) -> bool:
+        """Check if the setup is ready for testing. All of the confirmations
+        are optional.
+
+        Warning:
+            Enabling additional confirmations may hurt performance.
+            Disabling all confirmations may result in false positive results.
+            Use with caution.
+
+        Args:
+            ping (bool, optional): Confirm via ping task. Defaults to False.
+            control (bool, optional): Confirm via ping control. Defaults to False.
+            docker (bool, optional): Confirm via docker container status. Defaults to True.
+
+        Returns:
+            bool: True if the setup is ready for testing (all required confirmations passed)
+        """
         ready = True
 
+        # Confirm the nodes's containers are ready
         if docker and ready:
             if self.broker_cluster:
                 ready = ready and self.broker_cluster.ready()
             if self.backend_cluster:
                 ready = ready and self.backend_cluster.ready()
-            if self.worker_cluster:
+            if self.worker_cluster:  # after broker and backend
                 ready = ready and self.worker_cluster.ready()
 
+        # Confirm the worker nodes respond to ping control
         if control and ready:
             r = self.app.control.ping()
             ready = ready and all([all([res["ok"] == "pong" for _, res in response.items()]) for response in r])
 
+        # Confirm the worker nodes respond to ping task
         if ping and ready:
-            # TODO: ignore mypy globally for type overriding
             worker: CeleryTestWorker
             for worker in self.worker_cluster:  # type: ignore
                 res = self.ping.s().apply_async(queue=worker.worker_queue)
