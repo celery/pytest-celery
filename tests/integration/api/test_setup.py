@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import pytest
 from celery import Celery
 
 from pytest_celery import RESULT_TIMEOUT
@@ -9,8 +10,21 @@ from tests.tasks import identity
 
 
 class test_celery_test_setup_integration:
-    def test_ready(self, celery_setup: CeleryTestSetup):
-        assert celery_setup.ready()
+    @pytest.mark.parametrize(
+        "confirmation",
+        [
+            # Only ping
+            {"ping": True, "control": False, "docker": False},
+            # Only control
+            {"ping": False, "control": True, "docker": False},
+            # Only docker
+            {"ping": False, "control": False, "docker": True},
+            # All
+            {"ping": True, "control": True, "docker": True},
+        ],
+    )
+    def test_ready(self, celery_setup: CeleryTestSetup, confirmation: dict):
+        assert celery_setup.ready(**confirmation)
 
     def test_worker_is_connected_to_backend(self, celery_setup: CeleryTestSetup):
         backend_urls = [

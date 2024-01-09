@@ -1,6 +1,4 @@
-"""
-pytest-celery a shim pytest plugin to enable celery.contrib.pytest
-"""
+"""Pytest-celery a shim pytest plugin to enable celery.contrib.pytest."""
 
 # flake8: noqa
 

@@ -52,13 +52,18 @@ class test_celery_test_setup_unit:
     def test_teardown(self, celery_setup: CeleryTestSetup):
         celery_setup.teardown()
 
-    def test_default_ready_args(self, celery_setup: CeleryTestSetup):
-        assert celery_setup.ready()
-
-    def test_ping_ready(self, celery_setup: CeleryTestSetup):
+    @pytest.mark.parametrize(
+        "confirmation",
+        [
+            {"ping": True, "docker": False},
+            {"ping": False, "docker": True},
+            {"ping": True, "docker": True},
+            {"ping": False, "docker": False},
+        ],
+    )
+    def test_ready(self, celery_setup: CeleryTestSetup, confirmation: dict):
         celery_setup.worker_cluster.nodes = tuple()
-        assert celery_setup.ready(ping=True, control=False, docker=False)
-
-    def test_docker_ready(self, celery_setup: CeleryTestSetup):
-        celery_setup.worker_cluster.nodes = tuple()
-        assert celery_setup.ready(ping=False, control=False, docker=True)
+        assert celery_setup.ready(
+            **confirmation,
+            control=False,  # Not supported in unit tests
+        )

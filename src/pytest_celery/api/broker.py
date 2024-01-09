@@ -7,6 +7,13 @@ from pytest_celery.defaults import DEFAULT_WORKER_ENV
 
 
 class CeleryTestBroker(CeleryTestNode):
+    """CeleryTestBroker is specialized node type for handling celery brokers
+    nodes. It is used to encapsulate a broker instance.
+
+    Responsibility Scope:
+        Handling broker specific requirements and configuration.
+    """
+
     @classmethod
     def default_config(cls) -> dict:
         return {
@@ -23,6 +30,14 @@ class CeleryTestBroker(CeleryTestNode):
 
 
 class CeleryBrokerCluster(CeleryTestCluster):
+    """CeleryBrokerCluster is a specialized cluster type for handling celery
+    brokers. It is used to define which broker instances are available for the
+    test.
+
+    Responsibility Scope:
+        Provude useful methods for managing a cluster of celery brokers.
+    """
+
     def __init__(self, *brokers: tuple[CeleryTestBroker | CeleryTestContainer]) -> None:
         super().__init__(*brokers)
 

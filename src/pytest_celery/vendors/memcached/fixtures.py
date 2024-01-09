@@ -13,6 +13,12 @@ from pytest_celery.vendors.memcached.defaults import MEMCACHED_CONTAINER_TIMEOUT
 
 @pytest.fixture
 def celery_memcached_backend(default_memcached_backend: MemcachedContainer) -> MemcachedTestBackend:
+    """Creates a MemcachedTestBackend instance. Responsible for tearing down
+    the node.
+
+    Args:
+        default_memcached_backend (MemcachedContainer): Instantiated MemcachedContainer.
+    """
     backend = MemcachedTestBackend(default_memcached_backend)
     yield backend
     backend.teardown()

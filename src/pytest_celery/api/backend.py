@@ -7,6 +7,13 @@ from pytest_celery.defaults import DEFAULT_WORKER_ENV
 
 
 class CeleryTestBackend(CeleryTestNode):
+    """CeleryTestBackend is specialized node type for handling celery backends
+    nodes. It is used to encapsulate a backend instance.
+
+    Responsibility Scope:
+        Handling backend specific requirements and configuration.
+    """
+
     @classmethod
     def default_config(cls) -> dict:
         return {
@@ -23,6 +30,14 @@ class CeleryTestBackend(CeleryTestNode):
 
 
 class CeleryBackendCluster(CeleryTestCluster):
+    """CeleryBackendCluster is a specialized cluster type for handling celery
+    backends. It is used to define which backend instances are available for
+    the test.
+
+    Responsibility Scope:
+        Provude useful methods for managing a cluster of celery backends.
+    """
+
     def __init__(self, *backends: tuple[CeleryTestBackend | CeleryTestContainer]) -> None:
         super().__init__(*backends)
 

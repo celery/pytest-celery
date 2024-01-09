@@ -29,7 +29,7 @@ class RedisContainer(CeleryTestContainer):
         }
 
     @classmethod
-    def command(cls, *args: str) -> list:
+    def command(cls, *args: str) -> list[str]:
         return ["redis-server", *args]
 
     @property

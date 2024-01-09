@@ -6,6 +6,7 @@ import psutil
 
 
 def get_running_processes_info(columns: list[str] | None = None) -> str:
+    """Get information about running processes using psutil."""
     if not columns:
         columns = [
             "pid",

@@ -13,6 +13,12 @@ from pytest_celery.vendors.rabbitmq.defaults import RABBITMQ_CONTAINER_TIMEOUT
 
 @pytest.fixture
 def celery_rabbitmq_broker(default_rabbitmq_broker: RabbitMQContainer) -> RabbitMQTestBroker:
+    """Creates a RabbitMQTestBroker instance. Responsible for tearing down the
+    node.
+
+    Args:
+        default_rabbitmq_broker (RabbitMQContainer): Instantiated RabbitMQContainer.
+    """
     broker = RabbitMQTestBroker(default_rabbitmq_broker)
     yield broker
     broker.teardown()
