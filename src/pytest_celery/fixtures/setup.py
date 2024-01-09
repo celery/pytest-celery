@@ -13,6 +13,7 @@ from pytest_celery.api.worker import CeleryWorkerCluster
 
 @pytest.fixture
 def celery_setup_cls() -> type[CeleryTestSetup]:  # type: ignore
+    """The setup class to use for the test."""
     return CeleryTestSetup
 
 
@@ -24,12 +25,24 @@ def celery_setup(  # type: ignore
     celery_backend_cluster: CeleryBackendCluster,
     celery_setup_app: Celery,
 ) -> CeleryTestSetup:
+    """Prepares a celery setup ready for testing.
+
+    This fixture provides the entry point for a test.
+    This fixture loads all components and immediately prepares the environment for testing.
+
+    Example:
+        >>> def test_my_celery_setup(celery_setup: CeleryTestSetup):
+        ...     assert celery_setup.ready()
+        ...     # do some testing
+    """
     setup = celery_setup_cls(
         worker_cluster=celery_worker_cluster,
         broker_cluster=celery_broker_cluster,
         backend_cluster=celery_backend_cluster,
         app=celery_setup_app,
     )
+
+    # Shallow ready check for performance reasons
     assert setup.ready(
         ping=False,
         control=False,
@@ -41,6 +54,7 @@ def celery_setup(  # type: ignore
 
 @pytest.fixture
 def celery_setup_name(celery_setup_cls: type[CeleryTestSetup]) -> str:  # type: ignore
+    """Fixture interface to the API."""
     yield celery_setup_cls.name()
 
 
@@ -49,6 +63,7 @@ def celery_setup_config(
     celery_setup_cls: type[CeleryTestSetup],
     celery_worker_cluster_config: dict,
 ) -> dict:
+    """Fixture interface to the API."""
     yield celery_setup_cls.config(
         celery_worker_cluster_config=celery_worker_cluster_config,
     )
@@ -60,6 +75,7 @@ def celery_setup_app(
     celery_setup_config: dict,
     celery_setup_name: str,
 ) -> Celery:
+    """Fixture interface to the API."""
     yield celery_setup_cls.create_setup_app(
         celery_setup_config=celery_setup_config,
         celery_setup_app_name=celery_setup_name,
