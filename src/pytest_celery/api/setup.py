@@ -161,12 +161,7 @@ class CeleryTestSetup:
     def teardown(self) -> None:
         """Teardown the setup."""
 
-    def ready(
-        self,
-        ping: bool = False,
-        control: bool = False,
-        docker: bool = True,
-    ) -> bool:
+    def ready(self, ping: bool = False, control: bool = False, docker: bool = True) -> bool:
         """Check if the setup is ready for testing. All of the confirmations
         are optional.
 
@@ -181,32 +176,75 @@ class CeleryTestSetup:
             docker (bool, optional): Confirm via docker container status. Defaults to True.
 
         Returns:
-            bool: True if the setup is ready for testing (all required confirmations passed)
+            bool: True if the setup is ready for testing (all required confirmations passed).
         """
-        ready = True
+        ready = (
+            self._is_task_ping_ready(ping) and self._is_control_ping_ready(control) and self._is_docker_ready(docker)
+        )
 
-        # Confirm the nodes's containers are ready
-        if docker and ready:
-            if self.broker_cluster:
-                ready = ready and self.broker_cluster.ready()
-            if self.backend_cluster:
-                ready = ready and self.backend_cluster.ready()
-            if self.worker_cluster:  # after broker and backend
-                ready = ready and self.worker_cluster.ready()
+        if ready:
+            self._set_app_for_all_nodes()
 
-        # Confirm the worker nodes respond to ping control
-        if control and ready:
-            r = self.app.control.ping()
-            ready = ready and all([all([res["ok"] == "pong" for _, res in response.items()]) for response in r])
+        return ready
 
-        # Confirm the worker nodes respond to ping task
-        if ping and ready:
-            worker: CeleryTestWorker
-            for worker in self.worker_cluster:  # type: ignore
-                res = self.ping.s().apply_async(queue=worker.worker_queue)
-                ready = ready and res.get(timeout=RESULT_TIMEOUT) == "pong"
+    def _is_docker_ready(self, docker: bool) -> bool:
+        """Check if the node's containers are ready.
 
-        # Set app for all nodes
+        Args:
+            docker (bool): Flag to enable docker readiness check.
+
+        Returns:
+            bool: True if the node's containers are ready, False otherwise.
+        """
+        if not docker:
+            return True
+
+        return (
+            (not self.broker_cluster or self.broker_cluster.ready())
+            and (not self.backend_cluster or self.backend_cluster.ready())
+            and (not self.worker_cluster or self.worker_cluster.ready())
+        )
+
+    def _is_control_ping_ready(self, control: bool) -> bool:
+        """Check if worker nodes respond to control ping.
+
+        Args:
+            control (bool): Flag to enable control ping check.
+
+        Returns:
+            bool: True if control pings are successful, False otherwise.
+        """
+        if not control:
+            return True
+
+        responses = self.app.control.ping()
+        return all([all([res["ok"] == "pong" for _, res in response.items()]) for response in responses])
+
+    def _is_task_ping_ready(self, ping: bool) -> bool:
+        """Check if worker nodes respond to ping task.
+
+        Args:
+            ping (bool): Flag to enable ping task check.
+
+        Returns:
+            bool: True if ping tasks are successful, False otherwise.
+        """
+        if not ping:
+            return True
+
+        worker: CeleryTestWorker
+        for worker in self.worker_cluster:  # type: ignore
+            res = self.ping.s().apply_async(queue=worker.worker_queue)
+            if res.get(timeout=RESULT_TIMEOUT) != "pong":
+                return False
+        return True
+
+    def _set_app_for_all_nodes(self) -> None:
+        """Set the app instance for all nodes in the setup.
+
+        This ensures each node has a reference to the centralized Celery
+        app instance.
+        """
         nodes: tuple = tuple()
         if self.broker_cluster:
             nodes += self.broker_cluster.nodes
@@ -214,7 +252,6 @@ class CeleryTestSetup:
             nodes += self.backend_cluster.nodes
         if self.worker_cluster:
             nodes += self.worker_cluster.nodes
+
         for node in nodes:
             node._app = self.app
-
-        return ready
