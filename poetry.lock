@@ -12,6 +12,17 @@ files = [
 ]
 
 [[package]]
+name = "alabaster"
+version = "0.7.16"
+description = "A light, configurable Sphinx theme"
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "alabaster-0.7.16-py3-none-any.whl", hash = "sha256:b46733c07dce03ae4e150330b975c75737fa60f0a7c591b6c8bf4928a28e2c92"},
+    {file = "alabaster-0.7.16.tar.gz", hash = "sha256:75a8b99c28a5dad50dd7f8ccdd447a121ddb3892da9e53d1ca5cca3106d58d65"},
+]
+
+[[package]]
 name = "amqp"
 version = "5.2.0"
 description = "Low-level AMQP client for Python (fork of amqplib)."
@@ -1285,13 +1296,13 @@ files = [
 
 [[package]]
 name = "more-itertools"
-version = "10.1.0"
+version = "10.2.0"
 description = "More routines for operating on iterables, beyond itertools"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "more-itertools-10.1.0.tar.gz", hash = "sha256:626c369fa0eb37bac0291bce8259b332fd59ac792fa5497b59837309cd5b114a"},
-    {file = "more_itertools-10.1.0-py3-none-any.whl", hash = "sha256:64e0735fcfdc6f3464ea133afe8ea4483b1c5fe3a3d69852e6503b43a0b222e6"},
+    {file = "more-itertools-10.2.0.tar.gz", hash = "sha256:8fccb480c43d3e99a00087634c06dd02b0d50fbf088b380de5a41a015ec239e1"},
+    {file = "more_itertools-10.2.0-py3-none-any.whl", hash = "sha256:686b06abe565edfab151cb8fd385a05651e1fdf8f0a14191e4439283421f8684"},
 ]
 
 [[package]]
@@ -2451,6 +2462,41 @@ lint = ["docutils-stubs", "flake8 (>=3.5.0)", "flake8-simplify", "isort", "mypy 
 test = ["cython", "filelock", "html5lib", "pytest (>=4.6)"]
 
 [[package]]
+name = "sphinx"
+version = "7.2.6"
+description = "Python documentation generator"
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "sphinx-7.2.6-py3-none-any.whl", hash = "sha256:1e09160a40b956dc623c910118fa636da93bd3ca0b9876a7b3df90f07d691560"},
+    {file = "sphinx-7.2.6.tar.gz", hash = "sha256:9a5160e1ea90688d5963ba09a2dcd8bdd526620edbb65c328728f1b2228d5ab5"},
+]
+
+[package.dependencies]
+alabaster = ">=0.7,<0.8"
+babel = ">=2.9"
+colorama = {version = ">=0.4.5", markers = "sys_platform == \"win32\""}
+docutils = ">=0.18.1,<0.21"
+imagesize = ">=1.3"
+importlib-metadata = {version = ">=4.8", markers = "python_version < \"3.10\""}
+Jinja2 = ">=3.0"
+packaging = ">=21.0"
+Pygments = ">=2.14"
+requests = ">=2.25.0"
+snowballstemmer = ">=2.0"
+sphinxcontrib-applehelp = "*"
+sphinxcontrib-devhelp = "*"
+sphinxcontrib-htmlhelp = ">=2.0.0"
+sphinxcontrib-jsmath = "*"
+sphinxcontrib-qthelp = "*"
+sphinxcontrib-serializinghtml = ">=1.1.9"
+
+[package.extras]
+docs = ["sphinxcontrib-websupport"]
+lint = ["docutils-stubs", "flake8 (>=3.5.0)", "flake8-simplify", "isort", "mypy (>=0.990)", "ruff", "sphinx-lint", "types-requests"]
+test = ["cython (>=3.0)", "filelock", "html5lib", "pytest (>=4.6)", "setuptools (>=67.0)"]
+
+[[package]]
 name = "sphinx-autobuild"
 version = "2021.3.14"
 description = "Rebuild Sphinx documentation on changes, with live-reload in the browser."
@@ -2530,6 +2576,24 @@ lint = ["docutils-stubs", "flake8", "mypy"]
 test = ["pytest"]
 
 [[package]]
+name = "sphinxcontrib-applehelp"
+version = "1.0.7"
+description = "sphinxcontrib-applehelp is a Sphinx extension which outputs Apple help books"
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "sphinxcontrib_applehelp-1.0.7-py3-none-any.whl", hash = "sha256:094c4d56209d1734e7d252f6e0b3ccc090bd52ee56807a5d9315b19c122ab15d"},
+    {file = "sphinxcontrib_applehelp-1.0.7.tar.gz", hash = "sha256:39fdc8d762d33b01a7d8f026a3b7d71563ea3b72787d5f00ad8465bd9d6dfbfa"},
+]
+
+[package.dependencies]
+Sphinx = ">=5"
+
+[package.extras]
+lint = ["docutils-stubs", "flake8", "mypy"]
+test = ["pytest"]
+
+[[package]]
 name = "sphinxcontrib-devhelp"
 version = "1.0.2"
 description = "sphinxcontrib-devhelp is a sphinx extension which outputs Devhelp document."
@@ -2545,6 +2609,24 @@ lint = ["docutils-stubs", "flake8", "mypy"]
 test = ["pytest"]
 
 [[package]]
+name = "sphinxcontrib-devhelp"
+version = "1.0.5"
+description = "sphinxcontrib-devhelp is a sphinx extension which outputs Devhelp documents"
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "sphinxcontrib_devhelp-1.0.5-py3-none-any.whl", hash = "sha256:fe8009aed765188f08fcaadbb3ea0d90ce8ae2d76710b7e29ea7d047177dae2f"},
+    {file = "sphinxcontrib_devhelp-1.0.5.tar.gz", hash = "sha256:63b41e0d38207ca40ebbeabcf4d8e51f76c03e78cd61abe118cf4435c73d4212"},
+]
+
+[package.dependencies]
+Sphinx = ">=5"
+
+[package.extras]
+lint = ["docutils-stubs", "flake8", "mypy"]
+test = ["pytest"]
+
+[[package]]
 name = "sphinxcontrib-htmlhelp"
 version = "2.0.1"
 description = "sphinxcontrib-htmlhelp is a sphinx extension which renders HTML help files"
@@ -2554,6 +2636,24 @@ files = [
     {file = "sphinxcontrib-htmlhelp-2.0.1.tar.gz", hash = "sha256:0cbdd302815330058422b98a113195c9249825d681e18f11e8b1f78a2f11efff"},
     {file = "sphinxcontrib_htmlhelp-2.0.1-py3-none-any.whl", hash = "sha256:c38cb46dccf316c79de6e5515e1770414b797162b23cd3d06e67020e1d2a6903"},
 ]
+
+[package.extras]
+lint = ["docutils-stubs", "flake8", "mypy"]
+test = ["html5lib", "pytest"]
+
+[[package]]
+name = "sphinxcontrib-htmlhelp"
+version = "2.0.4"
+description = "sphinxcontrib-htmlhelp is a sphinx extension which renders HTML help files"
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "sphinxcontrib_htmlhelp-2.0.4-py3-none-any.whl", hash = "sha256:8001661c077a73c29beaf4a79968d0726103c5605e27db92b9ebed8bab1359e9"},
+    {file = "sphinxcontrib_htmlhelp-2.0.4.tar.gz", hash = "sha256:6c26a118a05b76000738429b724a0568dbde5b72391a688577da08f11891092a"},
+]
+
+[package.dependencies]
+Sphinx = ">=5"
 
 [package.extras]
 lint = ["docutils-stubs", "flake8", "mypy"]
@@ -2589,6 +2689,24 @@ lint = ["docutils-stubs", "flake8", "mypy"]
 test = ["pytest"]
 
 [[package]]
+name = "sphinxcontrib-qthelp"
+version = "1.0.6"
+description = "sphinxcontrib-qthelp is a sphinx extension which outputs QtHelp documents"
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "sphinxcontrib_qthelp-1.0.6-py3-none-any.whl", hash = "sha256:bf76886ee7470b934e363da7a954ea2825650013d367728588732c7350f49ea4"},
+    {file = "sphinxcontrib_qthelp-1.0.6.tar.gz", hash = "sha256:62b9d1a186ab7f5ee3356d906f648cacb7a6bdb94d201ee7adf26db55092982d"},
+]
+
+[package.dependencies]
+Sphinx = ">=5"
+
+[package.extras]
+lint = ["docutils-stubs", "flake8", "mypy"]
+test = ["pytest"]
+
+[[package]]
 name = "sphinxcontrib-serializinghtml"
 version = "1.1.5"
 description = "sphinxcontrib-serializinghtml is a sphinx extension which outputs \"serialized\" HTML files (json and pickle)."
@@ -2598,6 +2716,24 @@ files = [
     {file = "sphinxcontrib-serializinghtml-1.1.5.tar.gz", hash = "sha256:aa5f6de5dfdf809ef505c4895e51ef5c9eac17d0f287933eb49ec495280b6952"},
     {file = "sphinxcontrib_serializinghtml-1.1.5-py2.py3-none-any.whl", hash = "sha256:352a9a00ae864471d3a7ead8d7d79f5fc0b57e8b3f95e9867eb9eb28999b92fd"},
 ]
+
+[package.extras]
+lint = ["docutils-stubs", "flake8", "mypy"]
+test = ["pytest"]
+
+[[package]]
+name = "sphinxcontrib-serializinghtml"
+version = "1.1.9"
+description = "sphinxcontrib-serializinghtml is a sphinx extension which outputs \"serialized\" HTML files (json and pickle)"
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "sphinxcontrib_serializinghtml-1.1.9-py3-none-any.whl", hash = "sha256:9b36e503703ff04f20e9675771df105e58aa029cfcbc23b8ed716019b7416ae1"},
+    {file = "sphinxcontrib_serializinghtml-1.1.9.tar.gz", hash = "sha256:0c64ff898339e1fac29abd2bf5f11078f3ec413cfe9c046d3120d7ca65530b54"},
+]
+
+[package.dependencies]
+Sphinx = ">=5"
 
 [package.extras]
 lint = ["docutils-stubs", "flake8", "mypy"]
@@ -2727,13 +2863,13 @@ testing = ["build[virtualenv] (>=0.10)", "covdefaults (>=2.3)", "detect-test-pol
 
 [[package]]
 name = "trove-classifiers"
-version = "2023.11.29"
+version = "2024.1.8"
 description = "Canonical source for classifiers on PyPI (pypi.org)."
 optional = false
 python-versions = "*"
 files = [
-    {file = "trove-classifiers-2023.11.29.tar.gz", hash = "sha256:ff8f7fd82c7932113b46e7ef6742c70091cc63640c8c65db00d91f2e940b9514"},
-    {file = "trove_classifiers-2023.11.29-py3-none-any.whl", hash = "sha256:02307750cbbac2b3d13078662f8a5bf077732bf506e9c33c97204b7f68f3699e"},
+    {file = "trove-classifiers-2024.1.8.tar.gz", hash = "sha256:6e36caf430ff6485c4b57a4c6b364a13f6a898d16b9417c6c37467e59c14b05a"},
+    {file = "trove_classifiers-2024.1.8-py3-none-any.whl", hash = "sha256:3c1ff4deb10149c7e39ede6e5bbc107def64362ef1ee7590ec98d71fb92f1b6a"},
 ]
 
 [[package]]
@@ -2947,4 +3083,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">= 3.8,<4.0"
-content-hash = "f327d351a1eff24b4e51fdf13ca68172874abd6a45497936dde92debf5fe3074"
+content-hash = "a9edba508dd1bc24399b6d6ad648862e2f8c02c949ab0427f43115434ba957ca"
