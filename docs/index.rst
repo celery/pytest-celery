@@ -1,20 +1,45 @@
-.. pytest-celery documentation master file, created by
-   sphinx-quickstart on Tue Oct 19 13:33:33 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+===================================================
+ pytest-celery - Testing Infrastructure for Celery
+===================================================
 
-Welcome to pytest-celery's documentation!
-==========================================
+TBD
 
-Contents:
----------
+pytest-celery has a growing community of users and contributors. Join us
+in making pytest-celery even better!
+
+pytest-celery is Open Source and licensed under the BSD License.
+
+Supporting pytest-celery
+========================
+
+Your contributions support the continued development of pytest-celery.
+
+If you find pytest-celery valuable, please consider supporting us to ensure its
+future growth and maintenance.
+
+Getting Started
+===============
+
+- Begin your journey with pytest-celery by following the :ref:`getting-started`.
+- For common questions, you might want to check out the :ref:`faq`.
+
+Contents
+========
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 1
 
-Indices and tables
-==================
+    introduction
+    getting-started/index
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. toctree::
+    :maxdepth: 2
+
+    userguide/index
+
+.. toctree::
+    :maxdepth: 1
+
+    faq
+    changelog
+    contributing
