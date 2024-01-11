@@ -1,27 +1,30 @@
 ===================================================
- pytest-celery - Testing Infrastructure for Celery
+ pytest-celery - Official pytest plugin for Celery
 ===================================================
 
-TBD
+Welcome to pytest-celery, the official pytest plugin for Celery.
 
-pytest-celery has a growing community of users and contributors. Join us
-in making pytest-celery even better!
+Pytest Celery is Open Source and licensed under the `BSD License`_.
 
-pytest-celery is Open Source and licensed under the BSD License.
+.. _`BSD License`: http://www.opensource.org/licenses/BSD-3-Clause
 
-Supporting pytest-celery
-========================
+Donations
+=========
 
-Your contributions support the continued development of pytest-celery.
+This project relies on your generous donations.
 
-If you find pytest-celery valuable, please consider supporting us to ensure its
-future growth and maintenance.
+If you are using Pytest Celery to test a commercial product, please consider becoming our `backer`_ or our `sponsor`_ to ensure Pytest Celery's future.
+
+.. _`backer`: https://opencollective.com/celery#backer
+.. _`sponsor`: https://opencollective.com/celery#sponsor
 
 Getting Started
 ===============
 
-- Begin your journey with pytest-celery by following the :ref:`getting-started`.
-- For common questions, you might want to check out the :ref:`faq`.
+- If you're new to Celery you can get started by following
+  the :ref:`first-steps` tutorial.
+
+- You can also check out the :ref:`FAQ <faq>`.
 
 Contents
 ========
@@ -34,7 +37,6 @@ Contents
 .. toctree::
     :maxdepth: 1
 
-    introduction
     getting-started/index
 
 .. toctree::
@@ -48,3 +50,9 @@ Contents
     faq
     changelog
     contributing
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`search`

@@ -5,28 +5,25 @@ globals().update(
         "pytest_celery",
         __file__,
         project="Pytest Celery",
-        version_dev="2.0",
+        version_dev="1.1",
         version_stable="1.0",
-        canonical_url="https://docs.pytest-celery.dev",  # Update with your documentation URL
-        webdomain="pytest-celery.dev",  # Update with your domain
+        canonical_url="https://pytest-celery.readthedocs.io/",
+        webdomain="pytest-celery.readthedocs.io",
         github_project="celery/pytest-celery",
         author="Tomer Nosrati",
         author_name="Tomer Nosrati",
-        copyright="2023",
+        copyright="2024",
         publisher="Celery Project",
-        # html_logo='images/logo.png',
-        # html_favicon='images/favicon.ico',
+        html_logo="images/celery_512.png",
+        html_favicon="images/favicon.ico",
+        html_prepend_sidebars=["sidebardonations.html"],
         extra_extensions=[
             "sphinx_click",
             "sphinx.ext.napoleon",
-            # ... other extensions ...
+            "celery.contrib.sphinx",
         ],
-        extra_intersphinx_mapping={
-            # ... other intersphinx mappings ...
-        },
-        apicheck_ignore_modules=[],
-        linkcheck_ignore=[r"^http://localhost"],
+        apicheck_ignore_modules=[
+            "celery.contrib",
+        ],
     )
 )
-
-settings = {}
