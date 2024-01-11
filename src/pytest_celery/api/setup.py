@@ -145,19 +145,6 @@ class CeleryTestSetup:
 
         return app
 
-    def chords_allowed(self) -> bool:
-        # TODO: Possibly a not relevant
-        try:
-            self.app.backend.ensure_chords_allowed()
-        except NotImplementedError:
-            return False
-
-        # TODO: Possibly a bug
-        if any([v.startswith("4.") for v in self.worker_cluster.versions]):
-            return False
-
-        return True
-
     def teardown(self) -> None:
         """Teardown the setup."""
 

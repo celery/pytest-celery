@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import pytest
 from celery.canvas import chain
 from celery.canvas import chord
 from celery.canvas import group
@@ -69,9 +68,6 @@ class test_canvas:
 
     def test_chord(self, celery_setup: CeleryTestSetup):
         worker: CeleryTestWorker
-        if not celery_setup.chords_allowed():
-            pytest.skip("Chords are not supported")
-
         for worker in celery_setup.worker_cluster:
             queue = worker.worker_queue
 
