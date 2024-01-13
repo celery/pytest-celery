@@ -4,7 +4,7 @@ globals().update(
     conf.build_config(
         "pytest_celery",
         __file__,
-        project="Pytest Celery",
+        project="pytest_celery",
         version_dev="1.1",
         version_stable="1.0",
         canonical_url="https://pytest-celery.readthedocs.io/",
