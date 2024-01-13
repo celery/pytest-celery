@@ -28,3 +28,14 @@ globals().update(
         ],
     )
 )
+
+settings = {}
+ignored_settings = {}
+
+
+def configcheck_project_settings():
+    return set(settings)
+
+
+def configcheck_should_ignore(setting):
+    return setting in ignored_settings
