@@ -206,9 +206,8 @@ livehtml:
 
 .PHONY: apidoc
 apidoc:
-	# Remove the existing modules.rst or index.rst to prevent conflicts
-	@rm -f $(SOURCEDIR)/reference/modules.rst
-	@rm -f $(SOURCEDIR)/reference/index.rst
+	# Remove the existing reference directory
+	@rm -rf $(SOURCEDIR)/reference
 	# Generate new .rst files with sphinx-apidoc
 	@sphinx-apidoc -o $(SOURCEDIR)/reference $(SOURCEDIR)/../src -H "API Documentation"
 	# Rename modules.rst to index.rst
