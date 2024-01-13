@@ -1,6 +1,10 @@
 ===================================================
- pytest-celery - Official pytest plugin for Celery
+ Pytest Celery - Official pytest plugin for Celery
 ===================================================
+
+.. warning::
+
+    Documentation under construction!
 
 Welcome to pytest-celery, the official pytest plugin for Celery.
 
@@ -13,7 +17,8 @@ Donations
 
 This project relies on your generous donations.
 
-If you are using Pytest Celery to test a commercial product, please consider becoming our `backer`_ or our `sponsor`_ to ensure Pytest Celery's future.
+If you are using Pytest Celery to test a commercial product, please consider becoming
+our `backer`_ or our `sponsor`_ to ensure Pytest Celery's future.
 
 .. _`backer`: https://opencollective.com/celery#backer
 .. _`sponsor`: https://opencollective.com/celery#sponsor
@@ -21,9 +26,7 @@ If you are using Pytest Celery to test a commercial product, please consider bec
 Getting Started
 ===============
 
-- If you're new to Celery you can get started by following
-  the :ref:`first-steps` tutorial.
-
+- If you're new to pytest-celery you can get started by following the :ref:`getting-started` tutorial.
 - You can also check out the :ref:`FAQ <faq>`.
 
 Contents
@@ -35,21 +38,18 @@ Contents
     copyright
 
 .. toctree::
-    :maxdepth: 1
-
-    getting-started/index
-
-.. toctree::
     :maxdepth: 2
 
+    getting-started/index
     userguide/index
 
 .. toctree::
     :maxdepth: 1
 
+    contributing
     faq
     changelog
-    contributing
+    glossary
 
 Indices and tables
 ==================
