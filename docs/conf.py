@@ -20,6 +20,7 @@ globals().update(
         extra_extensions=[
             "sphinx_click",
             "sphinx.ext.napoleon",
+            "sphinx.ext.autodoc",
             "celery.contrib.sphinx",
         ],
         apicheck_ignore_modules=[

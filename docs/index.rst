@@ -46,6 +46,7 @@ Contents
 .. toctree::
     :maxdepth: 1
 
+    reference/index
     contributing
     faq
     changelog
@@ -55,4 +56,5 @@ Indices and tables
 ==================
 
 * :ref:`genindex`
+* :ref:`modindex`
 * :ref:`search`
