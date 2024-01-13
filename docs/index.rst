@@ -20,8 +20,8 @@ This project relies on your generous donations.
 If you are using Pytest Celery to test a commercial product, please consider becoming
 our `backer`_ or our `sponsor`_ to ensure Pytest Celery's future.
 
-.. _`backer`: https://opencollective.com/celery#backer
-.. _`sponsor`: https://opencollective.com/celery#sponsor
+.. _`backer`: https://opencollective.com/celery
+.. _`sponsor`: https://opencollective.com/celery
 
 Getting Started
 ===============
