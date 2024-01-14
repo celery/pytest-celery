@@ -4,7 +4,7 @@ globals().update(
     conf.build_config(
         "pytest_celery",
         __file__,
-        project="Pytest Celery",
+        project="pytest_celery",
         version_dev="1.1",
         version_stable="1.0",
         canonical_url="https://pytest-celery.readthedocs.io/",
@@ -23,7 +23,20 @@ globals().update(
             "celery.contrib.sphinx",
         ],
         apicheck_ignore_modules=[
-            "celery.contrib",
+            r"celery.contrib.*",
         ],
+        linkcheck_ignore=[r"^http://localhost"],
+        autodoc_mock_imports=[],
     )
 )
+
+settings = {}
+ignored_settings = {}
+
+
+def configcheck_project_settings():
+    return set(settings)
+
+
+def configcheck_should_ignore(setting):
+    return setting in ignored_settings

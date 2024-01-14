@@ -43,6 +43,7 @@ help:
 	@echo "  coverage   to run coverage check of the documentation (if enabled)"
 	@echo "  apicheck   to verify that all modules are present in autodoc"
 	@echo "  configcheck to verify that all modules are present in autodoc"
+	@echo "  apidoc     to regenerate API documentation with sphinx-apidoc"
 
 .PHONY: clean
 clean:
@@ -202,3 +203,15 @@ pseudoxml:
 .PHONY: livehtml
 livehtml:
 	sphinx-autobuild -b html --host 0.0.0.0 --port 7010 --watch $(APP) -c . $(SOURCEDIR) $(BUILDDIR)/html
+
+.PHONY: apidoc
+apidoc:
+	# Remove the existing reference directory
+	@rm -rf $(SOURCEDIR)/reference
+	# Generate new .rst files with sphinx-apidoc
+	@sphinx-apidoc -o $(SOURCEDIR)/reference $(SOURCEDIR)/../src -H "API Documentation"
+	# Rename modules.rst to index.rst
+	@mv $(SOURCEDIR)/reference/modules.rst $(SOURCEDIR)/reference/index.rst
+	# Add the .. _apiref: line to the beginning of index.rst
+	@echo ".. _apiref:\n\n$$(cat $(SOURCEDIR)/reference/index.rst)" > $(SOURCEDIR)/reference/index.rst
+	@echo "API documentation regenerated."

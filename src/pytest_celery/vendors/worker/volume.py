@@ -30,7 +30,7 @@ class WorkerInitialContent:
                 modules (set[ModuleType]): A set of modules to parse.
 
             Returns:
-                str: "from module import *" statements.
+                str: "from module import \\*" statements.
             """
             return "".join(f"from {module.__name__} import *\n" for module in modules)
 
