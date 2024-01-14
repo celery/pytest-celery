@@ -27,6 +27,7 @@ class CeleryWorkerContainer(CeleryTestContainer):
     """
 
     def _wait_port(self, port: str) -> int:
+        # Not needed for worker container
         raise NotImplementedError
 
     @property
@@ -35,18 +36,22 @@ class CeleryWorkerContainer(CeleryTestContainer):
 
     @classmethod
     def version(cls) -> str:
+        """Celery version to use for the worker container."""
         return DEFAULT_WORKER_VERSION
 
     @classmethod
     def log_level(cls) -> str:
+        """Celery worker log level."""
         return DEFAULT_WORKER_LOG_LEVEL
 
     @classmethod
     def worker_name(cls) -> str:
+        """Celery worker name."""
         return DEFAULT_WORKER_NAME
 
     @classmethod
     def worker_queue(cls) -> str:
+        """Celery worker queue."""
         return DEFAULT_WORKER_QUEUE
 
     @classmethod

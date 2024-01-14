@@ -6,8 +6,8 @@ from pytest_celery.defaults import DEFAULT_WORKER_ENV
 
 
 class CeleryTestBroker(CeleryTestNode):
-    """CeleryTestBroker is specialized node type for handling celery brokers
-    nodes. It is used to encapsulate a broker instance.
+    """This is specialized node type for handling celery brokers nodes. It is
+    used to encapsulate a broker instance.
 
     Responsibility Scope:
         Handling broker specific requirements and configuration.
@@ -21,7 +21,8 @@ class CeleryTestBroker(CeleryTestNode):
         }
 
     def restart(self, reload_container: bool = True, force: bool = False) -> None:
-        """Override restart method to update the app broker url with new container values."""
+        """Override restart method to update the app broker url with new
+        container values."""
         super().restart(reload_container, force)
         if self.app:
             self.app.conf.update(
@@ -30,9 +31,8 @@ class CeleryTestBroker(CeleryTestNode):
 
 
 class CeleryBrokerCluster(CeleryTestCluster):
-    """CeleryBrokerCluster is a specialized cluster type for handling celery
-    brokers. It is used to define which broker instances are available for the
-    test.
+    """This is a specialized cluster type for handling celery brokers. It is
+    used to define which broker instances are available for the test.
 
     Responsibility Scope:
         Provude useful methods for managing a cluster of celery brokers.
