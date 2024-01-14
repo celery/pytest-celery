@@ -44,6 +44,7 @@ class CeleryTestNode:
         return self._app
 
     def __eq__(self, other: object) -> bool:
+        """Two nodes are equal if they have the same container and Celery app."""
         if isinstance(other, CeleryTestNode):
             return all(
                 (

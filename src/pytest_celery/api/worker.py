@@ -106,16 +106,6 @@ class CeleryWorkerCluster(CeleryTestCluster):
         Provude useful methods for managing a cluster of celery workers.
     """
 
-    def __init__(self, *workers: tuple[CeleryTestWorker | CeleryTestContainer]) -> None:
-        super().__init__(*workers)
-
-    def _set_nodes(
-        self,
-        *nodes: tuple[CeleryTestNode | CeleryTestContainer],
-        node_cls: type[CeleryTestNode] = CeleryTestWorker,
-    ) -> tuple[CeleryTestNode]:
-        return super()._set_nodes(*nodes, node_cls=node_cls)
-
     @property
     def versions(self) -> set[str]:
         """Celery versions of all workers in this cluster."""
