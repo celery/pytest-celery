@@ -1,0 +1,24 @@
+.. _pytest_celery-installation:
+
+Installation
+============
+
+You can install Pytest Celery either via the Python Package Index (PyPI).
+
+To install using :command:`pip`:
+
+.. code-block:: console
+
+    $ pip install -U pytest-celery
+
+.. _pytest_celery-installing-from-git:
+
+Using the development version
+-----------------------------
+
+TBD
+
+With git
+~~~~~~~~
+
+Please see the :ref:`Contributing <contributing>` section.

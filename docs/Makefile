@@ -212,4 +212,6 @@ apidoc:
 	@sphinx-apidoc -o $(SOURCEDIR)/reference $(SOURCEDIR)/../src -H "API Documentation"
 	# Rename modules.rst to index.rst
 	@mv $(SOURCEDIR)/reference/modules.rst $(SOURCEDIR)/reference/index.rst
-	@echo "API documentation updated."
+	# Add the .. _apiref: line to the beginning of index.rst
+	@echo ".. _apiref:\n\n$$(cat $(SOURCEDIR)/reference/index.rst)" > $(SOURCEDIR)/reference/index.rst
+	@echo "API documentation regenerated."
