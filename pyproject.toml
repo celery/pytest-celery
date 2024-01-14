@@ -67,6 +67,10 @@ version = "1.0.0a12"
 search = '__version__ = "{current_version}"'
 replace = '__version__ = "{new_version}"'
 
+[tool.poetry_bumpversion.file."README.rst"]
+search = ':Version: {current_version}'
+replace = ':Version: {new_version}'
+
 [tool.poetry.dependencies]
 python = ">= 3.8,<4.0"
 celery = { version = "^5", extras = ["redis", "pymemcache"] }
