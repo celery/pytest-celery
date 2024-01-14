@@ -41,14 +41,14 @@ default_rabbitmq_broker = container(
 
 @pytest.fixture
 def default_rabbitmq_broker_env(default_rabbitmq_broker_cls: type[RabbitMQContainer]) -> dict:
-    yield default_rabbitmq_broker_cls.env()
+    return default_rabbitmq_broker_cls.env()
 
 
 @pytest.fixture
 def default_rabbitmq_broker_image(default_rabbitmq_broker_cls: type[RabbitMQContainer]) -> str:
-    yield default_rabbitmq_broker_cls.image()
+    return default_rabbitmq_broker_cls.image()
 
 
 @pytest.fixture
 def default_rabbitmq_broker_ports(default_rabbitmq_broker_cls: type[RabbitMQContainer]) -> dict:
-    yield default_rabbitmq_broker_cls.ports()
+    return default_rabbitmq_broker_cls.ports()

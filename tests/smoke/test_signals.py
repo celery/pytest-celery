@@ -13,7 +13,7 @@ def default_worker_signals(default_worker_signals: set) -> set:
     from tests.smoke import signals
 
     default_worker_signals.add(signals)
-    yield default_worker_signals
+    return default_worker_signals
 
 
 class test_signals:
