@@ -3,27 +3,19 @@ name: Linter
 on: [pull_request]
 
 jobs:
-  linter:
+  check:
+    name: ${{ matrix.check }} check
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        check: [lint, mypy]
     steps:
-
-      - name: Checkout branch
-        uses: actions/checkout@v4
-
-      - name: Run pre-commit
-        uses: pre-commit/action@v3.0.0
-
-  mypy:
-    runs-on: ubuntu-latest
-    steps:
-
       - name: Checkout branch
         uses: actions/checkout@v4
 
       - name: Install apt packages
         run: |
           sudo apt update
-          sudo apt install -y libmemcached-dev
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
@@ -38,8 +30,8 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1.3.4
 
-      - name: Install tox and mypy
-        run: poetry install --with ci
+      - name: Install CI dependencies
+        run: poetry install --only ci
 
-      - name: Run mypy
-        run: tox -e mypy
+      - name: Run check
+        run: tox -e ${{ matrix.check }}
