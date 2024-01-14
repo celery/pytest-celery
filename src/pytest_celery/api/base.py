@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import Any
 from typing import Iterator
 
 import pytest_docker_tools
@@ -14,9 +13,9 @@ from pytest_celery.defaults import RESULT_TIMEOUT
 
 
 class CeleryTestNode:
-    """CeleryTestNode is the logical representation of a container instance. It
-    is used to provide a common interface for interacting with the container
-    regardless of the underlying implementation.
+    """This is the logical representation of a container instance. It is used
+    to provide a common interface for interacting with the container regardless
+    of the underlying implementation.
 
     Responsibility Scope:
         The node's responsibility is to wrap the container and provide
@@ -44,6 +43,8 @@ class CeleryTestNode:
         return self._app
 
     def __eq__(self, other: object) -> bool:
+        """Two nodes are equal if they have the same container and Celery
+        app."""
         if isinstance(other, CeleryTestNode):
             return all(
                 (
@@ -152,8 +153,8 @@ class CeleryTestNode:
 
 
 class CeleryTestCluster:
-    """CeleryTestCluster is a collection of CeleryTestNodes. It is used to
-    collect the test nodes into a single object for easier management.
+    """This is a collection of CeleryTestNodes. It is used to collect the test
+    nodes into a single object for easier management.
 
     Responsibility Scope:
         The cluster's responsibility is to define which nodes will be used for
@@ -194,19 +195,24 @@ class CeleryTestCluster:
         self._nodes = self._set_nodes(*nodes)  # type: ignore
 
     def __iter__(self) -> Iterator[CeleryTestNode]:
+        """Iterate over the nodes of the cluster."""
         return iter(self.nodes)
 
-    def __getitem__(self, index: Any) -> CeleryTestNode:
+    def __getitem__(self, index: int) -> CeleryTestNode:
+        """Get a node from the cluster by index."""
         return self.nodes[index]
 
     def __len__(self) -> int:
+        """Get the number of nodes in the cluster."""
         return len(self.nodes)
 
     def __eq__(self, other: object) -> bool:
+        """Two clusters are equal if they have the same nodes."""
         if isinstance(other, CeleryTestCluster):
-            for node in self:
-                if node not in other:
-                    return False
+            if len(self) == len(other):
+                for node in self:
+                    if node not in other:
+                        return False
         return False
 
     @classmethod

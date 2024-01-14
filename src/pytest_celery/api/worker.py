@@ -11,8 +11,8 @@ from pytest_celery.vendors.worker.container import CeleryWorkerContainer
 
 
 class CeleryTestWorker(CeleryTestNode):
-    """CeleryTestWorker is specialized node type for handling celery worker
-    nodes. It is used to encapsulate a worker instance.
+    """This is specialized node type for handling celery worker nodes. It is
+    used to encapsulate a worker instance.
 
     Responsibility Scope:
         Managing a celery worker.
@@ -98,23 +98,12 @@ class CeleryTestWorker(CeleryTestNode):
 
 
 class CeleryWorkerCluster(CeleryTestCluster):
-    """CeleryWorkerCluster is a specialized cluster type for handling celery
-    workers. It is used to define which worker instances are available for the
-    test.
+    """This is a specialized cluster type for handling celery workers. It is
+    used to define which worker instances are available for the test.
 
     Responsibility Scope:
         Provude useful methods for managing a cluster of celery workers.
     """
-
-    def __init__(self, *workers: tuple[CeleryTestWorker | CeleryTestContainer]) -> None:
-        super().__init__(*workers)
-
-    def _set_nodes(
-        self,
-        *nodes: tuple[CeleryTestNode | CeleryTestContainer],
-        node_cls: type[CeleryTestNode] = CeleryTestWorker,
-    ) -> tuple[CeleryTestNode]:
-        return super()._set_nodes(*nodes, node_cls=node_cls)
 
     @property
     def versions(self) -> set[str]:

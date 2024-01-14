@@ -49,6 +49,7 @@ class CeleryTestSetup:
         self.ping = ping
 
     def __len__(self) -> int:
+        """The total number of nodes in the setup."""
         return len(self._worker_cluster) + len(self._broker_cluster) + len(self._backend_cluster)
 
     @property
@@ -88,6 +89,7 @@ class CeleryTestSetup:
 
     @classmethod
     def name(cls) -> str:
+        """The name of the setup."""
         # TODO: Possibly not needed/required refactoring
         return DEFAULT_WORKER_APP_NAME
 

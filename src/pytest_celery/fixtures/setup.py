@@ -55,7 +55,7 @@ def celery_setup(  # type: ignore
 @pytest.fixture
 def celery_setup_name(celery_setup_cls: type[CeleryTestSetup]) -> str:  # type: ignore
     """Fixture interface to the API."""
-    yield celery_setup_cls.name()
+    return celery_setup_cls.name()
 
 
 @pytest.fixture
@@ -64,7 +64,7 @@ def celery_setup_config(
     celery_worker_cluster_config: dict,
 ) -> dict:
     """Fixture interface to the API."""
-    yield celery_setup_cls.config(
+    return celery_setup_cls.config(
         celery_worker_cluster_config=celery_worker_cluster_config,
     )
 
@@ -76,7 +76,7 @@ def celery_setup_app(
     celery_setup_name: str,
 ) -> Celery:
     """Fixture interface to the API."""
-    yield celery_setup_cls.create_setup_app(
+    return celery_setup_cls.create_setup_app(
         celery_setup_config=celery_setup_config,
         celery_setup_app_name=celery_setup_name,
     )

@@ -12,6 +12,6 @@ class RedisTestBackend(CeleryTestBackend):
         # and the Redis container. The AsyncResult object tries
         # to release the connection but the Redis container has already
         # exited. This causes a warning to be logged. To avoid this
-        # warning we force a garbage collection here.
+        # warning to our best effort we force a garbage collection here.
         gc.collect(1)
         super().teardown()

@@ -41,14 +41,14 @@ default_memcached_backend = container(
 
 @pytest.fixture
 def default_memcached_backend_env(default_memcached_backend_cls: type[MemcachedContainer]) -> dict:
-    yield default_memcached_backend_cls.env()
+    return default_memcached_backend_cls.env()
 
 
 @pytest.fixture
 def default_memcached_backend_image(default_memcached_backend_cls: type[MemcachedContainer]) -> str:
-    yield default_memcached_backend_cls.image()
+    return default_memcached_backend_cls.image()
 
 
 @pytest.fixture
 def default_memcached_backend_ports(default_memcached_backend_cls: type[MemcachedContainer]) -> dict:
-    yield default_memcached_backend_cls.ports()
+    return default_memcached_backend_cls.ports()

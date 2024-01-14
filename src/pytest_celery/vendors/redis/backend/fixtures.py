@@ -42,14 +42,14 @@ default_redis_backend = container(
 
 @pytest.fixture
 def default_redis_backend_env(default_redis_backend_cls: type[RedisContainer]) -> dict:
-    yield default_redis_backend_cls.env()
+    return default_redis_backend_cls.env()
 
 
 @pytest.fixture
 def default_redis_backend_image(default_redis_backend_cls: type[RedisContainer]) -> str:
-    yield default_redis_backend_cls.image()
+    return default_redis_backend_cls.image()
 
 
 @pytest.fixture
 def default_redis_backend_ports(default_redis_backend_cls: type[RedisContainer]) -> dict:
-    yield default_redis_backend_cls.ports()
+    return default_redis_backend_cls.ports()

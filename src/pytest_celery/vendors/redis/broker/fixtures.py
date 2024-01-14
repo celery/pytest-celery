@@ -42,14 +42,14 @@ default_redis_broker = container(
 
 @pytest.fixture
 def default_redis_broker_env(default_redis_broker_cls: type[RedisContainer]) -> dict:
-    yield default_redis_broker_cls.env()
+    return default_redis_broker_cls.env()
 
 
 @pytest.fixture
 def default_redis_broker_image(default_redis_broker_cls: type[RedisContainer]) -> str:
-    yield default_redis_broker_cls.image()
+    return default_redis_broker_cls.image()
 
 
 @pytest.fixture
 def default_redis_broker_ports(default_redis_broker_cls: type[RedisContainer]) -> dict:
-    yield default_redis_broker_cls.ports()
+    return default_redis_broker_cls.ports()
