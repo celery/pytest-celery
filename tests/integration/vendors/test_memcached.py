@@ -19,17 +19,17 @@ class test_memcached_container:
         assert container.client.delete("ready")
 
     def test_celeryconfig(self, container: MemcachedContainer):
-        expected_keys = {"url", "local_url", "hostname", "port"}
+        expected_keys = {"url", "host_url", "hostname", "port"}
         config = container.celeryconfig
         assert set(config.keys()) == expected_keys
         assert container.prefix() in config["url"]
-        assert container.prefix() in config["local_url"]
+        assert container.prefix() in config["host_url"]
 
 
 @pytest.mark.parametrize("backend", [lazy_fixture(CELERY_MEMCACHED_BACKEND)])
 class test_memcached_test_backend:
     def test_config(self, backend: MemcachedTestBackend):
-        expected_keys = {"url", "local_url", "hostname", "port"}
+        expected_keys = {"url", "host_url", "hostname", "port"}
         assert set(backend.config().keys()) == expected_keys
         assert backend.container.prefix() in backend.config()["url"]
-        assert backend.container.prefix() in backend.config()["local_url"]
+        assert backend.container.prefix() in backend.config()["host_url"]

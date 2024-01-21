@@ -13,7 +13,7 @@ class RedisContainer(CeleryTestContainer):
     @property
     def client(self) -> Redis | None:
         client = Redis.from_url(
-            self.celeryconfig["local_url"],
+            self.celeryconfig["host_url"],
             decode_responses=True,
         )
         return client
@@ -22,7 +22,7 @@ class RedisContainer(CeleryTestContainer):
     def celeryconfig(self) -> dict:
         return {
             "url": self.url,
-            "local_url": self.local_url,
+            "host_url": self.host_url,
             "hostname": self.hostname,
             "port": self.port,
             "vhost": self.vhost,
@@ -37,7 +37,7 @@ class RedisContainer(CeleryTestContainer):
         return f"{self.prefix()}{self.hostname}/{self.vhost}"
 
     @property
-    def local_url(self) -> str:
+    def host_url(self) -> str:
         return f"{self.prefix()}localhost:{self.port}/{self.vhost}"
 
     @property

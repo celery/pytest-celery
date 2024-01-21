@@ -21,17 +21,17 @@ class test_rabbitmq_container:
             c.release()
 
     def test_celeryconfig(self, container: RabbitMQContainer):
-        expected_keys = {"url", "local_url", "hostname", "port", "vhost"}
+        expected_keys = {"url", "host_url", "hostname", "port", "vhost"}
         config = container.celeryconfig
         assert set(config.keys()) == expected_keys
         assert container.prefix() in config["url"]
-        assert container.prefix() in config["local_url"]
+        assert container.prefix() in config["host_url"]
 
 
 @pytest.mark.parametrize("broker", [lazy_fixture(CELERY_RABBITMQ_BROKER)])
 class test_rabbitmq_test_broker:
     def test_config(self, broker: RabbitMQTestBroker):
-        expected_keys = {"url", "local_url", "hostname", "port", "vhost"}
+        expected_keys = {"url", "host_url", "hostname", "port", "vhost"}
         assert set(broker.config().keys()) == expected_keys
         assert broker.container.prefix() in broker.config()["url"]
-        assert broker.container.prefix() in broker.config()["local_url"]
+        assert broker.container.prefix() in broker.config()["host_url"]

@@ -11,6 +11,7 @@ ARG CELERY_VERSION=""
 ARG CELERY_LOG_LEVEL=INFO
 ARG CELERY_WORKER_NAME=celery_test_worker
 ARG CELERY_WORKER_QUEUE=celery
+ENV WORKER_VERSION=$CELERY_VERSION
 ENV LOG_LEVEL=$CELERY_LOG_LEVEL
 ENV WORKER_NAME=$CELERY_WORKER_NAME
 ENV WORKER_QUEUE=$CELERY_WORKER_QUEUE
@@ -21,7 +22,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Install Python dependencies
 RUN pip install --no-cache-dir --upgrade \
     pip \
-    celery[redis,memcache,pymemcache]${CELERY_VERSION:+==$CELERY_VERSION} \
+    celery[redis,memcache,pymemcache]${WORKER_VERSION:+==$WORKER_VERSION} \
     psutil
 
 # The workdir must be /app

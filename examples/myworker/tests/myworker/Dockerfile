@@ -26,6 +26,9 @@ WORKDIR /src/celery
 
 RUN pip install -e .
 
+# The workdir must be /app
+WORKDIR /app
+
 # Switch to the test_user
 USER test_user
 

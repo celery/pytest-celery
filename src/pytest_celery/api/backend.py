@@ -17,7 +17,7 @@ class CeleryTestBackend(CeleryTestNode):
     def default_config(cls) -> dict:
         return {
             "url": DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"],
-            "local_url": DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"],
+            "host_url": DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"],
         }
 
     def restart(self, reload_container: bool = True, force: bool = False) -> None:
@@ -26,7 +26,7 @@ class CeleryTestBackend(CeleryTestNode):
         super().restart(reload_container, force)
         if self.app:
             self.app.conf.update(
-                result_backend=self.config()["local_url"],
+                result_backend=self.config()["host_url"],
             )
 
 
@@ -42,5 +42,5 @@ class CeleryBackendCluster(CeleryTestCluster):
     def default_config(cls) -> dict:
         return {
             "urls": [DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"]],
-            "local_urls": [DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"]],
+            "host_urls": [DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"]],
         }

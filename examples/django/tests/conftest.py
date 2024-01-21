@@ -38,7 +38,7 @@ class DjangoWorkerContainer(CeleryWorkerContainer):
 worker_image = build(
     path=".",
     dockerfile="tests/DjangoWorker.Dockerfile",
-    tag="pytest-celery/django:example",
+    tag="pytest-celery/examples/django:example",
     buildargs=DjangoWorkerContainer.buildargs(),
 )
 

@@ -113,7 +113,10 @@ class CeleryWorkerContainer(CeleryTestContainer):
             dict: Environment variables set for the worker container from the test case.
         """
         env = initial or {}
-        env = {**DEFAULT_WORKER_ENV.copy(), **env}
+        env = {
+            **DEFAULT_WORKER_ENV.copy(),
+            **env,
+        }
 
         config_mappings = [
             ("celery_broker_cluster_config", "CELERY_BROKER_URL"),
