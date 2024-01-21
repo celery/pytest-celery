@@ -255,7 +255,7 @@ class CeleryTestCluster:
         config = [node.container.celeryconfig for node in self]
         return {
             "urls": [c["url"] for c in config],
-            "local_urls": [c["local_url"] for c in config],
+            "host_urls": [c["host_url"] for c in config],
         }
 
     def teardown(self) -> None:

@@ -13,7 +13,7 @@ class MemcachedContainer(CeleryTestContainer):
     @property
     def client(self) -> memcache.Client:
         conf = self.celeryconfig
-        servers = [f"{conf['local_url'][:-1].split('://')[-1]}"]
+        servers = [f"{conf['host_url'][:-1].split('://')[-1]}"]
         client = memcache.Client(servers)
         return client
 
@@ -21,7 +21,7 @@ class MemcachedContainer(CeleryTestContainer):
     def celeryconfig(self) -> dict:
         return {
             "url": self.url,
-            "local_url": self.local_url,
+            "host_url": self.host_url,
             "hostname": self.hostname,
             "port": self.port,
         }
@@ -31,7 +31,7 @@ class MemcachedContainer(CeleryTestContainer):
         return f"{self.prefix()}{self.hostname}/"
 
     @property
-    def local_url(self) -> str:
+    def host_url(self) -> str:
         return f"{self.prefix()}localhost:{self.port}/"
 
     @property

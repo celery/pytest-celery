@@ -13,7 +13,7 @@ class RabbitMQContainer(CeleryTestContainer):
     @property
     def client(self) -> Connection:
         client = Connection(
-            self.celeryconfig["local_url"],
+            self.celeryconfig["host_url"],
             port=self.celeryconfig["port"],
         )
         return client
@@ -22,7 +22,7 @@ class RabbitMQContainer(CeleryTestContainer):
     def celeryconfig(self) -> dict:
         return {
             "url": self.url,
-            "local_url": self.local_url,
+            "host_url": self.host_url,
             "hostname": self.hostname,
             "port": self.port,
             "vhost": self.vhost,
@@ -33,7 +33,7 @@ class RabbitMQContainer(CeleryTestContainer):
         return f"{self.prefix()}{self.hostname}/{self.vhost}"
 
     @property
-    def local_url(self) -> str:
+    def host_url(self) -> str:
         return f"{self.prefix()}localhost:{self.port}/{self.vhost}"
 
     @property

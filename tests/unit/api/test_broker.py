@@ -15,7 +15,7 @@ from pytest_celery import CeleryTestBroker
 class test_celey_test_broker:
     def test_default_config_format(self, broker: CeleryTestBroker):
         assert broker.default_config()["url"] == DEFAULT_WORKER_ENV["CELERY_BROKER_URL"]
-        assert broker.default_config()["local_url"] == DEFAULT_WORKER_ENV["CELERY_BROKER_URL"]
+        assert broker.default_config()["host_url"] == DEFAULT_WORKER_ENV["CELERY_BROKER_URL"]
 
     def test_restart_no_app(self, broker: CeleryTestBroker):
         assert broker.app is None
@@ -32,7 +32,7 @@ class test_celey_test_broker:
 class test_celery_broker_cluster:
     def test_default_config_format(self, cluster: CeleryBrokerCluster):
         assert cluster.default_config()["urls"] == [DEFAULT_WORKER_ENV["CELERY_BROKER_URL"]]
-        assert cluster.default_config()["local_urls"] == [DEFAULT_WORKER_ENV["CELERY_BROKER_URL"]]
+        assert cluster.default_config()["host_urls"] == [DEFAULT_WORKER_ENV["CELERY_BROKER_URL"]]
 
     class test_disabling_cluster:
         @pytest.fixture

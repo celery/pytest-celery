@@ -15,7 +15,7 @@ from pytest_celery import CeleryTestBackend
 class test_celey_test_backend:
     def test_default_config_format(self, backend: CeleryTestBackend):
         assert backend.default_config()["url"] == DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"]
-        assert backend.default_config()["local_url"] == DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"]
+        assert backend.default_config()["host_url"] == DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"]
 
     def test_restart_no_app(self, backend: CeleryTestBackend):
         assert backend.app is None
@@ -32,7 +32,7 @@ class test_celey_test_backend:
 class test_celery_backend_cluster:
     def test_default_config_format(self, cluster: CeleryBackendCluster):
         assert cluster.default_config()["urls"] == [DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"]]
-        assert cluster.default_config()["local_urls"] == [DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"]]
+        assert cluster.default_config()["host_urls"] == [DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"]]
 
     class test_disabling_cluster:
         @pytest.fixture

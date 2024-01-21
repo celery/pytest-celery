@@ -17,7 +17,7 @@ class CeleryTestBroker(CeleryTestNode):
     def default_config(cls) -> dict:
         return {
             "url": DEFAULT_WORKER_ENV["CELERY_BROKER_URL"],
-            "local_url": DEFAULT_WORKER_ENV["CELERY_BROKER_URL"],
+            "host_url": DEFAULT_WORKER_ENV["CELERY_BROKER_URL"],
         }
 
     def restart(self, reload_container: bool = True, force: bool = False) -> None:
@@ -26,7 +26,7 @@ class CeleryTestBroker(CeleryTestNode):
         super().restart(reload_container, force)
         if self.app:
             self.app.conf.update(
-                broker_url=self.config()["local_url"],
+                broker_url=self.config()["host_url"],
             )
 
 
@@ -42,5 +42,5 @@ class CeleryBrokerCluster(CeleryTestCluster):
     def default_config(cls) -> dict:
         return {
             "urls": [DEFAULT_WORKER_ENV["CELERY_BROKER_URL"]],
-            "local_urls": [DEFAULT_WORKER_ENV["CELERY_BROKER_URL"]],
+            "host_urls": [DEFAULT_WORKER_ENV["CELERY_BROKER_URL"]],
         }

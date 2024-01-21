@@ -21,7 +21,7 @@ def mocked_container(spec: type) -> Mock:
     mocked_container.id = "mocked_test_container_id"
     mocked_container.celeryconfig = {
         "url": "mocked_url",
-        "local_url": "mocked_local_url",
+        "host_url": "mocked_host_url",
     }
     return mocked_container
 

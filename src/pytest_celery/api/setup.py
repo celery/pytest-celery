@@ -111,9 +111,9 @@ class CeleryTestSetup:
         celery_backend_cluster_config: dict = celery_worker_cluster_config.get("celery_backend_cluster_config", {})
         config = {}
         if celery_broker_cluster_config:
-            config["broker_url"] = ";".join(celery_broker_cluster_config["local_urls"])
+            config["broker_url"] = ";".join(celery_broker_cluster_config["host_urls"])
         if celery_backend_cluster_config:
-            config["result_backend"] = ";".join(celery_backend_cluster_config["local_urls"])
+            config["result_backend"] = ";".join(celery_backend_cluster_config["host_urls"])
         return config
 
     @classmethod
