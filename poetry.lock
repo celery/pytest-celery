@@ -273,13 +273,13 @@ files = [
 
 [[package]]
 name = "celery"
-version = "5.4.0rc1"
+version = "5.3.6"
 description = "Distributed Task Queue."
 optional = true
 python-versions = ">=3.8"
 files = [
-    {file = "celery-5.4.0rc1-py3-none-any.whl", hash = "sha256:0c1067c4b53b5d1a62bdde7a643452ab05e078f5370b5c8e2f2ed50d9ee79c4c"},
-    {file = "celery-5.4.0rc1.tar.gz", hash = "sha256:b7ae1bd7a87ffa9afa1662393032de70188446374abe9f2dfb97c2fa30d9071c"},
+    {file = "celery-5.3.6-py3-none-any.whl", hash = "sha256:9da4ea0118d232ce97dff5ed4974587fb1c0ff5c10042eb15278487cdd27d1af"},
+    {file = "celery-5.3.6.tar.gz", hash = "sha256:870cc71d737c0200c397290d730344cc991d13a057534353d124c9380267aab9"},
 ]
 
 [package.dependencies]
@@ -291,14 +291,14 @@ click-plugins = ">=1.1.1"
 click-repl = ">=0.2.0"
 kombu = ">=5.3.4,<6.0"
 python-dateutil = ">=2.8.2"
-python-memcached = {version = ">=1.61", optional = true, markers = "extra == \"pymemcache\""}
+python-memcached = {version = "1.59", optional = true, markers = "extra == \"pymemcache\""}
 redis = {version = ">=4.5.2,<4.5.5 || >4.5.5,<6.0.0", optional = true, markers = "extra == \"redis\""}
 tzdata = ">=2022.7"
 vine = ">=5.1.0,<6.0"
 
 [package.extras]
 arangodb = ["pyArango (>=2.0.2)"]
-auth = ["cryptography (==41.0.7)"]
+auth = ["cryptography (==41.0.5)"]
 azureblockblob = ["azure-storage-blob (>=12.15.0)"]
 brotli = ["brotli (>=1.0.0)", "brotlipy (>=0.7.0)"]
 cassandra = ["cassandra-driver (>=3.25.0,<4)"]
@@ -308,16 +308,16 @@ couchbase = ["couchbase (>=3.0.0)"]
 couchdb = ["pycouchdb (==1.14.2)"]
 django = ["Django (>=2.2.28)"]
 dynamodb = ["boto3 (>=1.26.143)"]
-elasticsearch = ["elastic-transport (<=8.11.0)", "elasticsearch (<=8.11.1)"]
+elasticsearch = ["elastic-transport (<=8.10.0)", "elasticsearch (<=8.11.0)"]
 eventlet = ["eventlet (>=0.32.0)"]
 gevent = ["gevent (>=1.5.0)"]
 librabbitmq = ["librabbitmq (>=2.0.0)"]
 memcache = ["pylibmc (==1.6.3)"]
 mongodb = ["pymongo[srv] (>=4.0.2)"]
 msgpack = ["msgpack (==1.0.7)"]
-pymemcache = ["python-memcached (>=1.61)"]
+pymemcache = ["python-memcached (==1.59)"]
 pyro = ["pyro4 (==4.82)"]
-pytest = ["pytest-celery (==1.0.0b1)"]
+pytest = ["pytest-celery (==0.0.0)"]
 redis = ["redis (>=4.5.2,!=4.5.5,<6.0.0)"]
 s3 = ["boto3 (>=1.26.143)"]
 slmq = ["softlayer-messaging (>=1.0.3)"]
@@ -2076,14 +2076,17 @@ six = ">=1.5"
 
 [[package]]
 name = "python-memcached"
-version = "1.62"
+version = "1.59"
 description = "Pure python memcached client"
 optional = true
 python-versions = "*"
 files = [
-    {file = "python-memcached-1.62.tar.gz", hash = "sha256:0285470599b7f593fbf3bec084daa1f483221e68c1db2cf1d846a9f7c2655103"},
-    {file = "python_memcached-1.62-py2.py3-none-any.whl", hash = "sha256:1bdd8d2393ff53e80cd5e9442d750e658e0b35c3eebb3211af137303e3b729d1"},
+    {file = "python-memcached-1.59.tar.gz", hash = "sha256:a2e28637be13ee0bf1a8b6843e7490f9456fd3f2a4cb60471733c7b5d5557e4f"},
+    {file = "python_memcached-1.59-py2.py3-none-any.whl", hash = "sha256:4dac64916871bd3550263323fc2ce18e1e439080a2d5670c594cf3118d99b594"},
 ]
+
+[package.dependencies]
+six = ">=1.4.0"
 
 [[package]]
 name = "pytz"
