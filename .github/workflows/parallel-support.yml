@@ -63,7 +63,7 @@ jobs:
 
       - name: Install tox
         run: |
-          poetry install --with ci
+          poetry install --only ci
 
       - name: Run tox for all environments in parallel
         timeout-minutes: 15
@@ -109,7 +109,7 @@ jobs:
 
       - name: Install tox
         run: |
-          poetry install --with ci
+          poetry install --only ci
 
       - name: Run tox for all environments in parallel
         timeout-minutes: 15

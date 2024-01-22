@@ -63,7 +63,7 @@ jobs:
 
       - name: Install tox
         run: |
-          poetry install --with ci
+          poetry install --only ci
 
       - name: Run tox for "${{ matrix.python-version }}-unit"
         timeout-minutes: 5
@@ -118,7 +118,7 @@ jobs:
 
       - name: Install tox
         run: |
-          poetry install --with ci
+          poetry install --only ci
 
       - name: Run tox for "${{ matrix.python-version }}-integration"
         timeout-minutes: 15
@@ -167,7 +167,7 @@ jobs:
 
       - name: Install tox
         run: |
-          poetry install --with ci
+          poetry install --only ci
 
       - name: Run tox for "${{ matrix.python-version }}-smoke"
         timeout-minutes: 15
