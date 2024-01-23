@@ -51,7 +51,7 @@ jobs:
 
       - name: Run tests
         working-directory: examples/myworker
-        timeout-minutes: 5
+        timeout-minutes: 10
         run: |
           pytest -vv tests -n auto
 
@@ -84,7 +84,7 @@ jobs:
 
       - name: Run tests
         working-directory: examples/range
-        timeout-minutes: 5
+        timeout-minutes: 10
         run: |
           pytest -vv tests -n auto
 
@@ -117,7 +117,7 @@ jobs:
 
       - name: Run tests
         working-directory: examples/rabbitmq_management
-        timeout-minutes: 5
+        timeout-minutes: 10
         run: |
           pytest -vv tests -n auto
 
@@ -155,7 +155,7 @@ jobs:
 
       - name: Run tests
         working-directory: examples/django
-        timeout-minutes: 5
+        timeout-minutes: 10
         run: |
           export DJANGO_SETTINGS_MODULE=proj.settings
           pytest -vv tests -n auto

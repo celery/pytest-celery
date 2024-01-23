@@ -133,6 +133,10 @@ tox = [
     { version = "^3.0.0", python = "<3.8.1" },
     { version = "^4.0.0", python = ">=3.8.1,<4.0" },
 ]
+tox-gh-actions = [
+    { version = "^2.0.0", python = "<3.8.1" },
+    { version = "^3.0.0", python = ">=3.8.1,<4.0" },
+]
 
 [tool.poetry.group.docs]
 optional = true

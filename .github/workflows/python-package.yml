@@ -44,7 +44,6 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
-          sudo apt install -y libmemcached-dev
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
@@ -52,10 +51,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
           cache-dependency-path: '**/setup.py'
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install tox-gh-actions
 
       - name: Install Poetry
         if: startsWith(matrix.os, 'ubuntu-')
@@ -63,7 +58,8 @@ jobs:
 
       - name: Install tox
         run: |
-          poetry install --with ci
+          poetry config virtualenvs.create false
+          poetry install --only ci
 
       - name: Run tox for "${{ matrix.python-version }}-unit"
         timeout-minutes: 5
@@ -99,7 +95,6 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
-          sudo apt install -y libmemcached-dev
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
@@ -107,10 +102,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
           cache-dependency-path: '**/setup.py'
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install tox-gh-actions
 
       - name: Install Poetry
         if: startsWith(matrix.os, 'ubuntu-')
@@ -118,7 +109,8 @@ jobs:
 
       - name: Install tox
         run: |
-          poetry install --with ci
+          poetry config virtualenvs.create false
+          poetry install --only ci
 
       - name: Run tox for "${{ matrix.python-version }}-integration"
         timeout-minutes: 15
@@ -148,7 +140,6 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
-          sudo apt install -y libmemcached-dev
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
@@ -156,10 +147,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
           cache-dependency-path: '**/setup.py'
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install tox-gh-actions
 
       - name: Install Poetry
         if: startsWith(matrix.os, 'ubuntu-')
@@ -167,7 +154,8 @@ jobs:
 
       - name: Install tox
         run: |
-          poetry install --with ci
+          poetry config virtualenvs.create false
+          poetry install --only ci
 
       - name: Run tox for "${{ matrix.python-version }}-smoke"
         timeout-minutes: 15
