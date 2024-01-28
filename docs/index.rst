@@ -42,6 +42,7 @@ Contents
 
     getting-started/index
     userguide/index
+    devguide/index
 
 .. toctree::
     :maxdepth: 1
