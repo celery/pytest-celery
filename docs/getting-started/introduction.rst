@@ -1,4 +1,4 @@
-.. _intro:
+.. _getting-started_intro:
 
 ===============================
  Introduction to Pytest Celery
