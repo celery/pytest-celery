@@ -236,12 +236,14 @@ class CeleryTestCluster:
             tuple[CeleryTestNode]: Nodes to use for the cluster.
         """
         return tuple(
-            node_cls(node)
-            if isinstance(
-                node,
-                CeleryTestContainer,
+            (
+                node_cls(node)
+                if isinstance(
+                    node,
+                    CeleryTestContainer,
+                )
+                else node
             )
-            else node
             for node in nodes
         )  # type: ignore
 
