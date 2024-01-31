@@ -1,4 +1,4 @@
-.. _getting-started-tbd:
+.. _getting-started_resources-tbd:
 
 =====
  TBD

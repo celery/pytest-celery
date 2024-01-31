@@ -11,12 +11,13 @@ To install using :command:`pip`:
 
     $ pip install -U pytest-celery
 
+To include the latest celery package, install with the ``celery`` extra:
+
+.. code-block:: console
+
+    $ pip install -U "pytest-celery[celery]"
+
 .. _pytest_celery-installing-from-git:
-
-Using the development version
------------------------------
-
-TBD
 
 With git
 ~~~~~~~~

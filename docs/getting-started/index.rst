@@ -11,4 +11,5 @@
     :maxdepth: 2
 
     introduction
+    resources/index
     tbd
