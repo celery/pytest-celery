@@ -38,7 +38,7 @@ The following diagram lists the relevant files in the project.
 tests/myworker
 ~~~~~~~~~~~~~~
 
-The ``tests/myworker`` package contains the custom Celery worker that will be injected into the testing environment.
+The `tests/myworker` package contains the custom Celery worker that will be injected into the testing environment.
 It uses a simple Dockerfile to build the latest Celery version from git.
 
 Dockerfile
@@ -162,7 +162,7 @@ These fixtures may be overridden if required.
     )
 
 Lastly, we wrap the container in a fixture to allow it to be injected into the test environment
-using the :class:`CeleryTestWorker` to represent the worker component.
+using the :class:`CeleryTestWorker <pytest_celery.api.worker.CeleryTestWorker>` to represent the worker component.
 
 .. code-block:: python
 
@@ -175,7 +175,7 @@ using the :class:`CeleryTestWorker` to represent the worker component.
 test_myworker.py
 ~~~~~~~~~~~~~~~~
 
-To inject the worker into this test suite, we hook into the ``celery_worker_cluster`` fixture
+To inject the worker into this test suite, we hook into the :func:`celery_worker_cluster <pytest_celery.fixtures.worker.celery_worker_cluster>` fixture
 and add the worker to the cluster, alongside the default built-in worker.
 
 .. code-block:: python
@@ -201,7 +201,8 @@ The default worker can also be fully replaced:
         yield cluster
         cluster.teardown()
 
-And all that's left is the test itself, which is a simple ping test for each worker node in the cluster.
+And all that's left is the test itself, which is a simple :func:`ping <pytest_celery.vendors.worker.tasks.ping>`
+test for each worker node in the cluster.
 
 .. code-block:: python
 
