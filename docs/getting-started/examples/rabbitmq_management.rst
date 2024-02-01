@@ -33,7 +33,6 @@ The following diagram lists the relevant files in the project.
     │   └── test_management_broker.py
     └── requirements.txt
 
-
 conftest.py
 ~~~~~~~~~~~
 
@@ -85,7 +84,7 @@ This allows us to extend the broker API with our own implementation.
 
 The :func:`celery_broker <pytest_celery.fixtures.broker.celery_broker>` fixture is a special parameterized fixture that
 provides all of the available broker fixtures. By default :func:`celery_broker_cluster <pytest_celery.fixtures.broker.celery_broker_cluster>`
-uses `celery_broker`. For the sake of the example, we've overridden it to use only one broker, our own custom rabbitmq management broker.
+uses ``celery_broker``. For the sake of the example, we've overridden it to use only one broker, our own custom rabbitmq management broker.
 
 .. code-block:: python
 

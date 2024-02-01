@@ -34,11 +34,10 @@ The following diagram lists the relevant files in the project.
     │   └── test_myworker.py
     └── requirements.txt
 
-
 tests/myworker
 ~~~~~~~~~~~~~~
 
-The `tests/myworker` package contains the custom Celery worker that will be injected into the testing environment.
+The ``tests/myworker`` package contains the custom Celery worker that will be injected into the testing environment.
 It uses a simple Dockerfile to build the latest Celery version from git.
 
 Dockerfile
@@ -48,7 +47,7 @@ Dockerfile
 
     FROM python:3.11-bookworm
 
-`test_user` is created to run the worker.
+``test_user`` is created to run the worker.
 
 .. code-block:: Dockerfile
 
@@ -58,7 +57,7 @@ Dockerfile
     # Install system dependencies
     RUN apt-get update && apt-get install -y build-essential git
 
-`CELERY_LOG_LEVEL`, `CELERY_WORKER_NAME` and `CELERY_WORKER_QUEUE` are set as build arguments.
+``CELERY_LOG_LEVEL``, ``CELERY_WORKER_NAME`` and ``CELERY_WORKER_QUEUE`` are set as build arguments.
 These will be used to configure the worker for the tests.
 
 .. code-block:: Dockerfile
@@ -71,7 +70,7 @@ These will be used to configure the worker for the tests.
     ENV WORKER_NAME=$CELERY_WORKER_NAME
     ENV WORKER_QUEUE=$CELERY_WORKER_QUEUE
 
-`/src` is arbitrarily chosen as the working directory to install Celery from.
+``/src`` is arbitrarily chosen as the working directory to install Celery from.
 
 .. code-block:: Dockerfile
 
@@ -87,7 +86,7 @@ These will be used to configure the worker for the tests.
 
     RUN pip install -e .
 
-`/app` is used internally by the pytest-celery plugin to inject code into the Celery worker at runtime.
+``/app`` is used internally by the pytest-celery plugin to inject code into the Celery worker at runtime.
 
 .. code-block:: Dockerfile
 
@@ -97,7 +96,7 @@ These will be used to configure the worker for the tests.
     # Switch to the test_user
     USER test_user
 
-`CMD` is set to allow standalone execution of the worker outside of the testing environment.
+``CMD`` is set to allow standalone execution of the worker outside of the testing environment.
 It is also useful for the injection of the worker as it removes the need to programmatically set the command.
 
 .. code-block:: Dockerfile

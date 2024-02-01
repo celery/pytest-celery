@@ -12,3 +12,5 @@
 
     myworker
     rabbitmq_management
+    range
+    django
