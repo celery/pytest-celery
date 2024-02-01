@@ -51,8 +51,8 @@ Get Started
 ===========
 
 Sometimes jumping into the deep water is the best way to learn how to swim.
-A good place to start is the `examples`_ directory. It contains a few examples that demonstrate
-the capabilities of the plugin.
+A good place to start are the :ref:`getting-started_examples`. They can demonstrates basic
+common use cases and provide a good starting point for understanding how to use the plugin.
 
 Other useful use cases are the `smoke-tests`_ directory of the Celery repository.
 The Celery smoke tests are the official production environment for pytest-celery, and may be
@@ -67,7 +67,6 @@ into a simple interface. It is highly recommended to familiarize yourself with t
 - `Fixtures reference`_: Detailed guide to pytest fixtures. **Extremely** useful for understanding how to use the plugin effectively.
 - `Pytest parametrization`_: Guide for pytest parametrization. Useful for understanding how the Celery architecture is generated.
 
-.. _examples: https://github.com/celery/pytest-celery/tree/main/examples
 .. _smoke-tests: https://github.com/celery/celery/tree/main/t/smoke
 .. _Fixtures reference: https://docs.pytest.org/en/latest/reference/fixtures.html#fixtures
 .. _Pytest parametrization: https://docs.pytest.org/en/latest/how-to/parametrize.html

@@ -26,7 +26,11 @@ globals().update(
         apicheck_ignore_modules=[
             r"celery.contrib.*",
         ],
-        linkcheck_ignore=[r"^http://localhost"],
+        linkcheck_ignore=[
+            r"^http://localhost",
+            r"https://github\.com/Jc2k/pytest-docker-tools\?tab=readme-ov-file#images",
+            r"https://github\.com/Jc2k/pytest-docker-tools\?tab=readme-ov-file#containers",
+        ],
         autodoc_mock_imports=[],
     )
 )

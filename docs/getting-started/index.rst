@@ -12,5 +12,6 @@
 
     introduction
     resources/index
+    examples/index
     tbd
     help
