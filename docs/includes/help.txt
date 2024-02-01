@@ -1,0 +1,31 @@
+.. _getting-help:
+
+.. _bug-tracker:
+
+Bug tracker
+===========
+
+If you have any suggestions, bug reports, or annoyances please report them
+to our `issue tracker <https://github.com/celery/pytest-celery/issues>`_.
+
+.. _discussions:
+
+Community support
+=================
+
+Please use the GitHub discussion forum for general questions, discussions and
+community support at https://github.com/celery/pytest-celery/discussions
+
+.. _contributing-short:
+
+Contributing
+============
+
+Development of `pytest-celery` happens at GitHub: https://github.com/celery/pytest-celery
+
+You're highly encouraged to participate in the development
+of `pytest-celery`.
+
+Be sure to also read the :ref:`contributing` section in the documentation.
+
+.. # vim: syntax=rst expandtab tabstop=4 shiftwidth=4 shiftround

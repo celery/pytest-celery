@@ -13,3 +13,4 @@
     introduction
     resources/index
     tbd
+    help
