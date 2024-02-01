@@ -198,17 +198,6 @@ Features
             and is not affected by other test cases. Tests may run in parallel and take care of tearing down themselves when they
             are done, regardless of the test result.
 
-        - **CI/CD Friendly**
-
-            The plugin is designed to match local test runs with CI/CD test runs to ensure consistent results
-            across different environments and support extended configuration options for each environment.
-            It uses tox_ to manage the test environments, and provides a set of predefined environments that
-            can be used to test the plugin in different configurations.
-
-            Run `tox -av` to see the list of available environments.
-
-            .. _tox: https://tox.readthedocs.io
-
         - **Tests as first class citizens**
 
             The plugin is designed to enhance testing capabilities by treating tests as first class citizens.
