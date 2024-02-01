@@ -1,4 +1,4 @@
-.. _getting-started_examples_myworker:
+.. _examples_myworker:
 
 ==========
  myworker

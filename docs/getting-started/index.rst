@@ -11,7 +11,7 @@
     :maxdepth: 2
 
     introduction
-    resources/index
     examples/index
+    resources/index
     tbd
     help

@@ -1,4 +1,4 @@
-.. _getting-started_examples_django:
+.. _examples_django:
 
 ========
  django
@@ -17,7 +17,7 @@ using pytest-celery. For more about Django and Celery, please see the `official 
 For the purposes of this example, we will focus on the setup and configuration side of things.
 
 .. warning::
-    Django support is currently experimental. Please :ref:`report <getting-started_help>` any issues you encounter.
+    Django support is currently experimental. Please :ref:`report <help>` any issues you encounter.
 
 Breakdown
 =========

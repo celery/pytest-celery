@@ -40,7 +40,8 @@ What do I need?
 
     Pytest Celery is Celery-agnostic, and should work with virtually any version of Celery.
 
-    .. note:: Currently, due to limited resources, we are unable to officially support Microsoft Windows.
+    .. warning::
+        Currently, due to limited resources, we are unable to officially support Microsoft Windows.
         Please don't open any issues related to that platform.
 
 The pytest-celery plugin is using docker containers to define a Celery setup for a test. This means
@@ -51,12 +52,20 @@ Get Started
 ===========
 
 Sometimes jumping into the deep water is the best way to learn how to swim.
-A good place to start are the :ref:`getting-started_examples`. They can demonstrates basic
+A good place to start are the :ref:`examples`. They can demonstrates basic
 common use cases and provide a good starting point for understanding how to use the plugin.
 
-Other useful use cases are the `smoke-tests`_ directory of the Celery repository.
+Other useful use cases are the `smoke tests`_ of the Celery repository.
 The Celery smoke tests are the official production environment for pytest-celery, and may be
 insightful for understanding how to use the plugin from a production perspective.
+
+.. note::
+    The Celery smoke tests were firstly introduced in Celery v5.4.0's development cycle.
+    The tests requirements have defined the MVP scope for version 1.0.0 of pytest-celery.
+    They use most of the plugin's features, and vary in complexity and use cases.
+
+    It is recommended to familiarize yourself with Celery & pytest-celery before diving *deep* into the smoke tests.
+
 
 Essential Resources
 ~~~~~~~~~~~~~~~~~~~
@@ -64,14 +73,14 @@ Essential Resources
 The pytest-celery plugin is using core pytest features to encapsulate the complexity of setting up a Celery environment
 into a simple interface. It is highly recommended to familiarize yourself with the following resources to get the most out of the plugin.
 
-- `Fixtures reference`_: Detailed guide to pytest fixtures. **Extremely** useful for understanding how to use the plugin effectively.
-- `Pytest parametrization`_: Guide for pytest parametrization. Useful for understanding how the Celery architecture is generated.
+- `Fixtures Reference`_: Detailed guide to pytest fixtures. **Extremely** useful for understanding how to use the plugin effectively.
+- `Pytest Parametrization`_: Guide for pytest parametrization. Useful for understanding how the Celery architecture is generated.
 
-.. _smoke-tests: https://github.com/celery/celery/tree/main/t/smoke
-.. _Fixtures reference: https://docs.pytest.org/en/latest/reference/fixtures.html#fixtures
-.. _Pytest parametrization: https://docs.pytest.org/en/latest/how-to/parametrize.html
+.. _smoke tests: https://github.com/celery/celery/tree/main/t/smoke
+.. _Fixtures Reference: https://docs.pytest.org/en/latest/reference/fixtures.html#fixtures
+.. _Pytest Parametrization: https://docs.pytest.org/en/latest/how-to/parametrize.html
 
-Additional resources can be found in the :ref:`getting-started_resources` section.
+Additional resources can be found in the :ref:`resources` section.
 
 Pytest Celery is…
 =================
@@ -80,7 +89,7 @@ Pytest Celery is…
 
     - **Simple**
 
-        The plugin provides a single entry point to the test case and makes sure
+        The plugin provides a single :func:`entrypoint <pytest_celery.api.setup.CeleryTestSetup>` to the test case and makes sure
         everything is configured according to the selected architecture and requirements.
 
         By default, all of the supported architecture components are added to a matrix of all possible combinations.
@@ -91,7 +100,7 @@ Pytest Celery is…
 
         .. code-block:: python
 
-            def test_hello_world(celery_setup):
+            def test_hello_world(celery_setup: CeleryTestSetup):
                 assert celery_setup.ready()
 
         This code will generate test cases for all possible combinations of the supported brokers and backends, using the latest
@@ -109,10 +118,8 @@ Pytest Celery is…
         For more advanced use cases, the plugin uses the pytest fixtures mechanism to allow injecting
         custom components into the environment and build a custom Celery architecture for your project.
 
-        For example, see the `rabbitmq_management`_ example, which demonstrates how to replace the default
+        For example, see the :ref:`examples_rabbitmq-management` example, which demonstrates how to replace the default
         broker matrix with a single RabbitMQ Management broker.
-
-        .. _rabbitmq_management: https://github.com/celery/pytest-celery/tree/main/examples/rabbitmq_management
 
     - **Fast**
 
@@ -213,9 +220,10 @@ Quick Jump
     .. hlist::
         :columns: 2
 
-        - :ref:`To read Contributing <contributing>`
-        - :ref:`To read FAQ <faq>`
-        - :ref:`To read API Reference <apiref>`
+        - :ref:`To see demo examples <examples>`.
+        - `To see production examples <https://github.com/celery/celery/tree/main/t/smoke/>`_.
+        - `To learn more about pytest <https://docs.pytest.org/en/latest/getting-started.html>`_.
+        - `To learn more about Celery <https://docs.celeryproject.org/en/stable/getting-started/introduction.html>`_.
 
 .. topic:: Jump to ⟶
 

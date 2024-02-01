@@ -1,4 +1,4 @@
-.. _getting-started_examples_rabbitmq-management:
+.. _examples_rabbitmq-management:
 
 =====================
  rabbitmq_management
@@ -94,8 +94,8 @@ uses ``celery_broker``. For the sake of the example, we've overridden it to use 
         yield cluster
         cluster.teardown()
 
-test_myworker.py
-~~~~~~~~~~~~~~~~
+test_management_broker.py
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In the first test, we don't even load a full setup, we just use the broker alone using the default fixture.
 We test that we can access the management API using the default credentials.

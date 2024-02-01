@@ -1,4 +1,4 @@
-.. _getting-started_examples_range:
+.. _examples_range:
 
 =======
  range

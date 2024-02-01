@@ -1,4 +1,4 @@
-.. _getting-started_resources:
+.. _resources:
 
 ==================
  Useful Resources

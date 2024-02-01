@@ -1,4 +1,4 @@
-.. _getting-started_help:
+.. _help:
 
 ======
  Help
