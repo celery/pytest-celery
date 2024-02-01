@@ -208,7 +208,18 @@ Features
         - **Tests as first class citizens**
 
             The plugin is designed to enhance testing capabilities by treating tests as first class citizens.
-            It's based on `S.O.L.I.D`_ principles and provides APIs for developing high quality tests suites.
+            It uses advanced mechanisms to encapsulate the complexity of setting up a Celery environment, thus
+            allowing the developer to focus on the test case itself and leave the hard lifting to the plugin.
+
+        - **Extensible**
+
+            The plugin is designed to be extensible to fit a wide range of use cases and provides a set of built-in components
+            that can be extended to fit more advanced use cases.
+
+            It's based on the `S.O.L.I.D`_ principles and provides APIs for developing high quality tests suites.
+            It combines the sophistication of the pytest fixtures mechanism with OOP principles to create
+            separation of concerns between each layer of the infrastructure and its elements, which allow higher level
+            of granularity and control when extending the plugin.
 
             .. _S.O.L.I.D: https://en.wikipedia.org/wiki/SOLID
 
