@@ -18,7 +18,7 @@ class CeleryWorkerContainer(CeleryTestContainer):
     preconfigured for a built-in Celery worker image and should be customized
     for your own worker image.
 
-    The purpose of this class is manupulating the container volume and
+    The purpose of this class is manipulating the container volume and
     configurations to warm up the worker container according to the test case requirements.
 
     Responsibility Scope:
@@ -153,7 +153,7 @@ class CeleryWorkerContainer(CeleryTestContainer):
             utils_module (ModuleType | None, optional): utils module. Defaults to None.
 
         Returns:
-            dict: Custome volume content for the worker container.
+            dict: Custom volume content for the worker container.
         """
         if app_module is None:
             app_module = cls.app_module()
