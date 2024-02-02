@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import pytest
-from pytest_lazyfixture import lazy_fixture
 
 from pytest_celery import CELERY_RABBITMQ_BROKER
 from pytest_celery import RABBITMQ_ENV
@@ -30,10 +29,10 @@ class test_rabbitmq_container:
         assert RabbitMQContainer.prefix() == RABBITMQ_PREFIX
 
 
-@pytest.mark.parametrize("broker", [lazy_fixture(CELERY_RABBITMQ_BROKER)])
+@pytest.mark.parametrize("broker", [CELERY_RABBITMQ_BROKER])
 class test_rabbitmq_broker_api:
     @pytest.mark.skip(reason="Placeholder")
-    def test_placeholder(self, broker: RabbitMQTestBroker):
+    def test_placeholder(self, broker: RabbitMQTestBroker, request):
         # The class RabbitMQTestBroker is currently a placeholder
         # so we don't have any specific tests for it yet.
         # This test suite is pre-configured to test the RabbitMQTestBroker

@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import pytest
 from kombu import Connection
-from pytest_lazyfixture import lazy_fixture
 
 from pytest_celery import CELERY_RABBITMQ_BROKER
 from pytest_celery import RabbitMQContainer
@@ -10,9 +9,10 @@ from pytest_celery import RabbitMQTestBroker
 from tests.defaults import ALL_RABBITMQ_FIXTURES
 
 
-@pytest.mark.parametrize("container", lazy_fixture(ALL_RABBITMQ_FIXTURES))
+@pytest.mark.parametrize("container", ALL_RABBITMQ_FIXTURES)
 class test_rabbitmq_container:
-    def test_client(self, container: RabbitMQContainer):
+    def test_client(self, container: RabbitMQContainer, request):
+        container = request.getfixturevalue(container)
         c: Connection = container.client
         assert c
         try:
@@ -20,7 +20,8 @@ class test_rabbitmq_container:
         finally:
             c.release()
 
-    def test_celeryconfig(self, container: RabbitMQContainer):
+    def test_celeryconfig(self, container: RabbitMQContainer, request):
+        container = request.getfixturevalue(container)
         expected_keys = {"url", "host_url", "hostname", "port", "vhost"}
         config = container.celeryconfig
         assert set(config.keys()) == expected_keys
@@ -28,9 +29,10 @@ class test_rabbitmq_container:
         assert container.prefix() in config["host_url"]
 
 
-@pytest.mark.parametrize("broker", [lazy_fixture(CELERY_RABBITMQ_BROKER)])
+@pytest.mark.parametrize("broker", [CELERY_RABBITMQ_BROKER])
 class test_rabbitmq_test_broker:
-    def test_config(self, broker: RabbitMQTestBroker):
+    def test_config(self, broker: RabbitMQTestBroker, request):
+        broker = request.getfixturevalue(broker)
         expected_keys = {"url", "host_url", "hostname", "port", "vhost"}
         assert set(broker.config().keys()) == expected_keys
         assert broker.container.prefix() in broker.config()["url"]
