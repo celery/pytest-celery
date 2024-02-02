@@ -12,6 +12,6 @@
 
     introduction
     examples/index
+    vendors
     resources/index
-    tbd
     help

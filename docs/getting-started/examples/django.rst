@@ -42,13 +42,13 @@ The following diagram lists the relevant files in the project.
 DjangoWorker.Dockerfile
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: Dockerfile
+.. code-block:: docker
 
     FROM python:3.11-bookworm
 
 ``test_user`` is created to run the worker.
 
-.. code-block:: Dockerfile
+.. code-block:: docker
 
     # Create a user to run the worker
     RUN adduser --disabled-password --gecos "" test_user
@@ -59,7 +59,7 @@ DjangoWorker.Dockerfile
 ``CELERY_LOG_LEVEL``, ``CELERY_WORKER_NAME`` and ``CELERY_WORKER_QUEUE`` are set as build arguments.
 These will be used to configure the worker for the tests.
 
-.. code-block:: Dockerfile
+.. code-block:: docker
 
     # Set arguments
     ARG CELERY_LOG_LEVEL=INFO
@@ -71,7 +71,7 @@ These will be used to configure the worker for the tests.
 
 ``/src`` is arbitrarily chosen as the working directory to install the Django project from.
 
-.. code-block:: Dockerfile
+.. code-block:: docker
 
     # Install packages
     WORKDIR /src

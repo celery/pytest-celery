@@ -43,13 +43,13 @@ It uses a simple Dockerfile to build the latest Celery version from git.
 Dockerfile
 ~~~~~~~~~~
 
-.. code-block:: Dockerfile
+.. code-block:: docker
 
     FROM python:3.11-bookworm
 
 ``test_user`` is created to run the worker.
 
-.. code-block:: Dockerfile
+.. code-block:: docker
 
     # Create a user to run the worker
     RUN adduser --disabled-password --gecos "" test_user
@@ -60,7 +60,7 @@ Dockerfile
 ``CELERY_LOG_LEVEL``, ``CELERY_WORKER_NAME`` and ``CELERY_WORKER_QUEUE`` are set as build arguments.
 These will be used to configure the worker for the tests.
 
-.. code-block:: Dockerfile
+.. code-block:: docker
 
     # Set arguments
     ARG CELERY_LOG_LEVEL=INFO
@@ -72,7 +72,7 @@ These will be used to configure the worker for the tests.
 
 ``/src`` is arbitrarily chosen as the working directory to install Celery from.
 
-.. code-block:: Dockerfile
+.. code-block:: docker
 
     # Install packages
     WORKDIR /src
@@ -88,7 +88,7 @@ These will be used to configure the worker for the tests.
 
 ``/app`` is used internally by the pytest-celery plugin to inject code into the Celery worker at runtime.
 
-.. code-block:: Dockerfile
+.. code-block:: docker
 
     # The workdir must be /app
     WORKDIR /app
@@ -99,7 +99,7 @@ These will be used to configure the worker for the tests.
 ``CMD`` is set to allow standalone execution of the worker outside of the testing environment.
 It is also useful for the injection of the worker as it removes the need to programmatically set the command.
 
-.. code-block:: Dockerfile
+.. code-block:: docker
 
     # Start the celery worker
     CMD celery -A app worker --loglevel=$LOG_LEVEL -n $WORKER_NAME@%h -Q $WORKER_QUEUE
