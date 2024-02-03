@@ -21,6 +21,7 @@ globals().update(
             "sphinx_click",
             "sphinx.ext.napoleon",
             "celery.contrib.sphinx",
+            "sphinxcontrib.mermaid",
         ],
         apicheck_ignore_modules=[
             r"celery.contrib.*",
