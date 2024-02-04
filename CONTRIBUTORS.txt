@@ -1,5 +1,5 @@
-The contributor proposes to grant a license for specific software (referred to as a "Contribution" or multiple "Contributions") to Pytest Celery. In turn, Pytest Celery agrees to accept these Contributions under the conditions outlined in the BSD open source license. 
-The contributor acknowledges and consents to Pytest Celery having the irreversible and enduring right to produce and share copies of any Contribution. 
+The contributor proposes to grant a license for specific software (referred to as a "Contribution" or multiple "Contributions") to Pytest Celery. In turn, Pytest Celery agrees to accept these Contributions under the conditions outlined in the BSD open source license.
+The contributor acknowledges and consents to Pytest Celery having the irreversible and enduring right to produce and share copies of any Contribution.
 Additionally, Pytest Celery has the authority to generate and distribute collective works and derivative works based on any Contribution, all within the framework of the BSD License.
 
 Contributors
