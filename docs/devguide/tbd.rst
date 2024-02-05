@@ -1,8 +1,11 @@
 .. _devguide-tbd:
 
-====
+=====
  TBD
-====
+=====
+
+:Release: |version|
+:Date: |today|
 
 .. contents::
     :local:
