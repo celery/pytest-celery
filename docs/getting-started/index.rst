@@ -13,5 +13,7 @@
     introduction
     examples/index
     vendors
+    first-steps
+    next-steps
     resources/index
     help

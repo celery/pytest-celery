@@ -4,12 +4,12 @@
  Vendors
 =========
 
+:Release: |version|
+:Date: |today|
+
 .. contents::
     :local:
     :depth: 2
-
-:Release: |version|
-:Date: |today|
 
 Built-in Brokers and Backends
 =============================
@@ -49,6 +49,8 @@ when running the test suite.
 
     Enabling a new vendor will automatically add it globally to every test suite that relies
     on the default configurations. Be careful when enabling new vendors.
+
+.. _built-in-worker:
 
 Built-in Celery Worker
 ======================

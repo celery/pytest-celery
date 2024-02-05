@@ -14,9 +14,9 @@ from pytest_celery.vendors.worker.tasks import ping
 
 
 class CeleryTestSetup:
-    """The test setup is the main entrypoint for accessing the celery
+    """The test setup is the main entry point for accessing the celery
     architecture from the test. It is the glue that holds all of the relevant
-    entities of the specific test case environment.
+    components of the specific test case environment.
 
     Each test case will have its own test setup instance, which is created for the
     test case by the plugin and is configured for the specific run and its given configurations.

@@ -4,6 +4,9 @@
  Introduction to Pytest Celery
 ===============================
 
+:Release: |version|
+:Date: |today|
+
 .. contents::
     :local:
     :depth: 1
@@ -55,6 +58,8 @@ Sometimes jumping into the deep water is the best way to learn how to swim.
 A good place to start are the :ref:`examples`. They can demonstrates basic
 common use cases and provide a good starting point for understanding how to use the plugin.
 
+If you wish a more structured approach, start with the :ref:`first-steps` section.
+
 Other useful use cases are the `smoke tests`_ of the Celery repository.
 The Celery smoke tests are the official production environment for pytest-celery, and may be
 insightful for understanding how to use the plugin from a production perspective.
@@ -66,19 +71,22 @@ insightful for understanding how to use the plugin from a production perspective
 
     It is recommended to familiarize yourself with Celery & pytest-celery before diving *deep* into the smoke tests.
 
+.. _essential_resources:
 
 Essential Resources
 ~~~~~~~~~~~~~~~~~~~
 
-The pytest-celery plugin is using core pytest features to encapsulate the complexity of setting up a Celery environment
+The pytest-celery plugin is using core pytest features to encapsulate the complexity of setting up a dockerized Celery environment
 into a simple interface. It is highly recommended to familiarize yourself with the following resources to get the most out of the plugin.
 
 - `Fixtures Reference`_: Detailed guide to pytest fixtures. **Extremely** useful for understanding how to use the plugin effectively.
-- `Pytest Parametrization`_: Guide for pytest parametrization. Useful for understanding how the Celery architecture is generated.
+- `Pytest Parametrization`_: Guide for pytest parametrization. Useful for understanding how the Celery architecture matrix is generated.
+- `pytest_docker_tools`_: The engine that powers up the dockerized environment. Useful for understanding how the plugin manages the docker containers.
 
 .. _smoke tests: https://github.com/celery/celery/tree/main/t/smoke
 .. _Fixtures Reference: https://docs.pytest.org/en/latest/reference/fixtures.html#fixtures
 .. _Pytest Parametrization: https://docs.pytest.org/en/latest/how-to/parametrize.html
+.. _pytest_docker_tools: https://github.com/Jc2k/pytest-docker-tools
 
 Additional resources can be found in the :ref:`resources` section.
 
@@ -89,7 +97,7 @@ Pytest Celery is…
 
     - **Simple**
 
-        The plugin provides a single :func:`entrypoint <pytest_celery.api.setup.CeleryTestSetup>` to the test case and makes sure
+        The plugin provides a single :ref:`entry point <test-setup>` to the test case and makes sure
         everything is configured according to the selected architecture and requirements.
 
         By default, all of the supported architecture components are added to a matrix of all possible combinations.
@@ -130,7 +138,7 @@ Pytest Celery is…
 
     - **Annotated**
 
-        The codebase is fully annotated with type hints, and is tested with mypy_ to ensure type safety accros the board,
+        The codebase is fully annotated with type hints, and is tested with mypy_ to ensure type safety across the board,
         allowing a better development experience.
 
         .. _mypy: https://mypy.readthedocs.io
@@ -176,26 +184,30 @@ Features
             By default, a set of predefined components is used to build the Celery architecture for each test.
             Each built-in component can be either configured or replaced with a custom replacement.
 
-            Architecture injection can be done at different layers, and can be used to
+            :ref:`architecture-injection` can be done at different layers, and can be used to
             replace only specific elements of the architecture pipeline, or to replace the entire pipeline altogether.
 
         - **Docker Based**
 
             The plugin uses docker containers to build the Celery architecture for each test.
-            This means that the plugin is not limited to a specific versions, and can be used to test
+            This means that the plugin is not limited to specific versions, and can be used to test
             potentially any Celery setup.
+
+            It uses the pytest-docker-tools_ plugin to manage the docker containers which is useful
+            for accessing the docker containers in the test case during the test run, and assert on their state
+            with high granularity.
 
         - **Batteries Included**
 
             The plugin provides a set of built-in components that can be used to test ideas quickly.
-            You can start with the default settings, and gradually modify the configrations to fine tune
+            You can start with the default settings, and gradually modify the configurations to fine tune
             the test environment. By focusing on the test case, you can quickly iterate and test ideas,
             without wasting time on the overhead of setting up different environment manually.
 
         - **Code Generation**
 
             One of the challenges in testing production Celery applications is the need to inject testing infrastructure
-            into the Celery worker container at runtime. The plugin provides a code generation mechanism that can be used
+            into the Celery worker container at runtime. The plugin provides a :ref:`code-generation` mechanism that can be used
             to inject code into the Celery worker container at runtime according to the test case. This opens the door to
             a wide range of testing scenarios, and allows higher level of control over the tested Celery application.
 
@@ -207,7 +219,7 @@ Features
 
         - **Tests as first class citizens**
 
-            The plugin is designed to enhance testing capabilities by treating tests as first class citizens.
+            The plugin is designed to enhance testing capabilities by :ref:`first-class-citizen`.
             It uses advanced mechanisms to encapsulate the complexity of setting up a Celery environment, thus
             allowing the developer to focus on the test case itself and leave the hard lifting to the plugin.
 
@@ -231,6 +243,7 @@ Quick Jump
     .. hlist::
         :columns: 2
 
+        - :ref:`Start the official tutorial <first-steps>`.
         - :ref:`To see demo examples <examples>`.
         - `To see production examples <https://github.com/celery/celery/tree/main/t/smoke/>`_.
         - `To learn more about pytest <https://docs.pytest.org/en/latest/getting-started.html>`_.

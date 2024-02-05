@@ -4,6 +4,9 @@
  range
 =======
 
+:Release: |version|
+:Date: |today|
+
 .. contents::
     :local:
     :depth: 2

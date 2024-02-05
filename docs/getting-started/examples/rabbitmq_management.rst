@@ -4,6 +4,9 @@
  rabbitmq_management
 =====================
 
+:Release: |version|
+:Date: |today|
+
 .. contents::
     :local:
     :depth: 2

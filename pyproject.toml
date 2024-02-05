@@ -37,9 +37,9 @@ max-line-length = 120
 
 [tool.poetry]
 authors = [
-    "Tomer Nosrati <tomer.nosrati@kcg.tech>",
-    "Thomas Grainger <pytest-celery@graingert.co.uk>",
+    "Tomer Nosrati <tomer.nosrati@gmail.com>",
     "Omer Katz <omer.katz@omerkatz.com>",
+    "Thomas Grainger <pytest-celery@graingert.co.uk>",
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",

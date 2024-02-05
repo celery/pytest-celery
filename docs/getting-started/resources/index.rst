@@ -10,5 +10,4 @@
 .. toctree::
     :maxdepth: 1
 
-    tbd
-    tbd
+    first-class-citizen
