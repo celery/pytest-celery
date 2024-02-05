@@ -11,9 +11,8 @@
     :maxdepth: 2
 
     introduction
-    examples/index
-    vendors
     first-steps
     next-steps
+    vendors
     resources/index
     help

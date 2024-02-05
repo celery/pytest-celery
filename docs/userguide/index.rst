@@ -10,4 +10,5 @@
 .. toctree::
     :maxdepth: 1
 
+    examples/index
     tbd
