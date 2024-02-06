@@ -182,7 +182,7 @@ Features
         - **Architecture Injection**
 
             By default, a set of predefined components is used to build the Celery architecture for each test.
-            Each built-in component can be either configured or replaced with a custom replacement.
+            Each built-in component can be either configured or completely replaced with a custom implementation.
 
             :ref:`architecture-injection` can be done at different layers, and can be used to
             replace only specific elements of the architecture pipeline, or to replace the entire pipeline altogether.

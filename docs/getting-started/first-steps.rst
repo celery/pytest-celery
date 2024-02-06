@@ -94,6 +94,8 @@ for the same component, and the test environment will continue to function as ex
 Under this principle, the test environment is designed to be flexible and extensible, allowing the user to
 easily replace any component with a custom implementation.
 
+.. _test-clusters:
+
 Test Clusters
 -------------
 
@@ -364,6 +366,8 @@ These fixtures will generate a cluster with a single Celery worker node, based o
 1. :func:`celery_worker <pytest_celery.fixtures.worker.celery_worker>`: Latest Celery worker node.
 2. :func:`celery_worker_cluster <pytest_celery.fixtures.worker.celery_worker_cluster>`: Single worker cluster for ``celery_worker``.
 
+.. _celery-application:
+
 Celery Application
 -------------------
 
@@ -444,7 +448,7 @@ For handlers inside the test, you can use the standard API, for example.
 
 .. code-block:: python
 
-    from celery.signals import after_task_publish
+    from celery.signals import before_task_publish
 
     def test_before_task_publish(celery_setup: CeleryTestSetup):
         @before_task_publish.connect
@@ -533,6 +537,8 @@ Let's have a quick recap over what we just learned in this section then.
    * - **Setup Matrix**
      - The :func:`celery_setup <pytest_celery.fixtures.setup.celery_setup>` will generate a matrix of isolated environments for each test case, based on the enabled components and their configurations.
 
+.. _built-in-components:
+
 Using the built-in components
 =============================
 
@@ -547,6 +553,8 @@ or entirely replaced by a set of components specific to the target project.
     The built-in components are designed to be flexible and extensible and can be used as a starting point for custom setups.
     Make the most straightforward setup for a test case to avoid over-engineering the test environment.
     Reconfiguring the existing components is very powerful and should be the first step in most cases.
+
+.. _components-layers:
 
 Components Layers
 ~~~~~~~~~~~~~~~~~
@@ -737,6 +745,8 @@ Key takeaways from this section.
      - Each component has a ``default_`` fixtures list that can be used to control or extend the component's functionality.
    * - **Extensible Design**
      - Most of the configurations can be overridden or extended to bootstrap the environment for the target project.
+
+.. _hello-world:
 
 Hello, World!
 =============

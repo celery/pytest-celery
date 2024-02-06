@@ -20,7 +20,7 @@ It uses a list of Celery versions to create two test configurations:
 1. Running against each Celery worker by itself.
 2. Running against a cluster of all Celery workers.
 
-It demonste the flexibility of the library, and how you might use it to test your own code.
+It demonstrate the flexibility of the library, and how you might use it to test your own code.
 
 .. note::
     Testing different worker versions one by one or in a cluster is useful for testing migrations
