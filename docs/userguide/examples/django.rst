@@ -136,9 +136,7 @@ and `container <https://github.com/Jc2k/pytest-docker-tools?tab=readme-ov-file#c
         environment=fxtr("default_worker_env"),
         network="{default_pytest_celery_network.name}",
         volumes={
-            # Volume: Worker /app
             "{default_worker_volume.name}": defaults.DEFAULT_WORKER_VOLUME,
-            # Mount: source
             os.path.abspath(os.getcwd()): {
                 "bind": "/src",
                 "mode": "rw",
