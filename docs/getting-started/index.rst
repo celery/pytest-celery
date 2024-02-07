@@ -14,5 +14,4 @@
     first-steps
     next-steps
     vendors
-    resources/index
     help
