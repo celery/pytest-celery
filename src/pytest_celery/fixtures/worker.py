@@ -1,3 +1,13 @@
+"""The :ref:`built-in-worker` is added to the test matrix using the fixtures of
+this module.
+
+These fixtures will configure the test setup for the built-in Celery
+worker by default.
+
+You may override these fixtures to customize the test setup for your
+specific needs.
+"""
+
 # mypy: disable-error-code="misc"
 
 from __future__ import annotations

@@ -1,3 +1,16 @@
+"""The test setup integrates all of the independent test components into a
+single entry point for the test.
+
+This module provides the fixtures for the test setup, which will be used
+to prepare the environment for testing.
+
+The test setup is automatically configured according to the individual
+components of the given architecture.
+
+A test will be parametrized for each combination of supported celery
+backends, brokers, and workers in the test setup.
+"""
+
 # mypy: disable-error-code="misc"
 
 from __future__ import annotations

@@ -1,3 +1,14 @@
+"""Every backend component is added to the test matrix using the fixtures of
+this module.
+
+These fixtures will configure the test setup for all supported celery
+backends by default. Every backend will be executed as a separate test
+case, and the test will be executed for each supported celery backend.
+
+You may override these fixtures to customize the test setup for your
+specific needs.
+"""
+
 # mypy: disable-error-code="misc"
 
 from __future__ import annotations
