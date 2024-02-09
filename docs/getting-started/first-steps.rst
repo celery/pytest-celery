@@ -800,8 +800,8 @@ Next, we'll configure a single backend setup using the built-in Redis backend, i
 .. code-block:: python
 
     @pytest.fixture
-    def celery_backend_cluster(celery_redis_broker: RedisTestBroker) -> CeleryBrokerCluster:
-        cluster = CeleryBrokerCluster(celery_redis_broker)
+    def celery_backend_cluster(celery_redis_backend: RedisTestBackend) -> CeleryBackendCluster:
+        cluster = CeleryBackendCluster(celery_redis_backend)
         yield cluster
         cluster.teardown()
 
@@ -837,7 +837,7 @@ In our test case, we'll assert our setup is configured as expected, and publish 
 
     def test_hello_world(celery_setup: CeleryTestSetup):
         assert isinstance(celery_setup.broker, RabbitMQTestBroker)
-        assert isinstance(celery_setup.backend, RedisTestBroker)
+        assert isinstance(celery_setup.backend, RedisTestBackend)
         assert noop.s().apply_async().get() is None
 
 test_helloworld.py

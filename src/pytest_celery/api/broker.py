@@ -1,3 +1,9 @@
+"""Broker components represents Celery's broker instances.
+
+This module provides the base API for creating new broker components by
+defining the base classes for broker nodes and clusters.
+"""
+
 from __future__ import annotations
 
 from pytest_celery.api.base import CeleryTestCluster
@@ -15,6 +21,7 @@ class CeleryTestBroker(CeleryTestNode):
 
     @classmethod
     def default_config(cls) -> dict:
+        """Default node configurations if not overridden by the user."""
         return {
             "url": DEFAULT_WORKER_ENV["CELERY_BROKER_URL"],
             "host_url": DEFAULT_WORKER_ENV["CELERY_BROKER_URL"],
@@ -40,6 +47,7 @@ class CeleryBrokerCluster(CeleryTestCluster):
 
     @classmethod
     def default_config(cls) -> dict:
+        """Default cluster configurations if not overridden by the user."""
         return {
             "urls": [DEFAULT_WORKER_ENV["CELERY_BROKER_URL"]],
             "host_urls": [DEFAULT_WORKER_ENV["CELERY_BROKER_URL"]],

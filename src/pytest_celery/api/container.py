@@ -1,3 +1,10 @@
+"""The ``pytest_docker_tools`` package powers the Docker container management
+for the plugin.
+
+This module extends the ``Container`` class from the package to provide
+the base API for creating new test containers in a Celery test environment.
+"""
+
 from __future__ import annotations
 
 from typing import Any

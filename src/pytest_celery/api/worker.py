@@ -1,3 +1,9 @@
+"""Worker components represents Celery's worker instances.
+
+This module provides the base API for creating new worker components by
+defining the base classes for worker nodes and clusters.
+"""
+
 from __future__ import annotations
 
 import json
