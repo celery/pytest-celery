@@ -1,3 +1,9 @@
+"""The pytest-celery plugin provides a set of built-in components called
+:ref:`vendors`.
+
+This module is part of the Memcached Backend vendor.
+"""
+
 from __future__ import annotations
 
 import memcache
@@ -10,6 +16,8 @@ from pytest_celery.vendors.memcached.defaults import MEMCACHED_PREFIX
 
 
 class MemcachedContainer(CeleryTestContainer):
+    """This class manages the lifecycle of a Memcached container."""
+
     @property
     def client(self) -> memcache.Client:
         conf = self.celeryconfig

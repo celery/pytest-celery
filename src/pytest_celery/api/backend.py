@@ -1,3 +1,9 @@
+"""Backend components represents Celery's result backend instances.
+
+This module provides the base API for creating new backend components by
+defining the base classes for backend nodes and clusters.
+"""
+
 from __future__ import annotations
 
 from pytest_celery.api.base import CeleryTestCluster
@@ -15,6 +21,7 @@ class CeleryTestBackend(CeleryTestNode):
 
     @classmethod
     def default_config(cls) -> dict:
+        """Default node configurations if not overridden by the user."""
         return {
             "url": DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"],
             "host_url": DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"],
@@ -40,6 +47,7 @@ class CeleryBackendCluster(CeleryTestCluster):
 
     @classmethod
     def default_config(cls) -> dict:
+        """Default cluster configurations if not overridden by the user."""
         return {
             "urls": [DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"]],
             "host_urls": [DEFAULT_WORKER_ENV["CELERY_RESULT_BACKEND"]],

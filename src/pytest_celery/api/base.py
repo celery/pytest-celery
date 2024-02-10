@@ -1,3 +1,11 @@
+"""The node/cluster set are designed to provide a common interface for
+encapsulating the implementation of test components and their integration with
+the test framework.
+
+This module provides the base API for creating new components by
+defining the base classes for nodes and clusters.
+"""
+
 from __future__ import annotations
 
 from abc import abstractmethod

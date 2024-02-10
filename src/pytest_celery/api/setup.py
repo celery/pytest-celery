@@ -1,3 +1,9 @@
+"""The test setup represents the main entry point for accessing the celery
+architecture from the test.
+
+This module provides the base API for creating new test setups.
+"""
+
 from __future__ import annotations
 
 from celery import Celery
