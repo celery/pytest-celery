@@ -1,3 +1,9 @@
+"""The pytest-celery plugin provides a set of built-in components called
+:ref:`vendors`.
+
+This module is part of the RabbitMQ Broker vendor.
+"""
+
 from __future__ import annotations
 
 from kombu import Connection
@@ -10,6 +16,8 @@ from pytest_celery.vendors.rabbitmq.defaults import RABBITMQ_PREFIX
 
 
 class RabbitMQContainer(CeleryTestContainer):
+    """This class manages the lifecycle of a RabbitMQ container."""
+
     @property
     def client(self) -> Connection:
         client = Connection(

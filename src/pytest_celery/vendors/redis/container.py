@@ -1,3 +1,9 @@
+"""The pytest-celery plugin provides a set of built-in components called
+:ref:`vendors`.
+
+This module is part of the Redis vendor.
+"""
+
 from __future__ import annotations
 
 from redis import StrictRedis as Redis
@@ -10,6 +16,8 @@ from pytest_celery.vendors.redis.defaults import REDIS_PREFIX
 
 
 class RedisContainer(CeleryTestContainer):
+    """This class manages the lifecycle of a Redis container."""
+
     @property
     def client(self) -> Redis | None:
         client = Redis.from_url(
