@@ -32,6 +32,14 @@ def celery_memcached_backend(default_memcached_backend: MemcachedContainer) -> M
 
 @pytest.fixture
 def default_memcached_backend_cls() -> type[MemcachedContainer]:
+    """Default Memcached backend container class. Override to apply custom
+    configuration globally.
+
+    See also: :ref:`vendor-class`.
+
+    Returns:
+        type[MemcachedContainer]: API for managing the vendor's container.
+    """
     return MemcachedContainer
 
 
@@ -47,14 +55,38 @@ default_memcached_backend = container(
 
 @pytest.fixture
 def default_memcached_backend_env(default_memcached_backend_cls: type[MemcachedContainer]) -> dict:
+    """Environment variables for this vendor.
+
+    Args:
+        default_memcached_backend_cls (type[MemcachedContainer]): See also: :ref:`vendor-class`.
+
+    Returns:
+        dict: Items to pass to the container's environment.
+    """
     return default_memcached_backend_cls.env()
 
 
 @pytest.fixture
 def default_memcached_backend_image(default_memcached_backend_cls: type[MemcachedContainer]) -> str:
+    """Docker image for this vendor.
+
+    Args:
+        default_memcached_backend_cls (type[MemcachedContainer]): See also: :ref:`vendor-class`.
+
+    Returns:
+        str: Docker image name.
+    """
     return default_memcached_backend_cls.image()
 
 
 @pytest.fixture
 def default_memcached_backend_ports(default_memcached_backend_cls: type[MemcachedContainer]) -> dict:
+    """Port bindings for this vendor.
+
+    Args:
+        default_memcached_backend_cls (type[MemcachedContainer]): See also: :ref:`vendor-class`.
+
+    Returns:
+        dict: Port bindings.
+    """
     return default_memcached_backend_cls.ports()

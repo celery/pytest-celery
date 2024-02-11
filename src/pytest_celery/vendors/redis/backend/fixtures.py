@@ -32,6 +32,14 @@ def celery_redis_backend(default_redis_backend: RedisContainer) -> RedisTestBack
 
 @pytest.fixture
 def default_redis_backend_cls() -> type[RedisContainer]:
+    """Default Redis backend container class. Override to apply custom
+    configuration globally.
+
+    See also: :ref:`vendor-class`.
+
+    Returns:
+        type[RedisContainer]: API for managing the vendor's container.
+    """
     return RedisContainer
 
 
@@ -48,14 +56,38 @@ default_redis_backend = container(
 
 @pytest.fixture
 def default_redis_backend_env(default_redis_backend_cls: type[RedisContainer]) -> dict:
+    """Environment variables for this vendor.
+
+    Args:
+        default_rabbitmq_broker_cls (type[RedisContainer]): See also: :ref:`vendor-class`.
+
+    Returns:
+        dict: Items to pass to the container's environment.
+    """
     return default_redis_backend_cls.env()
 
 
 @pytest.fixture
 def default_redis_backend_image(default_redis_backend_cls: type[RedisContainer]) -> str:
+    """Sets the image name for this vendor.
+
+    Args:
+        default_rabbitmq_broker_cls (type[RedisContainer]): See also: :ref:`vendor-class`.
+
+    Returns:
+        str: Docker image name.
+    """
     return default_redis_backend_cls.image()
 
 
 @pytest.fixture
 def default_redis_backend_ports(default_redis_backend_cls: type[RedisContainer]) -> dict:
+    """Port bindings for this vendor.
+
+    Args:
+        default_redis_backend_cls (type[RedisContainer]): See also: :ref:`vendor-class`.
+
+    Returns:
+        dict: Port bindings.
+    """
     return default_redis_backend_cls.ports()
