@@ -32,6 +32,14 @@ def celery_rabbitmq_broker(default_rabbitmq_broker: RabbitMQContainer) -> Rabbit
 
 @pytest.fixture
 def default_rabbitmq_broker_cls() -> type[RabbitMQContainer]:
+    """Default RabbitMQ broker container class. Override to apply custom
+    configuration globally.
+
+    See also: :ref:`vendor-class`.
+
+    Returns:
+        type[RabbitMQContainer]: API for managing the vendor's container.
+    """
     return RabbitMQContainer
 
 
@@ -47,14 +55,38 @@ default_rabbitmq_broker = container(
 
 @pytest.fixture
 def default_rabbitmq_broker_env(default_rabbitmq_broker_cls: type[RabbitMQContainer]) -> dict:
+    """Environment variables for this vendor.
+
+    Args:
+        default_rabbitmq_broker_cls (type[RabbitMQContainer]): See also: :ref:`vendor-class`.
+
+    Returns:
+        dict: Items to pass to the container's environment.
+    """
     return default_rabbitmq_broker_cls.env()
 
 
 @pytest.fixture
 def default_rabbitmq_broker_image(default_rabbitmq_broker_cls: type[RabbitMQContainer]) -> str:
+    """Sets the image name for this vendor.
+
+    Args:
+        default_rabbitmq_broker_cls (type[RabbitMQContainer]): See also: :ref:`vendor-class`.
+
+    Returns:
+        str: Docker image name.
+    """
     return default_rabbitmq_broker_cls.image()
 
 
 @pytest.fixture
 def default_rabbitmq_broker_ports(default_rabbitmq_broker_cls: type[RabbitMQContainer]) -> dict:
+    """Port bindings for this vendor.
+
+    Args:
+        default_rabbitmq_broker_cls (type[RabbitMQContainer]): See also: :ref:`vendor-class`.
+
+    Returns:
+        dict: Port bindings.
+    """
     return default_rabbitmq_broker_cls.ports()
