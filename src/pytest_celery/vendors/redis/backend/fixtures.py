@@ -64,7 +64,7 @@ def default_redis_backend_env(default_redis_backend_cls: type[RedisContainer]) -
     Returns:
         dict: Items to pass to the container's environment.
     """
-    return default_redis_backend_cls.env()
+    return default_redis_backend_cls.initial_env()
 
 
 @pytest.fixture

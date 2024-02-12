@@ -55,7 +55,7 @@ class MemcachedContainer(CeleryTestContainer):
         return cls.image().split(":")[-1]
 
     @classmethod
-    def env(cls) -> dict:
+    def initial_env(cls) -> dict:
         return MEMCACHED_ENV
 
     @classmethod

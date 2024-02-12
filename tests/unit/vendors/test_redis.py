@@ -19,7 +19,7 @@ class test_redis_container:
         assert RedisContainer.version() == "latest"
 
     def test_env(self):
-        assert RedisContainer.env() == REDIS_ENV
+        assert RedisContainer.initial_env() == REDIS_ENV
 
     def test_image(self):
         assert RedisContainer.image() == REDIS_IMAGE

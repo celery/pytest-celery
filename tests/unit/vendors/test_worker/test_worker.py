@@ -50,7 +50,7 @@ class test_celery_worker_container:
 
     class test_celery_worker_container_env:
         def test_env(self, celery_worker_cluster_config: dict):
-            assert CeleryWorkerContainer.env(celery_worker_cluster_config) == DEFAULT_WORKER_ENV
+            assert CeleryWorkerContainer.initial_env(celery_worker_cluster_config) == DEFAULT_WORKER_ENV
 
         class test_disabling_cluster:
             @pytest.fixture
@@ -65,7 +65,7 @@ class test_celery_worker_container:
                 expected_env = DEFAULT_WORKER_ENV.copy()
                 expected_env.pop("CELERY_BROKER_URL")
                 expected_env.pop("CELERY_RESULT_BACKEND")
-                assert CeleryWorkerContainer.env(celery_worker_cluster_config) == expected_env
+                assert CeleryWorkerContainer.initial_env(celery_worker_cluster_config) == expected_env
 
     def test_initial_content_default_tasks(self):
         from tests import tasks

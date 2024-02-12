@@ -17,7 +17,7 @@ class test_memcached_container:
         assert MemcachedContainer.version() == "latest"
 
     def test_env(self):
-        assert MemcachedContainer.env() == MEMCACHED_ENV
+        assert MemcachedContainer.initial_env() == MEMCACHED_ENV
 
     def test_image(self):
         assert MemcachedContainer.image() == MEMCACHED_IMAGE
