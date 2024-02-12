@@ -1,19 +1,18 @@
 from __future__ import annotations
 
 import pytest
-from pytest_lazyfixture import lazy_fixture
 
 from pytest_celery import CeleryTestCluster
 from pytest_celery import CeleryTestNode
 from pytest_celery import RedisTestBackend
-from tests.defaults import ALL_CLUSTERS_FIXTURES
-from tests.defaults import ALL_NODES_FIXTURES
 
 
-@pytest.mark.parametrize("node", lazy_fixture(ALL_NODES_FIXTURES))
-class test_celery_test_node:
+class BaseNodes:
     def test_ready(self, node: CeleryTestNode):
         assert node.ready()
+
+    def test_app(self, node: CeleryTestNode):
+        assert node.app is None
 
     def test_logs(self, node: CeleryTestNode):
         node.logs()
@@ -62,10 +61,18 @@ class test_celery_test_node:
         pass
 
 
-@pytest.mark.parametrize("cluster", lazy_fixture(ALL_CLUSTERS_FIXTURES))
-class test_celery_test_cluster:
+class BaseCluster:
     def test_ready(self, cluster: CeleryTestCluster):
         assert cluster.ready()
 
     def test_teardown(self, cluster: CeleryTestCluster):
         cluster.teardown()
+
+    def test_app(self, cluster: CeleryTestCluster):
+        node: CeleryTestNode
+        for node in cluster:
+            assert node.app is None
+
+    def test_config(self, cluster: CeleryTestCluster):
+        expected_keys = {"urls", "host_urls"}
+        assert set(cluster.config().keys()) == expected_keys

@@ -1,27 +1,22 @@
 from __future__ import annotations
 
 import pytest
-from pytest_lazyfixture import lazy_fixture
 
-from pytest_celery import CELERY_BACKEND
-from pytest_celery import CELERY_BACKEND_CLUSTER
 from pytest_celery import CeleryBackendCluster
 from pytest_celery import CeleryTestBackend
+from pytest_celery import CeleryTestCluster
+from pytest_celery import CeleryTestNode
+from tests.integration.api.test_base import BaseCluster
+from tests.integration.api.test_base import BaseNodes
 
 
-@pytest.mark.parametrize("backend", [lazy_fixture(CELERY_BACKEND)])
-class test_celey_test_backend:
-    def test_app(self, backend: CeleryTestBackend):
-        assert backend.app is None
+class test_celey_test_backend(BaseNodes):
+    @pytest.fixture
+    def node(self, celery_backend: CeleryTestBackend) -> CeleryTestNode:
+        return celery_backend
 
 
-@pytest.mark.parametrize("cluster", [lazy_fixture(CELERY_BACKEND_CLUSTER)])
-class test_celery_backend_cluster:
-    def test_app(self, cluster: CeleryBackendCluster):
-        backend: CeleryTestBackend
-        for backend in cluster:
-            assert backend.app is None
-
-    def test_config(self, cluster: CeleryBackendCluster):
-        expected_keys = {"urls", "host_urls"}
-        assert set(cluster.config().keys()) == expected_keys
+class test_celery_backend_cluster(BaseCluster):
+    @pytest.fixture
+    def cluster(self, celery_backend_cluster: CeleryBackendCluster) -> CeleryTestCluster:
+        return celery_backend_cluster

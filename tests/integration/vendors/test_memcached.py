@@ -1,15 +1,18 @@
 from __future__ import annotations
 
 import pytest
-from pytest_lazyfixture import lazy_fixture
 
-from pytest_celery import CELERY_MEMCACHED_BACKEND
 from pytest_celery import MemcachedContainer
 from pytest_celery import MemcachedTestBackend
 from tests.defaults import ALL_MEMCACHED_FIXTURES
 
 
-@pytest.mark.parametrize("container", lazy_fixture(ALL_MEMCACHED_FIXTURES))
+@pytest.fixture
+def container(request):
+    return request.getfixturevalue(request.param)
+
+
+@pytest.mark.parametrize("container", ALL_MEMCACHED_FIXTURES, indirect=["container"])
 class test_memcached_container:
     def test_client(self, container: MemcachedContainer):
         assert container.client
@@ -26,10 +29,9 @@ class test_memcached_container:
         assert container.prefix() in config["host_url"]
 
 
-@pytest.mark.parametrize("backend", [lazy_fixture(CELERY_MEMCACHED_BACKEND)])
 class test_memcached_test_backend:
-    def test_config(self, backend: MemcachedTestBackend):
+    def test_config(self, celery_memcached_backend: MemcachedTestBackend):
         expected_keys = {"url", "host_url", "hostname", "port"}
-        assert set(backend.config().keys()) == expected_keys
-        assert backend.container.prefix() in backend.config()["url"]
-        assert backend.container.prefix() in backend.config()["host_url"]
+        assert set(celery_memcached_backend.config().keys()) == expected_keys
+        assert celery_memcached_backend.container.prefix() in celery_memcached_backend.config()["url"]
+        assert celery_memcached_backend.container.prefix() in celery_memcached_backend.config()["host_url"]
