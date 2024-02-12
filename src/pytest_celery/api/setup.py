@@ -64,34 +64,34 @@ class CeleryTestSetup:
         return self._app
 
     @property
-    def backend_cluster(self) -> CeleryBackendCluster:
+    def backend_cluster(self) -> CeleryBackendCluster | None:
         """The backend cluster of this setup."""
         return self._backend_cluster
 
     @property
-    def backend(self) -> CeleryTestBackend:
+    def backend(self) -> CeleryTestBackend | None:
         """The first backend node of the backend cluster."""
-        return self._backend_cluster[0]  # type: ignore
+        return self._backend_cluster[0] if self._backend_cluster else None  # type: ignore
 
     @property
-    def broker_cluster(self) -> CeleryBrokerCluster:
+    def broker_cluster(self) -> CeleryBrokerCluster | None:
         """The broker cluster of this setup."""
         return self._broker_cluster
 
     @property
-    def broker(self) -> CeleryTestBroker:
+    def broker(self) -> CeleryTestBroker | None:
         """The first broker node of the broker cluster."""
-        return self._broker_cluster[0]  # type: ignore
+        return self._broker_cluster[0] if self._broker_cluster else None  # type: ignore
 
     @property
-    def worker_cluster(self) -> CeleryWorkerCluster:
+    def worker_cluster(self) -> CeleryWorkerCluster | None:
         """The worker cluster of this setup."""
         return self._worker_cluster
 
     @property
-    def worker(self) -> CeleryTestWorker:
+    def worker(self) -> CeleryTestWorker | None:
         """The first worker node of the worker cluster."""
-        return self._worker_cluster[0]  # type: ignore
+        return self._worker_cluster[0] if self._worker_cluster else None  # type: ignore
 
     @classmethod
     def name(cls) -> str:
