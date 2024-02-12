@@ -56,7 +56,14 @@ class CeleryTestSetup:
 
     def __len__(self) -> int:
         """The total number of nodes in the setup."""
-        return len(self._worker_cluster) + len(self._broker_cluster) + len(self._backend_cluster)
+        nodes_count = 0
+        if self.broker_cluster:
+            nodes_count += len(self.broker_cluster)
+        if self.backend_cluster:
+            nodes_count += len(self.backend_cluster)
+        if self.worker_cluster:
+            nodes_count += len(self.worker_cluster)
+        return nodes_count
 
     @property
     def app(self) -> Celery:

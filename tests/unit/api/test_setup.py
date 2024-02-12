@@ -80,6 +80,9 @@ class test_celery_test_setup_unit:
             assert celery_setup.backend_cluster is None
             assert celery_setup.backend is None
 
+        def test_setup_length(self, celery_setup: CeleryTestSetup):
+            assert len(celery_setup)
+
     class test_disabling_broker_cluster:
         @pytest.fixture
         def celery_broker_cluster(self) -> CeleryBrokerCluster:
@@ -89,6 +92,9 @@ class test_celery_test_setup_unit:
             assert celery_setup.broker_cluster is None
             assert celery_setup.broker is None
 
+        def test_setup_length(self, celery_setup: CeleryTestSetup):
+            assert len(celery_setup)
+
     class test_disabling_worker_cluster:
         @pytest.fixture
         def celery_worker_cluster(self) -> CeleryWorkerCluster:
@@ -97,3 +103,6 @@ class test_celery_test_setup_unit:
         def test_disabling_worker_cluster(self, celery_setup: CeleryTestSetup):
             assert celery_setup.worker_cluster is None
             assert celery_setup.worker is None
+
+        def test_setup_length(self, celery_setup: CeleryTestSetup):
+            assert len(celery_setup)
