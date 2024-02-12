@@ -3,9 +3,7 @@ from __future__ import annotations
 from types import ModuleType
 
 import pytest
-from pytest_lazyfixture import lazy_fixture
 
-from pytest_celery import CELERY_SETUP_WORKER
 from pytest_celery import DEFAULT_WORKER_ENV
 from pytest_celery import CeleryBackendCluster
 from pytest_celery import CeleryTestWorker
@@ -13,7 +11,12 @@ from pytest_celery import CeleryWorkerContainer
 from tests.defaults import ALL_WORKERS_FIXTURES
 
 
-@pytest.mark.parametrize("container", lazy_fixture(ALL_WORKERS_FIXTURES))
+@pytest.fixture
+def container(request):
+    return request.getfixturevalue(request.param)
+
+
+@pytest.mark.parametrize("container", ALL_WORKERS_FIXTURES, indirect=["container"])
 class test_celery_worker_container:
     def test_client(self, container: CeleryWorkerContainer):
         assert container.client
@@ -48,8 +51,7 @@ class test_celery_worker_container:
             assert container.app_module() == default_worker_app_module
 
 
-@pytest.mark.parametrize("worker", [lazy_fixture(CELERY_SETUP_WORKER)])
 class test_base_test_worker:
-    def test_config(self, worker: CeleryTestWorker):
+    def test_config(self, celery_setup_worker: CeleryTestWorker):
         with pytest.raises(NotImplementedError):
-            worker.config()
+            celery_setup_worker.config()

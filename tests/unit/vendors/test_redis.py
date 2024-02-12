@@ -1,10 +1,7 @@
 from __future__ import annotations
 
 import pytest
-from pytest_lazyfixture import lazy_fixture
 
-from pytest_celery import CELERY_REDIS_BACKEND
-from pytest_celery import CELERY_REDIS_BROKER
 from pytest_celery import REDIS_ENV
 from pytest_celery import REDIS_IMAGE
 from pytest_celery import REDIS_PORTS
@@ -31,18 +28,16 @@ class test_redis_container:
         assert RedisContainer.prefix() == REDIS_PREFIX
 
 
-@pytest.mark.parametrize("backend", [lazy_fixture(CELERY_REDIS_BACKEND)])
 class test_redis_backend_api:
     @pytest.mark.skip(reason="RedisTestBackend.teardown() breaks the testing environment")
-    def test_teardown(self, backend: RedisTestBackend):
-        backend.teardown()
-        backend.container.teardown.assert_called_once()
+    def test_teardown(self, celery_redis_backend: RedisTestBackend):
+        celery_redis_backend.teardown()
+        celery_redis_backend.container.teardown.assert_called_once()
 
 
-@pytest.mark.parametrize("broker", [lazy_fixture(CELERY_REDIS_BROKER)])
 class test_redis_broker_api:
     @pytest.mark.skip(reason="Placeholder")
-    def test_placeholder(self, broker: RedisTestBroker):
+    def test_placeholder(self, celery_redis_broker: RedisTestBroker):
         # The class RedisTestBroker is currently a placeholder
         # so we don't have any specific tests for it yet.
         # This test suite is pre-configured to test the RedisTestBroker

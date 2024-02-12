@@ -1961,20 +1961,6 @@ docker = ">=4.3.1"
 pytest = ">=6.0.1"
 
 [[package]]
-name = "pytest-lazy-fixture"
-version = "0.6.3"
-description = "It helps to use fixtures in pytest.mark.parametrize"
-optional = false
-python-versions = "*"
-files = [
-    {file = "pytest-lazy-fixture-0.6.3.tar.gz", hash = "sha256:0e7d0c7f74ba33e6e80905e9bfd81f9d15ef9a790de97993e34213deb5ad10ac"},
-    {file = "pytest_lazy_fixture-0.6.3-py3-none-any.whl", hash = "sha256:e0b379f38299ff27a653f03eaa69b08a6fd4484e46fd1c9907d984b9f9daeda6"},
-]
-
-[package.dependencies]
-pytest = ">=3.2.5"
-
-[[package]]
 name = "pytest-rerunfailures"
 version = "13.0"
 description = "pytest plugin to re-run tests to eliminate flaky failures"
@@ -3107,4 +3093,4 @@ celery = ["celery"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">= 3.8,<4.0"
-content-hash = "5bb37c8fd2af4c6e2fab9647db19419eefb05457c25d7b20851b2d5c7f8c0043"
+content-hash = "1a76f9c00e2c8254d18163ec401b01cdb21ead266c91446743c69b268ee75783"
