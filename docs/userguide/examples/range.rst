@@ -81,14 +81,14 @@ to the worker fixture, and will generate a different worker for each Celery vers
 
     class TestRange:
     @pytest.fixture(scope="session", params=get_celery_versions("v4.4.7", "v5.0.0"))
-    def celery_version(self, request: pytest.FixtureRequest) -> str:
+    def default_worker_celery_version(self, request: pytest.FixtureRequest) -> str:
         return request.param
 
 Following up with this simple test case will produce a test run for each Celery version in the list.
 
 .. code-block:: python
 
-    def test_ping(self, celery_setup: CeleryTestSetup, celery_version: str):
+    def test_ping(self, celery_setup: CeleryTestSetup, default_worker_celery_version: str):
         sig: Signature = ping.s()
         res: AsyncResult = sig.apply_async()
         assert res.get(timeout=RESULT_TIMEOUT) == "pong"
