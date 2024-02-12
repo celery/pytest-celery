@@ -63,7 +63,7 @@ def default_memcached_backend_env(default_memcached_backend_cls: type[MemcachedC
     Returns:
         dict: Items to pass to the container's environment.
     """
-    return default_memcached_backend_cls.env()
+    return default_memcached_backend_cls.initial_env()
 
 
 @pytest.fixture

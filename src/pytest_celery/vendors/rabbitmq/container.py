@@ -61,7 +61,7 @@ class RabbitMQContainer(CeleryTestContainer):
         return cls.image().split(":")[-1]
 
     @classmethod
-    def env(cls) -> dict:
+    def initial_env(cls) -> dict:
         return RABBITMQ_ENV
 
     @classmethod

@@ -175,7 +175,7 @@ def default_worker_env(
     Returns:
         dict: Items to pass to the container's environment.
     """
-    return default_worker_container_cls.env(celery_worker_cluster_config)
+    return default_worker_container_cls.initial_env(celery_worker_cluster_config)
 
 
 @pytest.fixture

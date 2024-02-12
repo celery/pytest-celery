@@ -106,7 +106,7 @@ class CeleryWorkerContainer(CeleryTestContainer):
         }
 
     @classmethod
-    def env(cls, celery_worker_cluster_config: dict, initial: dict | None = None) -> dict:
+    def initial_env(cls, celery_worker_cluster_config: dict, initial: dict | None = None) -> dict:
         """Defines the environment variables for the worker container.
 
         See more: pytest_docker_tools.container()

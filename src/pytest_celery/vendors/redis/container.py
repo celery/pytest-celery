@@ -65,7 +65,7 @@ class RedisContainer(CeleryTestContainer):
         return cls.image().split(":")[-1]
 
     @classmethod
-    def env(cls) -> dict:
+    def initial_env(cls) -> dict:
         return REDIS_ENV
 
     @classmethod

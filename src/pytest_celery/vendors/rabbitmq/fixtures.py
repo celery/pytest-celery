@@ -63,7 +63,7 @@ def default_rabbitmq_broker_env(default_rabbitmq_broker_cls: type[RabbitMQContai
     Returns:
         dict: Items to pass to the container's environment.
     """
-    return default_rabbitmq_broker_cls.env()
+    return default_rabbitmq_broker_cls.initial_env()
 
 
 @pytest.fixture

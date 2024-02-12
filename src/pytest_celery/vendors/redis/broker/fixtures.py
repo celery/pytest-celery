@@ -64,7 +64,7 @@ def default_redis_broker_env(default_redis_broker_cls: type[RedisContainer]) -> 
     Returns:
         dict: Items to pass to the container's environment.
     """
-    return default_redis_broker_cls.env()
+    return default_redis_broker_cls.initial_env()
 
 
 @pytest.fixture
