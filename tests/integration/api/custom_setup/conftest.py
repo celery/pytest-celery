@@ -110,6 +110,7 @@ default_worker_container = container(
     volumes={"{default_worker_volume.name}": DEFAULT_WORKER_VOLUME},
     wrapper_class=Celery5WorkerContainer,
     timeout=DEFAULT_WORKER_CONTAINER_TIMEOUT,
+    command=fxtr("default_worker_command"),
 )
 
 

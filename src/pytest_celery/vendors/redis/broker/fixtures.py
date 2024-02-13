@@ -50,8 +50,21 @@ default_redis_broker = container(
     network="{default_pytest_celery_network.name}",
     wrapper_class=RedisContainer,
     timeout=REDIS_CONTAINER_TIMEOUT,
-    command=RedisContainer.command("--maxclients", "100000"),
+    command=fxtr("default_redis_broker_command"),
 )
+
+
+@pytest.fixture
+def default_redis_broker_command(default_redis_broker_cls: type[RedisContainer]) -> list[str]:
+    """Command to run the container.
+
+    Args:
+        default_redis_broker_cls (type[RedisContainer]): See also: :ref:`vendor-class`.
+
+    Returns:
+        list[str]: Docker CMD instruction.
+    """
+    return default_redis_broker_cls.command("--maxclients", "100000")
 
 
 @pytest.fixture

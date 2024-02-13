@@ -102,6 +102,7 @@ default_worker_container = container(
     volumes={"{default_worker_volume.name}": DEFAULT_WORKER_VOLUME},
     wrapper_class=SmokeWorkerContainer,
     timeout=DEFAULT_WORKER_CONTAINER_TIMEOUT,
+    command=fxtr("default_worker_command"),
 )
 
 
