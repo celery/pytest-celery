@@ -50,6 +50,14 @@ class test_celery_worker_container:
         def test_replacing_app_module(self, container: CeleryWorkerContainer, default_worker_app_module: ModuleType):
             assert container.app_module() == default_worker_app_module
 
+    class test_replacing_command:
+        @pytest.fixture
+        def default_worker_command(self, default_worker_command: list[str]) -> list[str]:
+            return [*default_worker_command, "--pool", "solo"]
+
+        def test_replacing_command(self, container: CeleryWorkerContainer):
+            assert container.logs().count("solo") == 1
+
 
 class test_base_test_worker:
     def test_config(self, celery_setup_worker: CeleryTestWorker):

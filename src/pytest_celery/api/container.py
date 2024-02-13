@@ -71,9 +71,6 @@ class CeleryTestContainer(wrappers.Container):
                 the first element, followed by the command-line arguments.
         """
 
-        # To be used with pytest_docker_tools.container using the command
-        # kwarg with the class method as value
-        # e.g. command=MyContainer.command()
         raise NotImplementedError("CeleryTestContainer.command")
 
     def teardown(self) -> None:

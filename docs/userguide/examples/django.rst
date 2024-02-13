@@ -144,6 +144,7 @@ and `container <https://github.com/Jc2k/pytest-docker-tools?tab=readme-ov-file#c
         },
         wrapper_class=DjangoWorkerContainer,
         timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,
+        command=fxtr("default_worker_command"),
     )
 
 In this case, we also mount the project directory to ``/src`` in the container, so that we can install the project

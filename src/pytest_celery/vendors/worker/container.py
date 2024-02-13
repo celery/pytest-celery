@@ -32,6 +32,22 @@ class CeleryWorkerContainer(CeleryTestContainer):
         dependencies of your project.
     """
 
+    @classmethod
+    def command(cls, *args: str) -> list[str]:
+        args = args or tuple()
+        return [
+            "celery",
+            "-A",
+            "app",
+            "worker",
+            f"--loglevel={cls.log_level()}",
+            "-n",
+            f"{cls.worker_name()}@%h",
+            "-Q",
+            f"{cls.worker_queue()}",
+            *args,
+        ]
+
     def _wait_port(self, port: str) -> int:
         # Not needed for worker container
         raise NotImplementedError

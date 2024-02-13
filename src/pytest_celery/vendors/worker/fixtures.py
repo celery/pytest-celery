@@ -91,6 +91,7 @@ default_worker_container = container(
     volumes={"{default_worker_volume.name}": DEFAULT_WORKER_VOLUME},
     wrapper_class=CeleryWorkerContainer,
     timeout=DEFAULT_WORKER_CONTAINER_TIMEOUT,
+    command=fxtr("default_worker_command"),
 )
 
 celery_base_worker_image = build(
@@ -162,6 +163,19 @@ def default_worker_celery_worker_queue(default_worker_container_session_cls: typ
 
 
 @pytest.fixture
+def default_worker_command(default_worker_container_cls: type[CeleryWorkerContainer]) -> list[str]:
+    """Command to run the container.
+
+    Args:
+        default_worker_container_cls (type[CeleryWorkerContainer]): See also: :ref:`vendor-class`.
+
+    Returns:
+        list[str]: Docker CMD instruction.
+    """
+    return default_worker_container_cls.command()
+
+
+@pytest.fixture
 def default_worker_env(
     default_worker_container_cls: type[CeleryWorkerContainer],
     celery_worker_cluster_config: dict,
@@ -201,7 +215,7 @@ def default_worker_initial_content(
 
     .. note::
 
-        Move volumes may be added additionally.
+        More volumes may be added additionally.
 
     Args:
         default_worker_container_cls (type[CeleryWorkerContainer]): See also: :ref:`vendor-class`.
