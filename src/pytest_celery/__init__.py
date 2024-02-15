@@ -24,17 +24,27 @@ from pytest_celery.fixtures.backend import *
 from pytest_celery.fixtures.broker import *
 from pytest_celery.fixtures.setup import *
 from pytest_celery.fixtures.worker import *
-from pytest_celery.vendors.memcached.api import *
-from pytest_celery.vendors.memcached.container import *
-from pytest_celery.vendors.memcached.fixtures import *
+from pytest_celery.vendors import MissingCeleryDependency
 from pytest_celery.vendors.rabbitmq.api import *
 from pytest_celery.vendors.rabbitmq.container import *
 from pytest_celery.vendors.rabbitmq.fixtures import *
-from pytest_celery.vendors.redis.backend.api import *
-from pytest_celery.vendors.redis.backend.fixtures import *
-from pytest_celery.vendors.redis.broker.api import *
-from pytest_celery.vendors.redis.broker.fixtures import *
-from pytest_celery.vendors.redis.container import *
+
+try:
+    from pytest_celery.vendors.memcached.api import *
+    from pytest_celery.vendors.memcached.container import *
+    from pytest_celery.vendors.memcached.fixtures import *
+except MissingCeleryDependency:
+    pass
+
+try:
+    from pytest_celery.vendors.redis.backend.api import *
+    from pytest_celery.vendors.redis.backend.fixtures import *
+    from pytest_celery.vendors.redis.broker.api import *
+    from pytest_celery.vendors.redis.broker.fixtures import *
+    from pytest_celery.vendors.redis.container import *
+except MissingCeleryDependency:
+    pass
+
 from pytest_celery.vendors.worker.container import *
 from pytest_celery.vendors.worker.fixtures import *
 
