@@ -36,7 +36,11 @@ from pytest_celery.vendors.redis.broker.api import *
 from pytest_celery.vendors.redis.broker.fixtures import *
 from pytest_celery.vendors.redis.container import *
 from pytest_celery.vendors.worker.container import *
+from pytest_celery.vendors.worker.content import app
+from pytest_celery.vendors.worker.content import utils
 from pytest_celery.vendors.worker.fixtures import *
+from pytest_celery.vendors.worker.tasks import *
+from pytest_celery.vendors.worker.volume import *
 
 version_info_t = namedtuple(
     "version_info_t",
