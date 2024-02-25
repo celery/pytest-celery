@@ -194,7 +194,6 @@ The following diagram describes the worker component initialization pipeline des
     WCI->>NF: Integrates the container into its node
     NF->>WCI: Node Ready, worker initialization completed
 
-
 Configuration Pipeline
 ~~~~~~~~~~~~~~~~~~~~~~
 

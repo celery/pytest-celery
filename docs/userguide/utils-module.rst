@@ -1,8 +1,8 @@
 .. _utils_module:
 
-===================================
- Inject your own utility functions
-===================================
+==========================================
+ How to inject your own utility functions
+==========================================
 
 :Release: |version|
 :Date: |today|
@@ -18,7 +18,14 @@ using this mechanism.
     :local:
     :depth: 2
 
+.. note::
+
+    If you already understand how the initialization pipeline works, you can skip to the
+    :ref:`custom-utility-functions` section.
+
 .. include:: ../includes/worker-breakdown.txt
+
+.. _custom-utility-functions:
 
 Custom Utility Functions
 ========================

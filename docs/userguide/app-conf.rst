@@ -1,8 +1,8 @@
 .. _app-conf:
 
-================================
- Prepare the Celery Application
-================================
+=======================================
+ How to prepare the Celery application
+=======================================
 
 :Release: |version|
 :Date: |today|
@@ -21,7 +21,14 @@ for your test cases.
     :local:
     :depth: 2
 
+.. note::
+
+    If you already understand how the initialization pipeline works, you can skip to the
+    :ref:`worker-app-configuration` section.
+
 .. include:: ../includes/worker-breakdown.txt
+
+.. _worker-app-configuration:
 
 Worker App Configuration
 ========================
