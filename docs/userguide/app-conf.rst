@@ -1,8 +1,8 @@
 .. _app-conf:
 
-==================================
- Preparing the Celery Application
-==================================
+================================
+ Prepare the Celery Application
+================================
 
 :Release: |version|
 :Date: |today|

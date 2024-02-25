@@ -5,6 +5,13 @@ import pytest
 from pytest_celery import CeleryTestWorker
 
 
+@pytest.fixture
+def default_worker_utils_module() -> ModuleType:
+    from tests import myutils
+
+    return myutils
+
+
 class MyWorker(CeleryTestWorker):
 
     def myfunc(self) -> bool:
@@ -20,10 +27,3 @@ class MyWorker(CeleryTestWorker):
 @pytest.fixture
 def default_worker_cls() -> type[CeleryTestWorker]:
     return MyWorker
-
-
-@pytest.fixture
-def default_worker_utils_module() -> ModuleType:
-    from tests import myutils
-
-    return myutils

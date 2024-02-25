@@ -1,8 +1,8 @@
 .. _utils_module:
 
-======================================
- Injecting your own utility functions
-======================================
+===================================
+ Inject your own utility functions
+===================================
 
 :Release: |version|
 :Date: |today|
@@ -49,3 +49,7 @@ For reference, the default ``utils.py`` module is defined as follows:
 .. literalinclude:: ../../src/pytest_celery/vendors/worker/content/utils.py
    :language: python
    :caption: pytest_celery.vendors.worker.content.utils.py
+
+.. tip::
+
+    Check out the :ref:`examples_myutils` example for a demonstration of how to use this feature.
