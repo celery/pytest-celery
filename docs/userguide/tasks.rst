@@ -1,4 +1,4 @@
-.. _tasks:
+.. _signals:
 
 ==================
  How to add tasks

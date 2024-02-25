@@ -13,6 +13,6 @@
     app-conf
     utils-module
     tasks
+    signals
     examples/index
     resources/index
-    tbd
