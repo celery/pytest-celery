@@ -1,5 +1,7 @@
 import pytest
+
 from tests import tasks
+
 
 @pytest.fixture
 def default_worker_tasks():
