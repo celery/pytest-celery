@@ -340,6 +340,8 @@ Before we can learn how to fit the environment to our needs, let's have a quick 
    * - **Isoalted Environments**
      - Each test case has its own instances of the environment, allowing for parallelism and isolation of test cases.
 
+.. _manipulating-the-environment:
+
 Manipulating the Environment
 ============================
 

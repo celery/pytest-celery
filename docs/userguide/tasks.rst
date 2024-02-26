@@ -1,4 +1,4 @@
-.. _signals:
+.. _injecting-tasks:
 
 ==================
  How to add tasks

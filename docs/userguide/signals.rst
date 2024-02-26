@@ -1,4 +1,4 @@
-.. _tasks:
+.. _injecting-signals-handlers:
 
 ================================
  How to connect signal handlers
