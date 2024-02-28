@@ -37,11 +37,7 @@ What do I need?
 
     - Python ❨3.8, 3.9, 3.10, 3.11, 3.12❩
 
-    Celery is required and may be installed separately or automatically using the `celery` extra.
-    When used with the `celery` extra, pytest-celery will install the latest version of Celery
-    and a predefined set of extras.
-
-    Pytest Celery is Celery-agnostic, and should work with virtually any version of Celery.
+    The pytest-celery plugin is Celery-agnostic, and should work with virtually any version of Celery.
 
     .. warning::
         Currently, due to limited resources, we are unable to officially support Microsoft Windows.

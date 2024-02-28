@@ -3,7 +3,7 @@
 Installation
 ============
 
-You can install Pytest Celery either via the Python Package Index (PyPI).
+You can install Pytest Celery via the Python Package Index (PyPI).
 
 To install using :command:`pip`:
 
@@ -11,11 +11,8 @@ To install using :command:`pip`:
 
     $ pip install -U pytest-celery
 
-To include the latest celery package, install with the ``celery`` extra:
-
-.. code-block:: console
-
-    $ pip install -U "pytest-celery[celery]"
+The :pypi:`celery` package will be installed by default with the ``redis`` and ``pymemcache``
+`extras <https://docs.celeryq.dev/en/stable/getting-started/introduction.html#transports-and-backends>`_.
 
 With git
 ~~~~~~~~
