@@ -11,12 +11,16 @@ on:
       - "**.txt"
       - ".github/workflows/examples.yml"
       - "**.toml"
+      - 'src/pytest_celery/vendors/worker/**'
+      - 'Dockerfile'
   pull_request:
     paths:
       - "**.py"
       - "**.txt"
       - "**.toml"
       - ".github/workflows/examples.yml"
+      - 'src/pytest_celery/vendors/worker/**'
+      - 'Dockerfile'
 
 permissions:
   contents: read # to fetch code (actions/checkout)

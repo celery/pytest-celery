@@ -4,7 +4,7 @@ FROM python:3.10-slim-buster
 RUN adduser --disabled-password --gecos "" test_user
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y build-essential
+RUN apt-get update && apt-get install -y build-essential git
 
 # Set arguments
 ARG CELERY_VERSION=""
@@ -23,7 +23,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 RUN pip install --no-cache-dir --upgrade \
     pip \
     celery[redis,pymemcache]${WORKER_VERSION:+==$WORKER_VERSION} \
-    psutil
+    pytest-celery~=1.0.0b
 
 # The workdir must be /app
 WORKDIR /app
