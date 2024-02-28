@@ -154,8 +154,8 @@ For example, such ``signals.py`` module might look like this:
 Celery app
 ~~~~~~~~~~
 
-The provided :ref:`app.py <content-app>` uses the `config_from_object() <https://docs.celeryq.dev/en/main/userguide/application.html#config-from-object>`_
-and `app.conf.changes <https://docs.celeryq.dev/en/main/userguide/application.html#configuration>`_ to transmit the configuration
+The provided :ref:`app.py <content-app>` uses the `config_from_object() <https://docs.celeryq.dev/en/stable/userguide/application.html#config-from-object>`_
+and `app.conf.changes <https://docs.celeryq.dev/en/stable/userguide/application.html#configuration>`_ to transmit the configuration
 from the test environment to the worker container.
 
 The ``app.conf`` is set like this when the worker is booting up:

@@ -1,5 +1,10 @@
 from pytest_celery import CeleryTestSetup
 from tests.conftest import MyWorker
+from tests.myutils import myfunc
+
+
+def test_myfunc():
+    assert myfunc() == "foo"
 
 
 def test_myfunc_in_worker(celery_worker: MyWorker):
