@@ -53,7 +53,7 @@ jobs:
         working-directory: examples/myworker
         timeout-minutes: 10
         run: |
-          pytest -vv tests -n auto
+          pytest -vv tests
 
   range:
     runs-on: ${{ matrix.os }}
@@ -86,7 +86,7 @@ jobs:
         working-directory: examples/range
         timeout-minutes: 10
         run: |
-          pytest -vv tests -n auto
+          pytest -vv tests
 
   rabbitmq_management:
     runs-on: ${{ matrix.os }}
@@ -119,7 +119,7 @@ jobs:
         working-directory: examples/rabbitmq_management
         timeout-minutes: 10
         run: |
-          pytest -vv tests -n auto
+          pytest -vv tests
 
   django:
     runs-on: ${{ matrix.os }}
@@ -158,7 +158,7 @@ jobs:
         timeout-minutes: 10
         run: |
           export DJANGO_SETTINGS_MODULE=proj.settings
-          pytest -vv tests -n auto
+          pytest -vv tests
 
   myutils:
     runs-on: ${{ matrix.os }}
@@ -191,4 +191,4 @@ jobs:
         working-directory: examples/myutils
         timeout-minutes: 10
         run: |
-          pytest -vv tests -n auto
+          pytest -vv tests
