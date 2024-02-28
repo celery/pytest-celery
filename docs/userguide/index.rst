@@ -10,6 +10,9 @@
 .. toctree::
     :maxdepth: 1
 
+    app-conf
+    utils-module
+    tasks
+    signals
     examples/index
     resources/index
-    tbd

@@ -30,6 +30,7 @@ globals().update(
             r"^http://localhost",
             r"https://github\.com/Jc2k/pytest-docker-tools\?tab=readme-ov-file#images",
             r"https://github\.com/Jc2k/pytest-docker-tools\?tab=readme-ov-file#containers",
+            r"https://github\.com/Jc2k/pytest-docker-tools\?tab=readme-ov-file#fixture-wrappers",
         ],
         autodoc_mock_imports=[],
     )

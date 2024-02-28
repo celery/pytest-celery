@@ -19,4 +19,5 @@ Every example is an independent project and is tested via the
     myworker
     rabbitmq_management
     range
+    myutils
     django

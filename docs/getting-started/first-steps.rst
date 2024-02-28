@@ -340,6 +340,8 @@ Before we can learn how to fit the environment to our needs, let's have a quick 
    * - **Isoalted Environments**
      - Each test case has its own instances of the environment, allowing for parallelism and isolation of test cases.
 
+.. _manipulating-the-environment:
+
 Manipulating the Environment
 ============================
 
@@ -763,7 +765,7 @@ Tasks
 -----
 
 This will be our ``tasks.py`` file. It adds a simple ``noop`` task
-`Using the @shared_task decorator <https://docs.celeryq.dev/en/main/django/first-steps-with-django.html#using-the-shared-task-decorator>`_.
+`Using the @shared_task decorator <https://docs.celeryq.dev/en/stable/django/first-steps-with-django.html#using-the-shared-task-decorator>`_.
 
 .. code-block:: python
 
