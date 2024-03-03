@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pytest_docker_tools import network
 
+from pytest_celery.vendors import _is_vendor_installed
 from pytest_celery.vendors.memcached.defaults import CELERY_MEMCACHED_BACKEND
 from pytest_celery.vendors.memcached.defaults import *
 from pytest_celery.vendors.rabbitmq.defaults import CELERY_RABBITMQ_BROKER
@@ -28,15 +29,23 @@ from pytest_celery.vendors.worker.defaults import *
 # will automatically add it to the parametrization of every (relevant) test IMPLICITLY!
 # Tests that do not rely on default parametrization will not be affected.
 
+
+ALL_CELERY_BACKENDS = []
+ALL_CELERY_BROKERS = []
+
+if _is_vendor_installed("redis"):
+    ALL_CELERY_BACKENDS.append(CELERY_REDIS_BACKEND)
+    ALL_CELERY_BROKERS.append(CELERY_REDIS_BROKER)
+
+if _is_vendor_installed("rabbitmq"):
+    # Uses Kombu
+    ALL_CELERY_BROKERS.append(CELERY_RABBITMQ_BROKER)
+
+if _is_vendor_installed("memcached"):
+    ALL_CELERY_BACKENDS.append(CELERY_MEMCACHED_BACKEND)
+
+# Worker setup is assumed to be always available.
 ALL_CELERY_WORKERS = (CELERY_SETUP_WORKER,)
-ALL_CELERY_BACKENDS = (
-    CELERY_REDIS_BACKEND,
-    # CELERY_MEMCACHED_BACKEND,  # Beta support at the moment, to be used manually
-)
-ALL_CELERY_BROKERS = (
-    CELERY_REDIS_BROKER,
-    CELERY_RABBITMQ_BROKER,
-)
 
 ####################################################################################
 # Fixtures

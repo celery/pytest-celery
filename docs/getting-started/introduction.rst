@@ -9,7 +9,7 @@
 
 .. contents::
     :local:
-    :depth: 1
+    :depth: 2
 
 What is Pytest Celery?
 ======================
@@ -253,5 +253,7 @@ Quick Jump
         - :ref:`Contributing <contributing>`
         - :ref:`FAQ <faq>`
         - :ref:`API Reference <apiref>`
+
+.. _installation:
 
 .. include:: ../includes/installation.txt

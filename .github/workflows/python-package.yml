@@ -163,6 +163,6 @@ jobs:
           poetry install --only ci
 
       - name: Run tox for "${{ matrix.python-version }}-smoke"
-        timeout-minutes: 15
+        timeout-minutes: 30
         run: |
           tox --verbose --verbose -e "${{ matrix.python-version }}-smoke" -- -n auto --reruns 2 --rerun-except AssertionError

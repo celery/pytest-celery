@@ -43,12 +43,7 @@ Experimental brokers may be functional but are not confirmed to be
 production ready.
 
 Enabled means that it is automatically added to the test setup matrix
-when running the test suite.
-
-.. warning::
-
-    Enabling a new vendor will automatically add it globally to every test suite that relies
-    on the default configurations. Be careful when enabling new vendors.
+when running the test suite :ref:`if the vendor dependencies are installed <installation>`.
 
 .. _built-in-worker:
 

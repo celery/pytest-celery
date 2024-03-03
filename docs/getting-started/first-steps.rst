@@ -148,7 +148,7 @@ This simple test then,
 
 Will run against all of the (enabled) possible combinations of the environment matrix.
 
-.. code-block:: bash
+.. code-block:: console
 
     pytest tests/test_example.py
     ======================================================================= test session starts ===================================
@@ -165,7 +165,7 @@ With each iteration having its own isolated environment.
 RabbitMQ Broker Iteration Breakdown
 ###################################
 
-.. code-block:: bash
+.. code-block:: console
 
     docker ps
     CONTAINER ID   IMAGE             COMMAND                  CREATED          STATUS          PORTS                                                                     NAMES
@@ -175,7 +175,7 @@ RabbitMQ Broker Iteration Breakdown
 
 With the worker configured correctly for its broker and backend.
 
-.. code-block:: bash
+.. code-block:: console
 
      -------------- celery_test_worker@0ffb4e75b5e4 v5.3.6 (emerald-rush)
     --- ***** -----
@@ -193,7 +193,7 @@ With the worker configured correctly for its broker and backend.
 
 With more verbose test logs.
 
-.. code-block:: bash
+.. code-block:: console
 
     ============================= test session starts ==============================
     ...
@@ -215,7 +215,7 @@ With more verbose test logs.
 Redis Broker Iteration Breakdown
 ################################
 
-.. code-block:: bash
+.. code-block:: console
 
     docker ps
     CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS                     NAMES
@@ -225,7 +225,7 @@ Redis Broker Iteration Breakdown
 
 With the worker configured correctly for its broker and backend.
 
-.. code-block:: bash
+.. code-block:: console
 
      -------------- celery_test_worker@37e8ea35206f v5.3.6 (emerald-rush)
     --- ***** -----
@@ -243,7 +243,7 @@ With the worker configured correctly for its broker and backend.
 
 With more verbose test logs.
 
-.. code-block:: bash
+.. code-block:: console
 
     ============================= test session starts ==============================
     ...
@@ -299,7 +299,7 @@ Or, testing the :ref:`default redis broker <redis-broker>` at the node level.
 Remember, each test case is isolated. This means that both of these tests
 can run in parallel, and **each will be assigned its own container instance.**
 
-.. code-block:: bash
+.. code-block:: console
 
     pytest tests/test_example.py -n auto
     ======================================================================= test session starts ===================================
@@ -312,7 +312,7 @@ can run in parallel, and **each will be assigned its own container instance.**
 
     ======================================================================== 2 passed in 1.72s ====================================
 
-.. code-block:: bash
+.. code-block:: console
 
     docker ps
     CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                     NAMES
