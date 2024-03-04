@@ -41,7 +41,8 @@ if _is_vendor_installed("rabbitmq"):
     # Uses Kombu
     ALL_CELERY_BROKERS.append(CELERY_RABBITMQ_BROKER)
 
-if _is_vendor_installed("memcached"):
+# Memcached is disabled by default regardless of its availability.
+if _is_vendor_installed("memcached") and False:
     ALL_CELERY_BACKENDS.append(CELERY_MEMCACHED_BACKEND)
 
 # Worker setup is assumed to be always available.
