@@ -167,7 +167,7 @@ To avoid these, you may:
 1. Increase the resources available to Docker.
 2. Use the :pypi:`pytest-rerunfailures` pytest plugin to retry failed tests with:
 
-.. code-block:: bash
+.. code-block:: console
 
     --reruns 5 --reruns-delay 60 --rerun-except AssertionError
 

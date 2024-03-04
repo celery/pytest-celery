@@ -1,20 +1,68 @@
-.. _installation:
-
 Installation
 ============
 
-You can install Pytest Celery via the Python Package Index (PyPI).
+The **pytest-celery** plugin can be easily installed via the Python Package Index (PyPI) using :command:`pip`.
 
-To install using :command:`pip`:
+Installing the pytest-celery package
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To install the latest version of **pytest-celery**, run the following command:
 
 .. code-block:: console
 
-    $ pip install -U pytest-celery
+    pip install -U pytest-celery
 
-The :pypi:`celery` package will be installed by default with the ``redis`` and ``pymemcache``
-`extras <https://docs.celeryq.dev/en/stable/getting-started/introduction.html#transports-and-backends>`_.
+This command installs **pytest-celery** along with its required dependencies.
 
-With git
-~~~~~~~~
+This will include:
 
-Please see the :ref:`Contributing <contributing>` section.
+- Latest version of :pypi:`celery`.
+- RabbitMQ broker via :pypi:`kombu`, installed as a dependency of Celery.
+
+Installing pytest-celery vendors
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The plugin detects which vendor dependencies are installed in the test environment to configure
+the default configurations automatically. This means that just by installing the matching dependencies,
+the plugin will allow extending the default configurations, up to the supported built-in :ref:`vendors`.
+
+.. warning::
+
+    If you don't install any vendor (e.g. no extras and no manual installation), the plugin will result in an
+    empty setup matrix and might not be fully functional.
+
+To install the vendors, you may either install all of the dependencies manually, or use the following extras:
+
+- ``all``: Installs all vendors.
+- ``redis``: Installs Redis vendor, providing **broker** and **result backend** components.
+- ``memcached``: Installs Memcached vendor, providing a **result backend** component.
+
+The following extra is installed by default:
+
+- ``rabbitmq``: Installs RabbitMQ vendor, providing a **broker** component.
+
+To install **pytest-celery** with the built-in :ref:`vendors`, replace ``<extra>`` with the name of the vendor.
+
+.. code-block:: console
+
+    pip install -U "pytest-celery[<extra>]"
+
+RabbitMQ & Redis combo
+----------------------
+
+.. code-block:: console
+
+    pip install -U "pytest-celery[redis]"
+
+This will configure the plugin to generate all possible setups using only RabbitMQ and Redis vendors.
+
+All vendors
+-----------
+
+.. code-block:: console
+
+    pip install -U "pytest-celery[all]"
+
+This will configure the plugin to generate all possible setups.
+
+This approach allows you to tailor the installation to your project's specific needs by including only the necessary optional vendors.

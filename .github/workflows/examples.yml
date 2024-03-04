@@ -11,12 +11,16 @@ on:
       - "**.txt"
       - ".github/workflows/examples.yml"
       - "**.toml"
+      - 'src/pytest_celery/vendors/worker/**'
+      - 'Dockerfile'
   pull_request:
     paths:
       - "**.py"
       - "**.txt"
       - "**.toml"
       - ".github/workflows/examples.yml"
+      - 'src/pytest_celery/vendors/worker/**'
+      - 'Dockerfile'
 
 permissions:
   contents: read # to fetch code (actions/checkout)
@@ -53,7 +57,7 @@ jobs:
         working-directory: examples/myworker
         timeout-minutes: 10
         run: |
-          pytest -vv tests -n auto
+          pytest -vv tests
 
   range:
     runs-on: ${{ matrix.os }}
@@ -84,9 +88,9 @@ jobs:
 
       - name: Run tests
         working-directory: examples/range
-        timeout-minutes: 10
+        timeout-minutes: 30
         run: |
-          pytest -vv tests -n auto
+          pytest -vv tests
 
   rabbitmq_management:
     runs-on: ${{ matrix.os }}
@@ -119,7 +123,7 @@ jobs:
         working-directory: examples/rabbitmq_management
         timeout-minutes: 10
         run: |
-          pytest -vv tests -n auto
+          pytest -vv tests
 
   django:
     runs-on: ${{ matrix.os }}
@@ -158,7 +162,7 @@ jobs:
         timeout-minutes: 10
         run: |
           export DJANGO_SETTINGS_MODULE=proj.settings
-          pytest -vv tests -n auto
+          pytest -vv tests
 
   myutils:
     runs-on: ${{ matrix.os }}
@@ -191,4 +195,4 @@ jobs:
         working-directory: examples/myutils
         timeout-minutes: 10
         run: |
-          pytest -vv tests -n auto
+          pytest -vv tests
