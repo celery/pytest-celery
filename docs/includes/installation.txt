@@ -23,7 +23,7 @@ Installing pytest-celery vendors
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The plugin detects which vendor dependencies are installed in the test environment to configure
-the default configurations automatically. This means that just by installing the matching dependencies,
+the default configurations automatically. This means that by just installing the matching dependencies,
 the plugin will allow extending the default configurations, up to the supported built-in :ref:`vendors`.
 
 .. warning::
