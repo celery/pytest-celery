@@ -7,7 +7,7 @@
 :Release: |version|
 :Date: |today|
 
-The pytest-celery plugin uses the environment dependencies to install and configure the default setup matrix.
+The pytest-celery plugin uses the environment dependencies to install and configure the default :ref:`setup-matrix`.
 The available dependencies are the feature flags for the available :ref:`vendors`.
 
 This guide will explain how to install the plugin, how to use the dependencies feature flags and how to

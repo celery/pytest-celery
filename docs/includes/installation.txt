@@ -29,7 +29,7 @@ the plugin will allow extending the default configurations, up to the supported 
 .. warning::
 
     If you don't install any vendor (e.g. no extras and no manual installation), the plugin will result in an
-    empty setup matrix and might not be fully functional.
+    empty :ref:`setup-matrix` and might not be fully functional.
 
 To install the vendors, you may either install all of the dependencies manually, or use the following extras:
 
