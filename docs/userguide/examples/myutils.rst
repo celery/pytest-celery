@@ -14,7 +14,7 @@
 Description
 ===========
 
-This example project shows :ref:`utils_module` to add custom APIs to the ``utils.py`` module
+This example project shows :ref:`utils-module` to add custom APIs to the ``utils.py`` module
 that is being injected into the worker container.
 
 Breakdown
