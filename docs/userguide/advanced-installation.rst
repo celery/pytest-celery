@@ -21,6 +21,8 @@ We will start by reviewing the standard installation instructions.
 
 .. include:: ../includes/installation.txt
 
+.. _advanced-installation-section:
+
 Advanced Installation
 =====================
 
