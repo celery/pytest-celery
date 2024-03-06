@@ -260,4 +260,4 @@ Quick Jump
 
 .. tip::
 
-    See :ref:`advanced-installation` for more advanced installation options.
+    See :ref:`advanced-installation-section` for more advanced installation options.
