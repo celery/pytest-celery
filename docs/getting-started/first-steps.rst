@@ -537,7 +537,7 @@ Let's have a quick recap over what we just learned in this section then.
    * - **Configurable Components**
      - Each default component has its ``default_`` fixtures list, which can be used to control or extend the component's functionality.
    * - **Setup Matrix**
-     - The :func:`celery_setup <pytest_celery.fixtures.setup.celery_setup>` will generate a matrix of isolated environments for each test case, based on the enabled components and their configurations.
+     - The :func:`celery_setup <pytest_celery.fixtures.setup.celery_setup>` will generate a :ref:`setup-matrix` of isolated environments for each test case, based on the enabled components and their configurations.
 
 .. _built-in-components:
 

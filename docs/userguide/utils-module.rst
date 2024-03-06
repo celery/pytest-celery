@@ -1,4 +1,4 @@
-.. _utils_module:
+.. _utils-module:
 
 ==========================================
  How to inject your own utility functions

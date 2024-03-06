@@ -1,3 +1,11 @@
+"""Default plugin configurations.
+
+This module contains the default configurations for the pytest-celery
+plugin. It also contains the automatic collections that are used to
+parametrize the user's tests according to the components they need to
+run against. By default, all possible combinations are used.
+"""
+
 # flake8: noqa
 
 from __future__ import annotations
@@ -41,7 +49,7 @@ if _is_vendor_installed("rabbitmq"):
     # Uses Kombu
     ALL_CELERY_BROKERS.append(CELERY_RABBITMQ_BROKER)
 
-# Memcached is disabled by default regardless of its availability.
+# Memcached is disabled by default regardless of its availability due to its experimental status.
 if _is_vendor_installed("memcached") and False:
     ALL_CELERY_BACKENDS.append(CELERY_MEMCACHED_BACKEND)
 
