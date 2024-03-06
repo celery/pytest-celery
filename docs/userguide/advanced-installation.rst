@@ -75,5 +75,5 @@ that uses the :ref:`test-setup`.
 
 .. warning::
 
-    The ``all`` extra will install **all** of the vendors dependencies, including the experimental ones,
+    The ``all`` extra will install **all** of the vendors dependencies, including the experimental vendor's dependencies,
     to allow manual configuration of the setup matrix.
