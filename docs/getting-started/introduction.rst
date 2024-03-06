@@ -257,3 +257,7 @@ Quick Jump
 .. _installation:
 
 .. include:: ../includes/installation.txt
+
+.. tip::
+
+    See :ref:`advanced-installation` for more advanced installation options.

@@ -10,6 +10,7 @@
 .. toctree::
     :maxdepth: 1
 
+    advanced-installation
     app-conf
     utils-module
     tasks
