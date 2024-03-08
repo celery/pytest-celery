@@ -7,18 +7,24 @@ on:
   push:
     branches: ["main"]
     paths:
+      - ".github/workflows/parallel-support.yml"
+      - 'src/pytest_celery/vendors/worker/**'
       - "**.py"
       - "**.txt"
-      - ".github/workflows/parallel-support.yml"
       - "**.toml"
       - "tox.ini"
+      - 'Dockerfile'
+      - "poetry.lock"
   pull_request:
     paths:
+      - ".github/workflows/parallel-support.yml"
+      - 'src/pytest_celery/vendors/worker/**'
       - "**.py"
       - "**.txt"
       - "**.toml"
-      - ".github/workflows/parallel-support.yml"
       - "tox.ini"
+      - 'Dockerfile'
+      - "poetry.lock"
 
 permissions:
   contents: read # to fetch code (actions/checkout)

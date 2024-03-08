@@ -7,20 +7,24 @@ on:
   push:
     branches: ["main"]
     paths:
+      - ".github/workflows/examples.yml"
+      - 'src/pytest_celery/vendors/worker/**'
       - "**.py"
       - "**.txt"
-      - ".github/workflows/examples.yml"
       - "**.toml"
-      - 'src/pytest_celery/vendors/worker/**'
+      - "tox.ini"
       - 'Dockerfile'
+      - "poetry.lock"
   pull_request:
     paths:
+      - ".github/workflows/examples.yml"
+      - 'src/pytest_celery/vendors/worker/**'
       - "**.py"
       - "**.txt"
       - "**.toml"
-      - ".github/workflows/examples.yml"
-      - 'src/pytest_celery/vendors/worker/**'
+      - "tox.ini"
       - 'Dockerfile'
+      - "poetry.lock"
 
 permissions:
   contents: read # to fetch code (actions/checkout)

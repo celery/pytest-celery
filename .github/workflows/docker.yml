@@ -4,15 +4,25 @@ on:
     pull_request:
       branches: [ 'main']
       paths:
-          - 'src/pytest_celery/vendors/worker/**'
-          - '.github/workflows/docker.yml'
-          - 'Dockerfile'
+        - '.github/workflows/docker.yml'
+        - 'src/pytest_celery/vendors/worker/**'
+        - "**.py"
+        - "**.txt"
+        - "**.toml"
+        - "tox.ini"
+        - 'Dockerfile'
+        - "poetry.lock"
     push:
       branches: [ 'main']
       paths:
-          - 'src/pytest_celery/vendors/worker/**'
-          - '.github/workflows/docker.yml'
-          - 'Dockerfile'
+        - '.github/workflows/docker.yml'
+        - 'src/pytest_celery/vendors/worker/**'
+        - "**.py"
+        - "**.txt"
+        - "**.toml"
+        - "tox.ini"
+        - 'Dockerfile'
+        - "poetry.lock"
 
 
 jobs:
