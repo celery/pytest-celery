@@ -164,7 +164,7 @@ to include all the workers, and then run a simple test case to verify the cluste
             yield cluster
             cluster.teardown()
 
-        def test_worker_cluster_with_fixed_list(self, celery_setup: CeleryTestSetup, subtests):
+        def test_worker_cluster_with_fixed_list(self, celery_setup: CeleryTestSetup, subtests: SubTests):
             worker: CeleryTestWorker
             for version, worker in zip(versions_list, celery_setup.worker_cluster):
                 with subtests.test(msg=f"Found worker {version} in cluster"):
@@ -179,7 +179,7 @@ to include all the workers, and then run a simple test case to verify the cluste
             yield cluster
             cluster.teardown()
 
-        def test_worker_cluster_with_versions_range(self, celery_setup: CeleryTestSetup, subtests):
+        def test_worker_cluster_with_versions_range(self, celery_setup: CeleryTestSetup, subtests: SubTests):
             worker: CeleryTestWorker
             for version, worker in zip(versions_range, celery_setup.worker_cluster):
                 with subtests.test(msg=f"Found worker v{version} in cluster"):

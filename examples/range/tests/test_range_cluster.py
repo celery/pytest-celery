@@ -2,6 +2,7 @@ import pytest
 from pytest_docker_tools import build
 from pytest_docker_tools import container
 from pytest_docker_tools import fxtr
+from pytest_subtests import SubTests
 
 from pytest_celery import DEFAULT_WORKER_CONTAINER_TIMEOUT
 from pytest_celery import DEFAULT_WORKER_VOLUME
@@ -51,7 +52,7 @@ class TestClusterList:
         yield cluster
         cluster.teardown()
 
-    def test_worker_cluster_with_fixed_list(self, celery_setup: CeleryTestSetup, subtests):
+    def test_worker_cluster_with_fixed_list(self, celery_setup: CeleryTestSetup, subtests: SubTests):
         worker: CeleryTestWorker
         for version, worker in zip(versions_list, celery_setup.worker_cluster):
             with subtests.test(msg=f"Found worker {version} in cluster"):
@@ -66,7 +67,7 @@ class TestClusterRange:
         yield cluster
         cluster.teardown()
 
-    def test_worker_cluster_with_versions_range(self, celery_setup: CeleryTestSetup, subtests):
+    def test_worker_cluster_with_versions_range(self, celery_setup: CeleryTestSetup, subtests: SubTests):
         worker: CeleryTestWorker
         for version, worker in zip(versions_range, celery_setup.worker_cluster):
             with subtests.test(msg=f"Found worker v{version} in cluster"):
