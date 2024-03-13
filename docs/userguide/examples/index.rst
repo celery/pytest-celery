@@ -17,6 +17,7 @@ Every example is an independent project and is tested via the
     :maxdepth: 1
 
     myworker
+    worker_pool
     rabbitmq_management
     range
     myutils
