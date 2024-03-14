@@ -70,6 +70,8 @@ It uses the `pypi.org <https://pypi.org/>`_ API to get the list of versions and 
 
         return sorted(filtered_versions, key=parse_version)
 
+.. _examples_range_test_range:
+
 test_range.py
 ~~~~~~~~~~~~~
 
@@ -80,9 +82,9 @@ to the worker fixture, and will generate a different worker for each Celery vers
 .. code-block:: python
 
     class TestRange:
-    @pytest.fixture(scope="session", params=get_celery_versions("v4.4.7", "v5.0.0"))
-    def default_worker_celery_version(self, request: pytest.FixtureRequest) -> str:
-        return request.param
+        @pytest.fixture(scope="session", params=get_celery_versions("v4.4.7", "v5.0.0"))
+        def default_worker_celery_version(self, request: pytest.FixtureRequest) -> str:
+            return request.param
 
 Following up with this simple test case will produce a test run for each Celery version in the list.
 

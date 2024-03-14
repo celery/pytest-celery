@@ -20,5 +20,6 @@ of the plugin before diving into the advanced features.
     utils-module
     tasks
     signals
+    celery-bug-report
     examples/index
     resources/index
