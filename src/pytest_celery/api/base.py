@@ -74,7 +74,21 @@ class CeleryTestNode:
 
     def config(self, *args: tuple, **kwargs: dict) -> dict:
         """Compile the configurations required for Celery from this node."""
-        return self.container.celeryconfig
+        config = self.container.celeryconfig
+
+        if not args and not kwargs:
+            return config
+
+        for key, value in kwargs.items():
+            config[key] = value
+
+            if key == "vhost":
+                vhost = str(value)
+                config["url"] = f"{config['url'][:-1].rstrip('/')}/{vhost}"
+                config["host_url"] = f"{config['host_url'][:-1].rstrip('/')}/{vhost}"
+                config[key] = vhost
+
+        return config
 
     def logs(self) -> str:
         """Get the logs of the underlying container."""
