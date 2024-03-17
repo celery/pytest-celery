@@ -53,7 +53,7 @@ The purpose of this worker is to ensure the gevent dependency is installed.
    :caption: examples.worker_pool.Dockerfile
 
 .. literalinclude:: ../../../examples/worker_pool/requirements.txt
-   :language: docker
+   :language: text
    :caption: examples.worker_pool.requirements.txt
 
 tasks.py
@@ -64,6 +64,8 @@ Our tasks module is using the example task from the `Celery gevent example <http
 .. literalinclude:: ../../../examples/worker_pool/tasks.py
    :language: python
    :caption: examples.worker_pool.tasks.py
+
+.. _test_gevent_pool:
 
 test_gevent_pool.py
 ~~~~~~~~~~~~~~~~~~~

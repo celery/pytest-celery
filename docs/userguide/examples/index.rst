@@ -22,3 +22,4 @@ Every example is an independent project and is tested via the
     range
     myutils
     django
+    hybrid_setup

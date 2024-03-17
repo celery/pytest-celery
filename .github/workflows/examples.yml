@@ -61,7 +61,7 @@ jobs:
         working-directory: examples/myworker
         timeout-minutes: 10
         run: |
-          pytest -vv tests
+          pytest -xsv tests
 
   range:
     runs-on: ${{ matrix.os }}
@@ -94,7 +94,7 @@ jobs:
         working-directory: examples/range
         timeout-minutes: 30
         run: |
-          pytest -vv tests
+          pytest -xsv tests
 
   rabbitmq_management:
     runs-on: ${{ matrix.os }}
@@ -127,7 +127,7 @@ jobs:
         working-directory: examples/rabbitmq_management
         timeout-minutes: 10
         run: |
-          pytest -vv tests
+          pytest -xsv tests
 
   django:
     runs-on: ${{ matrix.os }}
@@ -166,7 +166,7 @@ jobs:
         timeout-minutes: 10
         run: |
           export DJANGO_SETTINGS_MODULE=proj.settings
-          pytest -vv tests
+          pytest -xsv tests
 
   myutils:
     runs-on: ${{ matrix.os }}
@@ -199,7 +199,7 @@ jobs:
         working-directory: examples/myutils
         timeout-minutes: 10
         run: |
-          pytest -vv tests
+          pytest -xsv tests
 
   worker_pool:
     runs-on: ${{ matrix.os }}
@@ -232,4 +232,37 @@ jobs:
         working-directory: examples/worker_pool
         timeout-minutes: 10
         run: |
-          pytest -vv tests
+          pytest -xsv tests
+
+  hybrid_setup:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12"]
+        os: ["ubuntu-latest"]
+
+    steps:
+      - name: Install apt packages
+        if: startsWith(matrix.os, 'ubuntu-')
+        run: |
+          sudo apt update
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+          cache-dependency-path: '**/setup.py'
+      - name: Install dependencies
+        working-directory: examples/hybrid_setup
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        working-directory: examples/hybrid_setup
+        timeout-minutes: 10
+        run: |
+          pytest -xsv tests
