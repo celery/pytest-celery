@@ -266,3 +266,36 @@ jobs:
         timeout-minutes: 10
         run: |
           pytest -xsv tests
+
+  vhost:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12"]
+        os: ["ubuntu-latest"]
+
+    steps:
+      - name: Install apt packages
+        if: startsWith(matrix.os, 'ubuntu-')
+        run: |
+          sudo apt update
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+          cache-dependency-path: '**/setup.py'
+      - name: Install dependencies
+        working-directory: examples/vhost
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        working-directory: examples/vhost
+        timeout-minutes: 10
+        run: |
+          pytest -xsv tests

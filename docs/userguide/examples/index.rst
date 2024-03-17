@@ -21,5 +21,6 @@ Every example is an independent project and is tested via the
     rabbitmq_management
     range
     myutils
+    vhost
     django
     hybrid_setup
