@@ -262,7 +262,7 @@ class CeleryTestCluster:
 
     def config(self, *args: tuple, **kwargs: dict) -> dict:
         """Compile the configurations required for Celery from this cluster."""
-        config = [node.container.celeryconfig for node in self]
+        config = [node.config() for node in self]
         return {
             "urls": [c["url"] for c in config],
             "host_urls": [c["host_url"] for c in config],
