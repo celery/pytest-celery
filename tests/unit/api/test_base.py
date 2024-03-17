@@ -56,6 +56,17 @@ class test_celery_test_node:
     def test_config(self, node: CeleryTestNode):
         assert node.config()
 
+    def test_config_kwarg_vhost(self, node: CeleryTestNode):
+        vhost = "/test_vhost"
+        config = node.config()
+        assert "vhost" not in config
+        assert config["url"].endswith(vhost) is False
+        assert config["host_url"].endswith(vhost) is False
+        config = node.config(vhost=vhost[1:])
+        assert config["vhost"] == vhost[1:]
+        assert config["url"].endswith(vhost)
+        assert config["host_url"].endswith(vhost)
+
     def test_logs(self, node: CeleryTestNode):
         assert node.logs()
 
