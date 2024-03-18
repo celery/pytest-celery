@@ -37,7 +37,7 @@ Highlights
 
 1. No default components.
 2. Session broker and backend components.
-    - Shared between tests, but not between :pypi:`pytest-xdist` sessions.
+    - Shared between tests, but not between :pypi:`pytest-xdist <pytest-xdist>` sessions.
     - Only the workers are created again for each test case.
 3. Injects tasks and signal handlers modules to all workers.
 
@@ -83,7 +83,7 @@ Take a look at the requirements file for this example:
     :language: text
     :caption: examples.hybrid_setup.requirements.txt
 
-Take note the :pypi:`gevent` can be installed independently from the :pypi:`celery` package.
+Take note the :pypi:`gevent <gevent>` can be installed independently from the :pypi:`celery <celery>` package.
 
 conftest.py
 ~~~~~~~~~~~

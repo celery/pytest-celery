@@ -140,7 +140,7 @@ Integrating with Docker
 How do I get pytest-celery to work with Docker?
 -----------------------------------------------
 
-**Answer:** The engine behind the plugin's docker integration is :pypi:`pytest-docker-tools`.
+**Answer:** The engine behind the plugin's docker integration is :pypi:`pytest-docker-tools <pytest-docker-tools>`.
 
 It does not interact with Docker directly.
 
@@ -165,7 +165,7 @@ What are the common pitfalls when integrating pytest-celery with Docker, and how
 To avoid these, you may:
 
 1. Increase the resources available to Docker.
-2. Use the :pypi:`pytest-rerunfailures` pytest plugin to retry failed tests with:
+2. Use the :pypi:`pytest-rerunfailures <pytest-rerunfailures>` pytest plugin to retry failed tests with:
 
 .. code-block:: console
 
