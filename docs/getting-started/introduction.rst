@@ -215,7 +215,7 @@ Features
 
         - **Tests as first class citizens**
 
-            The plugin is designed to enhance testing capabilities by :ref:`first-class-citizen`.
+            The plugin is designed to enhance testing capabilities by treating tests as first-class citizens.
             It uses advanced mechanisms to encapsulate the complexity of setting up a Celery environment, thus
             allowing the developer to focus on the test case itself and leave the hard lifting to the plugin.
 

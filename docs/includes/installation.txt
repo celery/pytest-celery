@@ -16,8 +16,8 @@ This command installs **pytest-celery** along with its required dependencies.
 
 This will include:
 
-- Latest version of :pypi:`celery`.
-- RabbitMQ broker via :pypi:`kombu`, installed as a dependency of Celery.
+- Latest version of :pypi:`celery <celery>`.
+- RabbitMQ broker via :pypi:`kombu <kombu>`, installed as a dependency of Celery.
 
 Installing pytest-celery vendors
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
