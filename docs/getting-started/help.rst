@@ -28,10 +28,10 @@ Contributing
 
 Development of pytest-celery happens at GitHub: https://github.com/celery/pytest-celery
 
-You're highly encouraged to participate in the development
-of pytest-celery.
-
+You're highly encouraged to participate in the development of pytest-celery.
 Be sure to also read the :ref:`contributing` section in the documentation.
+
+For development setup instructions, see :ref:`devguide`.
 
 License
 =======
