@@ -28,6 +28,7 @@ globals().update(
         ],
         linkcheck_ignore=[
             r"^http://localhost",
+            r"^http://0.0.0.0",
             r"https://github\.com/Jc2k/pytest-docker-tools\?tab=readme-ov-file#images",
             r"https://github\.com/Jc2k/pytest-docker-tools\?tab=readme-ov-file#containers",
             r"https://github\.com/Jc2k/pytest-docker-tools\?tab=readme-ov-file#fixture-wrappers",
