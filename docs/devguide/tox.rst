@@ -83,7 +83,7 @@ These configurations are used to define the base settings for the tox environmen
     :start-after: [testenv]
     :end-before: [testenv:xdist]
 
-.. _env_xdist:
+.. _tox_xdist:
 
 xdist
 =====
@@ -110,7 +110,7 @@ This environment is used to run the tests in parallel using both :pypi:`tox <tox
 It will run the test environments in parallel using the ``-p auto`` option from tox, and then run each environment itself in
 parallel using pytest-xdist with the ``-n auto`` option.
 
-It is slightly more efficient than the :ref:`env_xdist` tox environment, but less stable due to high resource usage.
+It is slightly more efficient than the :ref:`tox_xdist` tox environment, but less stable due to high resource usage.
 
 .. literalinclude:: ../../tox.ini
     :language: ini
@@ -142,6 +142,8 @@ Execution
 To run this environment, use::
 
     tox -e mypy
+
+.. _tox_lint:
 
 lint
 ====
@@ -191,6 +193,8 @@ To run this environment, use::
 
     tox -e clean
 
+.. _tox_docs:
+
 docs
 ====
 
@@ -208,6 +212,8 @@ Execution
 To run this environment, use::
 
     tox -e docs
+
+.. _tox_docs-livehtml:
 
 docs-livehtml
 =============
@@ -228,6 +234,8 @@ Execution
 To run this environment, use::
 
     tox -e docs-livehtml
+
+.. _tox_docs-apidoc:
 
 docs-apidoc
 ===========

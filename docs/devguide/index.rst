@@ -19,3 +19,4 @@ are used and how to set up a local development environment.
 
     local-development-environment
     tox
+    sphinx
