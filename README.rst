@@ -1,7 +1,7 @@
 
 |build-status| |coverage| |license| |semgrep| |pyversion| |pyimp| |ocbackerbadge| |ocsponsorbadge|
 
-:Version: 1.0.0rc1
+:Version: 1.0.0rc2
 :Web: https://pytest-celery.readthedocs.io/en/latest/
 :Download: https://pypi.org/project/pytest-celery/
 :Source: https://github.com/celery/pytest-celery/
