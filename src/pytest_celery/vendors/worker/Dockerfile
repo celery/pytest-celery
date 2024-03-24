@@ -23,8 +23,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 RUN pip install --no-cache-dir --upgrade \
     pip \
     celery[redis,pymemcache]${WORKER_VERSION:+==$WORKER_VERSION} \
-    pytest-celery@git+https://github.com/Katz-Consulting-Group/pytest-celery.git@hotfix
-# pytest-celery@git+https://github.com/celery/pytest-celery.git@hotfix
+    pytest-celery@git+https://github.com/celery/pytest-celery.git
 
 # The workdir must be /app
 WORKDIR /app

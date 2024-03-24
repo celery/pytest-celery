@@ -10,9 +10,21 @@
 The plugin provides a list of built-in celery tasks that can be used out of the box. This page will
 list all the available tasks.
 
+To import the tasks, you can use the following code:
+
+.. code-block:: python
+
+    from pytest_celery import the, tasks, you, want
+
+or
+
+.. code-block:: python
+
+    from pytest_celery.vendors.worker import tasks
+
 .. tip::
 
-    The tasks injected into the workers that use the default volume with:
+    The tasks are injected into the workers that use the default volume with:
 
     .. code-block:: python
 

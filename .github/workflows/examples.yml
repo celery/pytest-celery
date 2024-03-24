@@ -30,6 +30,39 @@ permissions:
   contents: read # to fetch code (actions/checkout)
 
 jobs:
+  celery_bug_report:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12"]
+        os: ["ubuntu-latest"]
+
+    steps:
+      - name: Install apt packages
+        if: startsWith(matrix.os, 'ubuntu-')
+        run: |
+          sudo apt update
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+          cache-dependency-path: '**/setup.py'
+      - name: Install dependencies
+        working-directory: examples
+        run: |
+          python -m pip install --upgrade pip pytest-cov
+          pip install -U "pytest-celery[all]@git+https://github.com/celery/pytest-celery.git"
+
+      - name: Run tests
+        working-directory: examples
+        timeout-minutes: 5
+        run: |
+          pytest -xsv celery_bug_report.py --no-cov
+
   myworker:
     runs-on: ${{ matrix.os }}
 
