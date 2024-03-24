@@ -32,6 +32,8 @@ globals().update(
             r"https://github\.com/Jc2k/pytest-docker-tools\?tab=readme-ov-file#images",
             r"https://github\.com/Jc2k/pytest-docker-tools\?tab=readme-ov-file#containers",
             r"https://github\.com/Jc2k/pytest-docker-tools\?tab=readme-ov-file#fixture-wrappers",
+            r"https://github\.com/celery/celery/blob/main/requirements/test\.txt#L2",
+            r"https://github\.com/celery/celery/blob/main/tox\.ini#L30",
         ],
         autodoc_mock_imports=[],
     )
