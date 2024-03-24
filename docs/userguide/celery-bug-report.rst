@@ -272,6 +272,12 @@ Inline handlers can be used like this:
 Injecting signal handlers is using a similar pattern to adding tasks and can be done according
 to the :ref:`signal-handlers-modules-injection` section.
 
+Tasks
+~~~~~
+
+The :ref:`default-tasks` can be used out-of-the-box, but you can also add new tasks to the worker by creating a new module
+and injecting it into the environment. See :ref:`injecting-tasks` for more information.
+
 Templates
 =========
 
