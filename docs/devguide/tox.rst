@@ -103,6 +103,8 @@ To run this environment, use::
 
     tox -e xdist
 
+.. _tox_parallel:
+
 parallel
 ========
 
@@ -170,6 +172,8 @@ To run this environment, use::
 To run **just the pre-commit** locally (without tox, without doc), use::
 
     pre-commit run --show-diff-on-failure --color=always --all-files
+
+.. _tox_clean:
 
 clean
 =====
