@@ -107,7 +107,7 @@ if _is_vendor_installed("worker"):
     from pytest_celery.vendors.worker.fixtures import default_worker_tasks
     from pytest_celery.vendors.worker.fixtures import default_worker_utils_module
     from pytest_celery.vendors.worker.fixtures import default_worker_volume
-    from pytest_celery.vendors.worker.tasks import ping
+    from pytest_celery.vendors.worker.tasks import *
     from pytest_celery.vendors.worker.volume import WorkerInitialContent
 
 

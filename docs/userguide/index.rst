@@ -19,6 +19,7 @@ of the plugin before diving into the advanced features.
     app-conf
     utils-module
     tasks
+    default-tasks
     signals
     celery-bug-report
     examples/index
