@@ -149,7 +149,7 @@ The Docker environment should be install normally, regardless of the plugin.
 How can I clean up Docker artifacts left after a test run?
 ----------------------------------------------------------
 
-**Answer:** You may use this snippet from the ``tox -e clean`` environment.
+**Answer:** You may use this snippet from the :ref:`tox_clean` tox environment.
 
 .. literalinclude:: ../tox.ini
    :language: ini
