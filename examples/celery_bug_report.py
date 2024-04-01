@@ -79,13 +79,27 @@ def default_redis_backend_image() -> str:
 
 
 @pytest.fixture(scope="session")
+def default_worker_celery_version() -> str:
+    return "5.2.7"
+
+
+@pytest.fixture(scope="session")
 def default_worker_celery_log_level() -> str:
     return "INFO"
 
 
 @pytest.fixture(scope="session")
-def default_worker_celery_version() -> str:
-    return "5.2.7"
+def default_worker_celery_worker_queue() -> str:
+    return "celery"
+
+
+@pytest.fixture
+def default_worker_command(default_worker_command: list[str]) -> list[str]:
+    return default_worker_command + [
+        "--without-gossip",
+        "--without-mingle",
+        "--without-heartbeat",
+    ]
 
 
 @pytest.fixture
