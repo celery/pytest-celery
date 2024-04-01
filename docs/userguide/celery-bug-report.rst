@@ -442,6 +442,24 @@ We'll use the smoke tests worker to run the worker from the source code.
         def worker_queue(cls) -> str:
             return "celery"
 
+        @classmethod
+        def command(cls, *args: str) -> list[str]:
+            return super().command(
+                "--without-gossip",
+                "--without-mingle",
+                "--without-heartbeat",
+            )
+
+
+    @pytest.fixture
+    def default_worker_container_cls() -> type[SmokeWorkerContainer]:
+        return WorkerContainer
+
+
+    @pytest.fixture(scope="session")
+    def default_worker_container_session_cls() -> type[SmokeWorkerContainer]:
+        return WorkerContainer
+
 
     celery_dev_worker_image = build(
         path=".",
