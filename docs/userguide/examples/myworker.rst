@@ -73,6 +73,8 @@ These will be used to configure the worker for the tests.
     ENV WORKER_NAME=$CELERY_WORKER_NAME
     ENV WORKER_QUEUE=$CELERY_WORKER_QUEUE
 
+    EXPOSE 5678
+
 ``/src`` is arbitrarily chosen as the working directory to install Celery from.
 
 .. code-block:: docker
@@ -156,11 +158,13 @@ These fixtures may be overridden if required.
 
     myworker_container = container(
         image="{myworker_image.id}",
+        ports=MyWorkerContainer.ports(),
         environment=fxtr("default_worker_env"),
         network="{default_pytest_celery_network.name}",
         volumes={"{default_worker_volume.name}": defaults.DEFAULT_WORKER_VOLUME},
         wrapper_class=MyWorkerContainer,
         timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,
+        command=MyWorkerContainer.command(),
     )
 
 Lastly, we wrap the container in a fixture to allow it to be injected into the test environment

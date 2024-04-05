@@ -45,6 +45,8 @@ To install the development dependencies, run the following command in your desir
         pip install -U pip ipython;\
         poetry install -E "all" --with test,dev,ci,docs
 
+.. _vscode:
+
 Debugging with VSCode
 =====================
 
@@ -64,7 +66,7 @@ Create a ``.vscode`` directory with the following ``launch.json`` file that can 
         "configurations": [
             {
                 "name": "Python: Debug Tests",
-                "type": "python",
+                "type": "debugpy",
                 "request": "launch",
                 "program": "${file}",
                 "purpose": [
@@ -84,6 +86,21 @@ Create a ``.vscode`` directory with the following ``launch.json`` file that can 
                 "stopOnEntry": false,
                 "showReturnValue": true,
                 "redirectOutput": true
+            },
+            {
+                "name": "Attach to Celery Worker",
+                "type": "debugpy",
+                "request": "attach",
+                "connect": {
+                    "host": "localhost",
+                    "port": 5678
+                },
+                "pathMappings": [
+                    {
+                        "localRoot": "${workspaceFolder}",
+                        "remoteRoot": "path-to-celery-source-in-container"
+                    }
+                ]
             }
         ]
     }

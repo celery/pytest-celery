@@ -35,6 +35,7 @@ gevent_worker_image = build(
 
 gevent_worker_container = container(
     image="{gevent_worker_image.id}",
+    ports=fxtr("default_worker_ports"),
     environment=fxtr("default_worker_env"),
     network="{default_pytest_celery_network.name}",
     volumes={"{default_worker_volume.name}": defaults.DEFAULT_WORKER_VOLUME},

@@ -34,20 +34,48 @@ class CeleryWorkerContainer(CeleryTestContainer):
     """
 
     @classmethod
-    def command(cls, *args: str) -> list[str]:
+    def command(
+        cls,
+        *args: str,
+        debugpy: bool = False,
+        wait_for_client: bool = True,
+        **kwargs: dict,
+    ) -> list[str]:
         args = args or tuple()
-        return [
-            "celery",
-            "-A",
-            "app",
-            "worker",
-            f"--loglevel={cls.log_level()}",
-            "-n",
-            f"{cls.worker_name()}@%h",
-            "-Q",
-            f"{cls.worker_queue()}",
-            *args,
-        ]
+        cmd = list()
+
+        if debugpy:
+            cmd.extend(
+                [
+                    "python",
+                    "-m",
+                    "debugpy",
+                    "--listen",
+                    "0.0.0.0:5678",
+                ]
+            )
+
+            if wait_for_client:
+                cmd.append("--wait-for-client")
+
+            cmd.append("-m")
+
+        cmd.extend(
+            [
+                "celery",
+                "-A",
+                "app",
+                "worker",
+                f"--loglevel={cls.log_level()}",
+                "-n",
+                f"{cls.worker_name()}@%h",
+                "-Q",
+                f"{cls.worker_queue()}",
+                *args,
+            ]
+        )
+
+        return cmd
 
     def _wait_port(self, port: str) -> int:
         # Not needed for worker container

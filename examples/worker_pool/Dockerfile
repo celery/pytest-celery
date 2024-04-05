@@ -14,6 +14,8 @@ ENV LOG_LEVEL=$CELERY_LOG_LEVEL
 ENV WORKER_NAME=$CELERY_WORKER_NAME
 ENV WORKER_QUEUE=$CELERY_WORKER_QUEUE
 
+EXPOSE 5678
+
 # Install packages
 COPY --chown=test_user:test_user requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip
