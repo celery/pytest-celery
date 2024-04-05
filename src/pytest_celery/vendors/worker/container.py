@@ -14,6 +14,7 @@ from pytest_celery.api.container import CeleryTestContainer
 from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_ENV
 from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_LOG_LEVEL
 from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_NAME
+from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_PORTS
 from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_QUEUE
 from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_VERSION
 from pytest_celery.vendors.worker.volume import WorkerInitialContent
@@ -197,3 +198,8 @@ class CeleryWorkerContainer(CeleryTestContainer):
             content.set_config_from_object(worker_app)
 
         return content.generate()
+
+    @classmethod
+    def ports(cls) -> dict | None:
+        """Ports to expose from the worker container."""
+        return DEFAULT_WORKER_PORTS

@@ -43,6 +43,7 @@ celery_latest_worker_image = build(
 
 celery_latest_worker_container = container(
     image="{celery_latest_worker_image.id}",
+    ports=fxtr("default_worker_ports"),
     environment=fxtr("default_worker_env"),
     network="{default_pytest_celery_network.name}",
     volumes={"{default_worker_volume.name}": DEFAULT_WORKER_VOLUME},
@@ -96,7 +97,8 @@ smoke_tests_worker_image = build(
 
 
 default_worker_container = container(
-    image="{smoke_tests_worker_image.id}",  # TODO: Use fixture to avoid defining default_worker_container again
+    image="{smoke_tests_worker_image.id}",
+    ports=fxtr("default_worker_ports"),
     environment=fxtr("default_worker_env"),
     network="{default_pytest_celery_network.name}",
     volumes={"{default_worker_volume.name}": DEFAULT_WORKER_VOLUME},
