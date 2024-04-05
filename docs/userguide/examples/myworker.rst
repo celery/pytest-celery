@@ -138,6 +138,22 @@ to the container instance.
         def worker_queue(cls) -> str:
             return "myworker"
 
+.. tip::
+
+    Add the following implementation to enable debugpy for the worker container.
+
+    .. code-block:: python
+
+        @classmethod
+        def ports(cls) -> dict | None:
+            return WORKER_DEBUGPY_PORTS
+
+        @classmethod
+        def command(cls, *args: str, **kwargs: dict) -> list[str]:
+            return super().command(*args, debugpy=True, wait_for_client=True, **kwargs)
+
+    The ``WORKER_DEBUGPY_PORTS`` can be imported from the plugin.
+
 Next, we build our worker image using the `build <https://github.com/Jc2k/pytest-docker-tools?tab=readme-ov-file#images>`_
 and `container <https://github.com/Jc2k/pytest-docker-tools?tab=readme-ov-file#containers>`_ fixtures.
 
