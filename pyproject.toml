@@ -81,6 +81,7 @@ pytest-docker-tools = ">=3.1.3"
 docker = "^7.0.0"
 psutil = ">=5.9.7"
 setuptools = ">=69.1.0"
+debugpy = "^1.8.1"
 
 [tool.poetry.extras]
 all = ["redis", "python-memcached"]
