@@ -103,6 +103,7 @@ if _is_vendor_installed("worker"):
     from pytest_celery.vendors.worker.fixtures import default_worker_container_session_cls
     from pytest_celery.vendors.worker.fixtures import default_worker_env
     from pytest_celery.vendors.worker.fixtures import default_worker_initial_content
+    from pytest_celery.vendors.worker.fixtures import default_worker_ports
     from pytest_celery.vendors.worker.fixtures import default_worker_signals
     from pytest_celery.vendors.worker.fixtures import default_worker_tasks
     from pytest_celery.vendors.worker.fixtures import default_worker_utils_module

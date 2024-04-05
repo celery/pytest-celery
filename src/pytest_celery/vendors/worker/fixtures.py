@@ -86,6 +86,7 @@ def default_worker_container_session_cls() -> type[CeleryWorkerContainer]:
 
 default_worker_container = container(
     image="{celery_base_worker_image.id}",
+    ports=fxtr("default_worker_ports"),
     environment=fxtr("default_worker_env"),
     network="{default_pytest_celery_network.name}",
     volumes={"{default_worker_volume.name}": DEFAULT_WORKER_VOLUME},
@@ -235,6 +236,19 @@ def default_worker_initial_content(
         worker_signals=default_worker_signals,
         worker_app=default_worker_app,
     )
+
+
+@pytest.fixture
+def default_worker_ports(default_worker_container_cls: type[CeleryWorkerContainer]) -> dict | None:
+    """Port bindings for this vendor.
+
+    Args:
+        default_worker_container_cls (type[CeleryWorkerContainer]): See also: :ref:`vendor-class`.
+
+    Returns:
+        dict: Port bindings.
+    """
+    return default_worker_container_cls.ports()
 
 
 @pytest.fixture

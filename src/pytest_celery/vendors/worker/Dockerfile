@@ -32,6 +32,8 @@ ENV WORKER_QUEUE=$CELERY_WORKER_QUEUE
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
+EXPOSE 5678
+
 # Install Python dependencies
 RUN pip install --no-cache-dir --upgrade \
     pip \
