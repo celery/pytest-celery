@@ -361,6 +361,7 @@ We'll use the smoke tests worker to run the worker from the source code.
     from t.smoke.workers.dev import SmokeWorkerContainer
 
     from pytest_celery import RABBITMQ_PORTS
+    from pytest_celery import WORKER_DEBUGPY_PORTS
     from pytest_celery import CeleryBackendCluster
     from pytest_celery import CeleryBrokerCluster
     from pytest_celery import CeleryTestSetup
@@ -448,7 +449,13 @@ We'll use the smoke tests worker to run the worker from the source code.
                 "--without-gossip",
                 "--without-mingle",
                 "--without-heartbeat",
+                debugpy=False,
+                wait_for_client=True,
             )
+
+        @classmethod
+        def ports(cls) -> dict | None:
+            return WORKER_DEBUGPY_PORTS
 
 
     @pytest.fixture

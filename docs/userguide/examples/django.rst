@@ -72,6 +72,8 @@ These will be used to configure the worker for the tests.
     ENV WORKER_NAME=$CELERY_WORKER_NAME
     ENV WORKER_QUEUE=$CELERY_WORKER_QUEUE
 
+    EXPOSE 5678
+
 ``/src`` is arbitrarily chosen as the working directory to install the Django project from.
 
 .. code-block:: docker
@@ -133,6 +135,7 @@ and `container <https://github.com/Jc2k/pytest-docker-tools?tab=readme-ov-file#c
 
     default_worker_container = container(
         image="{worker_image.id}",
+        ports=fxtr("default_worker_ports"),
         environment=fxtr("default_worker_env"),
         network="{default_pytest_celery_network.name}",
         volumes={

@@ -144,6 +144,7 @@ Our focus should be on the ``worker_containers`` list, which will contain the na
             cnt = f"worker_v{v.replace('.', '_')}_container"
             globals()[cnt] = container(
                 image="{" + f"{img}.id" + "}",
+                ports=fxtr("default_worker_ports"),
                 environment=fxtr("default_worker_env"),
                 network="{default_pytest_celery_network.name}",
                 volumes={"{default_worker_volume.name}": DEFAULT_WORKER_VOLUME},

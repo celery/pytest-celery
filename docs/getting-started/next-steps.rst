@@ -258,11 +258,13 @@ And build our container using the standard `pytest-docker-tools <https://pypi.or
 
     myworker_container = container(
         image="{myworker_image.id}",
+        ports=MyWorkerContainer.ports(),
         environment=fxtr("default_worker_env"),
         network="{default_pytest_celery_network.name}",
         volumes={"{default_worker_volume.name}": defaults.DEFAULT_WORKER_VOLUME},
         wrapper_class=MyWorkerContainer,
         timeout=defaults.DEFAULT_WORKER_CONTAINER_TIMEOUT,
+        command=MyWorkerContainer.command(),
     )
 
 Pytest Integration

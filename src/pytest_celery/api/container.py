@@ -54,7 +54,13 @@ class CeleryTestContainer(wrappers.Container):
         raise NotImplementedError("CeleryTestContainer.celeryconfig")
 
     @classmethod
-    def command(cls, *args: str) -> list[str]:
+    def command(
+        cls,
+        *args: str,
+        debugpy: bool = False,
+        wait_for_client: bool = True,
+        **kwargs: dict,
+    ) -> list[str]:
         """Override the CMD instruction in the Dockerfile.
 
         This method should be overridden in derived classes to provide the
@@ -62,6 +68,9 @@ class CeleryTestContainer(wrappers.Container):
 
         Args:
             *args (str): Additional command-line arguments.
+            debugpy (bool): Enable debugpy. Defaults to False.
+            wait_for_client (bool): Wait for a debugger to be attached. Defaults to True.
+            **kwargs (dict): Additional keyword arguments.
 
         Raises:
             NotImplementedError: Rely on the Dockerfile if not set otherwise by default.
