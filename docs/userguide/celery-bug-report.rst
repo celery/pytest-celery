@@ -15,7 +15,7 @@ This guide will detail the process of creating example bug report scripts using 
 
 .. contents::
     :local:
-    :depth: 2
+    :depth: 3
 
 Disable Setup Matrix
 ====================
@@ -172,12 +172,10 @@ To install the worker from source, just run the test script from the `t/smoke/te
 It will automatically set up a `dev <https://github.com/celery/celery/blob/main/t/smoke/workers/dev.py>`_ worker for the test.
 
 Tasks and Signals
------------------
+~~~~~~~~~~~~~~~~~
 
-The plugin provides a :func:`ping task <pytest_celery.vendors.worker.tasks.ping>` by default, but there are other
-sources for tasks that can be used to reproduce a scenario.
-
-To use the ping task, import it from the plugin.
+The plugin provides :ref:`default-tasks` by default. For example, to use the :func:`ping task <pytest_celery.vendors.worker.tasks.ping>`,
+import it from the plugin.
 
 .. code-block:: python
 
@@ -186,7 +184,7 @@ To use the ping task, import it from the plugin.
 The worker will already have it registered by default using the default worker volume.
 
 Adding New Tasks
-################
+----------------
 
 To add new tasks, create a new ``tasks.py`` module and use the :func:`default_worker_tasks <pytest_celery.vendors.worker.fixtures.default_worker_tasks>` fixture
 to inject the tasks into the worker as described in the :ref:`injecting-tasks` section.
@@ -200,7 +198,7 @@ For example, the tasks module can look like this:
 
 
     @shared_task
-    def noop(*args, **kwargs) -> None:
+    def mytask(*args, **kwargs) -> None:
         return celery.utils.noop(*args, **kwargs)
 
 And then it can be injected into the worker like this:
@@ -218,17 +216,17 @@ And be used in a test like this:
 
 .. code-block:: python
 
-    from tasks import noop
+    from tasks import mytask
 
     def test_issue_1234(celery_setup: CeleryTestSetup):
         # Running this canvas causes an unexpected exception as described in the bug report...
-        assert noop.s().apply_async().get() is None, "The bug causes this assertion to fail..."
+        assert mytask.s().apply_async().get() is None, "The bug causes this assertion to fail..."
 
 Using Celery Tests Tasks
-########################
+------------------------
 
 When running the test script from Celery's test suite, the worker already has access to all of the integration
-and smoke tests tasks, so you can use them to reproduce a scenario.
+and smoke tests tasks, in addition to the :ref:`default-tasks`, so you can use them to reproduce a scenario as well.
 
 All you need to do is to import the tasks from the test suite and use them in the test case.
 
@@ -251,7 +249,7 @@ For example,
     when publishing tasks.
 
 Signal Handlers
-###############
+---------------
 
 Signals can be connected inline in the test case, or by injecting a module with the signal handlers into the worker.
 
@@ -271,12 +269,6 @@ Inline handlers can be used like this:
 
 Injecting signal handlers is using a similar pattern to adding tasks and can be done according
 to the :ref:`signal-handlers-modules-injection` section.
-
-Tasks
-~~~~~
-
-The :ref:`default-tasks` can be used out-of-the-box, but you can also add new tasks to the worker by creating a new module
-and injecting it into the environment. See :ref:`injecting-tasks` for more information.
 
 Templates
 =========
@@ -305,6 +297,9 @@ Built-in Worker
 ---------------
 
 We'll use the :ref:`built-in-worker` to use a specific Celery release.
+
+celery_bug_report.py
+--------------------
 
 .. literalinclude:: ../../examples/celery_bug_report.py
     :language: python
@@ -345,6 +340,9 @@ Smoke Tests Worker
 ------------------
 
 We'll use the smoke tests worker to run the worker from the source code.
+
+celery_bug_report.py
+--------------------
 
 .. code-block:: python
 
