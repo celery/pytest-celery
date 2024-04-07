@@ -47,6 +47,7 @@ celery4_worker_image = build(
 
 celery4_worker_container = container(
     image="{celery4_worker_image.id}",
+    ports=fxtr("default_worker_ports"),
     environment=fxtr("default_worker_env"),
     network="{default_pytest_celery_network.name}",
     volumes={"{default_worker_volume.name}": DEFAULT_WORKER_VOLUME},
@@ -105,6 +106,7 @@ def default_worker_container_session_cls() -> type[CeleryWorkerContainer]:
 
 default_worker_container = container(
     image="{celery5_worker_image.id}",
+    ports=fxtr("default_worker_ports"),
     environment=fxtr("default_worker_env"),
     network="{default_pytest_celery_network.name}",
     volumes={"{default_worker_volume.name}": DEFAULT_WORKER_VOLUME},
