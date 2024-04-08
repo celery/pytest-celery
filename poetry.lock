@@ -525,17 +525,17 @@ files = [
 
 [[package]]
 name = "cleanpy"
-version = "0.4.0"
+version = "0.5.0"
 description = "cleanpy is a CLI tool to remove caches and temporary files that related to Python."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "cleanpy-0.4.0-py3-none-any.whl", hash = "sha256:9d047ed8c6d3e1439f99b02633a94b1cbae65bbd4d928b5484367a674d66b5d6"},
-    {file = "cleanpy-0.4.0.tar.gz", hash = "sha256:291dd6b2643b2f434a95c0a4bbefac8b152e7b63cad1d369b0b605b156dbfa90"},
+    {file = "cleanpy-0.5.0-py3-none-any.whl", hash = "sha256:061c3c0ec1d44a89151298257ff0217be33f92be890a5a04088e04a22ff1fb69"},
+    {file = "cleanpy-0.5.0.tar.gz", hash = "sha256:58a54c909b2626a5b54efaff8b6416130ebef57fbe225ac4b411d3507c327c65"},
 ]
 
 [package.extras]
-test = ["pytest", "subprocrunner"]
+test = ["pytest", "subprocrunner (>=2.0.1)"]
 
 [[package]]
 name = "cleo"
