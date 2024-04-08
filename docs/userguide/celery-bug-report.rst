@@ -442,13 +442,13 @@ celery_bug_report.py
             return "celery"
 
         @classmethod
-        def command(cls, *args: str) -> list[str]:
+        def command(cls, *args: str, **kwargs: dict) -> list[str]:
             return super().command(
                 "--without-gossip",
                 "--without-mingle",
                 "--without-heartbeat",
-                debugpy=False,
-                wait_for_client=True,
+                debugpy=True,
+                wait_for_client=False,
             )
 
         @classmethod
