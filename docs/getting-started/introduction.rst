@@ -244,6 +244,9 @@ Quick Jump
         - `To see production examples <https://github.com/celery/celery/tree/main/t/smoke/>`_.
         - `To learn more about pytest <https://docs.pytest.org/en/latest/getting-started.html>`_.
         - `To learn more about Celery <https://docs.celeryproject.org/en/stable/getting-started/introduction.html>`_.
+        - :ref:`To create a standalone Celery bug report with pytest-celery <celery-bug-report>`
+        - :ref:`To copy a simple project for bootstrapping <examples_myworker>`.
+        - :ref:`To see an example that uses different celery workers at the same time <examples_hybrid_setup>`
 
 .. topic:: Jump to ⟶
 
