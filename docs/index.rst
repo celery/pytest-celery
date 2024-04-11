@@ -7,7 +7,7 @@ Welcome to :pypi:`pytest-celery <pytest-celery>`, the official pytest plugin for
 The pytest-celery plugin introduces significant enhancements with the introduction of
 version >= 1.0.0, shifting towards a Docker-based approach for smoke and production-like testing.
 While the `celery.contrib.pytest` API continues to support detailed integration
-and unit testing, the new Docker-based methodology is tailored for testing in 
+and unit testing, the new Docker-based methodology is tailored for testing in
 environments that closely mirror production settings.
 
 Adopting version >= 1.0.0 enriches your testing suite with these new capabilities
