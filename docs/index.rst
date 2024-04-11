@@ -1,8 +1,8 @@
-===================================================
- Pytest Celery - Official pytest plugin for Celery
-===================================================
+===================================
+ Official pytest plugin for Celery
+===================================
 
-Welcome to pytest-celery, the official pytest plugin for Celery.
+Welcome to :pypi:`pytest-celery <pytest-celery>`, the official pytest plugin for Celery.
 
 The pytest-celery plugin introduces significant enhancements with the introduction of
 version >= 1.0.0, shifting towards a Docker-based approach for smoke and production-like testing.
@@ -27,8 +27,8 @@ Donations
 
 This project relies on your generous donations.
 
-If you are using Pytest Celery to test a commercial product, please consider becoming
-our `backer`_ or our `sponsor`_ to ensure Pytest Celery's future.
+If you are using pytest-celery to test a commercial product, please consider becoming
+our `backer`_ or our `sponsor`_ to ensure pytest-celery's future.
 
 .. _`backer`: https://opencollective.com/celery
 .. _`sponsor`: https://opencollective.com/celery

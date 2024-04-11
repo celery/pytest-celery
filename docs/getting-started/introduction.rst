@@ -1,7 +1,7 @@
 .. _getting-started_intro:
 
 ===============================
- Introduction to Pytest Celery
+ Introduction to pytest-celery
 ===============================
 
 :Release: |version|
@@ -11,7 +11,7 @@
     :local:
     :depth: 2
 
-What is Pytest Celery?
+What is pytest-celery?
 ======================
 
 It is an essential pytest_ plugin designed for Celery application developers.
@@ -33,7 +33,7 @@ What do I need?
 ===============
 
 .. sidebar:: Version Requirements
-    :subtitle: Pytest Celery version 1.0 runs on
+    :subtitle: pytest-celery version 1.0 runs on
 
     - Python ❨3.8, 3.9, 3.10, 3.11, 3.12❩
 
@@ -86,7 +86,7 @@ into a simple interface. It is highly recommended to familiarize yourself with t
 
 Additional resources can be found in the :ref:`resources` section.
 
-Pytest Celery is…
+pytest-celery is…
 =================
 
 .. topic:: \
