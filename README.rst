@@ -57,7 +57,7 @@ Contents
 
 - `Copyright <https://docs.celeryq.dev/projects/pytest-celery/en/latest/copyright.html>`_
 
-- `Getting Started <https://docs.celeryq.dev/projects/pytest-celery/en/latest/getting-started/index.html>`_
+- `Getting Started`_
     - `Introduction to pytest-celery <https://docs.celeryq.dev/projects/pytest-celery/en/latest/getting-started/introduction.html>`_
     - `First Steps with pytest-celery <https://docs.celeryq.dev/projects/pytest-celery/en/latest/getting-started/first-steps.html>`_
     - `Next Steps <https://docs.celeryq.dev/projects/pytest-celery/en/latest/getting-started/next-steps.html>`_
@@ -84,7 +84,7 @@ Contents
 
 - `API Documentation <https://docs.celeryq.dev/projects/pytest-celery/en/latest/reference/index.html>`_
 - `Contributing <https://docs.celeryq.dev/projects/pytest-celery/en/latest/contributing.html>`_
-- `FAQ <https://docs.celeryq.dev/projects/pytest-celery/en/latest/faq.html>`_
+- `FAQ`_
 - `Change history <https://docs.celeryq.dev/projects/pytest-celery/en/latest/changelog.html>`_
 - `Glossary <https://docs.celeryq.dev/projects/pytest-celery/en/latest/glossary.html>`_
 
