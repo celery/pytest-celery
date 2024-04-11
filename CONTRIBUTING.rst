@@ -41,7 +41,7 @@ Be considerate
 Your work will be used by other people, and you in turn will depend on the
 work of others. Any decision you take will affect users and colleagues, and
 we expect you to take those consequences into account when making decisions.
-Even if it's not obvious at the time, our contributions to Pytest Celery will
+Even if it's not obvious at the time, our contributions to pytest-celery will
 impact the work of others. For example, changes to code, infrastructure, policy,
 documentation and translations during a release may negatively impact others' work.
 
@@ -61,9 +61,9 @@ users of Celery.
 Be collaborative
 ----------------
 
-Collaboration is central to Pytest Celery and to the larger free software community.
+Collaboration is central to pytest-celery and to the larger free software community.
 We should always be open to collaboration. Your work should be done
-transparently and patches from Pytest Celery should be given back to the community
+transparently and patches from pytest-celery should be given back to the community
 when they're made, not just when the distribution releases. If you wish
 to work on new code for existing upstream projects, at least keep those
 projects informed of your ideas and progress. It many not be possible to

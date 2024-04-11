@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Is something wrong with Pytest Celery?
+about: Is something wrong with pytest-celery?
 title: ''
 labels: 'bug'
 assignees: ''
@@ -16,7 +16,7 @@ bug reports which are incomplete.
 <!--
 To check an item on the list replace [ ] with [x].
 -->
-- [ ] I have verified that the issue exists against the `main` branch of Pytest Celery.
+- [ ] I have verified that the issue exists against the `main` branch of pytest-celery.
 - [ ] This has already been asked to the [discussions forum](https://github.com/celery/pytest-celery/discussions) first.
 - [ ] I have checked the [issues list](https://github.com/celery/pytest-celery/issues?q=is%3Aissue+label%3A%22bug%22+-label%3A%22documentation%22)
   for similar or identical bug reports.

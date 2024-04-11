@@ -3,7 +3,7 @@
 Copyright
 =========
 
-*Pytest Celery User Manual*
+*pytest-celery User Manual*
 
 by Tomer Nosrati
 
@@ -23,7 +23,7 @@ compatible license to this one.
 
 .. note::
 
-   While the *Pytest Celery* documentation is offered under the
+   While the *pytest-celery* documentation is offered under the
    Creative Commons *Attribution-ShareAlike 4.0 International* license,
-   the Pytest Celery *software* is offered under the
+   the pytest-celery *software* is offered under the
    `BSD License (3 Clause) <http://www.opensource.org/licenses/BSD-3-Clause>`_.
