@@ -613,6 +613,8 @@ These fixtures are responsible for the setup/teardown of each node.
 Built-in Components
 ~~~~~~~~~~~~~~~~~~~
 
+.. _celery-worker:
+
 Celery Worker
 -------------
 
@@ -634,6 +636,8 @@ Fixtures
 ########
 
 A list of available fixtures for the worker can be found in the :mod:`pytest_celery.vendors.worker.fixtures` module.
+
+.. _rabbitmq-broker:
 
 RabbitMQ Broker
 ---------------
@@ -679,6 +683,8 @@ Fixtures
 
 A list of available fixtures for the broker can be found in the :mod:`pytest_celery.vendors.redis.broker.fixtures` module.
 
+.. _redis-backend:
+
 Redis Backend
 -------------
 
@@ -699,6 +705,8 @@ Fixtures
 ########
 
 A list of available fixtures for the backend can be found in the :mod:`pytest_celery.vendors.redis.backend.fixtures` module.
+
+.. _memcached-backend:
 
 Memcached Backend
 -----------------

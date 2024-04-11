@@ -244,15 +244,39 @@ Quick Jump
         - `To see production examples <https://github.com/celery/celery/tree/main/t/smoke/>`_.
         - `To learn more about pytest <https://docs.pytest.org/en/latest/getting-started.html>`_.
         - `To learn more about Celery <https://docs.celeryproject.org/en/stable/getting-started/introduction.html>`_.
+        - :ref:`To create a standalone Celery bug report with pytest-celery <celery-bug-report>`
+        - :ref:`To copy a simple project for bootstrapping <examples_myworker>`.
+        - :ref:`To see an example that uses different celery workers at the same time <examples_hybrid_setup>`
 
 .. topic:: Jump to ⟶
 
     .. hlist::
         :columns: 4
 
-        - :ref:`Contributing <contributing>`
         - :ref:`FAQ <faq>`
-        - :ref:`API Reference <apiref>`
+        - :ref:`vendors`
+        - :ref:`built-in-worker`
+        - :ref:`vendor-class`
+        - :ref:`test-containers`
+        - :ref:`test-nodes`
+        - :ref:`test-clusters`
+        - :ref:`test-setup`
+        - :ref:`manipulating-the-environment`
+        - :ref:`default-fixtures`
+        - :ref:`celery-application`
+        - :ref:`disable_backend`
+        - :ref:`built-in-components`
+        - :ref:`components-layers`
+        - :ref:`celery-worker`
+        - :ref:`rabbitmq-broker`
+        - :ref:`redis-broker`
+        - :ref:`redis-backend`
+        - :ref:`memcached-backend`
+        - :ref:`hello-world`
+        - :ref:`code-generation`
+        - :ref:`architecture-injection`
+        - :ref:`contributing`
+        - :ref:`apiref`
 
 .. _installation:
 
