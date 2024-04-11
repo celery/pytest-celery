@@ -2,13 +2,23 @@
  Pytest Celery - Official pytest plugin for Celery
 ===================================================
 
-.. warning::
-
-    Documentation under construction!
-
 Welcome to pytest-celery, the official pytest plugin for Celery.
 
-Pytest Celery is Open Source and licensed under the `BSD License`_.
+The pytest-celery plugin introduces significant enhancements with the introduction of
+version >= 1.0.0, shifting towards a Docker-based approach for smoke and production-like testing.
+While the `celery.contrib.pytest` API continues to support detailed integration
+and unit testing, the new Docker-based methodology is tailored for testing in 
+environments that closely mirror production settings.
+
+Adopting version >= 1.0.0 enriches your testing suite with these new capabilities
+without affecting your existing tests, allowing for a smooth upgrade path.
+The documentation here will navigate you through utilizing the Docker-based approach.
+For information on the `celery.contrib.pytest` API for integration and unit testing,
+please refer to the `official documentation`_.
+
+.. _`official documentation`: https://docs.celeryproject.org/en/latest/userguide/testing.html
+
+The pytest-celery plugin is Open Source and licensed under the `BSD License`_.
 
 .. _`BSD License`: http://www.opensource.org/licenses/BSD-3-Clause
 
