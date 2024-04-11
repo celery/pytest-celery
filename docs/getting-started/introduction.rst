@@ -250,9 +250,30 @@ Quick Jump
     .. hlist::
         :columns: 4
 
-        - :ref:`Contributing <contributing>`
         - :ref:`FAQ <faq>`
-        - :ref:`API Reference <apiref>`
+        - :ref:`vendors`
+        - :ref:`built-in-worker`
+        - :ref:`vendor-class`
+        - :ref:`test-containers`
+        - :ref:`test-nodes`
+        - :ref:`test-clusters`
+        - :ref:`test-setup`
+        - :ref:`manipulating-the-environment`
+        - :ref:`default-fixtures`
+        - :ref:`celery-application`
+        - :ref:`disable_backend`
+        - :ref:`built-in-components`
+        - :ref:`components-layers`
+        - :ref:`celery-worker`
+        - :ref:`rabbitmq-broker`
+        - :ref:`redis-broker`
+        - :ref:`redis-backend`
+        - :ref:`memcached-backend`
+        - :ref:`hello-world`
+        - :ref:`code-generation`
+        - :ref:`architecture-injection`
+        - :ref:`contributing`
+        - :ref:`apiref`
 
 .. _installation:
 
