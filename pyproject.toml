@@ -84,6 +84,9 @@ docker = "^7.0.0"
 psutil = ">=5.9.7"
 setuptools = ">=69.1.0"
 debugpy = "^1.8.1"
+# Temporary fix until requests is fixed - to be reverted afterwards:
+# https://github.com/docker/docker-py/issues/3256
+requests = "2.31.0"
 
 [tool.poetry.extras]
 all = ["redis", "python-memcached"]
