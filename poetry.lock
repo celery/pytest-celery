@@ -3129,4 +3129,4 @@ redis = ["redis"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "34f88a9458401d50f898aaadc5b52d7f109c47f9163fae9d968670a8b9a009cb"
+content-hash = "d0b54e85fef75566921e392430e4b385dec83e2708a056b574a3593421fadd63"
