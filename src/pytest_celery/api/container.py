@@ -10,9 +10,9 @@ from __future__ import annotations
 from typing import Any
 
 import pytest_docker_tools
+from funcy import retry
 from pytest_docker_tools import wrappers
 from pytest_docker_tools.wrappers.container import wait_for_callable
-from retry import retry
 
 
 class CeleryTestContainer(wrappers.Container):
@@ -115,7 +115,7 @@ class CeleryTestContainer(wrappers.Container):
         _, p = self.get_addr(port)
         return p
 
-    @retry(pytest_docker_tools.exceptions.TimeoutError, delay=10, tries=3)
+    @retry(3, timeout=10, errors=pytest_docker_tools.exceptions.TimeoutError)
     def _wait_ready(self, timeout: int = 30) -> bool:
         """Wait for the container to be ready by polling the logs for the
         readiness prompt. If no prompt is set, the container is considered
