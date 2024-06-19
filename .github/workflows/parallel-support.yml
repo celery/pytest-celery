@@ -37,10 +37,11 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.12"]
-        os: ["ubuntu-latest"]
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
 
     steps:
       - name: Fetch Docker Images
+        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           docker pull redis:latest
           docker pull rabbitmq:latest
@@ -59,7 +60,6 @@ jobs:
           cache-dependency-path: '**/setup.py'
 
       - name: Install Poetry
-        if: startsWith(matrix.os, 'ubuntu-')
         uses: snok/install-poetry@v1.3.4
 
       - name: Install tox
@@ -79,10 +79,11 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.12"]
-        os: ["ubuntu-latest"]
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
 
     steps:
       - name: Fetch Docker Images
+        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           docker pull redis:latest
           docker pull rabbitmq:latest
@@ -101,7 +102,6 @@ jobs:
           cache-dependency-path: '**/setup.py'
 
       - name: Install Poetry
-        if: startsWith(matrix.os, 'ubuntu-')
         uses: snok/install-poetry@v1.3.4
 
       - name: Install tox
