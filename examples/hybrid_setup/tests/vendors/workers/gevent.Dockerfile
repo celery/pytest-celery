@@ -16,7 +16,7 @@ ENV WORKER_QUEUE=$CELERY_WORKER_QUEUE
 
 # Install packages
 RUN pip install --no-cache-dir --upgrade pip
-RUN pip install "celery[gevent]" "pytest-celery[all]==1.0.0b4"
+RUN pip install "celery[gevent]" "pytest-celery[all]==1.0.0"
 
 # The workdir must be /app
 WORKDIR /app

@@ -146,7 +146,7 @@ These files are taken from the :ref:`test_gevent_pool` example with one simple c
 
 .. code-block:: python
 
-    RUN pip install "celery[gevent]" "pytest-celery[all]==1.0.0b4"
+    RUN pip install "celery[gevent]" "pytest-celery[all]==1.0.0"
 
 The Dockerfile doesn't use the requirements file, but instead installs the packages directly.
 
