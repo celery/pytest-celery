@@ -16,8 +16,8 @@ ENV WORKER_NAME=$CELERY_WORKER_NAME
 ENV WORKER_QUEUE=$CELERY_WORKER_QUEUE
 
 # Install packages
-RUN pip install --no-cache-dir --upgrade pip
-RUN pip install celery==4.4.7 "pytest-celery[all]==1.0.0"
+RUN pip install --no-cache-dir --upgrade pip \
+    celery==4.4.7 "pytest-celery[all]==1.0.0"
 
 # The workdir must be /app
 WORKDIR /app
