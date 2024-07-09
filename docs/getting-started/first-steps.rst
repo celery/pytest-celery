@@ -74,7 +74,7 @@ These classes are Context-aware, and can be used to represent a container for th
 Test Nodes
 ----------
 
-A test node is the logcial representation of a :ref:`test container <test-containers>`.
+A test node is the logical representation of a :ref:`test container <test-containers>`.
 It encapsulates the logic of a specific context and provides useful APIs to interact with the container.
 
 To represent a node within the environment, implement a class that inherits from
@@ -357,7 +357,7 @@ Default Fixtures
 Each component of the setup has its own `parameterized fixtures set <https://docs.pytest.org/en/latest/how-to/parametrize.html>`_.
 These fixtures are responsible for generating the environment matrix and providing the test nodes for each test case.
 
-Each of these components can be independently manipulated by hooking into the matching ``defualt_`` fixtures of the component,
+Each of these components can be independently manipulated by hooking into the matching ``default_`` fixtures of the component,
 as some of the following examples will show.
 
 Test Worker
