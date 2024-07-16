@@ -12,7 +12,10 @@ from typing import Any
 import pytest_docker_tools
 from pytest_docker_tools import wrappers
 from pytest_docker_tools.wrappers.container import wait_for_callable
-from retry import retry
+from tenacity import retry
+from tenacity import retry_if_exception_type
+from tenacity import stop_after_attempt
+from tenacity import wait_fixed
 
 
 class CeleryTestContainer(wrappers.Container):
@@ -115,7 +118,12 @@ class CeleryTestContainer(wrappers.Container):
         _, p = self.get_addr(port)
         return p
 
-    @retry(pytest_docker_tools.exceptions.TimeoutError, delay=10, tries=3)
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_fixed(10),
+        retry=retry_if_exception_type(pytest_docker_tools.exceptions.TimeoutError),
+        reraise=True,
+    )
     def _wait_ready(self, timeout: int = 30) -> bool:
         """Wait for the container to be ready by polling the logs for the
         readiness prompt. If no prompt is set, the container is considered
