@@ -23,7 +23,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install Poetry
-        uses: snok/install-poetry@v1.3.4
+        uses: snok/install-poetry@v1.4.0
 
       - name: Install CI dependencies
         run: |
