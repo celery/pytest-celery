@@ -158,6 +158,10 @@ sphinx-autobuild = [
     { version = ">=2024.4.16", python = ">=3.9,<4.0" },
 ]
 sphinxcontrib-mermaid = ">=0.9.2"
+docutils = [
+    { version = "0.20.1", python = "<3.9.0" },
+    { version = ">=0.20.1", python = ">=3.9.0,<4.0" },
+]
 
 [tool.poetry.plugins.pytest11]
 celery = "pytest_celery.plugin"
