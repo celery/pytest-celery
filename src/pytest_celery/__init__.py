@@ -40,6 +40,17 @@ from pytest_celery.fixtures.worker import celery_worker_cluster
 from pytest_celery.fixtures.worker import celery_worker_cluster_config
 from pytest_celery.vendors import _is_vendor_installed
 
+if _is_vendor_installed("localstack"):
+    from pytest_celery.vendors.localstack.api import LocalstackTestBroker
+    from pytest_celery.vendors.localstack.container import LocalstackContainer
+    from pytest_celery.vendors.localstack.defaults import *
+    from pytest_celery.vendors.localstack.fixtures import celery_localstack_broker
+    from pytest_celery.vendors.localstack.fixtures import default_localstack_broker
+    from pytest_celery.vendors.localstack.fixtures import default_localstack_broker_cls
+    from pytest_celery.vendors.localstack.fixtures import default_localstack_broker_env
+    from pytest_celery.vendors.localstack.fixtures import default_localstack_broker_image
+    from pytest_celery.vendors.localstack.fixtures import default_localstack_broker_ports
+
 if _is_vendor_installed("memcached"):
     from pytest_celery.vendors.memcached.api import MemcachedTestBackend
     from pytest_celery.vendors.memcached.container import MemcachedContainer

@@ -13,6 +13,8 @@ from __future__ import annotations
 from pytest_docker_tools import network
 
 from pytest_celery.vendors import _is_vendor_installed
+from pytest_celery.vendors.localstack.defaults import CELERY_LOCALSTACK_BROKER
+from pytest_celery.vendors.localstack.defaults import *
 from pytest_celery.vendors.memcached.defaults import CELERY_MEMCACHED_BACKEND
 from pytest_celery.vendors.memcached.defaults import *
 from pytest_celery.vendors.rabbitmq.defaults import CELERY_RABBITMQ_BROKER
@@ -52,6 +54,11 @@ if _is_vendor_installed("rabbitmq"):
 # Memcached is disabled by default regardless of its availability due to its experimental status.
 if _is_vendor_installed("memcached") and False:
     ALL_CELERY_BACKENDS.add(CELERY_MEMCACHED_BACKEND)
+
+# Localstack is disabled by default regardless of its availability due to its beta status.
+if _is_vendor_installed("localstack") and False:
+    # Uses Kombu
+    ALL_CELERY_BROKERS.add(CELERY_LOCALSTACK_BROKER)
 
 # Worker setup is assumed to be always available.
 ALL_CELERY_WORKERS = (CELERY_SETUP_WORKER,)

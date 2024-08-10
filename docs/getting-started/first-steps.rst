@@ -683,6 +683,27 @@ Fixtures
 
 A list of available fixtures for the broker can be found in the :mod:`pytest_celery.vendors.redis.broker.fixtures` module.
 
+Localstack (SQS) Broker
+-----------------------
+
+The Localstack broker uses the ``localstack/localstack`` version for the underlying container.
+
+Container
+#########
+
+The :class:`LocalstackContainer <pytest_celery.vendors.localstack.container.LocalstackContainer>` is used
+to describe the ``localstack/localstack`` docker image.
+
+Node
+####
+
+The :class:`LocalstackTestBroker <pytest_celery.vendors.localstack.api.LocalstackTestBroker>` is used to represent the broker node.
+
+Fixtures
+########
+
+A list of available fixtures for the broker can be found in the :mod:`pytest_celery.vendors.localstack.fixtures` module.
+
 .. _redis-backend:
 
 Redis Backend

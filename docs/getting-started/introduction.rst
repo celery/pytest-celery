@@ -153,6 +153,7 @@ pytest-celery is…
 
             - RabbitMQ.
             - Redis.
+            - SQS (via Localstack)
             - Custom broker.
 
         - **Backends**

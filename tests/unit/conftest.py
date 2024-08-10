@@ -4,6 +4,7 @@ from unittest.mock import patch
 import pytest
 
 from pytest_celery import CeleryWorkerContainer
+from pytest_celery import LocalstackContainer
 from pytest_celery import MemcachedContainer
 from pytest_celery import RabbitMQContainer
 from pytest_celery import RedisContainer
@@ -24,6 +25,11 @@ def mocked_container(spec: type) -> Mock:
         "host_url": "mocked_host_url/",
     }
     return mocked_container
+
+
+@pytest.fixture
+def default_localstack_broker() -> LocalstackContainer:
+    return mocked_container(LocalstackContainer)
 
 
 @pytest.fixture

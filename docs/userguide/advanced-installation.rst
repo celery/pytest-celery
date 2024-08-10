@@ -41,6 +41,7 @@ For example, let's assume you want to use the RabbitMQ/Redis combination.
 
 1. For RabbitMQ we will need :pypi:`kombu <kombu>`.
 2. For Redis we will need :pypi:`redis <redis>`.
+3. For SQS we will need :pypi:`kombu <kombu>` with the sqs extra.
 
 To install the plugin with the RabbitMQ/Redis combination, you will need to install the following dependencies:
 
@@ -53,8 +54,8 @@ Let's break down the command:
 - The ``pytest-celery`` is the plugin package, it will install the plugin alongside Celery and its dependencies,including **Kombu** (if not installed already).
 - The ``[redis]`` is the feature flag for the Redis vendor, it will install the :pypi:`redis <redis>` package and configure the plugin to use it which will add the Redis backend and Redis broker components to the default setup matrix.
 
-Experimental Vendors
-~~~~~~~~~~~~~~~~~~~~
+Experimental or Beta Vendors
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :ref:`vendors` that are in not stable, will not be added to the default setup matrix.
 To use the experimental vendors, you will need to configure the setup matrix manually.

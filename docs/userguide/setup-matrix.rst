@@ -128,3 +128,47 @@ Redis Broker and Redis Backend
         cluster = CeleryBackendCluster(celery_redis_backend)
         yield cluster
         cluster.teardown()
+
+SQS Broker and No Backend
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1. Use only Localstack as the broker.
+
+.. code-block:: python
+
+    @pytest.fixture
+    def celery_broker_cluster(celery_localstack_broker: LocalstackTestBroker) -> CeleryBrokerCluster:
+        cluster = CeleryBrokerCluster(celery_localstack_broker)
+        yield cluster
+        cluster.teardown()
+
+2. :ref:`Disable the backend <disable_backend>`.
+
+.. code-block:: python
+
+    @pytest.fixture
+    def celery_backend_cluster():
+        return None
+
+SQS Broker and Redis Backend
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1. Use only Localstack as the broker.
+
+.. code-block:: python
+
+    @pytest.fixture
+    def celery_broker_cluster(celery_localstack_broker: LocalstackTestBroker) -> CeleryBrokerCluster:
+        cluster = CeleryBrokerCluster(celery_localstack_broker)
+        yield cluster
+        cluster.teardown()
+
+2. Use Redis as the backend.
+
+.. code-block:: python
+
+    @pytest.fixture
+    def celery_backend_cluster(celery_redis_backend: RedisTestBackend) -> CeleryBackendCluster:
+        cluster = CeleryBackendCluster(celery_redis_backend)
+        yield cluster
+        cluster.teardown()
