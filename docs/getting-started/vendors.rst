@@ -20,13 +20,15 @@ the box.  This page lists the supported vendors and their status.
 Brokers
 ~~~~~~~
 
-+---------------+--------------+--------------+
-| **Name**      | **Status**   | **Enabled**  |
-+---------------+--------------+--------------+
-| *RabbitMQ*    | Stable       | Yes          |
-+---------------+--------------+--------------+
-| *Redis*       | Stable       | Yes          |
-+---------------+--------------+--------------+
++-----------------------+--------------+--------------+
+| **Name**              | **Status**   | **Enabled**  |
++-----------------------+--------------+--------------+
+| *RabbitMQ*            | Stable       | Yes          |
++-----------------------+--------------+--------------+
+| *Redis*               | Stable       | Yes          |
++-----------------------+--------------+--------------+
+| *Localstack (SQS)*    | Beta         | No           |
++-----------------------+--------------+--------------+
 
 Backends
 ~~~~~~~~
@@ -39,8 +41,7 @@ Backends
 | *Memcache*    | Experimental | No           |
 +---------------+--------------+--------------+
 
-Experimental brokers may be functional but are not confirmed to be
-production ready.
+Experimental or Beta status means it may be functional but are not confirmed to be production ready.
 
 Enabled means that it is automatically added to the test :ref:`setup-matrix`
 when running the test suite :ref:`if the vendor dependencies are installed <installation>`.
@@ -66,6 +67,61 @@ The Dockerfile is published with the source code and can be found using
 .. literalinclude:: ../../src/pytest_celery/vendors/worker/Dockerfile
    :language: docker
    :caption: pytest_celery.vendors.worker.Dockerfile
+
+.. _localstack-broker:
+
+Localstack (SQS) Broker
+=======================
+
+To use the Localstack broker, you will need add additional configuration to the test setup.
+
+You may add this to ``conftest.py`` to configure the Localstack broker.
+
+.. code-block:: python
+
+    import os
+
+    import pytest
+    from celery import Celery
+
+    from pytest_celery import LOCALSTACK_CREDS
+
+    @pytest.fixture
+    def default_worker_env(default_worker_env: dict) -> dict:
+        default_worker_env.update(LOCALSTACK_CREDS)
+        return default_worker_env
+
+
+    @pytest.fixture(scope="session", autouse=True)
+    def set_aws_credentials():
+        os.environ.update(LOCALSTACK_CREDS)
+
+
+    @pytest.fixture
+    def default_worker_app(default_worker_app: Celery) -> Celery:
+        app = default_worker_app
+        if app.conf.broker_url and app.conf.broker_url.startswith("sqs"):
+            app.conf.broker_transport_options["region"] = LOCALSTACK_CREDS["AWS_DEFAULT_REGION"]
+        return app
+
+And to enable the Localstack broker in the default :ref:`setup-matrix`, add the following configuration to ``conftest.py``.
+
+.. code-block:: python
+
+    from pytest_celery import ALL_CELERY_BROKERS
+    from pytest_celery import CELERY_LOCALSTACK_BROKER
+    from pytest_celery import CeleryTestBroker
+    from pytest_celery import _is_vendor_installed
+
+    if _is_vendor_installed("localstack"):
+        ALL_CELERY_BROKERS.append(CELERY_LOCALSTACK_BROKER)
+
+
+    @pytest.fixture(params=ALL_CELERY_BROKERS)
+    def celery_broker(request: pytest.FixtureRequest) -> CeleryTestBroker:  # type: ignore
+        broker: CeleryTestBroker = request.getfixturevalue(request.param)
+        yield broker
+        broker.teardown()
 
 .. _custom-vendors:
 
@@ -210,6 +266,7 @@ There's no ``session`` vendor class for other vendors.
 
 - For RabbitMQ Broker use :func:`default_rabbitmq_broker_cls <pytest_celery.vendors.rabbitmq.fixtures.default_rabbitmq_broker_cls>`.
 - For Redis Broker use :func:`default_redis_broker_cls <pytest_celery.vendors.redis.broker.fixtures.default_redis_broker_cls>`.
+- For SQS Broker use :func:`default_localstack_broker_cls <pytest_celery.vendors.localstack.fixtures.default_localstack_broker_cls>`.
 - For Redis Backend use :func:`default_redis_backend_cls <pytest_celery.vendors.redis.backend.fixtures.default_redis_backend_cls>`.
 - For Memcache Backend use :func:`default_memcached_backend_cls <pytest_celery.vendors.memcached.fixtures.default_memcached_backend_cls>`.
 

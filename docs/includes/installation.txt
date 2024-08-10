@@ -36,6 +36,7 @@ To install the vendors, you may either install all of the dependencies manually,
 - ``all``: Installs all vendors.
 - ``redis``: Installs Redis vendor, providing **broker** and **result backend** components.
 - ``memcached``: Installs Memcached vendor, providing a **result backend** component.
+- ``sqs``: Installs Localstack vendor, providing an **SQS broker** component.
 
 The following extra is installed by default:
 
@@ -55,6 +56,15 @@ RabbitMQ & Redis combo
     pip install -U "pytest-celery[redis]"
 
 This will configure the plugin to generate all possible setups using only RabbitMQ and Redis vendors.
+
+SQS & Redis combo
+-----------------
+
+.. code-block:: console
+
+    pip install -U "pytest-celery[redis,sqs]"
+
+This will configure the plugin to generate all possible setups using only Localstack and Redis vendors.
 
 All vendors
 -----------
