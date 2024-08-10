@@ -58,7 +58,7 @@ if _is_vendor_installed("memcached") and False:
 # Localstack is disabled by default regardless of its availability due to its beta status.
 if _is_vendor_installed("localstack") and False:
     # Uses Kombu
-    ALL_CELERY_BROKERS.append(CELERY_LOCALSTACK_BROKER)
+    ALL_CELERY_BROKERS.add(CELERY_LOCALSTACK_BROKER)
 
 # Worker setup is assumed to be always available.
 ALL_CELERY_WORKERS = (CELERY_SETUP_WORKER,)

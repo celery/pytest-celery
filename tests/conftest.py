@@ -10,7 +10,7 @@ from pytest_celery import CeleryTestBroker
 from pytest_celery import _is_vendor_installed
 
 if _is_vendor_installed("localstack"):
-    ALL_CELERY_BROKERS.append(CELERY_LOCALSTACK_BROKER)
+    ALL_CELERY_BROKERS.add(CELERY_LOCALSTACK_BROKER)
 
 
 @pytest.fixture(params=ALL_CELERY_BROKERS)
