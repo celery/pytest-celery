@@ -10,7 +10,6 @@ from pytest_celery import RabbitMQContainer
 from pytest_celery import RabbitMQTestBroker
 
 
-# from pytest_celery import RabbitMQTestBroker
 class test_rabbitmq_container:
     def test_version(self):
         assert RabbitMQContainer.version() == "latest"
