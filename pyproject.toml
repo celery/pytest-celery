@@ -61,7 +61,7 @@ description = "Pytest plugin for Celery"
 homepage = "https://github.com/celery/pytest-celery"
 license = "BSD"
 name = "pytest-celery"
-version = "1.0.1"
+version = "1.1.0"
 readme = "README.rst"
 keywords = ["pytest", "celery"]
 
