@@ -80,7 +80,7 @@ redis = { version = "*", optional = true }
 python-memcached = { version = "*", optional = true }
 boto3 = { version = "*", optional = true }
 botocore = { version = "*", optional = true }
-pycurl = { version = "*", optional = true }
+pycurl = { version = "*", optional = true, markers = "sys_platform != 'win32' and platform_python_implementation=='CPython'" }
 urllib3 = { version = "*", optional = true }
 tenacity = ">=9.0.0"
 pytest-docker-tools = ">=3.1.3"
