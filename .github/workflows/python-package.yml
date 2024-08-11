@@ -120,7 +120,7 @@ jobs:
           poetry install --only ci
 
       - name: Run tox for "${{ matrix.python-version }}-integration"
-        timeout-minutes: 15
+        timeout-minutes: 20
         run: |
           tox --verbose --verbose -e "${{ matrix.python-version }}-integration" -- -n auto --reruns 5 --rerun-except AssertionError
 
