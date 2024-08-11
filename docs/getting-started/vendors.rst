@@ -68,12 +68,12 @@ The Dockerfile is published with the source code and can be found using
    :language: docker
    :caption: pytest_celery.vendors.worker.Dockerfile
 
-.. _localstack-broker:
+.. _built-in-localstack-broker:
 
 Localstack (SQS) Broker
 =======================
 
-To use the Localstack broker, you will need add additional configuration to the test setup.
+To use the :ref:`Localstack broker <localstack-broker>`, you will need add additional configuration to the test setup.
 
 You may add this to ``conftest.py`` to configure the Localstack broker.
 

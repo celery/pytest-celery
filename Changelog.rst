@@ -4,6 +4,51 @@
  Change history
 ================
 
+.. _version-1.1.0:
+
+1.1.0
+=====
+:release-date: 11 August, 2024
+:release-by: Tomer Nosrati
+
+What's Changed
+==============
+
+Key Highlights
+--------------
+
+- New SQS broker using :ref:`Localstack <built-in-localstack-broker>` (Disabled by default).
+- New ``sqs`` extra for the SQS broker.
+
+Fixes & Changes
+---------------
+
+- Fixed package docutils installation with Python 3.8 (#372)
+- Added sqs extra (only) (#373)
+- Use set instead of list with ALL_CELERY_BROKERS and ALL_CELERY_BACKENDS (#375)
+- Added new localstack (SQS) broker (#374)
+- Prepare for release: v1.1.0 (#377)
+
+Dependencies Updates
+--------------------
+
+- Build(deps): Bump setuptools from 70.3.0 to 71.0.3 (#354)
+- Bumping Dependencies (inc. pyproject.toml) (#355)
+- Build(deps-dev): Bump pytest from 8.3.1 to 8.3.2 (#357)
+- Build(deps): Bump setuptools from 71.1.0 to 72.1.0 (#360)
+- Build(deps-dev): Bump types-redis from 4.6.0.20240425 to 4.6.0.20240726 (#356)
+- Build(deps): Bump tenacity from 8.5.0 to 9.0.0 (#361)
+- Build(deps): Bump redis from 5.0.7 to 5.0.8 (#362)
+- Build(deps-dev): Bump mypy from 1.11.0 to 1.11.1 (#363)
+- Build(deps): Bump snok/install-poetry from 1.3.4 to 1.4.0 (#364)
+- Build(deps-dev): Bump coverage from 7.6.0 to 7.6.1 (#365)
+- Build(deps): Bump debugpy from 1.8.2 to 1.8.3 (#366)
+- Build(deps-dev): Bump black from 24.4.2 to 24.8.0 (#367)
+- Build(deps): Bump snok/install-poetry from 1.4.0 to 1.4.1 (#368)
+- Build(deps): Bump debugpy from 1.8.3 to 1.8.5 (#370)
+- Build(deps-dev): Bump types-redis from 4.6.0.20240726 to 4.6.0.20240806 (#371)
+- Bumping Dependencies (inc. pyproject.toml) (#376)
+
 .. _version-1.0.1:
 
 1.0.1

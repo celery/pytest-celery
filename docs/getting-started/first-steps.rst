@@ -683,6 +683,8 @@ Fixtures
 
 A list of available fixtures for the broker can be found in the :mod:`pytest_celery.vendors.redis.broker.fixtures` module.
 
+.. _localstack-broker:
+
 Localstack (SQS) Broker
 -----------------------
 
