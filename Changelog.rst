@@ -4,6 +4,20 @@
  Change history
 ================
 
+.. _version-1.1.1:
+
+1.1.1
+=====
+:release-date: 12 August, 2024
+:release-by: Tomer Nosrati
+
+What's Changed
+==============
+
+- Added installation markers for pycurl (#378)
+- Changed --reruns 3 -> 5 for Integration and Smoke CI (#380)
+- Prepare for release: v1.1.1 (#379)
+
 .. _version-1.1.0:
 
 1.1.0
