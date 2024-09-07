@@ -59,7 +59,8 @@ def auto_clean_docker_resources():
             print(message)
 
     def cleanup_docker_resources():
-        """Function to clean up Docker containers, networks, and volumes based on labels."""
+        """Function to clean up Docker containers, networks, and volumes based
+        on labels."""
         docker_client = docker.from_env()
 
         try:
