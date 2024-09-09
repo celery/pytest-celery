@@ -63,8 +63,8 @@ The following diagram lists the relevant files in the project.
         ├── test_hybrid_setup.py
         └── vendors/
             ├── __init__.py
-            ├── memcached.py
             ├── rabbitmq.py
+            ├── redis_backend.py
             └── workers/
                 ├── __init__.py
                 ├── gevent.Dockerfile
@@ -119,8 +119,8 @@ For this example, we have the following test cases.
     in the failover test case. When used without the :func:`celery_setup <pytest_celery.fixtures.setup.celery_setup>`
     fixture, the components will run independently and might not be aware of each other.
 
-rabbitmq.py and memcached.py
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+rabbitmq.py and redis_backend.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The brokers and result backend are defined as independent components that are being configured into the setup
 using the ``conftest.py`` file. They add **session scope** fixtures and integrate using the matching :ref:`node class <test-nodes>`.
@@ -135,9 +135,9 @@ Main | Failover Brokers
 Result Backend
 --------------
 
-.. literalinclude:: ../../../examples/hybrid_setup/tests/vendors/memcached.py
+.. literalinclude:: ../../../examples/hybrid_setup/tests/vendors/redis_backend.py
     :language: python
-    :caption: examples.hybrid_setup.tests.vendors.memcached.py
+    :caption: examples.hybrid_setup.tests.vendors.redis_backend.py
 
 gevent.py and gevent.Dockerfile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

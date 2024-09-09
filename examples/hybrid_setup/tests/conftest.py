@@ -7,9 +7,9 @@ from pytest_celery import CeleryBackendCluster
 from pytest_celery import CeleryBrokerCluster
 from pytest_celery import CeleryTestWorker
 from pytest_celery import CeleryWorkerCluster
-from pytest_celery import MemcachedTestBackend
-from tests.vendors.memcached import *
+from pytest_celery import RedisTestBackend
 from tests.vendors.rabbitmq import *
+from tests.vendors.redis_backend import *
 from tests.vendors.workers.gevent import *
 from tests.vendors.workers.legacy import *
 
@@ -34,8 +34,8 @@ def celery_broker_cluster(
 
 
 @pytest.fixture
-def celery_backend_cluster(session_memcached_backend: MemcachedTestBackend) -> CeleryBackendCluster:
-    cluster = CeleryBackendCluster(session_memcached_backend)
+def celery_backend_cluster(session_redis_backend: RedisTestBackend) -> CeleryBackendCluster:
+    cluster = CeleryBackendCluster(session_redis_backend)
     yield cluster
     cluster.teardown()
 
