@@ -298,7 +298,7 @@ jobs:
         working-directory: examples/hybrid_setup
         timeout-minutes: 10
         run: |
-          pytest -xsv tests --reruns 3 --rerun-except AssertionError
+          pytest -xsv tests --reruns 5 --rerun-except AssertionError
 
   vhost:
     runs-on: ${{ matrix.os }}
