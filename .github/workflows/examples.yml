@@ -94,7 +94,7 @@ jobs:
         working-directory: examples/myworker
         timeout-minutes: 10
         run: |
-          pytest -xsv tests --reruns 3 --rerun-except AssertionError
+          pytest -xsv tests --reruns 3 --reruns-delay 10 --rerun-except AssertionError
 
   range:
     runs-on: ${{ matrix.os }}
@@ -127,7 +127,7 @@ jobs:
         working-directory: examples/range
         timeout-minutes: 30
         run: |
-          pytest -xsv tests --reruns 3 --rerun-except AssertionError
+          pytest -xsv tests --reruns 3 --reruns-delay 10 --rerun-except AssertionError
 
   rabbitmq_management:
     runs-on: ${{ matrix.os }}
@@ -160,7 +160,7 @@ jobs:
         working-directory: examples/rabbitmq_management
         timeout-minutes: 10
         run: |
-          pytest -xsv tests --reruns 3 --rerun-except AssertionError
+          pytest -xsv tests --reruns 3 --reruns-delay 10 --rerun-except AssertionError
 
   django:
     runs-on: ${{ matrix.os }}
@@ -199,7 +199,7 @@ jobs:
         timeout-minutes: 10
         run: |
           export DJANGO_SETTINGS_MODULE=proj.settings
-          pytest -xsv tests --reruns 3 --rerun-except AssertionError
+          pytest -xsv tests --reruns 3 --reruns-delay 10 --rerun-except AssertionError
 
   myutils:
     runs-on: ${{ matrix.os }}
@@ -232,7 +232,7 @@ jobs:
         working-directory: examples/myutils
         timeout-minutes: 10
         run: |
-          pytest -xsv tests --reruns 3 --rerun-except AssertionError
+          pytest -xsv tests --reruns 3 --reruns-delay 10 --rerun-except AssertionError
 
   worker_pool:
     runs-on: ${{ matrix.os }}
@@ -265,7 +265,7 @@ jobs:
         working-directory: examples/worker_pool
         timeout-minutes: 10
         run: |
-          pytest -xsv tests --reruns 3 --rerun-except AssertionError
+          pytest -xsv tests --reruns 3 --reruns-delay 10 --rerun-except AssertionError
 
   hybrid_setup:
     runs-on: ${{ matrix.os }}
@@ -298,7 +298,7 @@ jobs:
         working-directory: examples/hybrid_setup
         timeout-minutes: 10
         run: |
-          pytest -xsv tests --reruns 5 --rerun-except AssertionError
+          pytest -xsv tests --reruns 5 --reruns-delay 10 --rerun-except AssertionError
 
   vhost:
     runs-on: ${{ matrix.os }}
@@ -331,4 +331,4 @@ jobs:
         working-directory: examples/vhost
         timeout-minutes: 10
         run: |
-          pytest -xsv tests --reruns 3 --rerun-except AssertionError
+          pytest -xsv tests --reruns 3 --reruns-delay 10 --rerun-except AssertionError
