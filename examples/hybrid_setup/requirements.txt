@@ -2,5 +2,5 @@ pytest>=7.4.4
 pytest-xdist>=3.5.0
 pytest-subtests>=0.11.0
 pytest-rerunfailures>=14.0
-celery[gevent]
+celery[gevent]>=5.5.0b3
 pytest-celery[all]@git+https://github.com/celery/pytest-celery.git
