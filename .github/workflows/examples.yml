@@ -37,16 +37,15 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.12"]
-        os: ["ubuntu-latest"]
+        os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: useblacksmith/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
@@ -70,16 +69,15 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.12"]
-        os: ["ubuntu-latest"]
+        os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: useblacksmith/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
@@ -103,16 +101,15 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.12"]
-        os: ["ubuntu-latest"]
+        os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: useblacksmith/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
@@ -136,16 +133,15 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.12"]
-        os: ["ubuntu-latest"]
+        os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: useblacksmith/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
@@ -169,16 +165,15 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.12"]
-        os: ["ubuntu-latest"]
+        os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: useblacksmith/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
@@ -208,16 +203,15 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.12"]
-        os: ["ubuntu-latest"]
+        os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: useblacksmith/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
@@ -241,16 +235,15 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.12"]
-        os: ["ubuntu-latest"]
+        os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: useblacksmith/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
@@ -274,16 +267,15 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.12"]
-        os: ["ubuntu-latest"]
+        os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: useblacksmith/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
@@ -307,16 +299,15 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.12"]
-        os: ["ubuntu-latest"]
+        os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: useblacksmith/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
