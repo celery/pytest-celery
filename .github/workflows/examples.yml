@@ -41,7 +41,6 @@ jobs:
 
     steps:
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4
@@ -74,7 +73,6 @@ jobs:
 
     steps:
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4
@@ -107,7 +105,6 @@ jobs:
 
     steps:
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4
@@ -140,7 +137,6 @@ jobs:
 
     steps:
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4
@@ -173,7 +169,6 @@ jobs:
 
     steps:
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4
@@ -212,7 +207,6 @@ jobs:
 
     steps:
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4
@@ -245,7 +239,6 @@ jobs:
 
     steps:
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4
@@ -278,7 +271,6 @@ jobs:
 
     steps:
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4
@@ -311,7 +303,6 @@ jobs:
 
     steps:
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4

@@ -47,7 +47,6 @@ jobs:
           docker pull memcached:latest
 
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4
@@ -59,7 +58,6 @@ jobs:
           cache-dependency-path: '**/setup.py'
 
       - name: Install Poetry
-        if: startsWith(matrix.os, 'ubuntu-')
         uses: snok/install-poetry@v1.4.1
 
       - name: Install tox
@@ -89,7 +87,6 @@ jobs:
           docker pull memcached:latest
 
       - name: Install apt packages
-        if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt update
       - uses: actions/checkout@v4
@@ -101,7 +98,6 @@ jobs:
           cache-dependency-path: '**/setup.py'
 
       - name: Install Poetry
-        if: startsWith(matrix.os, 'ubuntu-')
         uses: snok/install-poetry@v1.4.1
 
       - name: Install tox
