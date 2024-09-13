@@ -44,7 +44,7 @@ class RedisContainer(CeleryTestContainer):
         wait_for_client: bool = True,
         **kwargs: dict,
     ) -> list[str]:
-        return ["redis-server", *args]
+        return ["redis-server", "--save", "", "--appendonly", "no", "--maxmemory-policy", "noeviction", *args]
 
     @property
     def url(self) -> str:
