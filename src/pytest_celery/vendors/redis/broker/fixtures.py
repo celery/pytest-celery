@@ -64,7 +64,7 @@ def default_redis_broker_command(default_redis_broker_cls: type[RedisContainer])
     Returns:
         list[str]: Docker CMD instruction.
     """
-    return default_redis_broker_cls.command("--maxclients", "100000")
+    return default_redis_broker_cls.command()
 
 
 @pytest.fixture
