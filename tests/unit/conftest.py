@@ -55,8 +55,3 @@ def default_redis_broker() -> RedisContainer:
 @pytest.fixture
 def default_worker_container() -> CeleryWorkerContainer:
     return mocked_container(CeleryWorkerContainer)
-
-
-@pytest.fixture(scope="module", autouse=True)
-def auto_clean_docker_resources():
-    """Skip cleanup in the unit tests."""
