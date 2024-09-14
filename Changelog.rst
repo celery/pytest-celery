@@ -4,6 +4,48 @@
  Change history
 ================
 
+.. _version-1.1.2:
+
+1.1.2
+=====
+:release-date: 14 August, 2024
+:release-by: Tomer Nosrati
+
+What's Changed
+==============
+
+Key Highlights
+--------------
+
+Fixed Redis container instabilities in #405
+
+Other Changes
+-------------
+- Build(deps): Bump botocore from 1.34.158 to 1.34.161 (#382)
+- Build(deps): Bump boto3 from 1.34.158 to 1.34.161 (#383)
+- Build(deps): Bump botocore from 1.34.161 to 1.34.162 (#384)
+- Build(deps): Bump setuptools from 72.1.0 to 72.2.0 (#381)
+- Build(deps-dev): Bump types-redis from 4.6.0.20240806 to 4.6.0.20240819 (#385)
+- Build(deps): Bump boto3 from 1.34.161 to 1.34.162 (#386)
+- Build(deps): Bump setuptools from 72.2.0 to 73.0.0 (#387)
+- Build(deps): Bump setuptools from 73.0.0 to 73.0.1 (#388)
+- Build(deps-dev): Bump mypy from 1.11.1 to 1.11.2 (#389)
+- Build(deps): Bump setuptools from 73.0.1 to 74.0.0 (#390)
+- Build(deps): Bump urllib3 from 1.26.19 to 1.26.20 (#391)
+- Build(deps): Bump setuptools from 74.0.0 to 74.1.0 (#392)
+- Build(deps-dev): Bump types-redis from 4.6.0.20240819 to 4.6.0.20240903 (#393)
+- Build(deps): Bump setuptools from 74.1.0 to 74.1.1 (#394)
+- Build(deps): Bump setuptools from 74.1.1 to 74.1.2 (#395)
+- Added docker cleanup auto-fixture to improve tests stability (#396)
+- Changed --reruns 3 -> 5 in the CI for hybrid_setup example (to mitigate docker failures) (#398)
+- Added "--reruns-delay 10" in the examples CI (#399)
+- Bumping Dependencies (inc. pyproject.toml) (#397)
+- Build(deps-dev): Bump pytest from 8.3.2 to 8.3.3 (#402)
+- blacksmith.sh: Migrate workflows to Blacksmith (#403)
+- Build(deps): Bump botocore from 1.35.14 to 1.35.18 (#404)
+- Fix Redis container from aborting randomly (#405)
+- Prepare for release: v1.1.2 (#406)
+
 .. _version-1.1.1:
 
 1.1.1
