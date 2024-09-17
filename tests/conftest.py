@@ -3,21 +3,7 @@ import os
 import pytest
 from celery import Celery
 
-from pytest_celery import ALL_CELERY_BROKERS
-from pytest_celery import CELERY_LOCALSTACK_BROKER
 from pytest_celery import LOCALSTACK_CREDS
-from pytest_celery import CeleryTestBroker
-from pytest_celery import _is_vendor_installed
-
-if _is_vendor_installed("localstack"):
-    ALL_CELERY_BROKERS.add(CELERY_LOCALSTACK_BROKER)
-
-
-@pytest.fixture(params=ALL_CELERY_BROKERS)
-def celery_broker(request: pytest.FixtureRequest) -> CeleryTestBroker:  # type: ignore
-    broker: CeleryTestBroker = request.getfixturevalue(request.param)
-    yield broker
-    broker.teardown()
 
 
 @pytest.fixture
