@@ -4,11 +4,35 @@
  Change history
 ================
 
+.. _version-1.1.3:
+
+1.1.3
+=====
+:release-date: 20 September, 2024
+:release-by: Tomer Nosrati
+
+What's Changed
+==============
+
+Fixed issues when using Redis as a backend.
+
+- Build(deps): Bump boto3 from 1.35.14 to 1.35.18 (#409)
+- Build(deps): Bump botocore from 1.35.18 to 1.35.19 (#408)
+- Build(deps): Bump setuptools from 74.1.2 to 75.0.0 (#407)
+- Fixed Redis error in the smoke tests: "Possible SECURITY ATTACK detected" (#413)
+- Fix Redis memory overcommit warning in the CI (#414)
+- Build(deps): Bump setuptools from 75.0.0 to 75.1.0 (#411)
+- Relaxed flaky tests mechanism (#415)
+- Bumping Dependencies (inc. pyproject.toml) (#416)
+- Fixed IndexError when accessing the container port info (#417)
+- Resolved race condition during Redis backend teardown (#418)
+- Prepare for release: v1.1.3 (#419)
+
 .. _version-1.1.2:
 
 1.1.2
 =====
-:release-date: 14 August, 2024
+:release-date: 14 September, 2024
 :release-by: Tomer Nosrati
 
 What's Changed
