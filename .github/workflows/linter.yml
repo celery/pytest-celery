@@ -17,10 +17,13 @@ jobs:
         run: |
           sudo apt update
 
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v5
+      - name: Set up Python 3.13
+        uses: useblacksmith/setup-python@v6
         with:
-          python-version: '3.12'
+          python-version: '3.13'
+          allow-prereleases: true
+          cache: 'pip'
+          cache-dependency-path: '**/setup.py'
 
       - name: Install Poetry
         uses: snok/install-poetry@v1.4.1
