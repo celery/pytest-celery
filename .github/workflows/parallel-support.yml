@@ -56,7 +56,6 @@ jobs:
         uses: useblacksmith/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
-          allow-prereleases: true
           cache: 'pip'
           cache-dependency-path: '**/setup.py'
 
@@ -99,7 +98,6 @@ jobs:
         uses: useblacksmith/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
-          allow-prereleases: true
           cache: 'pip'
           cache-dependency-path: '**/setup.py'
 
