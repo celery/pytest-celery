@@ -21,7 +21,6 @@ jobs:
         uses: useblacksmith/setup-python@v6
         with:
           python-version: '3.13'
-          allow-prereleases: true
           cache: 'pip'
           cache-dependency-path: '**/setup.py'
 
