@@ -76,7 +76,8 @@ replace = ':Version: {new_version}'
 
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
-celery = { version = "*" }
+celery = { version = "*", allow-prereleases = true }
+kombu = { version = "*", allow-prereleases = true }
 redis = { version = "*", optional = true }
 python-memcached = { version = "*", optional = true }
 boto3 = { version = "*", optional = true }
