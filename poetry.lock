@@ -239,17 +239,17 @@ uvloop = ["uvloop (>=0.15.2)"]
 
 [[package]]
 name = "boto3"
-version = "1.35.39"
+version = "1.35.42"
 description = "The AWS SDK for Python"
 optional = true
 python-versions = ">=3.8"
 files = [
-    {file = "boto3-1.35.39-py3-none-any.whl", hash = "sha256:5970b62c1ec8177501e02520f0d41839ca5fc549b30bac4e8c0c0882ae776217"},
-    {file = "boto3-1.35.39.tar.gz", hash = "sha256:670f811c65e3c5fe4ed8c8d69be0b44b1d649e992c0fc16de43816d1188f88f1"},
+    {file = "boto3-1.35.42-py3-none-any.whl", hash = "sha256:e1f36f8be453505cebcc3da178ea081b2a06c0e5e1cdee774f1067599b8d9c3e"},
+    {file = "boto3-1.35.42.tar.gz", hash = "sha256:a5b00f8b82dce62870759f04861747944da834d64a64355970120c475efdafc0"},
 ]
 
 [package.dependencies]
-botocore = ">=1.35.39,<1.36.0"
+botocore = ">=1.35.42,<1.36.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.10.0,<0.11.0"
 
@@ -258,13 +258,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.35.39"
+version = "1.35.42"
 description = "Low-level, data-driven core of boto 3."
 optional = true
 python-versions = ">=3.8"
 files = [
-    {file = "botocore-1.35.39-py3-none-any.whl", hash = "sha256:781c547eb6a79c0e4b0bedd87b81fbfed957816b4841d33e20c8f1989c7c19ce"},
-    {file = "botocore-1.35.39.tar.gz", hash = "sha256:cb7f851933b5ccc2fba4f0a8b846252410aa0efac5bfbe93b82d10801f5f8e90"},
+    {file = "botocore-1.35.42-py3-none-any.whl", hash = "sha256:05af0bb8b9cea7ce7bc589c332348d338a21b784e9d088a588fd10ec145007ff"},
+    {file = "botocore-1.35.42.tar.gz", hash = "sha256:af348636f73dc24b7e2dc760a34d08c8f2f94366e9b4c78d877307b128abecef"},
 ]
 
 [package.dependencies]
@@ -2737,13 +2737,13 @@ jeepney = ">=0.6"
 
 [[package]]
 name = "setuptools"
-version = "75.1.0"
+version = "75.2.0"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "setuptools-75.1.0-py3-none-any.whl", hash = "sha256:35ab7fd3bcd95e6b7fd704e4a1539513edad446c097797f2985e0e4b960772f2"},
-    {file = "setuptools-75.1.0.tar.gz", hash = "sha256:d59a21b17a275fb872a9c3dae73963160ae079f1049ed956880cd7c09b120538"},
+    {file = "setuptools-75.2.0-py3-none-any.whl", hash = "sha256:a7fcb66f68b4d9e8e66b42f9876150a3371558f98fa32222ffaa5bced76406f8"},
+    {file = "setuptools-75.2.0.tar.gz", hash = "sha256:753bb6ebf1f465a1912e19ed1d41f403a79173a9acf66a42e7e6aec45c3c16ec"},
 ]
 
 [package.extras]
@@ -3145,13 +3145,13 @@ test = ["pytest"]
 
 [[package]]
 name = "starlette"
-version = "0.39.2"
+version = "0.41.0"
 description = "The little ASGI library that shines."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "starlette-0.39.2-py3-none-any.whl", hash = "sha256:134dd6deb655a9775991d352312d53f1879775e5cc8a481f966e83416a2c3f71"},
-    {file = "starlette-0.39.2.tar.gz", hash = "sha256:caaa3b87ef8518ef913dac4f073dea44e85f73343ad2bdc17941931835b2a26a"},
+    {file = "starlette-0.41.0-py3-none-any.whl", hash = "sha256:a0193a3c413ebc9c78bff1c3546a45bb8c8bcb4a84cae8747d650a65bd37210a"},
+    {file = "starlette-0.41.0.tar.gz", hash = "sha256:39cbd8768b107d68bfe1ff1672b38a2c38b49777de46d2a592841d58e3bf7c2a"},
 ]
 
 [package.dependencies]
@@ -3273,13 +3273,13 @@ testing = ["flaky (>=3.4.0)", "freezegun (>=0.3.11)", "pathlib2 (>=2.3.3)", "psu
 
 [[package]]
 name = "tox"
-version = "4.21.2"
+version = "4.23.0"
 description = "tox is a generic virtualenv management and test command line tool"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "tox-4.21.2-py3-none-any.whl", hash = "sha256:13d996adcd792e7c82994b0e116d85efd84f0c6d185254d83d156f73f86b2038"},
-    {file = "tox-4.21.2.tar.gz", hash = "sha256:49381ff102296753e378fa5ff30e42a35e695f149b4dbf8a2c49d15fdb5797b2"},
+    {file = "tox-4.23.0-py3-none-any.whl", hash = "sha256:46da40afb660e46238c251280eb910bdaf00b390c7557c8e4bb611f422e9db12"},
+    {file = "tox-4.23.0.tar.gz", hash = "sha256:a6bd7d54231d755348d3c3a7b450b5bf6563833716d1299a1619587a1b77a3bf"},
 ]
 
 [package.dependencies]
@@ -3294,10 +3294,6 @@ pyproject-api = ">=1.8"
 tomli = {version = ">=2.0.1", markers = "python_version < \"3.11\""}
 typing-extensions = {version = ">=4.12.2", markers = "python_version < \"3.11\""}
 virtualenv = ">=20.26.6"
-
-[package.extras]
-docs = ["furo (>=2024.8.6)", "sphinx (>=8.0.2)", "sphinx-argparse-cli (>=1.18.2)", "sphinx-autodoc-typehints (>=2.4.4)", "sphinx-copybutton (>=0.5.2)", "sphinx-inline-tabs (>=2023.4.21)", "sphinxcontrib-towncrier (>=0.2.1a0)", "towncrier (>=24.8)"]
-testing = ["build[virtualenv] (>=1.2.2)", "covdefaults (>=2.3)", "detect-test-pollution (>=1.2)", "devpi-process (>=1.0.2)", "diff-cover (>=9.2)", "distlib (>=0.3.8)", "flaky (>=3.8.1)", "hatch-vcs (>=0.4)", "hatchling (>=1.25)", "psutil (>=6)", "pytest (>=8.3.3)", "pytest-cov (>=5)", "pytest-mock (>=3.14)", "pytest-xdist (>=3.6.1)", "re-assert (>=1.1)", "setuptools (>=75.1)", "time-machine (>=2.15)", "wheel (>=0.44)"]
 
 [[package]]
 name = "tox-gh-actions"
@@ -3336,13 +3332,13 @@ testing = ["black", "devpi-process", "flake8 (>=6,<7)", "mypy", "pytest (>=7,<8)
 
 [[package]]
 name = "trove-classifiers"
-version = "2024.10.13"
+version = "2024.10.16"
 description = "Canonical source for classifiers on PyPI (pypi.org)."
 optional = false
 python-versions = "*"
 files = [
-    {file = "trove_classifiers-2024.10.13-py3-none-any.whl", hash = "sha256:4154432be880041d8cb1e01f7e0d9989a4ca24a71355bc036777919ec0a633f2"},
-    {file = "trove_classifiers-2024.10.13.tar.gz", hash = "sha256:b820fc6f9544543afa15e5d9cfc426cde3b20fc2246dff6f019b835731508cef"},
+    {file = "trove_classifiers-2024.10.16-py3-none-any.whl", hash = "sha256:9b02a4cb49bd2e85c13e728ee461f4f332d6334736b18d61254c964643687144"},
+    {file = "trove_classifiers-2024.10.16.tar.gz", hash = "sha256:8a3570c880f7ca2ffebbc91806aee3e8f5cd221422dfc8cd2cad4b48789ac69b"},
 ]
 
 [[package]]
@@ -3457,13 +3453,13 @@ zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
 name = "uvicorn"
-version = "0.31.1"
+version = "0.32.0"
 description = "The lightning-fast ASGI server."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "uvicorn-0.31.1-py3-none-any.whl", hash = "sha256:adc42d9cac80cf3e51af97c1851648066841e7cfb6993a4ca8de29ac1548ed41"},
-    {file = "uvicorn-0.31.1.tar.gz", hash = "sha256:f5167919867b161b7bcaf32646c6a94cdbd4c3aa2eb5c17d36bb9aa5cfd8c493"},
+    {file = "uvicorn-0.32.0-py3-none-any.whl", hash = "sha256:60b8f3a5ac027dcd31448f411ced12b5ef452c646f76f02f8cc3f25d8d26fd82"},
+    {file = "uvicorn-0.32.0.tar.gz", hash = "sha256:f78b36b143c16f54ccdb8190d0a26b5f1901fe5a3c777e1ab29f26391af8551e"},
 ]
 
 [package.dependencies]
