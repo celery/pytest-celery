@@ -32,7 +32,7 @@ meeting or private correspondence.
 The Code of Conduct is heavily based on the `Ubuntu Code of Conduct`_, and
 the `Pylons Code of Conduct`_.
 
-.. _`Ubuntu Code of Conduct`: https://www.ubuntu.com/community/conduct
+.. _`Ubuntu Code of Conduct`: https://ubuntu.com/community/ethos/code-of-conduct
 .. _`Pylons Code of Conduct`: https://pylonsproject.org/community-code-of-conduct.html
 
 Be considerate

@@ -115,8 +115,8 @@ flake8 = [
 ]
 pre-commit = [
     { version = "^2.21.0", python = "<3.8.0" },
-    { version = "^3.1.0", python = ">=3.8.0,<4.0" },
-    { version = ">=3.6.0", python = ">=3.9.0,<4.0" },
+    { version = "^3.1.0", python = ">=3.8.0,<3.9.0" },
+    { version = "^4.0.0", python = ">=3.9.0,<4.0" },
 ]
 mypy = ">=1.11.2"
 types-redis = ">=4.6.0.20240218"

@@ -20,7 +20,7 @@ please refer to the `official documentation`_.
 
 The pytest-celery plugin is Open Source and licensed under the `BSD License`_.
 
-.. _`BSD License`: http://www.opensource.org/licenses/BSD-3-Clause
+.. _`BSD License`: https://www.opensource.org/license/BSD-3-Clause
 
 Donations
 =========
