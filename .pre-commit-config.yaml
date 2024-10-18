@@ -42,11 +42,13 @@ repos:
         additional_dependencies:
           - tomli
 
-  - repo: https://github.com/PyCQA/docformatter
-    rev: v1.7.5
-    hooks:
-      - id: docformatter
-        args: [--in-place]
+  # Disabled until fixed support for Pre-commit v4.x.x
+  # - repo: https://github.com/PyCQA/docformatter
+  #   rev: v1.7.5
+  #   hooks:
+  #     - id: docformatter
+  #       args: [--in-place]
+  #       language: python
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0

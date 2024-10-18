@@ -26,4 +26,4 @@ compatible license to this one.
    While the *pytest-celery* documentation is offered under the
    Creative Commons *Attribution-ShareAlike 4.0 International* license,
    the pytest-celery *software* is offered under the
-   `BSD License (3 Clause) <http://www.opensource.org/licenses/BSD-3-Clause>`_.
+   `BSD License (3 Clause) <https://www.opensource.org/license/BSD-3-Clause>`_.
