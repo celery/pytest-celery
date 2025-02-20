@@ -33,7 +33,7 @@ classifiers = [
 ]
 
 # Declare that dependencies are defined dynamically (in [tool.poetry.dependencies])
-dynamic = ["dependencies"]
+dynamic = ["dependencies"]  # Does not support Python 3.8
 
 [project.urls]
 Homepage = "https://github.com/celery/pytest-celery"
