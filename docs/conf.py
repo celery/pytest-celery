@@ -34,6 +34,7 @@ config = conf.build_config(
         r"https://github\.com/celery/celery/blob/main/requirements/test\.txt#L2",
         r"https://github\.com/celery/celery/blob/main/tox\.ini#L30",
         r"https://www\.opensource\.org/license/BSD-3-Clause",
+        r"https://pypi\.org/project/pytest-celery/#history",
     ],
     autodoc_mock_imports=[],
 )
