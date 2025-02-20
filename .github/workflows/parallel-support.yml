@@ -61,6 +61,8 @@ jobs:
 
       - name: Install Poetry
         uses: snok/install-poetry@v1.4.1
+        with:
+          version: 1.8.4
 
       - name: Install tox
         run: |
@@ -103,6 +105,8 @@ jobs:
 
       - name: Install Poetry
         uses: snok/install-poetry@v1.4.1
+        with:
+          version: 1.8.4
 
       - name: Install tox
         run: |
