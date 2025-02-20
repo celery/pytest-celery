@@ -1,46 +1,20 @@
 [build-system]
-requires = ["poetry-core>=1.8.1"]
+requires = ["poetry-core>=2.0"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.black]
-exclude = '''
-/(
-    \.git
-  | \.hg
-  | \.mypy_cache
-  | \.pytest_cache
-  | \.tox
-  | \.venv
-  | \.idea
-  | \.vscode
-  | \.github
-  | _build
-  | buck-out
-  | build
-  | dist
-)/
-'''
-include = '\.pyi?$'
-line-length = 120
-
-[tool.autoflake]
-check = true
-
-[tool.isort]
-line_length = 120
-multi_line_output = 7
-profile = "black"
-force_single_line = true
-
-[tool.flake8]
-max-line-length = 120
-
-[tool.poetry]
+[project]
+name = "pytest-celery"
+version = "1.1.3"
+description = "Pytest plugin for Celery"
+readme = "README.rst"
+requires-python = ">=3.8,<4.0"
 authors = [
-    "Tomer Nosrati <tomer.nosrati@gmail.com>",
-    "Omer Katz <omer.katz@omerkatz.com>",
-    "Thomas Grainger <pytest-celery@graingert.co.uk>",
+    { name = "Tomer Nosrati", email = "tomer.nosrati@gmail.com" },
+    { name = "Omer Katz", email = "omer.katz@omerkatz.com" },
+    { name = "Thomas Grainger", email = "pytest-celery@graingert.co.uk" }
 ]
+license = "BSD-3-Clause"
+keywords = ["pytest", "celery"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "License :: OSI Approved :: BSD License",
@@ -55,24 +29,14 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: Implementation :: CPython",
-    "Operating System :: OS Independent",
+    "Operating System :: OS Independent"
 ]
 
-description = "Pytest plugin for Celery"
-homepage = "https://github.com/celery/pytest-celery"
-license = "BSD-3-Clause"
-name = "pytest-celery"
-version = "1.1.3"
-readme = "README.rst"
-keywords = ["pytest", "celery"]
+# Declare that dependencies are defined dynamically (in [tool.poetry.dependencies])
+dynamic = ["dependencies"]
 
-[tool.poetry_bumpversion.file."src/pytest_celery/__init__.py"]
-search = '__version__ = "{current_version}"'
-replace = '__version__ = "{new_version}"'
-
-[tool.poetry_bumpversion.file."README.rst"]
-search = ':Version: {current_version}'
-replace = ':Version: {new_version}'
+[project.urls]
+Homepage = "https://github.com/celery/pytest-celery"
 
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
@@ -89,12 +53,6 @@ docker = "^7.1.0"
 psutil = ">=6.1.0"
 setuptools = ">=75.2.0"
 debugpy = "^1.8.7"
-
-[tool.poetry.extras]
-all = ["redis", "python-memcached", "boto3", "botocore", "urllib3"]
-redis = ["redis"]
-memcached = ["python-memcached"]
-sqs = ["boto3", "botocore", "urllib3"]
 
 [tool.poetry.group.dev]
 
@@ -172,8 +130,55 @@ docutils = [
     { version = ">=0.20.1", python = ">=3.9.0,<4.0" },
 ]
 
-[tool.poetry.plugins.pytest11]
+[project.entry-points."pytest11"]
 celery = "pytest_celery.plugin"
+
+[project.optional-dependencies]
+all = ["redis", "python-memcached", "boto3", "botocore", "urllib3"]
+redis = ["redis"]
+memcached = ["python-memcached"]
+sqs = ["boto3", "botocore", "urllib3"]
+
+[tool.poetry_bumpversion.file."src/pytest_celery/__init__.py"]
+search = '__version__ = "{current_version}"'
+replace = '__version__ = "{new_version}"'
+
+[tool.poetry_bumpversion.file."README.rst"]
+search = ':Version: {current_version}'
+replace = ':Version: {new_version}'
+
+[tool.black]
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.pytest_cache
+  | \.tox
+  | \.venv
+  | \.idea
+  | \.vscode
+  | \.github
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+include = '\.pyi?$'
+line-length = 120
+
+[tool.autoflake]
+check = true
+
+[tool.isort]
+line_length = 120
+multi_line_output = 7
+profile = "black"
+force_single_line = true
+
+[tool.flake8]
+max-line-length = 120
 
 [tool.pytest.ini_options]
 addopts = [
