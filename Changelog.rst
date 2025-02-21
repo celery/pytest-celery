@@ -4,6 +4,41 @@
  Change history
 ================
 
+.. _version-1.2.0:
+
+1.2.0
+=====
+:release-date: 21 February, 2025
+:release-by: Tomer Nosrati
+
+What's Changed
+==============
+
+Key Highlights
+--------------
+- Added Python 3.13 Support.
+- Fixed Python 3.8 compatibility issues.
+- Replaced :pypi:`pycurl` with :pypi:`urllib3`.
+
+Changelog
+---------
+- Build(deps): Bump debugpy from 1.8.5 to 1.8.6 (#421)
+- Enable Codespell autofix (#422)
+- Build(deps): Bump redis from 5.0.8 to 5.1.0 (#423)
+- Build(deps-dev): Bump types-redis from 4.6.0.20240903 to 4.6.0.20241004 (#424)
+- Build(deps): Bump redis from 5.1.0 to 5.1.1 (#425)
+- Build(deps): Bump debugpy from 1.8.6 to 1.8.7 (#427)
+- Build(deps-dev): Bump sphinxcontrib-mermaid from 0.9.2 to 1.0.0 (#428)
+- Build(deps-dev): Bump mypy from 1.11.2 to 1.12.0 (#430)
+- Build(deps): Bump psutil from 6.0.0 to 6.1.0 (#432)
+- Build(deps): Bump setuptools from 75.1.0 to 75.2.0 (#431)
+- Fixed lint issues (#433)
+- Added Python 3.13 Initial Support (#420)
+- Build(deps): Bump codecov/codecov-action from 4 to 5 (#435)
+- fix: invalid SPDX license ID in project metadata (#438)
+- Bumping Dependencies (inc. pyproject.toml) (#436)
+- Prepare for release: v1.2.0 (#445)
+
 .. _version-1.1.3:
 
 1.1.3
