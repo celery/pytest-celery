@@ -9,7 +9,7 @@ by Tomer Nosrati
 
 .. |copy| unicode:: U+000A9 .. COPYRIGHT SIGN
 
-Copyright |copy| 2024, Tomer Nosrati.
+Copyright |copy| 2025, Tomer Nosrati.
 
 All rights reserved. This material may be copied or distributed only
 subject to the terms and conditions set forth in the `Creative Commons
