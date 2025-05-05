@@ -128,4 +128,3 @@ Contents
     :alt: Ask http://DeepWiki.com
     :target: https://deepwiki.com/celery/pytest-celery
     :width: 125px
-
