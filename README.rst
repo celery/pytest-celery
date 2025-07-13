@@ -5,6 +5,7 @@
 :Web: https://pytest-celery.readthedocs.io/en/latest/
 :Download: https://pypi.org/project/pytest-celery/
 :Source: https://github.com/celery/pytest-celery/
+:DeepWiki: |deepwiki|
 
 ===================================
  Official pytest plugin for Celery
@@ -122,3 +123,8 @@ Contents
 .. |poetry| image:: https://img.shields.io/badge/poetry-yes-blue.svg
     :alt: Poetry
     :target: https://python-poetry.org/
+
+.. |deepwiki| image:: https://devin.ai/assets/deepwiki-badge.png
+    :alt: Ask http://DeepWiki.com
+    :target: https://deepwiki.com/celery/pytest-celery
+    :width: 125px
