@@ -1,4 +1,4 @@
-FROM python:3.10-slim-buster
+FROM python:3.10-slim-bookworm
 
 # Create a user to run the worker
 RUN adduser --disabled-password --gecos "" test_user
