@@ -4,6 +4,23 @@
  Change history
 ================
 
+.. _version-1.2.1:
+
+1.2.1
+=====
+:release-date: 30 July, 2025
+:release-by: Tomer Nosrati
+
+What's Changed
+==============
+
+- Fixed spelling REDUCTED -> REDACTED, found by codespell (#446)
+- Added DeepWiki to README (#453)
+- Synced donation section in the docs to celery (#454)
+- Bumping Dependencies (poetry update --with test,dev,ci,docs) (#457)
+- Update `worker` `Dockerfile` image to `bookworm` (#460)
+- Prepare for release: v1.2.1 (#461)
+
 .. _version-1.2.0:
 
 1.2.0
