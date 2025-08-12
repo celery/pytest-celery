@@ -30,6 +30,6 @@ jobs:
     runs-on: blacksmith-4vcpu-ubuntu-2204
     timeout-minutes: 5
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Build Celery Worker
       run: cd src/pytest_celery/vendors/worker && docker build -t pytest-celery-worker .
