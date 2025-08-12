@@ -45,7 +45,7 @@ jobs:
           sudo apt update
           sudo apt-get install -y procps  # Install procps to enable sysctl
           sudo sysctl -w vm.overcommit_memory=1
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up Python ${{ matrix.python-version }}
         uses: useblacksmith/setup-python@v6
         with:
@@ -79,7 +79,7 @@ jobs:
           sudo apt update
           sudo apt-get install -y procps  # Install procps to enable sysctl
           sudo sysctl -w vm.overcommit_memory=1
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up Python ${{ matrix.python-version }}
         uses: useblacksmith/setup-python@v6
         with:
@@ -113,7 +113,7 @@ jobs:
           sudo apt update
           sudo apt-get install -y procps  # Install procps to enable sysctl
           sudo sysctl -w vm.overcommit_memory=1
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up Python ${{ matrix.python-version }}
         uses: useblacksmith/setup-python@v6
         with:
@@ -147,7 +147,7 @@ jobs:
           sudo apt update
           sudo apt-get install -y procps  # Install procps to enable sysctl
           sudo sysctl -w vm.overcommit_memory=1
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up Python ${{ matrix.python-version }}
         uses: useblacksmith/setup-python@v6
         with:
@@ -181,7 +181,7 @@ jobs:
           sudo apt update
           sudo apt-get install -y procps  # Install procps to enable sysctl
           sudo sysctl -w vm.overcommit_memory=1
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up Python ${{ matrix.python-version }}
         uses: useblacksmith/setup-python@v6
         with:
@@ -221,7 +221,7 @@ jobs:
           sudo apt update
           sudo apt-get install -y procps  # Install procps to enable sysctl
           sudo sysctl -w vm.overcommit_memory=1
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up Python ${{ matrix.python-version }}
         uses: useblacksmith/setup-python@v6
         with:
@@ -255,7 +255,7 @@ jobs:
           sudo apt update
           sudo apt-get install -y procps  # Install procps to enable sysctl
           sudo sysctl -w vm.overcommit_memory=1
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up Python ${{ matrix.python-version }}
         uses: useblacksmith/setup-python@v6
         with:
@@ -289,7 +289,7 @@ jobs:
           sudo apt update
           sudo apt-get install -y procps  # Install procps to enable sysctl
           sudo sysctl -w vm.overcommit_memory=1
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up Python ${{ matrix.python-version }}
         uses: useblacksmith/setup-python@v6
         with:
@@ -323,7 +323,7 @@ jobs:
           sudo apt update
           sudo apt-get install -y procps  # Install procps to enable sysctl
           sudo sysctl -w vm.overcommit_memory=1
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up Python ${{ matrix.python-version }}
         uses: useblacksmith/setup-python@v6
         with:
