@@ -10,7 +10,7 @@ jobs:
     env:
       POETRY_VIRTUALENVS_CREATE: "false"
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install poetry
         run: |
