@@ -11,7 +11,7 @@ jobs:
         check: [lint, mypy]
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Install apt packages
         run: |
