@@ -56,7 +56,7 @@ jobs:
         working-directory: examples
         run: |
           python -m pip install --upgrade pip pytest-cov
-          pip install -U "pytest-celery[all]@git+https://github.com/celery/pytest-celery.git"
+          pip install -e "..[all]"
 
       - name: Run tests
         working-directory: examples
@@ -90,6 +90,7 @@ jobs:
         working-directory: examples/myworker
         run: |
           python -m pip install --upgrade pip
+          pip install -e "../..[all]"
           pip install -r requirements.txt
 
       - name: Run tests
@@ -124,6 +125,7 @@ jobs:
         working-directory: examples/range
         run: |
           python -m pip install --upgrade pip
+          pip install -e "../..[all]"
           pip install -r requirements.txt
 
       - name: Run tests
@@ -158,6 +160,7 @@ jobs:
         working-directory: examples/rabbitmq_management
         run: |
           python -m pip install --upgrade pip
+          pip install -e "../..[all]"
           pip install -r requirements.txt
 
       - name: Run tests
@@ -192,6 +195,7 @@ jobs:
         working-directory: examples/django
         run: |
           python -m pip install --upgrade pip
+          pip install -e "../..[all]"
           pip install -r requirements.txt
 
       - name: Run Migrations
@@ -232,6 +236,7 @@ jobs:
         working-directory: examples/myutils
         run: |
           python -m pip install --upgrade pip
+          pip install -e "../..[all]"
           pip install -r requirements.txt
 
       - name: Run tests
@@ -266,6 +271,7 @@ jobs:
         working-directory: examples/worker_pool
         run: |
           python -m pip install --upgrade pip
+          pip install -e "../..[all]"
           pip install -r requirements.txt
 
       - name: Run tests
@@ -300,13 +306,17 @@ jobs:
         working-directory: examples/hybrid_setup
         run: |
           python -m pip install --upgrade pip
+          pip install -e "../..[all]"
           pip install -r requirements.txt
 
       - name: Run tests
-        working-directory: examples/hybrid_setup
-        timeout-minutes: 10
-        run: |
-          pytest -xsv tests --reruns 5 --reruns-delay 10
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 10
+          max_attempts: 5
+          retry_wait_seconds: 0
+          command: |
+            cd examples/hybrid_setup && pytest -xsv tests --reruns 5 --reruns-delay 10
 
   vhost:
     runs-on: ${{ matrix.os }}
@@ -334,6 +344,7 @@ jobs:
         working-directory: examples/vhost
         run: |
           python -m pip install --upgrade pip
+          pip install -e "../..[all]"
           pip install -r requirements.txt
 
       - name: Run tests
