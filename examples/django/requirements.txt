@@ -3,4 +3,5 @@ django>=2.2.1
 pytest-django>=4.7.0
 pytest-xdist>=3.5.0
 pytest-rerunfailures>=14.0
-pytest-celery[all]@git+https://github.com/celery/pytest-celery.git
+celery[redis]
+psutil
