@@ -48,12 +48,12 @@ classifiers = [
     "Framework :: Celery",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Programming Language :: Python :: Implementation :: CPython",
     "Operating System :: OS Independent",
 ]
@@ -75,7 +75,7 @@ search = ':Version: {current_version}'
 replace = ':Version: {new_version}'
 
 [tool.poetry.dependencies]
-python = ">=3.8,<4.0"
+python = ">=3.9,<4.0"
 celery = { version = "*", allow-prereleases = true }
 kombu = { version = "*", allow-prereleases = true }
 redis = { version = "*", optional = true }
@@ -98,100 +98,47 @@ sqs = ["boto3", "botocore", "urllib3"]
 [tool.poetry.group.dev]
 
 [tool.poetry.group.dev.dependencies]
-poetry-bumpversion = [
-    { version = "^0.3.2", python = "<3.9.0" },
-    { version = ">=0.3.3", python = ">=3.9.0,<4.0" },
-]
+poetry-bumpversion = ">=0.3.3"
 black = "*"
-toml-sort = [
-    { version = ">=0.22.0,<0.24.0", python = ">=3.8,<3.9" },
-    { version = ">=0.24.2", python = ">=3.9,<4.0" },
-]
-autoflake = [
-    { version = "^1.7.0", python = "<3.8.1" },
-    { version = ">=2.3.1", python = ">=3.8.1,<4.0" },
-]
-isort = [
-    { version = "^5.11.0", python = "<3.9.0" },
-    { version = ">=6.0.0", python = ">=3.9.0,<4.0" },
-]
-flake8 = [
-    { version = "^5.0.0", python = "<3.8.1" },
-    { version = "^6.0.0", python = ">=3.8.1,<3.9.0" },
-    { version = ">=7.1.2", python = ">=3.9.0,<4.0" },
-]
-pre-commit = [
-    { version = "^2.21.0", python = "<3.8.0" },
-    { version = "^3.1.0", python = ">=3.8.0,<3.9.0" },
-    { version = "^4.1.0", python = ">=3.9.0,<4.0" },
-]
-mypy = [
-    { version = ">=1.12.0", python = "<3.9.0" },
-    { version = ">=1.15.0", python = ">=3.9.0,<4.0" },
-]
+toml-sort = ">=0.24.2"
+autoflake = ">=2.3.1"
+isort = ">=6.0.0"
+flake8 = ">=7.1.2"
+pre-commit = "^4.1.0"
+mypy = ">=1.15.0"
 types-redis = ">=4.6.0.20241004"
-cleanpy = [
-    { version = "^0.5.0", python = "<3.9.0" },
-    { version = ">=0.5.1", python = ">=3.9.0,<4.0" },
-]
+cleanpy = ">=0.5.1"
 
 [tool.poetry.group.test]
 optional = true
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.3.4"
-coverage = [
-    { version = "^7.0.0", python = "<3.9" },
-    { version = ">=7.6.12", python = ">=3.9,<4.0" },
-]
-pytest-sugar = { version = ">=1.0.0", python = ">=3.8,<4.0" }
-pytest-cov = [
-    { version = ">=5.0.0,<6.0.0", python = ">=3.8,<3.9" },
-    { version = ">=6.0.0", python = ">=3.9,<4.0" },
-]
+coverage = ">=7.6.12"
+pytest-sugar = ">=1.0.0"
+pytest-cov = ">=6.0.0"
 pytest-xdist = ">=3.6.1"
-pytest-subtests = [
-    { version = "*", python = ">=3.8,<3.9" },
-    { version = "^0.14.0", python = ">=3.9,<4.0" },
-]
-pytest-rerunfailures = [
-    { version = ">=14.0,<15.0", python = ">=3.8,<3.9" },
-    { version = ">=15.0", python = ">=3.9,<4.0" },
-]
+pytest-subtests = "^0.14.0"
+pytest-rerunfailures = ">=15.0"
 
 [tool.poetry.group.ci]
 optional = true
 
 [tool.poetry.group.ci.dependencies]
-tox = [
-    { version = "^3.0.0", python = "<3.8.1" },
-    { version = ">=4.24.1", python = ">=3.8.1,<4.0" },
-]
-tox-gh-actions = [
-    { version = "^2.0.0", python = "<3.8.1" },
-    { version = ">=3.2.0", python = ">=3.8.1,<4.0" },
-]
+tox = ">=4.24.1"
+tox-gh-actions = ">=3.2.0"
 
 [tool.poetry.group.docs]
 optional = true
 
 [tool.poetry.group.docs.dependencies]
 sphinx_celery = ">=2.1.3"
-Sphinx = [
-    { version = "^7.1.0", python = "<3.9" },
-    { version = ">=7.0.0", python = ">=3.9,<4.0" },
-]
+Sphinx = ">=7.0.0"
 sphinx-testing = ">=1.0.1"
 sphinx-click = ">=6.0.0"
-sphinx-autobuild = [
-    { version = ">=2021.3.14", python = "<3.9" },
-    { version = ">=2024.4.16", python = ">=3.9,<4.0" },
-]
+sphinx-autobuild = ">=2024.4.16"
 sphinxcontrib-mermaid = ">=1.0.0"
-docutils = [
-    { version = "0.20.1", python = "<3.9.0" },
-    { version = ">=0.20.1", python = ">=3.9.0,<4.0" },
-]
+docutils = ">=0.20.1"
 
 [tool.poetry.plugins.pytest11]
 celery = "pytest_celery.plugin"
