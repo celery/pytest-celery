@@ -7,8 +7,8 @@ This module is part of the :ref:`built-in-worker` vendor.
 from __future__ import annotations
 
 import time
+from collections.abc import Iterable
 from typing import Any
-from typing import Iterable
 
 import celery.utils
 from celery import Task

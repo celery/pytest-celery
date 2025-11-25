@@ -9,7 +9,7 @@ defining the base classes for nodes and clusters.
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import Iterator
+from collections.abc import Iterator
 
 import pytest_docker_tools
 from celery import Celery
