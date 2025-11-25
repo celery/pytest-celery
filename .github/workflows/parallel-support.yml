@@ -36,7 +36,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.13"]
+        python-version: ["3.13", "3.14", "3.14t"]
         os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
@@ -80,7 +80,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.13"]
+        python-version: ["3.13", "3.14", "3.14t"]
         os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
