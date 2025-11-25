@@ -13,7 +13,7 @@ build:
     post_create_environment:
       # Install poetry
       # https://python-poetry.org/docs/#installing-manually
-      - pip install poetry==1.8.4
+      - pip install poetry==2.2.1
       # Tell poetry to not use a virtual environment
       - poetry config virtualenvs.create false
       - poetry export --with docs -E all -f requirements.txt --output docs/requirements.txt
