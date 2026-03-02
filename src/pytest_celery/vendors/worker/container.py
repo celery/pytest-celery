@@ -15,6 +15,7 @@ from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_ENV
 from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_LOG_LEVEL
 from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_NAME
 from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_PORTS
+from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_PYTEST_CELERY_PKG
 from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_QUEUE
 from pytest_celery.vendors.worker.defaults import DEFAULT_WORKER_VERSION
 from pytest_celery.vendors.worker.volume import WorkerInitialContent
@@ -141,6 +142,15 @@ class CeleryWorkerContainer(CeleryTestContainer):
         return set()
 
     @classmethod
+    def pytest_celery_pkg(cls) -> str:
+        """The pytest-celery package to install in the worker container.
+
+        Returns:
+            str: pip install spec for pytest-celery.
+        """
+        return DEFAULT_WORKER_PYTEST_CELERY_PKG
+
+    @classmethod
     def buildargs(cls) -> dict:
         """Build arguments for the built-in worker image."""
         return {
@@ -148,6 +158,7 @@ class CeleryWorkerContainer(CeleryTestContainer):
             "CELERY_LOG_LEVEL": cls.log_level(),
             "CELERY_WORKER_NAME": cls.worker_name(),
             "CELERY_WORKER_QUEUE": cls.worker_queue(),
+            "PYTEST_CELERY_PKG": cls.pytest_celery_pkg(),
         }
 
     @classmethod
