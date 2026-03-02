@@ -41,7 +41,7 @@ EXPOSE 5678
 RUN pip install --no-cache-dir --upgrade \
     pip \
     celery[redis,pymemcache,gevent,sqs]${WORKER_VERSION:+==$WORKER_VERSION} \
-    ${PYTEST_CELERY_PKG}
+    "${PYTEST_CELERY_PKG}"
 
 # The workdir must be /app
 WORKDIR /app
