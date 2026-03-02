@@ -12,8 +12,10 @@ RUN apt-get update && apt-get install -y build-essential \
     apt-utils \
     debconf \
     lsb-release \
+    libcurl4-openssl-dev \
     libmemcached-dev \
     libffi-dev \
+    libssl-dev \
     ca-certificates \
     pypy3 \
     pypy3-lib \
@@ -37,8 +39,8 @@ EXPOSE 5678
 # Install Python dependencies
 RUN pip install --no-cache-dir --upgrade \
     pip \
-    celery[redis,pymemcache,gevent]${WORKER_VERSION:+==$WORKER_VERSION} \
-    pytest-celery[sqs]@git+https://github.com/celery/pytest-celery.git
+    celery[redis,pymemcache,gevent,sqs]${WORKER_VERSION:+==$WORKER_VERSION} \
+    pytest-celery
 
 # The workdir must be /app
 WORKDIR /app
