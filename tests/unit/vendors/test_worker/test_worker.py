@@ -7,6 +7,7 @@ import pytest
 from pytest_celery import DEFAULT_WORKER_ENV
 from pytest_celery import DEFAULT_WORKER_LOG_LEVEL
 from pytest_celery import DEFAULT_WORKER_NAME
+from pytest_celery import DEFAULT_WORKER_PYTEST_CELERY_PKG
 from pytest_celery import DEFAULT_WORKER_QUEUE
 from pytest_celery import DEFAULT_WORKER_VERSION
 from pytest_celery import CeleryBackendCluster
@@ -46,6 +47,7 @@ class test_celery_worker_container:
             "CELERY_LOG_LEVEL": DEFAULT_WORKER_LOG_LEVEL,
             "CELERY_WORKER_NAME": DEFAULT_WORKER_NAME,
             "CELERY_WORKER_QUEUE": DEFAULT_WORKER_QUEUE,
+            "PYTEST_CELERY_PKG": DEFAULT_WORKER_PYTEST_CELERY_PKG,
         }
 
     class test_celery_worker_container_env:

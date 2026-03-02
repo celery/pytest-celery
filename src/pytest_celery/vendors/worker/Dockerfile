@@ -26,6 +26,7 @@ ARG CELERY_VERSION=""
 ARG CELERY_LOG_LEVEL=INFO
 ARG CELERY_WORKER_NAME=celery_test_worker
 ARG CELERY_WORKER_QUEUE=celery
+ARG PYTEST_CELERY_PKG="pytest-celery"
 ENV WORKER_VERSION=$CELERY_VERSION
 ENV LOG_LEVEL=$CELERY_LOG_LEVEL
 ENV WORKER_NAME=$CELERY_WORKER_NAME
@@ -40,7 +41,7 @@ EXPOSE 5678
 RUN pip install --no-cache-dir --upgrade \
     pip \
     celery[redis,pymemcache,gevent,sqs]${WORKER_VERSION:+==$WORKER_VERSION} \
-    pytest-celery
+    "${PYTEST_CELERY_PKG}"
 
 # The workdir must be /app
 WORKDIR /app

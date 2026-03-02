@@ -103,6 +103,7 @@ celery_base_worker_image = build(
         "CELERY_LOG_LEVEL": fxtr("default_worker_celery_log_level"),
         "CELERY_WORKER_NAME": fxtr("default_worker_celery_worker_name"),
         "CELERY_WORKER_QUEUE": fxtr("default_worker_celery_worker_queue"),
+        "PYTEST_CELERY_PKG": fxtr("default_worker_pytest_celery_pkg"),
     },
 )
 
@@ -161,6 +162,19 @@ def default_worker_celery_worker_queue(default_worker_container_session_cls: typ
         str: Worker queue.
     """
     return default_worker_container_session_cls.worker_queue()
+
+
+@pytest.fixture(scope="session")
+def default_worker_pytest_celery_pkg(default_worker_container_session_cls: type[CeleryWorkerContainer]) -> str:
+    """The pytest-celery package to install in the worker container.
+
+    Args:
+        default_worker_container_session_cls (type[CeleryWorkerContainer]): See also: :ref:`vendor-class`.
+
+    Returns:
+        str: pip install spec for pytest-celery.
+    """
+    return default_worker_container_session_cls.pytest_celery_pkg()
 
 
 @pytest.fixture
