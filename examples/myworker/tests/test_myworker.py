@@ -16,7 +16,7 @@ def celery_worker_cluster(
 ) -> CeleryWorkerCluster:
     """Add myworker worker to the workers cluster alongside the parametrize
     plugin worker."""
-    cluster = CeleryWorkerCluster(celery_worker, myworker_worker)  # type: ignore
+    cluster = CeleryWorkerCluster(celery_worker, myworker_worker)
     yield cluster
     cluster.teardown()
 

@@ -47,7 +47,7 @@ def celery_backend_cluster(celery_backend: CeleryTestBackend) -> CeleryBackendCl
     Returns:
         CeleryBackendCluster: Single node cluster for all supported celery backends.
     """
-    cluster = CeleryBackendCluster(celery_backend)  # type: ignore
+    cluster = CeleryBackendCluster(celery_backend)
     yield cluster
     cluster.teardown()
 
