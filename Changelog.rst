@@ -4,6 +4,37 @@
  Change history
 ================
 
+.. _version-1.3.0:
+
+1.3.0
+=====
+:release-date: 2 March, 2026
+:release-by: Tomer Nosrati
+
+What's Changed
+==============
+
+Key Highlights
+--------------
+- Dropped Python 3.8 support.
+- Added Python 3.14 support.
+- Reverted :pypi:`pycurl` removal to match celery/kombu v5.6 SQS transport.
+- Made pytest-celery package install configurable in worker Dockerfile.
+- Fixed type annotations in ``CeleryTestCluster``.
+
+Changelog
+---------
+- remove setuptools from dependencies (#464)
+- Shift Python versions (-3.8, +3.14) (#468)
+- Bumping Poetry from v1.8.4 -> v2.2.1 inc. dependencies (`poetry update --with test,dev,ci,docs`) (#469)
+- Install local source in the examples (#458)
+- Use Poetry 1.8.4 in ReadTheDocs (#470)
+- Removed --dist=loadscope (#473)
+- Revert pycurl removal to match celery/kombu v5.6 SQS transport (#474)
+- Make pytest-celery package install configurable in worker Dockerfile (#475)
+- fix(typing): Fix nodes type annotations in CeleryTestCluster (#476)
+- Prepare for release: v1.3.0 (#477)
+
 .. _version-1.2.1:
 
 1.2.1
