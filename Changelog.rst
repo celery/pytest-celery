@@ -32,7 +32,7 @@ Changelog
 - Removed --dist=loadscope (#473)
 - Revert pycurl removal to match celery/kombu v5.6 SQS transport (#474)
 - Make pytest-celery package install configurable in worker Dockerfile (#475)
-- fix(typing): Fix *nodes type annotations in CeleryTestCluster (#476)
+- fix(typing): Fix nodes type annotations in CeleryTestCluster (#476)
 - Prepare for release: v1.3.0 (#477)
 
 .. _version-1.2.1:
