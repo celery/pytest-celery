@@ -8,7 +8,6 @@ defining the base classes for nodes and clusters.
 
 from __future__ import annotations
 
-from abc import abstractmethod
 from collections.abc import Iterator
 
 import pytest_docker_tools
@@ -242,7 +241,6 @@ class CeleryTestCluster:
         """Default cluster configurations if not overridden by the user."""
         return {}
 
-    @abstractmethod
     def _set_nodes(
         self,
         *nodes: CeleryTestNode | CeleryTestContainer,
