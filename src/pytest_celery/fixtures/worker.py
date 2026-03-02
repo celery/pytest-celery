@@ -46,7 +46,7 @@ def celery_worker_cluster(celery_worker: CeleryTestWorker) -> CeleryWorkerCluste
     Returns:
         CeleryWorkerCluster: Single node cluster for all supported celery workers.
     """
-    cluster = CeleryWorkerCluster(celery_worker)  # type: ignore
+    cluster = CeleryWorkerCluster(celery_worker)
     yield cluster
     cluster.teardown()
 

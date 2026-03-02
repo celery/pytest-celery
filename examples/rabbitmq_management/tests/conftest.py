@@ -36,7 +36,7 @@ def celery_rabbitmq_broker(default_rabbitmq_broker: RabbitMQContainer) -> Rabbit
 
 
 @pytest.fixture
-def celery_broker_cluster(celery_rabbitmq_broker: RabbitMQTestBroker) -> CeleryBrokerCluster:  # type: ignore
-    cluster = CeleryBrokerCluster(celery_rabbitmq_broker)  # type: ignore
+def celery_broker_cluster(celery_rabbitmq_broker: RabbitMQTestBroker) -> CeleryBrokerCluster:
+    cluster = CeleryBrokerCluster(celery_rabbitmq_broker)
     yield cluster
     cluster.teardown()
