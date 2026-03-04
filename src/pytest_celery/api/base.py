@@ -8,7 +8,6 @@ defining the base classes for nodes and clusters.
 
 from __future__ import annotations
 
-from abc import abstractmethod
 from collections.abc import Iterator
 
 import pytest_docker_tools
@@ -183,11 +182,11 @@ class CeleryTestCluster:
         the test.
     """
 
-    def __init__(self, *nodes: tuple[CeleryTestNode | CeleryTestContainer]) -> None:
+    def __init__(self, *nodes: CeleryTestNode | CeleryTestContainer) -> None:
         """Setup the base components of a CeleryTestCluster.
 
         Args:
-            *nodes (tuple[CeleryTestNode | CeleryTestContainer]): Nodes to use for the cluster.
+            *nodes (CeleryTestNode | CeleryTestContainer): Nodes to use for the cluster.
 
         Raises:
             ValueError: At least one node is required.
@@ -200,21 +199,21 @@ class CeleryTestCluster:
         if not all(isinstance(node, (CeleryTestNode, CeleryTestContainer)) for node in nodes):
             raise TypeError("All nodes must be CeleryTestNode or CeleryTestContainer")
 
-        self.nodes = nodes  # type: ignore
+        self.nodes = nodes
 
     @property
-    def nodes(self) -> tuple[CeleryTestNode]:
+    def nodes(self) -> tuple[CeleryTestNode, ...]:
         """Get the nodes of the cluster."""
         return self._nodes
 
     @nodes.setter
-    def nodes(self, nodes: tuple[CeleryTestNode | CeleryTestContainer]) -> None:
+    def nodes(self, nodes: tuple[CeleryTestNode | CeleryTestContainer, ...]) -> None:
         """Set the nodes of the cluster.
 
         Args:
-            nodes (tuple[CeleryTestNode | CeleryTestContainer]): Nodes to use for the cluster.
+            nodes (tuple[CeleryTestNode | CeleryTestContainer, ...]): Nodes to use for the cluster.
         """
-        self._nodes = self._set_nodes(*nodes)  # type: ignore
+        self._nodes = self._set_nodes(*nodes)
 
     def __iter__(self) -> Iterator[CeleryTestNode]:
         """Iterate over the nodes of the cluster."""
@@ -242,16 +241,15 @@ class CeleryTestCluster:
         """Default cluster configurations if not overridden by the user."""
         return {}
 
-    @abstractmethod
     def _set_nodes(
         self,
-        *nodes: tuple[CeleryTestNode | CeleryTestContainer],
+        *nodes: CeleryTestNode | CeleryTestContainer,
         node_cls: type[CeleryTestNode] = CeleryTestNode,
-    ) -> tuple[CeleryTestNode]:
+    ) -> tuple[CeleryTestNode, ...]:
         """Set the nodes of the cluster.
 
         Args:
-            *nodes (tuple[CeleryTestNode | CeleryTestContainer]): Nodes to use for the cluster.
+            *nodes (CeleryTestNode | CeleryTestContainer): Nodes to use for the cluster.
             node_cls (type[CeleryTestNode], optional): Node class to use. Defaults to CeleryTestNode.
 
         Returns:
@@ -267,7 +265,7 @@ class CeleryTestCluster:
                 else node
             )
             for node in nodes
-        )  # type: ignore
+        )
 
     def ready(self) -> bool:
         """Waits until the cluster is ready or raise an exception if any of the

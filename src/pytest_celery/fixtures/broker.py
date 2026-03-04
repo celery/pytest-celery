@@ -48,7 +48,7 @@ def celery_broker_cluster(celery_broker: CeleryTestBroker) -> CeleryBrokerCluste
     Returns:
         CeleryBrokerCluster: Single node cluster for all supported celery brokers.
     """
-    cluster = CeleryBrokerCluster(celery_broker)  # type: ignore
+    cluster = CeleryBrokerCluster(celery_broker)
     yield cluster
     cluster.teardown()
 
