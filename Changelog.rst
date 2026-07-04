@@ -45,7 +45,7 @@ Changelog
 What's Changed
 ==============
 
-- Fixed spelling REDUCTED -> REDACTED, found by codespell (#446)
+- Fixed a misspelling of REDACTED, found by codespell (#446)
 - Added DeepWiki to README (#453)
 - Synced donation section in the docs to celery (#454)
 - Bumping Dependencies (poetry update --with test,dev,ci,docs) (#457)
