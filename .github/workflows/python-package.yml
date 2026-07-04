@@ -63,7 +63,7 @@ jobs:
           cache-dependency-path: '**/setup.py'
 
       - name: Install Poetry
-        uses: snok/install-poetry@v1.4.1
+        uses: snok/install-poetry@v1.4.2
         with:
           version: 2.2.1
 
@@ -117,7 +117,7 @@ jobs:
           cache-dependency-path: '**/setup.py'
 
       - name: Install Poetry
-        uses: snok/install-poetry@v1.4.1
+        uses: snok/install-poetry@v1.4.2
         with:
           version: 2.2.1
 
@@ -164,7 +164,7 @@ jobs:
           cache-dependency-path: '**/setup.py'
 
       - name: Install Poetry
-        uses: snok/install-poetry@v1.4.1
+        uses: snok/install-poetry@v1.4.2
         with:
           version: 2.2.1
 
