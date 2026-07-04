@@ -135,4 +135,3 @@ Tomer Nosrati
 
 :web: http://tomernosrati.com/
 :github: https://github.com/Nusnus
-:x: https://x.com/tomer_nosrati
