@@ -58,7 +58,7 @@ To control the version of the RabbitMQ broker, you can use the
 
     @pytest.fixture
     def default_rabbitmq_broker_image() -> str:
-        return "rabbitmq:latest"
+        return "rabbitmq:4.2"
 
 To use the ``rabbitmq:management`` label, see the :ref:`examples_rabbitmq-management` example.
 
@@ -385,7 +385,7 @@ celery_bug_report.py
 
     @pytest.fixture
     def default_rabbitmq_broker_image() -> str:
-        return "rabbitmq:management"
+        return "rabbitmq:4.2-management"
 
 
     @pytest.fixture

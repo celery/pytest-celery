@@ -53,7 +53,7 @@ class LocalstackContainer(CeleryTestContainer):
 
     @classmethod
     def version(cls) -> str:
-        return cls.image().split("/")[-1]
+        return cls.image().split(":")[-1]
 
     @classmethod
     def initial_env(cls) -> dict:
