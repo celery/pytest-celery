@@ -46,7 +46,7 @@ jobs:
       - name: Fetch Docker Images
         run: |
           docker pull redis:latest
-          docker pull rabbitmq:latest
+          docker pull rabbitmq:4.2
           docker pull memcached:latest
 
       - name: Install apt packages
@@ -60,10 +60,10 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
-          cache-dependency-path: '**/setup.py'
+          cache-dependency-path: 'poetry.lock'
 
       - name: Install Poetry
-        uses: snok/install-poetry@v1.4.1
+        uses: snok/install-poetry@v1.4.2
         with:
           version: 2.2.1
 
@@ -78,7 +78,7 @@ jobs:
           tox --verbose --verbose -e "${{ matrix.python-version }}-unit"
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           fail_ci_if_error: true # optional (default = false)
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -100,7 +100,7 @@ jobs:
       - name: Fetch Docker Images
         run: |
           docker pull redis:latest
-          docker pull rabbitmq:latest
+          docker pull rabbitmq:4.2
           docker pull memcached:latest
 
       - name: Install apt packages
@@ -114,10 +114,10 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
-          cache-dependency-path: '**/setup.py'
+          cache-dependency-path: 'poetry.lock'
 
       - name: Install Poetry
-        uses: snok/install-poetry@v1.4.1
+        uses: snok/install-poetry@v1.4.2
         with:
           version: 2.2.1
 
@@ -147,7 +147,7 @@ jobs:
       - name: Fetch Docker Images
         run: |
           docker pull redis:latest
-          docker pull rabbitmq:latest
+          docker pull rabbitmq:4.2
           docker pull memcached:latest
 
       - name: Install apt packages
@@ -161,10 +161,10 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
-          cache-dependency-path: '**/setup.py'
+          cache-dependency-path: 'poetry.lock'
 
       - name: Install Poetry
-        uses: snok/install-poetry@v1.4.1
+        uses: snok/install-poetry@v1.4.2
         with:
           version: 2.2.1
 

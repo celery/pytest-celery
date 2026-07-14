@@ -6,7 +6,7 @@ This module is part of the Localstack Broker vendor.
 
 CELERY_LOCALSTACK_BROKER = "celery_localstack_broker"
 DEFAULT_LOCALSTACK_BROKER = "default_localstack_broker"
-LOCALSTACK_IMAGE = "localstack/localstack"
+LOCALSTACK_IMAGE = "localstack/localstack:4"
 LOCALSTACK_PORTS = {"4566/tcp": None}
 LOCALSTACK_CREDS: dict = {
     "AWS_DEFAULT_REGION": "us-east-1",
