@@ -39,7 +39,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
         os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
@@ -50,11 +50,11 @@ jobs:
           sudo sysctl -w vm.overcommit_memory=1
       - uses: actions/checkout@v7
       - name: Set up Python ${{ matrix.python-version }}
-        uses: useblacksmith/setup-python@v6
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
-          cache-dependency-path: '**/setup.py'
+          cache-dependency-path: '**/pyproject.toml'
       - name: Install dependencies
         working-directory: examples
         run: |
@@ -73,7 +73,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
         os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
@@ -84,11 +84,11 @@ jobs:
           sudo sysctl -w vm.overcommit_memory=1
       - uses: actions/checkout@v7
       - name: Set up Python ${{ matrix.python-version }}
-        uses: useblacksmith/setup-python@v6
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
-          cache-dependency-path: '**/setup.py'
+          cache-dependency-path: '**/pyproject.toml'
       - name: Install dependencies
         working-directory: examples/myworker
         run: |
@@ -108,7 +108,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
         os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
@@ -119,11 +119,11 @@ jobs:
           sudo sysctl -w vm.overcommit_memory=1
       - uses: actions/checkout@v7
       - name: Set up Python ${{ matrix.python-version }}
-        uses: useblacksmith/setup-python@v6
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
-          cache-dependency-path: '**/setup.py'
+          cache-dependency-path: '**/pyproject.toml'
       - name: Install dependencies
         working-directory: examples/range
         run: |
@@ -143,7 +143,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
         os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
@@ -154,11 +154,11 @@ jobs:
           sudo sysctl -w vm.overcommit_memory=1
       - uses: actions/checkout@v7
       - name: Set up Python ${{ matrix.python-version }}
-        uses: useblacksmith/setup-python@v6
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
-          cache-dependency-path: '**/setup.py'
+          cache-dependency-path: '**/pyproject.toml'
       - name: Install dependencies
         working-directory: examples/rabbitmq_management
         run: |
@@ -178,7 +178,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
         os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
@@ -189,11 +189,11 @@ jobs:
           sudo sysctl -w vm.overcommit_memory=1
       - uses: actions/checkout@v7
       - name: Set up Python ${{ matrix.python-version }}
-        uses: useblacksmith/setup-python@v6
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
-          cache-dependency-path: '**/setup.py'
+          cache-dependency-path: '**/pyproject.toml'
       - name: Install dependencies
         working-directory: examples/django
         run: |
@@ -219,7 +219,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
         os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
@@ -230,11 +230,11 @@ jobs:
           sudo sysctl -w vm.overcommit_memory=1
       - uses: actions/checkout@v7
       - name: Set up Python ${{ matrix.python-version }}
-        uses: useblacksmith/setup-python@v6
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
-          cache-dependency-path: '**/setup.py'
+          cache-dependency-path: '**/pyproject.toml'
       - name: Install dependencies
         working-directory: examples/myutils
         run: |
@@ -254,7 +254,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
         os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
@@ -265,11 +265,11 @@ jobs:
           sudo sysctl -w vm.overcommit_memory=1
       - uses: actions/checkout@v7
       - name: Set up Python ${{ matrix.python-version }}
-        uses: useblacksmith/setup-python@v6
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
-          cache-dependency-path: '**/setup.py'
+          cache-dependency-path: '**/pyproject.toml'
       - name: Install dependencies
         working-directory: examples/worker_pool
         run: |
@@ -289,7 +289,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
         os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
@@ -300,11 +300,11 @@ jobs:
           sudo sysctl -w vm.overcommit_memory=1
       - uses: actions/checkout@v7
       - name: Set up Python ${{ matrix.python-version }}
-        uses: useblacksmith/setup-python@v6
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
-          cache-dependency-path: '**/setup.py'
+          cache-dependency-path: '**/pyproject.toml'
       - name: Install dependencies
         working-directory: examples/hybrid_setup
         run: |
@@ -327,7 +327,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
         os: ["blacksmith-4vcpu-ubuntu-2204"]
 
     steps:
@@ -338,11 +338,11 @@ jobs:
           sudo sysctl -w vm.overcommit_memory=1
       - uses: actions/checkout@v7
       - name: Set up Python ${{ matrix.python-version }}
-        uses: useblacksmith/setup-python@v6
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
-          cache-dependency-path: '**/setup.py'
+          cache-dependency-path: '**/pyproject.toml'
       - name: Install dependencies
         working-directory: examples/vhost
         run: |

@@ -48,7 +48,7 @@ First, let's pick our docker image label.
 
     @pytest.fixture
     def default_rabbitmq_broker_image() -> str:
-        return "rabbitmq:management"
+        return "rabbitmq:4.2-management"
 
 Then, we need to expose the management UI port.
 

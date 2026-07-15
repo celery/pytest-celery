@@ -642,13 +642,13 @@ A list of available fixtures for the worker can be found in the :mod:`pytest_cel
 RabbitMQ Broker
 ---------------
 
-The RabbitMQ broker uses the ``rabbitmq:latest`` version for the underlying container.
+The RabbitMQ broker uses the ``rabbitmq:4.2`` version for the underlying container.
 
 Container
 #########
 
 The :class:`RabbitMQContainer <pytest_celery.vendors.rabbitmq.container.RabbitMQContainer>` is used
-to describe the ``rabbitmq:latest`` docker image.
+to describe the ``rabbitmq:4.2`` docker image.
 
 Node
 ####
@@ -688,13 +688,13 @@ A list of available fixtures for the broker can be found in the :mod:`pytest_cel
 Localstack (SQS) Broker
 -----------------------
 
-The Localstack broker uses the ``localstack/localstack`` version for the underlying container.
+The Localstack broker uses the ``localstack/localstack:4`` version for the underlying container.
 
 Container
 #########
 
 The :class:`LocalstackContainer <pytest_celery.vendors.localstack.container.LocalstackContainer>` is used
-to describe the ``localstack/localstack`` docker image.
+to describe the ``localstack/localstack:4`` docker image.
 
 Node
 ####

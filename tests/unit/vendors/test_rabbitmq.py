@@ -12,7 +12,7 @@ from pytest_celery import RabbitMQTestBroker
 
 class test_rabbitmq_container:
     def test_version(self):
-        assert RabbitMQContainer.version() == "latest"
+        assert RabbitMQContainer.version() == "4.2"
 
     def test_env(self):
         assert RabbitMQContainer.initial_env() == RABBITMQ_ENV

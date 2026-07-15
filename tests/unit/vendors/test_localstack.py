@@ -12,7 +12,7 @@ from pytest_celery import LocalstackTestBroker
 
 class test_localstack_container:
     def test_version(self):
-        assert LocalstackContainer.version() == "localstack"
+        assert LocalstackContainer.version() == "4"
 
     def test_env(self):
         assert LocalstackContainer.initial_env() == LOCALSTACK_ENV
