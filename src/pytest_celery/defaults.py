@@ -13,19 +13,19 @@ from __future__ import annotations
 from pytest_docker_tools import network
 
 from pytest_celery.vendors import _is_vendor_installed
-from pytest_celery.vendors.localstack.defaults import CELERY_LOCALSTACK_BROKER
 from pytest_celery.vendors.localstack.defaults import *
-from pytest_celery.vendors.memcached.defaults import CELERY_MEMCACHED_BACKEND
+from pytest_celery.vendors.localstack.defaults import CELERY_LOCALSTACK_BROKER
 from pytest_celery.vendors.memcached.defaults import *
-from pytest_celery.vendors.rabbitmq.defaults import CELERY_RABBITMQ_BROKER
+from pytest_celery.vendors.memcached.defaults import CELERY_MEMCACHED_BACKEND
 from pytest_celery.vendors.rabbitmq.defaults import *
-from pytest_celery.vendors.redis.backend.defaults import CELERY_REDIS_BACKEND
+from pytest_celery.vendors.rabbitmq.defaults import CELERY_RABBITMQ_BROKER
 from pytest_celery.vendors.redis.backend.defaults import *
-from pytest_celery.vendors.redis.broker.defaults import CELERY_REDIS_BROKER
+from pytest_celery.vendors.redis.backend.defaults import CELERY_REDIS_BACKEND
 from pytest_celery.vendors.redis.broker.defaults import *
+from pytest_celery.vendors.redis.broker.defaults import CELERY_REDIS_BROKER
 from pytest_celery.vendors.redis.defaults import *
-from pytest_celery.vendors.worker.defaults import CELERY_SETUP_WORKER
 from pytest_celery.vendors.worker.defaults import *
+from pytest_celery.vendors.worker.defaults import CELERY_SETUP_WORKER
 
 ####################################################################################
 # Automatic components
