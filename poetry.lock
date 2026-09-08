@@ -2222,20 +2222,19 @@ xattr = {version = ">=1.0.0,<2.0.0", markers = "sys_platform == \"darwin\""}
 
 [[package]]
 name = "poetry-bumpversion"
-version = "0.3.3"
+version = "0.4.0"
 description = "Poetry plugin to update __version__ in __init__ file and other files containing version strings"
 optional = false
-python-versions = "<4,>=3.9"
+python-versions = "<4,>=3.10"
 groups = ["dev"]
 files = [
-    {file = "poetry_bumpversion-0.3.3-py3-none-any.whl", hash = "sha256:2d286475e3d2ddb14f7cf52bd73bc6a23d5eff5fb141770be1bf044f48fe624b"},
-    {file = "poetry_bumpversion-0.3.3.tar.gz", hash = "sha256:1489cc8935bc1fd8cede3cfc46c928a51dd9b5fb956e266e0e1d25fa5b694780"},
+    {file = "poetry_bumpversion-0.4.0-py3-none-any.whl", hash = "sha256:40407c1420f136bc97448f2d8f49b60cb01703496cb815b4537d92a8b70fd5e6"},
+    {file = "poetry_bumpversion-0.4.0.tar.gz", hash = "sha256:a34e2cc97c549af6cdc3a7584e3ffab3b778afad01458ad37da4e7a91a1286e4"},
 ]
 
 [package.dependencies]
-poetry = ">=1.2.0,<3"
-pydantic = "*"
-typing-extensions = "*"
+poetry = ">=2,<3"
+pydantic = ">=2"
 
 [[package]]
 name = "poetry-core"
