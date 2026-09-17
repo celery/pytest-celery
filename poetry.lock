@@ -3583,18 +3583,18 @@ tests = ["pytest", "pytest-cov"]
 
 [[package]]
 name = "toml-sort"
-version = "0.24.4"
+version = "0.25.0"
 description = "Toml sorting library"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.10"
 groups = ["dev"]
 files = [
-    {file = "toml_sort-0.24.4-py3-none-any.whl", hash = "sha256:125aa5fb94f33c542c6901040456145dd38f79bbb310b56b436a93057d30a739"},
-    {file = "toml_sort-0.24.4.tar.gz", hash = "sha256:429b69f5b98b7047a11380c80ecf0838556bdea1a8902d0be564961c48841423"},
+    {file = "toml_sort-0.25.0-py3-none-any.whl", hash = "sha256:96de33d49795a730297a1a5cba75ad9f251a7b07e75002f8a2fcc127fa7d43bd"},
+    {file = "toml_sort-0.25.0.tar.gz", hash = "sha256:08ffe893feba7dc1773c61046b76f63561a6204e0162cd067c4a0d681d9198c7"},
 ]
 
 [package.dependencies]
-tomlkit = ">=0.13.2"
+tomlrt = ">=2.2.0"
 
 [[package]]
 name = "tomli"
@@ -3677,6 +3677,21 @@ files = [
     {file = "tomlkit-0.15.0-py3-none-any.whl", hash = "sha256:4dbc8f0fc024412b57ced8757ac7461305126a648ff8c2c807fcb8e133a78738"},
     {file = "tomlkit-0.15.0.tar.gz", hash = "sha256:7d1a9ecba3086638211b13814ea79c90dd54dd11993564376f3aa92271f5c7a3"},
 ]
+
+[[package]]
+name = "tomlrt"
+version = "2.2.12"
+description = "A format-preserving TOML reader and writer for Python."
+optional = false
+python-versions = ">=3.10"
+groups = ["dev"]
+files = [
+    {file = "tomlrt-2.2.12-py3-none-any.whl", hash = "sha256:80e8299398f6f1d81be49b59aef96a8a0e7f8b76b616f1c570404cb8b9462de6"},
+    {file = "tomlrt-2.2.12.tar.gz", hash = "sha256:feaa4bb44fc59e62a602262003efd21cebea1d24e121fedcd5db6a68d43b9db5"},
+]
+
+[package.dependencies]
+typing-extensions = {version = ">=4", markers = "python_version < \"3.12\""}
 
 [[package]]
 name = "tox"
