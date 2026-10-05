@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: blacksmith-4vcpu-ubuntu-2204
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     env:
       POETRY_VIRTUALENVS_CREATE: "false"
     steps:
